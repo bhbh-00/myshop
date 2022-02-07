@@ -40,4 +40,5 @@ public class Product extends EntityDto {
 	public String getWriterProfileFallbackImgOnErrorHtmlAttr() {
 		return "this.src = '" + getWriterProfileFallbackImgUri() + "'";
 	}
+
 }

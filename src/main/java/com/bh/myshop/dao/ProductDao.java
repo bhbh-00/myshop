@@ -11,6 +11,7 @@ import com.bh.myshop.dto.Product;
 
 @Mapper
 public interface ProductDao {
+
 	// interface에서는 public 필요없음!
 
 	// 제품 수정
@@ -55,5 +56,5 @@ public interface ProductDao {
 	List<Product> getLatestproductByBoardNameNotice();
 
 	Product getproductByReply(@Param("id") Integer id);
-
+	
 }

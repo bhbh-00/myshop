@@ -28,15 +28,16 @@ import com.bh.myshop.util.Util;
 
 @Controller
 public class AdmProductController extends BaseController {
+
 	@Autowired
 	private ProductService productService;
-	
+
 	@Autowired
 	private GenFileService genFileService;
-	
+
 	@Autowired
 	private LikeService likeService;
-	
+
 	@Autowired
 	private ReplyService replyService;
 
@@ -66,7 +67,7 @@ public class AdmProductController extends BaseController {
 
 		return "/adm/product/modify";
 	}
-	
+
 	// 상품 수정
 	@RequestMapping("/adm/product/doModify")
 	@ResponseBody
@@ -87,15 +88,15 @@ public class AdmProductController extends BaseController {
 		if (Util.isEmpty(param.get("body"))) {
 			return msgAndBack(req, "내용을 입력해주세요.");
 		}
-		
+
 		if (Util.isEmpty(param.get("color"))) {
 			return msgAndBack(req, "색상을 입력해주세요.");
 		}
-		
+
 		if (Util.isEmpty(param.get("price"))) {
 			return msgAndBack(req, "가격을 입력해주세요.");
 		}
-		
+
 		if (Util.isEmpty(param.get("fee"))) {
 			return msgAndBack(req, "배송비를 입력해주세요.");
 		}
@@ -117,7 +118,7 @@ public class AdmProductController extends BaseController {
 
 		return Util.msgAndReplace(modifyproductRd.getMsg(), redirectUrl);
 	}
-	
+
 	// 상품 삭제
 	@RequestMapping("/adm/product/doDelete")
 	@ResponseBody
@@ -151,7 +152,7 @@ public class AdmProductController extends BaseController {
 		return "/adm/product/add";
 
 	}
-	
+
 	// 상품 등록
 	@RequestMapping("/adm/product/doAdd")
 	public String doAdd(@RequestParam Map<String, Object> param, HttpServletRequest req,
@@ -172,15 +173,15 @@ public class AdmProductController extends BaseController {
 		if (param.get("body") == null) {
 			return msgAndBack(req, "내용을 입력해주세요.");
 		}
-		
+
 		if (Util.isEmpty(param.get("color"))) {
 			return msgAndBack(req, "색상을 입력해주세요.");
 		}
-		
+
 		if (Util.isEmpty(param.get("price"))) {
 			return msgAndBack(req, "가격을 입력해주세요.");
 		}
-		
+
 		if (Util.isEmpty(param.get("fee"))) {
 			return msgAndBack(req, "배송비를 입력해주세요.");
 		}
@@ -194,7 +195,7 @@ public class AdmProductController extends BaseController {
 		return msgAndReplace(req, String.format("%d번 상품이 등록되었습니다.", newproductId),
 				"../product/detail?id=" + newproductId);
 	}
-	
+
 	// 상품 상세보기
 	@RequestMapping("/adm/product/detail")
 	public String showDetail(HttpServletRequest req, Integer id) {
@@ -234,7 +235,7 @@ public class AdmProductController extends BaseController {
 
 		return "/adm/product/detail";
 	}
-	
+
 	// 상품 리스트
 	@RequestMapping("/adm/product/list")
 	// @ResponseBody가 없으면 return /adm/product/list.jps로 가야함

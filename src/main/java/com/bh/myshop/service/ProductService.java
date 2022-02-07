@@ -17,6 +17,7 @@ import com.bh.myshop.util.Util;
 
 @Service
 public class ProductService {
+	
 	@Autowired
 	private ProductDao productDao;
 	@Autowired
