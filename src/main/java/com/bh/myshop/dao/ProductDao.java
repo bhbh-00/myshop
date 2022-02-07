@@ -13,21 +13,21 @@ import com.bh.myshop.dto.Product;
 public interface ProductDao {
 	// interface에서는 public 필요없음!
 
-	// 게시물 수정
+	// 제품 수정
 	void modify(Map<String, Object> param);
 
-	// 게시물 삭제
+	// 제품 삭제
 	void delete(@Param("id") Integer id);
 
 	Product getproduct(@Param("id") Integer id);
 
-	// 게시물 작성
+	// 제품 등록
 	void add(Map<String, Object> param);
 
 	List<Product> getproducts(@Param("searchKeywordType") String searchKeywordType,
 			@Param("searchKeyword") String searchKeyword);
 
-	// 게시물 상세페이지
+	// 제품 상세페이지
 	Product getForPrintproduct(@Param("id") Integer id);
 
 	List<Product> getForPrintproducts(@Param("boardId") int boardId,
@@ -48,10 +48,10 @@ public interface ProductDao {
 	int getproductsTotleCountByMyList(@Param("id") int id, @Param("boardId") int boardId,
 			@Param("searchKeywordType") String searchKeywordType, @Param("searchKeyword") String searchKeyword);
 
-	// 가장 최신 자유 게시물 2개
+	// 가장 최신 자유 제품 2개
 	List<Product> getLatestproductByBoardNameFree();
 
-	// 가장 최신 공지사항 게시물 2개
+	// 가장 최신 공지사항 제품 2개
 	List<Product> getLatestproductByBoardNameNotice();
 
 	Product getproductByReply(@Param("id") Integer id);

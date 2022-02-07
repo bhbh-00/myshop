@@ -63,5 +63,10 @@ public class LikeService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	// 해당 상품의 좋아요 갯수
+	public int getLikeTotleCountByproduct(Integer id) {
+		return likeDao.getLikeTotleCountByproduct(id);
+	}
 
 }

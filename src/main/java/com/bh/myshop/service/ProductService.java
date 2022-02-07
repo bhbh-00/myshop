@@ -29,23 +29,23 @@ public class ProductService {
 		return productDao.getproduct(id);
 	}
 
-	// 게시물 작성
+	// 상품 작성
 	public ResultData doAdd(Map<String, Object> param) {
 		productDao.add(param);
 
 		int id = Util.getAsInt(param.get("id"), 0);
 
-		// 파일 업로드 시 파일의 번호를 게시물의 번호를 바꾼다.
+		// 파일 업로드 시 파일의 번호를 상품의 번호를 바꾼다.
 		genFileService.changeInputFileRelIds(param, id);
 
-		return new ResultData("s-1", "게시물이 추가되었습니다.", "id", id);
+		return new ResultData("s-1", "상품이 추가되었습니다.", "id", id);
 	}
 
 	public List<Product> getproductList(String searchKeywordType, String searchKeyword) {
 		return productDao.getproducts(searchKeywordType, searchKeyword);
 	}
 
-	// 게시물 상세 페이지
+	// 상품 상세 페이지
 	public Product getForPrintproduct(Integer id) {
 		return productDao.getForPrintproduct(id);
 	}
@@ -54,9 +54,9 @@ public class ProductService {
 			int itemsInAPage) {
 		// 페이징 - 시작과 끝 범위
 		int limitStart = (page - 1) * itemsInAPage;
-		// controller에서 한 페이지에 포함 되는 게시물의 갯수의 값을(itemsInAPage) 설정했음.
+		// controller에서 한 페이지에 포함 되는 상품의 갯수의 값을(itemsInAPage) 설정했음.
 		int limitTake = itemsInAPage;
-		// 한 페이지에 포함 되는 게시물의 갯수의 값
+		// 한 페이지에 포함 되는 상품의 갯수의 값
 		// LIMIT 20, 20 => 2page LIMIT 40, 20 => 3page
 
 		List<Product> products = productDao.getForPrintproducts(boardId, searchKeywordType, searchKeyword, limitStart,
@@ -80,8 +80,8 @@ public class ProductService {
 		return productDao.getBoard(boardId);
 	}
 
-	// 게시물 수정 가능 권한 여부
-	public ResultData getActorCanModifyRd(product product, Member actor) {
+	// 상품 수정 가능 권한 여부
+	public ResultData getActorCanModifyRd(Product product, Member actor) {
 		if (product.getMemberId() == actor.getId()) {
 			return new ResultData("S-1", "가능합니다.");
 		}
@@ -93,7 +93,7 @@ public class ProductService {
 		return new ResultData("F-1", "권한이 없습니다.");
 	}
 
-	// 게시물 수정
+	// 상품 수정
 	public ResultData modify(Map<String, Object> param) {
 		productDao.modify(param);
 
@@ -102,12 +102,12 @@ public class ProductService {
 		return new ResultData("s-1", "수정 완료되었습니다.", "id", id);
 	}
 
-	// 게시물 삭제 가능 권한 여부 확인
+	// 상품 삭제 가능 권한 여부 확인
 	public ResultData getActorCanDeleteRd(Product product, Member actor) {
 		return getActorCanModifyRd(product, actor);
 	}
 
-	// 게시물 삭제
+	// 상품 삭제
 	public ResultData delete(int id) {
 		productDao.delete(id);
 
@@ -129,9 +129,9 @@ public class ProductService {
 			String searchKeyword, int page, int itemsInAPage) {
 		// 페이징 - 시작과 끝 범위
 		int limitStart = (page - 1) * itemsInAPage;
-		// controller에서 한 페이지에 포함 되는 게시물의 갯수의 값을(itemsInAPage) 설정했음.
+		// controller에서 한 페이지에 포함 되는 상품의 갯수의 값을(itemsInAPage) 설정했음.
 		int limitTake = itemsInAPage;
-		// 한 페이지에 포함 되는 게시물의 갯수의 값
+		// 한 페이지에 포함 되는 상품의 갯수의 값
 		// LIMIT 20, 20 => 2page LIMIT 40, 20 => 3page
 
 		List<Product> products = productDao.getForPrintproductsByMyList(loginMemberId, boardId, searchKeywordType,
@@ -156,12 +156,12 @@ public class ProductService {
 		return productDao.getproductsTotleCountByMyList(loginMemberId, boardId, searchKeywordType, searchKeyword);
 	}
 	
-	// 가장 최신 자유 게시물 2개
+	// 가장 최신 자유 상품 2개
 	public List<Product> getLatestproductByBoardNameFree() {
 		return productDao.getLatestproductByBoardNameFree();
 	}
 	
-	// 가장 최신 공지사항 게시물 2개
+	// 가장 최신 공지사항 상품 2개
 	public List<Product> getLatestproductByBoardNameNotice() {
 		return productDao.getLatestproductByBoardNameNotice();
 	}

@@ -17,7 +17,7 @@
 		A.delStatus = 0;
 	</select>
 	
-	<!-- 가장 최신 자유 게시물 2개 -->
+	<!-- 가장 최신 자유 제품 2개 -->
 	<select id="getLatestproductByBoardNameFree"
 		resultType="product">
 		SELECT A.*,
@@ -36,7 +36,7 @@
 		LIMIT 2;
 	</select>
 	
-	<!-- 가장 최신 공지사항 게시물 2개 -->
+	<!-- 가장 최신 공지사항 제품 2개 -->
 	<select id="getLatestproductByBoardNameNotice"
 		resultType="product">
 		SELECT A.*,
@@ -77,15 +77,27 @@
 		AND boardId =
 		#{boardId}
 		AND delStatus = 0
-		<if test="searchKeywordType == 'title'">
-			AND title LIKE CONCAT('%', #{searchKeyword}, '%')
+		<if test="searchKeywordType == 'name'">
+			AND name LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
 		<if test="searchKeywordType == 'body'">
 			AND `body` LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
-		<if test="searchKeywordType == 'titleAndBody'">
-			AND (title LIKE CONCAT('%', #{searchKeyword}, '%') OR
-			`body` LIKE CONCAT('%', #{searchKeyword}, '%'))
+		<if test="searchKeywordType == 'color'">
+			AND color LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchKeywordType == 'price'">
+			AND price LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchKeywordType == 'fee'">
+			AND fee LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchKeywordType == 'nameAndBodyAndColorAndPriceAndFee'">
+			AND (name LIKE CONCAT('%', #{searchKeyword}, '%') OR
+				`body` LIKE CONCAT('%', #{searchKeyword}, '%') OR
+				color LIKE CONCAT('%', #{searchKeyword}, '%')  OR
+				price LIKE CONCAT('%', #{searchKeyword}, '%')  OR
+				fee LIKE CONCAT('%', #{searchKeyword}, '%'))
 		</if>
 		ORDER BY id DESC
 	</select>
@@ -95,16 +107,27 @@
 		FROM product
 		WHERE 1
 		AND boardId = #{boardId}
-
-		<if test="searchKeywordType == 'title'">
-			AND title LIKE CONCAT('%', #{searchKeyword}, '%')
+		<if test="searchKeywordType == 'name'">
+			AND name LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
 		<if test="searchKeywordType == 'body'">
 			AND `body` LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
-		<if test="searchKeywordType == 'titleAndBody'">
-			AND (title LIKE CONCAT('%', #{searchKeyword}, '%') OR
-			`body` LIKE CONCAT('%', #{searchKeyword}, '%'))
+		<if test="searchKeywordType == 'color'">
+			AND color LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchKeywordType == 'price'">
+			AND price LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchKeywordType == 'fee'">
+			AND fee LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchKeywordType == 'nameAndBodyAndColorAndPriceAndFee'">
+			AND (name LIKE CONCAT('%', #{searchKeyword}, '%') OR
+				`body` LIKE CONCAT('%', #{searchKeyword}, '%') OR
+				color LIKE CONCAT('%', #{searchKeyword}, '%')  OR
+				price LIKE CONCAT('%', #{searchKeyword}, '%')  OR
+				fee LIKE CONCAT('%', #{searchKeyword}, '%'))
 		</if>
 		AND delStatus = 0
 		ORDER BY id DESC
@@ -135,15 +158,27 @@
 		<if test="boardId != null">
 			AND A.boardId = #{boardId}
 		</if>
-		<if test="searchKeywordType == 'title'">
-			AND A.title LIKE CONCAT('%', #{searchKeyword}, '%')
+		<if test="searchKeywordType == 'name'">
+			AND name LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
 		<if test="searchKeywordType == 'body'">
-			AND A.`body` LIKE CONCAT('%', #{searchKeyword}, '%')
+			AND `body` LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
-		<if test="searchKeywordType == 'titleAndBody'">
-			AND (A.title LIKE CONCAT('%', #{searchKeyword}, '%') OR
-			A.`body` LIKE CONCAT('%', #{searchKeyword}, '%'))
+		<if test="searchKeywordType == 'color'">
+			AND color LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchKeywordType == 'price'">
+			AND price LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchKeywordType == 'fee'">
+			AND fee LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchKeywordType == 'nameAndBodyAndColorAndPriceAndFee'">
+			AND (name LIKE CONCAT('%', #{searchKeyword}, '%') OR
+				`body` LIKE CONCAT('%', #{searchKeyword}, '%')  OR
+				color LIKE CONCAT('%', #{searchKeyword}, '%')  OR
+				price LIKE CONCAT('%', #{searchKeyword}, '%')  OR
+				fee LIKE CONCAT('%', #{searchKeyword}, '%'))
 		</if>
 		<!-- 페이지 마이바티스 if and, or 검색해보기 -->
 		ORDER BY A.id ASC
@@ -169,15 +204,27 @@
 		<if test="boardId != null">
 			AND A.boardId = #{boardId}
 		</if>
-		<if test="searchKeywordType == 'title'">
-			AND A.title LIKE CONCAT('%', #{searchKeyword}, '%')
+		<if test="searchKeywordType == 'name'">
+			AND name LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
 		<if test="searchKeywordType == 'body'">
-			AND A.`body` LIKE CONCAT('%', #{searchKeyword}, '%')
+			AND `body` LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
-		<if test="searchKeywordType == 'titleAndBody'">
-			AND (A.title LIKE CONCAT('%', #{searchKeyword}, '%') OR
-			A.`body` LIKE CONCAT('%', #{searchKeyword}, '%'))
+		<if test="searchKeywordType == 'color'">
+			AND color LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchKeywordType == 'price'">
+			AND price LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchKeywordType == 'fee'">
+			AND fee LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchKeywordType == 'nameAndBodyAndColorAndPriceAndFee'">
+			AND (name LIKE CONCAT('%', #{searchKeyword}, '%') OR
+				`body` LIKE CONCAT('%', #{searchKeyword}, '%')  OR
+				color LIKE CONCAT('%', #{searchKeyword}, '%')  OR
+				price LIKE CONCAT('%', #{searchKeyword}, '%')  OR
+				fee LIKE CONCAT('%', #{searchKeyword}, '%'))
 		</if>
 		<!-- 페이지 마이바티스 if and, or 검색해보기 -->
 		ORDER BY A.id ASC
@@ -186,7 +233,7 @@
 		</if>
 	</select>
 
-	<!-- 게시물 상세페이지 -->
+	<!-- 제품 상세페이지 -->
 	<select id="getForPrintproduct" resultType="product">
 		SELECT A.*,
 		IFNULL(M.nickname, "탈퇴회원") AS extra__writer
@@ -211,20 +258,32 @@
 		FROM product
 		WHERE 1
 		AND delStatus = 0
-		<if test="searchKeywordType == 'title'">
-			AND title LIKE CONCAT('%', #{searchKeyword}, '%')
+		<if test="searchKeywordType == 'name'">
+			AND name LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
 		<if test="searchKeywordType == 'body'">
 			AND `body` LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
-		<if test="searchKeywordType == 'titleAndBody'">
-			AND (title LIKE CONCAT('%', #{searchKeyword}, '%') OR
-			`body` LIKE CONCAT('%', #{searchKeyword}, '%'))
+		<if test="searchKeywordType == 'color'">
+			AND color LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchKeywordType == 'price'">
+			AND price LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchKeywordType == 'fee'">
+			AND fee LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchKeywordType == 'nameAndBodyAndColorAndPriceAndFee'">
+			AND (name LIKE CONCAT('%', #{searchKeyword}, '%') OR
+				`body` LIKE CONCAT('%', #{searchKeyword}, '%')  OR
+				color LIKE CONCAT('%', #{searchKeyword}, '%')  OR
+				price LIKE CONCAT('%', #{searchKeyword}, '%')  OR
+				fee LIKE CONCAT('%', #{searchKeyword}, '%'))
 		</if>
 		ORDER BY id DESC
 	</select>
 
-	<!-- 게시물 작성 -->
+	<!-- 제품 작성 -->
 	<insert id="add" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO
 		product
@@ -232,11 +291,14 @@
 		updateDate = NOW(),
 		boardId = #{boardId},
 		memberId = #{memberId},
-		title = #{title},
-		`body` = #{body}
+		name = #{name},
+		`body` = #{body},
+		color = #{color},
+		price = #{price},
+		fee = #{fee}
 	</insert>
 
-	<!-- 게시물 삭제 -->
+	<!-- 제품 삭제 -->
 	<update id="delete">
 		UPDATE product
 		SET delStatus = 1,
@@ -244,18 +306,27 @@
 		WHERE id = #{id}
 	</update>
 
-	<!-- 게시물 수정 -->
+	<!-- 제품 수정 -->
 	<update id="modify">
 		UPDATE product
 		<set>
-			<if test="title != null or body != null">
+			<if test="name != null or body != null or color != null or price != null or fee != null">
 				updateDate = NOW(),
 			</if>
-			<if test="title != null">
-				title = #{title},
+			<if test="name != null">
+				name = #{name},
 			</if>
 			<if test="body != null">
 				`body` = #{body},
+			</if>
+			<if test="color != null">
+				color = #{color},
+			</if>
+			<if test="price != null">
+				price = #{price},
+			</if>
+			<if test="fee != null">
+				fee = #{fee},
 			</if>
 		</set>
 		WHERE id = #{id}

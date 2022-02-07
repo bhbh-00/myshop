@@ -30,5 +30,8 @@ public interface LikeDao {
 
 	// 좋아요 해제
 	void delete(@Param("id") Integer id);
+	
+	// 해당 상품의 좋아요 갯수
+	int getLikeTotleCountByproduct(Integer id);
 
 }

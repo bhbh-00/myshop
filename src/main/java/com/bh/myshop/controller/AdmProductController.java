@@ -87,6 +87,18 @@ public class AdmProductController extends BaseController {
 		if (Util.isEmpty(param.get("body"))) {
 			return msgAndBack(req, "내용을 입력해주세요.");
 		}
+		
+		if (Util.isEmpty(param.get("color"))) {
+			return msgAndBack(req, "색상을 입력해주세요.");
+		}
+		
+		if (Util.isEmpty(param.get("price"))) {
+			return msgAndBack(req, "가격을 입력해주세요.");
+		}
+		
+		if (Util.isEmpty(param.get("fee"))) {
+			return msgAndBack(req, "배송비를 입력해주세요.");
+		}
 
 		Product product = productService.getproduct(id);
 
@@ -140,7 +152,7 @@ public class AdmProductController extends BaseController {
 
 	}
 	
-	// 상품 작성
+	// 상품 등록
 	@RequestMapping("/adm/product/doAdd")
 	public String doAdd(@RequestParam Map<String, Object> param, HttpServletRequest req,
 			MultipartRequest multipartRequest) {
@@ -160,6 +172,18 @@ public class AdmProductController extends BaseController {
 		if (param.get("body") == null) {
 			return msgAndBack(req, "내용을 입력해주세요.");
 		}
+		
+		if (Util.isEmpty(param.get("color"))) {
+			return msgAndBack(req, "색상을 입력해주세요.");
+		}
+		
+		if (Util.isEmpty(param.get("price"))) {
+			return msgAndBack(req, "가격을 입력해주세요.");
+		}
+		
+		if (Util.isEmpty(param.get("fee"))) {
+			return msgAndBack(req, "배송비를 입력해주세요.");
+		}
 
 		param.put("memberId", loginMemberId);
 
@@ -167,7 +191,7 @@ public class AdmProductController extends BaseController {
 
 		int newproductId = (int) addproductRd.getBody().get("id");
 
-		return msgAndReplace(req, String.format("%d번 상품이 작성되었습니다.", newproductId),
+		return msgAndReplace(req, String.format("%d번 상품이 등록되었습니다.", newproductId),
 				"../product/detail?id=" + newproductId);
 	}
 	
