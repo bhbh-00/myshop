@@ -1,0 +1,41 @@
+server:
+  port: 8026
+spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: bhbh89900@gmail.com
+    password: jbbwogheqiaejvqm
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  # 파일 업로드 용량 제한 50mb 로 늘리기
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+  datasource:
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    #driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:log4jdbc:mysql://127.0.0.1:3306/myshop?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true&zeroDateTimeNehavior=convertToNull
+    username: sbsst
+    password: sbs123414
+mybatis:
+  type-aliases-package: com.bh.myshop.dto
+custom:
+  needToChangePasswordFreeDays: 90
+  siteMainUri: http://localhost:8026
+  siteName: myshop
+  emailFrom: myshop@localhost
+  emailFromName: myshop
+  genFileDirPath: C:/work/myshop-file
+  logging:
+    dir: log
+    level: debug
