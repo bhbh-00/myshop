@@ -9,3 +9,5 @@
 	param.boardId = parseInt("${board.id}");
 </script>
 
+<%@ include file="../part/mainLayoutHead.jspf"%>
+

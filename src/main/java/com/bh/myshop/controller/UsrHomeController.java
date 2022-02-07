@@ -20,13 +20,13 @@ public class UsrHomeController extends BaseController {
 	public String showMain(HttpServletRequest req) {
 
 		// 가장 최신 자유 게시물 2개
-		List<Article> LatestArticleByBoardNameFree = articleService.getLatestArticleByBoardNameFree();
+		/* List<Article> LatestArticleByBoardNameFree = articleService.getLatestArticleByBoardNameFree();
 
 		// 가장 최신 공지사항 게시물 2개
 		List<Article> LatestArticleByBoardNameNotice = articleService.getLatestArticleByBoardNameNotice();
 
 		req.setAttribute("LatestArticleByBoardNameFree", LatestArticleByBoardNameFree);
-		req.setAttribute("LatestArticleByBoardNameNotice", LatestArticleByBoardNameNotice);
+		req.setAttribute("LatestArticleByBoardNameNotice", LatestArticleByBoardNameNotice);*/
 
 		return "/usr/home/main";
 	}
