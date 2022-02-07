@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bh.myshop.dao.ProductDao">
+
+	<select id="getproductByReply" resultType="Product">
+		SELECT A.id
+		FROM
+		product AS A
+		LEFT JOIN
+		reply AS R
+		ON A.id = R.relId
+		WHERE R.id = #{id}
+		AND
+		A.delStatus = 0;
+	</select>
+	
+	<!-- 가장 최신 자유 게시물 2개 -->
+	<select id="getLatestproductByBoardNameFree"
+		resultType="Product">
+		SELECT A.*,
+		IFNULL(M.nickname, "탈퇴회원") AS extra__writer,
+		B.name AS extra__boardName
+		FROM product AS A
+		LEFT JOIN `member` AS M
+		ON
+		A.memberId = M.id
+		LEFT JOIN `board` AS B
+		ON A.boardId = B.id
+		WHERE
+		A.boardId = 2
+		AND A.delStatus = 0
+		ORDER BY A.id DESC
+		LIMIT 2;
+	</select>
+	
+	<!-- 가장 최신 공지사항 게시물 2개 -->
+	<select id="getLatestproductByBoardNameNotice"
+		resultType="Product">
+		SELECT A.*,
+		IFNULL(M.nickname, "탈퇴회원") AS extra__writer,
+		B.name AS extra__boardName
+		FROM product AS A
+		LEFT JOIN `member` AS M
+		ON
+		A.memberId = M.id
+		LEFT JOIN `board` AS B
+		ON A.boardId = B.id
+		WHERE
+		A.boardId = 1
+		AND A.delStatus = 0
+		ORDER BY A.id DESC
+		LIMIT 2;
+	</select>
+
+	<select id="getForPrintproductByMemberId" resultType="Product">
+		SELECT A.*,
+		IFNULL(M.nickname, "탈퇴회원") AS extra__writer,
+		B.name AS extra__boardName
+		FROM product AS A
+		LEFT JOIN `member` AS M
+		ON A.memberId = M.id
+		LEFT JOIN
+		`board` AS B
+		ON A.boardId = B.id
+		WHERE A.memberId = #{id}
+		AND A.delStatus
+		= 0;
+	</select>
+
+	<select id="getproductsTotleCountByMyList" resultType="int">
+		SELECT count(*)
+		FROM product
+		WHERE memberId = #{id}
+		AND boardId =
+		#{boardId}
+		AND delStatus = 0
+		<if test="searchKeywordType == 'name'">
+			AND name LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchKeywordType == 'body'">
+			AND `body` LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchKeywordType == 'nameAndBody'">
+			AND (name LIKE CONCAT('%', #{searchKeyword}, '%') OR
+			`body` LIKE CONCAT('%', #{searchKeyword}, '%'))
+		</if>
+		ORDER BY id DESC
+	</select>
+
+	<select id="getproductsTotleCount" resultType="int">
+		SELECT count(*)
+		FROM product
+		WHERE 1
+		AND boardId = #{boardId}
+
+		<if test="searchKeywordType == 'name'">
+			AND name LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchKeywordType == 'body'">
+			AND `body` LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchKeywordType == 'nameAndBody'">
+			AND (name LIKE CONCAT('%', #{searchKeyword}, '%') OR
+			`body` LIKE CONCAT('%', #{searchKeyword}, '%'))
+		</if>
+		AND delStatus = 0
+		ORDER BY id DESC
+	</select>
+
+	<select id="getBoard" resultType="Board">
+		SELECT *
+		FROM board
+		WHERE id =
+		#{id}
+		AND delStatus = 0;
+	</select>
+
+	<select id="getForPrintproductsByMyList" resultType="Product">
+		SELECT A.*,
+		IFNULL(M.nickname, "탈퇴회원") AS extra__writer,
+		B.name AS
+		extra__boardName
+		FROM product AS A
+		LEFT JOIN `member` AS M
+		ON A.memberId
+		= M.id
+		LEFT JOIN `board` AS B
+		ON A.boardId = B.id
+		WHERE A.memberId =
+		#{id}
+		AND A.delStatus = 0
+		<if test="boardId != null">
+			AND A.boardId = #{boardId}
+		</if>
+		<if test="searchKeywordType == 'name'">
+			AND A.name LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchKeywordType == 'body'">
+			AND A.`body` LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchKeywordType == 'nameAndBody'">
+			AND (A.name LIKE CONCAT('%', #{searchKeyword}, '%') OR
+			A.`body` LIKE CONCAT('%', #{searchKeyword}, '%'))
+		</if>
+		<!-- 페이지 마이바티스 if and, or 검색해보기 -->
+		ORDER BY A.id ASC
+		<if test="limitStart != null and limitTake != null">
+			LIMIT #{limitStart}, #{limitTake}
+		</if>
+	</select>
+
+	<select id="getForPrintproducts" resultType="Product">
+		SELECT A.*,
+		IFNULL(M.nickname, "탈퇴회원") AS extra__writer,
+		B.name AS
+		extra__boardName
+		FROM product AS A
+		LEFT JOIN `member` AS M
+		ON A.memberId
+		= M.id
+		LEFT JOIN `board` AS B
+		ON A.boardId = B.id
+		WHERE 1
+		AND A.delStatus
+		= 0
+		<if test="boardId != null">
+			AND A.boardId = #{boardId}
+		</if>
+		<if test="searchKeywordType == 'name'">
+			AND A.name LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchKeywordType == 'body'">
+			AND A.`body` LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchKeywordType == 'nameAndBody'">
+			AND (A.name LIKE CONCAT('%', #{searchKeyword}, '%') OR
+			A.`body` LIKE CONCAT('%', #{searchKeyword}, '%'))
+		</if>
+		<!-- 페이지 마이바티스 if and, or 검색해보기 -->
+		ORDER BY A.id ASC
+		<if test="limitStart != null and limitTake != null">
+			LIMIT #{limitStart}, #{limitTake}
+		</if>
+	</select>
+
+	<!-- 게시물 상세페이지 -->
+	<select id="getForPrintproduct" resultType="Product">
+		SELECT A.*,
+		IFNULL(M.nickname, "탈퇴회원") AS extra__writer
+		FROM product AS A
+		LEFT JOIN
+		`member` AS M
+		ON A.memberId = M.id
+		WHERE A.id = #{id}
+		AND A.delStatus = 0
+	</select>
+
+	<select id="getproduct" resultType="Product">
+		SELECT *
+		FROM product
+		WHERE id
+		= #{id}
+		AND delStatus = 0
+	</select>
+
+	<select id="getproducts" resultType="Product">
+		SELECT *
+		FROM product
+		WHERE 1
+		AND delStatus = 0
+		<if test="searchKeywordType == 'name'">
+			AND name LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchKeywordType == 'body'">
+			AND `body` LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchKeywordType == 'nameAndBody'">
+			AND (name LIKE CONCAT('%', #{searchKeyword}, '%') OR
+			`body` LIKE CONCAT('%', #{searchKeyword}, '%'))
+		</if>
+		ORDER BY id DESC
+	</select>
+
+	<!-- 게시물 작성 -->
+	<insert id="add" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO
+		product
+		SET regDate = NOW(),
+		updateDate = NOW(),
+		boardId = #{boardId},
+		memberId = #{memberId},
+		name = #{name},
+		`body` = #{body}
+	</insert>
+
+	<!-- 게시물 삭제 -->
+	<update id="delete">
+		UPDATE product
+		SET delStatus = 1,
+		delDate = NOW()
+		WHERE id = #{id}
+	</update>
+
+	<!-- 게시물 수정 -->
+	<update id="modify">
+		UPDATE product
+		<set>
+			<if test="name != null or body != null">
+				updateDate = NOW(),
+			</if>
+			<if test="name != null">
+				name = #{name},
+			</if>
+			<if test="body != null">
+				`body` = #{body},
+			</if>
+		</set>
+		WHERE id = #{id}
+		AND delStatus = 0
+	</update>
+
+</mapper>
