@@ -63,7 +63,7 @@
 		FROM product AS P
 		LEFT JOIN `member` AS M
 		ON
-		A.memberId = M.id
+		P.memberId = M.id
 		LEFT JOIN
 		category AS C
 		ON P.categoryId = C.id
@@ -204,7 +204,7 @@
 		`member` AS M
 		ON P.memberId = M.id
 		WHERE P.id = #{id}
-		AND A.delStatus = 0
+		AND P.delStatus = 0
 	</select>
 
 	<select id="getproduct" resultType="Product">
@@ -297,5 +297,12 @@
 		WHERE id = #{id}
 		AND delStatus = 0
 	</update>
+	
+	<!-- 기존의 상품명 확인 -->
+	<select id="getProductByName" resultType="Product">
+		SELECT *
+		FROM product
+		WHERE name = #{name}
+	</select>
 
 </mapper>

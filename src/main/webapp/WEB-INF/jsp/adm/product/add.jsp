@@ -5,15 +5,15 @@
 
 <%@ include file="../part/mainLayoutHead.jspf"%>
 
+<!-- lodash -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+
 <style>
 body {
 	margin-top: 125px;
 }
 </style>
-
-<script>
-	param.categoryId = parseInt("${category.id}");
-</script>
 
 <!-- 첨부파일 갯수 조절 -->
 <c:set var="fileInputMaxCount" value="5" />
@@ -23,7 +23,31 @@ body {
 </script>
 
 <script>
-	ProductAdd__submited = false;
+	const ProductAdd__submited = false;
+
+	let ProductAdd__validName = '';
+	//조건 체크 함수 ajax
+	function AddForm__checkNameDup(obj) {
+		const form = $('.formName').get(0);
+		form.name.value = form.name.value.trim();
+		if (form.name.value.length == 0) {
+			return;
+		}
+		$.get('getNameDup', {
+			name : form.name.value
+		}, function(data) {
+			let colorClass = 'text-green-500';
+			if (data.fail) {
+				colorClass = 'text-red-500';
+			}
+			$('.NameInputMsg').html("<span class='" + colorClass + "'>" + data.msg + "</span>");
+			if (data.fail) {
+				form.code.focus();
+			} else {
+				ProductAdd__validName = data.body.name;
+			}
+		}, 'json');
+	}
 
 	function ProductAdd__checkAndSubmit(form) {
 		// 이게 끝나면 폼 전송완료
@@ -40,6 +64,13 @@ body {
 			alert('상품명을 입력해주세요.');
 			form.name.focus();
 			return false;
+		}
+
+		// 상품명 중복체크
+		if (form.name.value != ProductAdd__validName) {
+			alert('입력하신 상품명을 확인해 주세요.');
+			form.name.focus();
+			return;
 		}
 
 		// color
@@ -138,6 +169,13 @@ body {
 		startUploadFiles(startSubmitForm);
 		//startUploadFiles만 실행 => ()는 변수라고 생각하면 됌
 	}
+
+	$(function() {
+		$('.inputName').change(function() {
+			AddForm__checkNameDup();
+		});
+		$('.inputName').keyup(_.debounce(AddForm__checkNameDup, 1000));
+	});
 </script>
 
 <section class="section-adm-product-add">
@@ -153,7 +191,7 @@ body {
 		</div>
 
 		<div class="px-4 py-4">
-			<form class="grid form-type-1"
+			<form class="grid form-type-1 formName"
 				onsubmit="ProductAdd__checkAndSubmit(this); return false;"
 				action="doAdd" method="POST" enctype="multipart/form-data">
 
@@ -166,7 +204,12 @@ body {
 						<span class="label-text">상품명</span>
 					</label>
 					<input name="name" type="text" placeholder="상품명"
-						class="input input-bordered">
+						class="inputName input input-bordered">
+				</div>
+
+				<!-- 중복확인 -->
+				<div class="form-control ml-1 mt-1">
+					<div class="NameInputMsg"></div>
 				</div>
 
 				<!--  색상 -->

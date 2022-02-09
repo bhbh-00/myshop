@@ -40,25 +40,25 @@ body {
 					<div>
 						<ul>
 							<li>
-								<a href="../product/list?category=1"
+								<a href="../product/list?categoryId=1"
 									class="inline-block text-lg">
 									<span>&nbsp;상의</span>
 								</a>
 							</li>
 							<li>
-								<a href="../product/list?category=2"
+								<a href="../product/list?categoryId=2"
 									class="inline-block text-lg">
 									<span>&nbsp;하의</span>
 								</a>
 							</li>
 							<li>
-								<a href="../product/list?category=3"
+								<a href="../product/list?categoryId=3"
 									class="inline-block text-lg">
 									<span>&nbsp;가방</span>
 								</a>
 							</li>
 							<li>
-								<a href="../product/list?category=2"
+								<a href="../product/list?categoryId=2"
 									class="inline-block text-lg">
 									<span>&nbsp;악세사리</span>
 								</a>

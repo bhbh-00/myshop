@@ -143,5 +143,10 @@ public class ProductService {
 	public Category getCategory(int categoryId) {
 		return productDao.getCategory(categoryId);
 	}
+	
+	// 기존의 상품명 확인
+	public Product getProductByName(String name) {
+		return productDao.getProductByName(name);
+	}
 
 }

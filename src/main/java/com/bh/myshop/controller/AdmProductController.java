@@ -159,6 +159,25 @@ public class AdmProductController extends BaseController {
 
 	}
 
+	// 상품명 생성의 조건
+	@RequestMapping("/adm/product/getNameDup")
+	@ResponseBody
+	public ResultData getNameDup(String name) {
+
+		if (name == null) {
+			return new ResultData("F-1", "상품명을 입력해주세요.");
+		}
+
+		// 기존의 상품명 확인
+		Product existingpProduct = productService.getProductByName(name);
+
+		if (existingpProduct != null) {
+			return new ResultData("F-2", String.format("%s(은)는 이미 사용중인 상품 명 입니다.", name));
+		}
+
+		return new ResultData("S-1", String.format("%s(은)는 사용가능한 상품명 입니다.", name), "name", name);
+	}
+
 	// 상품 등록
 	@RequestMapping("/adm/product/doAdd")
 	public String doAdd(@RequestParam Map<String, Object> param, HttpServletRequest req,
@@ -173,7 +192,7 @@ public class AdmProductController extends BaseController {
 		if (param.get("body") == null) {
 			return msgAndBack(req, "제목을 입력해주세요.");
 		}
-		
+
 		if (param.get("color") == null) {
 			return msgAndBack(req, "제목을 입력해주세요.");
 		}
@@ -181,7 +200,7 @@ public class AdmProductController extends BaseController {
 		if (param.get("price") == null) {
 			return msgAndBack(req, "제목을 입력해주세요.");
 		}
-		
+
 		if (param.get("fee") == null) {
 			return msgAndBack(req, "제목을 입력해주세요.");
 		}
@@ -195,7 +214,7 @@ public class AdmProductController extends BaseController {
 		return msgAndReplace(req, String.format("%d번 상품이 등록되었습니다.", newProductId),
 				"../product/detail?id=" + newProductId);
 	}
-	
+
 	// 상품 상세보기
 	@RequestMapping("/adm/product/detail")
 	public String showDetail(HttpServletRequest req, Integer id) {
@@ -220,17 +239,17 @@ public class AdmProductController extends BaseController {
 			filesMap.put(file.getFileNo() + "", file);
 		}
 
-		Like like = likeService.getLikeByproduct(id);
+		// Like like = likeService.getLikeByproduct(id);
 
-		int totleItemsCountByLike = likeService.getLikeTotleCountByproduct(id);
+		// int totleItemsCountByLike = likeService.getLikeTotleCountByproduct(id);
 
-		List<Reply> replys = replyService.getForPrintReplies(id);
+		// List<Reply> replys = replyService.getForPrintReplies(id);
 
 		product.getExtraNotNull().put("file__common__attachment", filesMap);
 		req.setAttribute("product", product);
-		req.setAttribute("replys", replys);
-		req.setAttribute("like", like);
-		req.setAttribute("totleItemsCountByLike", totleItemsCountByLike);
+		// req.setAttribute("replys", replys);
+		// req.setAttribute("like", like);
+		// req.setAttribute("totleItemsCountByLike", totleItemsCountByLike);
 		req.setAttribute("loginMemberId", loginMemberId);
 
 		return "/adm/product/detail";
