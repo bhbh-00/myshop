@@ -190,8 +190,7 @@
 		SELECT *
 		FROM category
 		WHERE
-		id =
-		#{id}
+		id = #{id}
 		AND delStatus = 0;
 	</select>
 

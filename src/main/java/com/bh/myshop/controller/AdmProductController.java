@@ -273,7 +273,7 @@ public class AdmProductController extends BaseController {
 		}
 
 		if (searchKeywordType == null || searchKeywordType.length() == 0) {
-			searchKeywordType = "nameAndBody";
+			searchKeywordType = "nameAndBodyAndColorAndPriceAndFee";
 		}
 
 		if (searchKeyword != null && searchKeyword.length() == 0) {

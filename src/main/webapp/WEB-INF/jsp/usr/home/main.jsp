@@ -6,7 +6,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <script>
-	param.boardId = parseInt("${board.id}");
+	param.category = parseInt("${category.id}");
 </script>
 
 <%@ include file="../part/mainLayoutHead.jspf"%>
