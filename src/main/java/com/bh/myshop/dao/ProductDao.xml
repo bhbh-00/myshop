@@ -74,8 +74,8 @@
 		SELECT count(*)
 		FROM product
 		WHERE memberId = #{id}
-		AND boardId =
-		#{boardId}
+		AND categoryId =
+		#{ categoryId }
 		AND delStatus = 0
 		<if test="searchKeywordType == 'name'">
 			AND name LIKE CONCAT('%', #{searchKeyword}, '%')
@@ -83,7 +83,16 @@
 		<if test="searchKeywordType == 'body'">
 			AND `body` LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
-		<if test="searchKeywordType == 'nameAndBody'">
+		<if test="searchKeywordType == 'color'">
+			AND color LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchKeywordType == 'price'">
+			AND price LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchKeywordType == 'fee'">
+			AND fee LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchKeywordType == 'nameAndBodyAndColorAndPriceAndFee'">
 			AND (name LIKE CONCAT('%', #{searchKeyword}, '%') OR
 			`body` LIKE CONCAT('%', #{searchKeyword}, '%'))
 		</if>
@@ -94,28 +103,28 @@
 		SELECT count(*)
 		FROM product
 		WHERE 1
-		AND boardId = #{boardId}
-
+		AND categoryId = #{categoryId}
 		<if test="searchKeywordType == 'name'">
 			AND name LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
 		<if test="searchKeywordType == 'body'">
 			AND `body` LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
-		<if test="searchKeywordType == 'nameAndBody'">
+		<if test="searchKeywordType == 'color'">
+			AND color LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchKeywordType == 'price'">
+			AND price LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchKeywordType == 'fee'">
+			AND fee LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchKeywordType == 'nameAndBodyAndColorAndPriceAndFee'">
 			AND (name LIKE CONCAT('%', #{searchKeyword}, '%') OR
 			`body` LIKE CONCAT('%', #{searchKeyword}, '%'))
 		</if>
 		AND delStatus = 0
 		ORDER BY id DESC
-	</select>
-
-	<select id="getBoard" resultType="Board">
-		SELECT *
-		FROM board
-		WHERE id =
-		#{id}
-		AND delStatus = 0;
 	</select>
 	
 	<select id="getCategory" resultType="Category">

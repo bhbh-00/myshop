@@ -173,16 +173,16 @@ public class UsrProductController extends BaseController {
 		if (param.get("body") == null) {
 			return msgAndBack(req, "내용을 입력해주세요.");
 		}
-
-		if (Util.isEmpty(param.get("color"))) {
+		
+		if (param.get("color") == null) {
 			return msgAndBack(req, "색상을 입력해주세요.");
 		}
 
-		if (Util.isEmpty(param.get("price"))) {
+		if (param.get("price") == null) {
 			return msgAndBack(req, "가격을 입력해주세요.");
 		}
-
-		if (Util.isEmpty(param.get("fee"))) {
+		
+		if (param.get("fee") == null) {
 			return msgAndBack(req, "배송비를 입력해주세요.");
 		}
 
@@ -238,10 +238,8 @@ public class UsrProductController extends BaseController {
 
 	// 상품 리스트
 	@RequestMapping("/usr/product/list")
-	// @ResponseBody가 없으면 return /usr/product/list.jps로 가야함
 	public String showList(HttpServletRequest req, @RequestParam(defaultValue = "1") int categoryId,
 			String searchKeywordType, String searchKeyword, @RequestParam(defaultValue = "1") int page) {
-		// @RequestParam(defaultValue = "1") -> page를 입력하지 않아도 1page가 되도록
 
 		Category category = productService.getCategory(categoryId);
 
@@ -256,7 +254,7 @@ public class UsrProductController extends BaseController {
 		}
 
 		if (searchKeywordType == null || searchKeywordType.length() == 0) {
-			searchKeywordType = "nameAndBody";
+			searchKeywordType = "nameAndBodyAndColorAndPriceAndFee";
 		}
 
 		if (searchKeyword != null && searchKeyword.length() == 0) {

@@ -52,7 +52,7 @@ public class ProductService {
 		return productDao.getForPrintproduct(id);
 	}
 
-	public List<Product> getForPrintproducts(int boardId, String searchKeywordType, String searchKeyword, int page,
+	public List<Product> getForPrintproducts(int categoryId, String searchKeywordType, String searchKeyword, int page,
 			int itemsInAPage) {
 		// 페이징 - 시작과 끝 범위
 		int limitStart = (page - 1) * itemsInAPage;
@@ -61,7 +61,7 @@ public class ProductService {
 		// 한 페이지에 포함 되는 상품의 갯수의 값
 		// LIMIT 20, 20 => 2page LIMIT 40, 20 => 3page
 
-		List<Product> products = productDao.getForPrintproducts(boardId, searchKeywordType, searchKeyword, limitStart,
+		List<Product> products = productDao.getForPrintproducts(categoryId, searchKeywordType, searchKeyword, limitStart,
 				limitTake);
 		List<Integer> productIds = products.stream().map(product -> product.getId()).collect(Collectors.toList());
 		Map<Integer, Map<String, GenFile>> filesMap = genFileService.getFilesMapKeyRelIdAndFileNo("product", productIds,
@@ -122,7 +122,8 @@ public class ProductService {
 	public List<Product> getForPrintproductByMemberId(int id) {
 		return productDao.getForPrintproductByMemberId(id);
 	}
-
+	
+	// 
 	public List<Product> getForPrintproductsByMyList(int loginMemberId, int boardId, String searchKeywordType,
 			String searchKeyword, int page, int itemsInAPage) {
 		// 페이징 - 시작과 끝 범위
