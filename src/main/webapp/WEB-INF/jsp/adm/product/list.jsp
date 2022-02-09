@@ -7,14 +7,19 @@
 
 <%@ include file="../part/mainLayoutHead.jspf"%>
 
+<style>
+body {
+	margin-top: 125px;
+}
+</style>
+
 <script>
 	param.categoryId = parseInt("${category.id}");
 </script>
 
-<section class="section-adm-product-list">
+<section class="section-usr-product-list">
 
-	<div
-		class="container mx-auto bg-white card bordered shadow-lg p-5 mb-5 relative">
+	<div class="container mx-auto bg-white card bordered shadow-lg p-5 mb-5 relative">
 		<!-- 검색 -->
 		<form class="flex">
 			<select name="searchKeywordType">
@@ -54,28 +59,8 @@
 			<div class="items-center ml-2">
 
 				<span class="text-xl font-bold">
-					<i class="far fa-newspaper"></i>
 					<span>${category.name}</span>
 				</span>
-			</div>
-
-			<div class="flex-grow"></div>
-
-			<div class="flex items-center text-2xl text-gray-500">
-
-				<!-- 글쓰기 -->
-				<c:if test="${loginedMember.authLevel == 7 && category.id == 1}">
-					<a href="add?categoryId=${ category.id }" class="mr-2">
-						<i class="fas fa-plus-circle"></i>
-					</a>
-				</c:if>
-
-				<c:if test="${ category.id != 1 }">
-					<a href="add?categoryId=${ category.id }" class="mr-2">
-						<i class="fas fa-plus-circle"></i>
-					</a>
-				</c:if>
-
 			</div>
 		</div>
 

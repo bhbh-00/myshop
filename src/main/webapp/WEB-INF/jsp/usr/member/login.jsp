@@ -45,50 +45,49 @@
 
 <section class="section-usr-login">
 
-	<div class="section-member-login container mx-auto flex items-center justify-center">
-		
-		<div>
-			<form class="bg-red-100 w-full shadow-md rounded px-8 pt-6 pb-8"
-				action="doLogin" method="POST"
-				onsubmit="LoginForm__checkAndSubmit(this); return false;">
-				<input type="hidden" name="redirectUrl" value="${param.redirectUrl}" />
-				<input type="hidden" name="loginPw" />
+	<div class="container mx-auto max-w-3xl min-w-max p-5 mb-5 relative">
+		<form class="w-full shadow-md px-8 pt-6 pb-8"
+			action="doLogin" method="POST"
+			onsubmit="LoginForm__checkAndSubmit(this); return false;">
+			<input type="hidden" name="redirectUrl" value="${param.redirectUrl}" />
+			<input type="hidden" name="loginPw" />
 
-				<div class="form-control">
-					<input name="loginId" autofocus="autofocus" type="text"
-						placeholder="아이디를 입력해주세요." class="input input-bordered"
-						maxlength="20">
+			<div class="form-control">
+				<input name="loginId" autofocus="autofocus" type="text"
+					placeholder="아이디를 입력해주세요." class="input input-bordered"
+					maxlength="20">
+			</div>
+
+			<div class="form-control mt-3 mb-4">
+				<input name="loginPwInput" autofocus="autofocus" type="password"
+					placeholder="비밀번호를 입력해주세요." class="input input-bordered"
+					maxlength="30">
+			</div>
+
+			<div class="form-control mb-2">
+				<input type="submit"
+					class="btn btn-wide btn-sm mb-1 bg-gray-400 border-transparent w-full"
+					value="로그인">
+			</div>
+
+			<div class="flex flex-col md:flex-row text-gray-600">
+				<div class="p-1 text-center md:flex-grow">
+					<i class="fas fa-home"></i>
+					<a href="../home/main" class="inline-block hover:underline">홈</a>
+					<a href="#" class="inline-block hover:underline"> | </a>
+					<i class="fas fa-user"></i>
+					<a href="join" class="inline-block hover:underline">회원가입</a>
+					<a href="#" class="inline-block hover:underline"> | </a>
+					<i class="fas fa-search"></i>
+					<a href="findLoginId" class="inline-block hover:underline">아이디</a>
+					<a href="#" class="inline-block hover:underline"> · </a>
+					<a href="findLoginPw" class="inline-block hover:underline">비밀번호찾기</a>
 				</div>
+			</div>
+		</form>
 
-				<div class="form-control mt-3 mb-4">
-					<input name="loginPwInput" autofocus="autofocus" type="password"
-						placeholder="비밀번호를 입력해주세요." class="input input-bordered"
-						maxlength="30">
-				</div>
+	</div>
 
-				<div class="form-control mb-2">
-					<input type="submit"
-						class="btn btn-wide btn-sm mb-1 bg-gray-400 border-transparent w-full"
-						value="로그인">
-				</div>
-
-				<div class="flex flex-col md:flex-row text-gray-600">
-					<div class="p-1 text-center md:flex-grow">
-						<i class="fas fa-home"></i>
-						<a href="../home/main" class="inline-block hover:underline">홈</a>
-						<a href="#" class="inline-block hover:underline"> | </a>
-						<i class="fas fa-user"></i>
-						<a href="join" class="inline-block hover:underline">회원가입</a>
-						<a href="#" class="inline-block hover:underline"> | </a>
-						<i class="fas fa-search"></i>
-						<a href="findLoginId" class="inline-block hover:underline">아이디</a>
-						<a href="#" class="inline-block hover:underline"> · </a>
-						<a href="findLoginPw" class="inline-block hover:underline">비밀번호찾기</a>
-					</div>
-				</div>
-			</form>
-
-		</div>
 </section>
 
 <%@ include file="../part/foot.jspf"%>

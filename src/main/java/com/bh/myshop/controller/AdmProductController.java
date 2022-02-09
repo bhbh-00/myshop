@@ -41,6 +41,12 @@ public class AdmProductController extends BaseController {
 	@Autowired
 	private ReplyService replyService;
 
+	@RequestMapping("/adm/product/page")
+	public String Page(HttpServletRequest req) {
+
+		return "/adm/product/page";
+	}
+
 	@RequestMapping("/adm/product/modify")
 	public String ShowModify(Integer id, HttpServletRequest req) {
 
@@ -173,16 +179,20 @@ public class AdmProductController extends BaseController {
 		if (param.get("body") == null) {
 			return msgAndBack(req, "내용을 입력해주세요.");
 		}
-
-		if (Util.isEmpty(param.get("color"))) {
+		
+		if (param.get("categoryId") == null) {
+			return msgAndBack(req, "상품종류를 입력해주세요.");
+		}
+		
+		if (param.get("color") == null) {
 			return msgAndBack(req, "색상을 입력해주세요.");
 		}
 
-		if (Util.isEmpty(param.get("price"))) {
+		if (param.get("price") == null) {
 			return msgAndBack(req, "가격을 입력해주세요.");
 		}
-
-		if (Util.isEmpty(param.get("fee"))) {
+		
+		if (param.get("fee") == null) {
 			return msgAndBack(req, "배송비를 입력해주세요.");
 		}
 

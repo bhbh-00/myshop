@@ -13,7 +13,7 @@ public class Product extends EntityDto {
 	private int id;
 	private String regDate; // 등록 시점
 	private String updateDate; // 수정 시점
-	private int categoryId; // 게시판 별 리스팅번호
+	private int categoryId; 
 	private int memberId;
 	private String name;
 	private String body;

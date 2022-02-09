@@ -16,7 +16,7 @@ body {
 	<div class="container flex h-full justify-center m-auto">
 
 		<!-- 메인 -->
-		<a href="../home/main" class="px-3 flex items-center">
+		<a href="/usr/home/main" class="px-3 flex items-center">
 			<span class="text-4xl">
 				<i class="fas fa-store-alt"></i>
 			</span>
@@ -39,25 +39,25 @@ body {
 					<div>
 						<ul>
 							<li>
-								<a href="../product/list?category=1"
+								<a href="/usr/product/list?category=1"
 									class="inline-block text-lg">
 									<span>&nbsp;상의</span>
 								</a>
 							</li>
 							<li>
-								<a href="../product/list?category=2"
+								<a href="/usr//product/list?category=2"
 									class="inline-block text-lg">
 									<span>&nbsp;하의</span>
 								</a>
 							</li>
 							<li>
-								<a href="../product/list?category=3"
+								<a href="/usr/product/list?category=3"
 									class="inline-block text-lg">
 									<span>&nbsp;가방</span>
 								</a>
 							</li>
 							<li>
-								<a href="../product/list?category=2"
+								<a href="/usr/product/list?category=2"
 									class="inline-block text-lg">
 									<span>&nbsp;악세사리</span>
 								</a>
@@ -77,12 +77,12 @@ body {
 					<div>
 						<ul>
 							<li>
-								<a href="../article/list?boardId=1" class="inline-block text-lg">
+								<a href="/usr/article/list?boardId=1" class="inline-block text-lg">
 									<span>&nbsp;공지사항 게시판</span>
 								</a>
 							</li>
 							<li>
-								<a href="../article/list?boardId=2" class="inline-block text-lg">
+								<a href="/usr/article/list?boardId=2" class="inline-block text-lg">
 									<span>&nbsp;자유 게시판</span>
 								</a>
 							</li>
@@ -102,13 +102,13 @@ body {
 						<div>
 							<ul>
 								<li>
-									<a href="../member/mypage?id=${ loginedMember.id }"
+									<a href="/usr/member/mypage?id=${ loginedMember.id }"
 										class="inline-block text-lg">
 										<span>&nbsp;내 프로필 보기</span>
 									</a>
 								</li>
 								<li>
-									<a href="../article/myList?boardId=1"
+									<a href="/usr/article/myList?boardId=1"
 										class="inline-block text-lg">
 										<span>&nbsp;내 게시물 보기</span>
 									</a>
@@ -121,7 +121,7 @@ body {
 				<!-- 관리자  -->
 				<c:if test="${ loginedMember.authLevel == 7 }">
 					<li>
-						<a href="/adm/home/main" class="h-full flex items-center px-5">
+						<a href="#" class="h-full flex items-center px-5">
 							<span class="text-xl">
 								<i class="fas fa-house-user"></i>
 							</span>
@@ -130,7 +130,7 @@ body {
 						<div>
 							<ul>
 								<li>
-									<a href="/adm/propuct/list"
+									<a href="/adm/product/page"
 										class="inline-block text-lg">
 										<span>&nbsp;상품관리</span>
 									</a>
@@ -169,7 +169,7 @@ body {
 				<c:choose>
 					<c:when test="${ loginedMember.id == null}">
 						<li>
-							<a href="../member/login" class="h-full flex items-center px-5">
+							<a href="/usr/member/login" class="h-full flex items-center px-5">
 								<span class="text-xl">
 									<i class="fas fa-sign-in-alt"></i>
 								</span>
@@ -179,7 +179,7 @@ body {
 						</li>
 
 						<li>
-							<a href="../member/join" class="h-full flex items-center px-5">
+							<a href="/usr/member/join" class="h-full flex items-center px-5">
 								<span class="text-xl">
 									<i class="fas fa-user"></i>
 								</span>
@@ -192,7 +192,7 @@ body {
 
 					<c:otherwise>
 						<li>
-							<a href="../member/doLogout"
+							<a href="/usr/member/doLogout"
 								class="h-full flex items-center px-5">
 								<span class="text-xl">
 									<i class="fas fa-sign-out-alt"></i>
@@ -209,3 +209,5 @@ body {
 	</div>
 
 </header>
+
+<%@ include file="foot.jspf"%>
