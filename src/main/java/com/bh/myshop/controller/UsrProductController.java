@@ -27,7 +27,7 @@ import com.bh.myshop.service.ReplyService;
 import com.bh.myshop.util.Util;
 
 @Controller
-public class AdmProductController extends BaseController {
+public class UsrProductController extends BaseController {
 
 	@Autowired
 	private ProductService productService;
@@ -41,7 +41,7 @@ public class AdmProductController extends BaseController {
 	@Autowired
 	private ReplyService replyService;
 
-	@RequestMapping("/adm/product/modify")
+	@RequestMapping("/usr/product/modify")
 	public String ShowModify(Integer id, HttpServletRequest req) {
 
 		if (id == null) {
@@ -65,11 +65,11 @@ public class AdmProductController extends BaseController {
 		product.getExtraNotNull().put("file__common__attachment", filesMap);
 		req.setAttribute("product", product);
 
-		return "/adm/product/modify";
+		return "/usr/product/modify";
 	}
 
 	// 상품 수정
-	@RequestMapping("/adm/product/doModify")
+	@RequestMapping("/usr/product/doModify")
 	@ResponseBody
 	public String doModify(@RequestParam Map<String, Object> param, HttpServletRequest req) {
 
@@ -120,7 +120,7 @@ public class AdmProductController extends BaseController {
 	}
 
 	// 상품 삭제
-	@RequestMapping("/adm/product/doDelete")
+	@RequestMapping("/usr/product/doDelete")
 	@ResponseBody
 	public String doDelete(Integer id, HttpServletRequest req) {
 		Member loginedMember = (Member) req.getAttribute("loginedMember");
@@ -147,14 +147,14 @@ public class AdmProductController extends BaseController {
 		return Util.msgAndReplace(deleteMemberRd.getMsg(), redirectUrl);
 	}
 
-	@RequestMapping("/adm/product/add")
+	@RequestMapping("/usr/product/add")
 	public String ShowAdd(@RequestParam Map<String, Object> param, HttpServletRequest req) {
-		return "/adm/product/add";
+		return "/usr/product/add";
 
 	}
 
 	// 상품 등록
-	@RequestMapping("/adm/product/doAdd")
+	@RequestMapping("/usr/product/doAdd")
 	public String doAdd(@RequestParam Map<String, Object> param, HttpServletRequest req,
 			MultipartRequest multipartRequest) {
 		// String name, String body이 null이면 내용이 없는 거!!
@@ -197,7 +197,7 @@ public class AdmProductController extends BaseController {
 	}
 
 	// 상품 상세보기
-	@RequestMapping("/adm/product/detail")
+	@RequestMapping("/usr/product/detail")
 	public String showDetail(HttpServletRequest req, Integer id) {
 
 		int loginMemberId = (int) req.getAttribute("loginedMemberId");
@@ -233,12 +233,12 @@ public class AdmProductController extends BaseController {
 		req.setAttribute("totleItemsCountByLike", totleItemsCountByLike);
 		req.setAttribute("loginMemberId", loginMemberId);
 
-		return "/adm/product/detail";
+		return "/usr/product/detail";
 	}
 
 	// 상품 리스트
-	@RequestMapping("/adm/product/list")
-	// @ResponseBody가 없으면 return /adm/product/list.jps로 가야함
+	@RequestMapping("/usr/product/list")
+	// @ResponseBody가 없으면 return /usr/product/list.jps로 가야함
 	public String showList(HttpServletRequest req, @RequestParam(defaultValue = "1") int categoryId,
 			String searchKeywordType, String searchKeyword, @RequestParam(defaultValue = "1") int page) {
 		// @RequestParam(defaultValue = "1") -> page를 입력하지 않아도 1page가 되도록
@@ -313,7 +313,7 @@ public class AdmProductController extends BaseController {
 		req.setAttribute("page", page);
 		req.setAttribute("products", products);
 
-		return "/adm/product/list";
+		return "/usr/product/list";
 	}
 
 }

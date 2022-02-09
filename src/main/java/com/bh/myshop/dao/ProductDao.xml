@@ -6,15 +6,15 @@
 <mapper namespace="com.bh.myshop.dao.ProductDao">
 
 	<select id="getproductByReply" resultType="Product">
-		SELECT A.id
+		SELECT P.id
 		FROM
-		product AS A
+		product AS P
 		LEFT JOIN
 		reply AS R
-		ON A.id = R.relId
+		ON P.id = R.relId
 		WHERE R.id = #{id}
 		AND
-		A.delStatus = 0;
+		P.delStatus = 0;
 	</select>
 	
 	<!-- 가장 최신 자유 게시물 2개 -->
@@ -56,17 +56,17 @@
 	</select>
 
 	<select id="getForPrintproductByMemberId" resultType="Product">
-		SELECT A.*,
+		SELECT P.*,
 		IFNULL(M.nickname, "탈퇴회원") AS extra__writer,
 		B.name AS extra__boardName
-		FROM product AS A
+		FROM product AS P
 		LEFT JOIN `member` AS M
 		ON A.memberId = M.id
 		LEFT JOIN
 		`board` AS B
-		ON A.boardId = B.id
-		WHERE A.memberId = #{id}
-		AND A.delStatus
+		ON P.boardId = B.id
+		WHERE P.memberId = #{id}
+		AND P.delStatus
 		= 0;
 	</select>
 
@@ -113,6 +113,14 @@
 	<select id="getBoard" resultType="Board">
 		SELECT *
 		FROM board
+		WHERE id =
+		#{id}
+		AND delStatus = 0;
+	</select>
+	
+	<select id="getCategory" resultType="Category">
+		SELECT *
+		FROM category
 		WHERE id =
 		#{id}
 		AND delStatus = 0;

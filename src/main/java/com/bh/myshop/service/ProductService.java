@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.bh.myshop.dao.ProductDao;
 import com.bh.myshop.dto.Board;
+import com.bh.myshop.dto.Category;
 import com.bh.myshop.dto.GenFile;
 import com.bh.myshop.dto.Member;
 import com.bh.myshop.dto.Product;
@@ -76,11 +77,7 @@ public class ProductService {
 
 		return products;
 	}
-
-	public Board getBoard(int boardId) {
-		return productDao.getBoard(boardId);
-	}
-
+	
 	// 상품 수정 가능 권한 여부
 	public ResultData getActorCanModifyRd(Product product, Member actor) {
 		if (product.getMemberId() == actor.getId()) {
@@ -169,6 +166,10 @@ public class ProductService {
 
 	public Product getproductByReply(Integer id) {
 		return productDao.getproductByReply(id);
+	}
+
+	public Category getCategory(int categoryId) {
+		return productDao.getCategory(categoryId);
 	}
 
 }

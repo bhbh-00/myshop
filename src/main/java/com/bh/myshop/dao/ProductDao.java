@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.bh.myshop.dto.Board;
+import com.bh.myshop.dto.Category;
 import com.bh.myshop.dto.Product;
 
 @Mapper
@@ -35,8 +36,6 @@ public interface ProductDao {
 			@Param("searchKeywordType") String searchKeywordType, @Param("searchKeyword") String searchKeyword,
 			@Param("limitStart") int limitStart, @Param("limitTake") int limitTake);
 
-	Board getBoard(int boardId);
-
 	int getproductsTotleCount(@Param("boardId") int boardId, @Param("searchKeywordType") String searchKeywordType,
 			@Param("searchKeyword") String searchKeyword);
 
@@ -56,5 +55,7 @@ public interface ProductDao {
 	List<Product> getLatestproductByBoardNameNotice();
 
 	Product getproductByReply(@Param("id") Integer id);
-	
+
+	Category getCategory(int categoryId);
+
 }
