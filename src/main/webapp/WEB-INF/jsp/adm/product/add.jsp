@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<%@ page import="com.bh.myshop.util.Util"%>
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%@ include file="../part/mainLayoutHead.jspf"%>
@@ -13,6 +11,10 @@ body {
 }
 </style>
 
+<script>
+	param.categoryId = parseInt("${category.id}");
+</script>
+
 <!-- 첨부파일 갯수 조절 -->
 <c:set var="fileInputMaxCount" value="5" />
 
@@ -22,50 +24,56 @@ body {
 
 <script>
 	ProductAdd__submited = false;
+
 	function ProductAdd__checkAndSubmit(form) {
 		// 이게 끝나면 폼 전송완료
+
 		// 중복처리 안되게 하는
 		if (ProductAdd__submited) {
 			alert('처리중입니다.');
 			return;
 		}
-		// 기본적인 처리
+
+		// name
 		form.name.value = form.name.value.trim();
 		if (form.name.value.length == 0) {
 			alert('상품명을 입력해주세요.');
 			form.name.focus();
 			return false;
 		}
-		form.body.value = form.body.value.trim();
-		if (form.body.value.length == 0) {
-			alert('내용을 입력해주세요.');
-			form.body.focus();
-			return false;
-		}
-		form.categoryId.value = form.categoryId.value.trim();
-		if (form.categoryId.value.length == 0) {
-			alert('상품종류를 입력해주세요.');
-			form.categoryId.focus();
-			return false;
-		}
+
+		// color
 		form.color.value = form.color.value.trim();
 		if (form.color.value.length == 0) {
 			alert('색상을 입력해주세요.');
 			form.color.focus();
 			return false;
 		}
+
+		// price
 		form.price.value = form.price.value.trim();
 		if (form.price.value.length == 0) {
 			alert('가격을 입력해주세요.');
 			form.price.focus();
 			return false;
 		}
+
+		// fee
 		form.fee.value = form.fee.value.trim();
 		if (form.fee.value.length == 0) {
 			alert('배송비를 입력해주세요.');
 			form.fee.focus();
 			return false;
 		}
+
+		// body
+		form.body.value = form.body.value.trim();
+		if (form.body.value.length == 0) {
+			alert('내용을 입력해주세요.');
+			form.body.focus();
+			return false;
+		}
+
 		// 파일 용량 처리
 		var maxSizeMb = 50; // 용량
 		var maxSize = maxSizeMb * 1024 * 1024; // 50MB
@@ -80,6 +88,7 @@ body {
 				}
 			}
 		}
+
 		const startSubmitForm = function(data) {
 			if (data && data.body && data.body.genFileIdsStr) {
 				form.genFileIdsStr.value = data.body.genFileIdsStr;
@@ -91,6 +100,7 @@ body {
 			form.submit();
 			// 폼 전송
 		};
+
 		// 파일 업로드가 끝나 있는 상태 => 파일 업로드이다.
 		const startUploadFiles = function(onSuccess) {
 			// onSuccess 변수라고 생각하면 됌
@@ -103,10 +113,12 @@ body {
 					// 들어온게 0보다 크면 멈춰라
 				}
 			}
+
 			if (needToUpload == false) {
 				onSuccess();
 				return;
 			}
+
 			// 파일 업로드를 해야할 시
 			var fileUploadFormData = new FormData(form);
 			// 구조는 무조건 외우면 됌!
@@ -120,7 +132,9 @@ body {
 				success : onSuccess
 			});
 		}
+
 		ProductAdd__submited = true;
+
 		startUploadFiles(startSubmitForm);
 		//startUploadFiles만 실행 => ()는 변수라고 생각하면 됌
 	}
@@ -144,7 +158,8 @@ body {
 				action="doAdd" method="POST" enctype="multipart/form-data">
 
 				<input type="hidden" name="genFileIdsStr" value="" />
-				
+				<input type="hidden" name="categoryId" value="${param.categoryId}" />
+
 				<!--  상품명 -->
 				<div class="form-control">
 					<label class="label">
@@ -154,21 +169,6 @@ body {
 						class="input input-bordered">
 				</div>
 
-				<!-- 카테고리 -->
-				<div class="form-control">
-					<label class="label">
-						<span class="label-text">상품종류</span>
-					</label>
-					<select name="categoryId" class="select select-bordered">
-						<option disabled="disabled" selected="selected">상품종류를
-							선택해주세요.</option>
-						<option value="1">상의</option>
-						<option value="2">하의</option>
-						<option value="3">가방</option>
-						<option value="4">악세사리</option>
-					</select>
-				</div>
-				
 				<!--  색상 -->
 				<div class="form-control">
 					<label class="label">
@@ -177,7 +177,7 @@ body {
 					<input name="color" type="text" placeholder="색상"
 						class="input input-bordered">
 				</div>
-				
+
 				<!--  가격 -->
 				<div class="form-control">
 					<label class="label">
@@ -186,7 +186,7 @@ body {
 					<input name="price" type="text" placeholder="가격"
 						class="input input-bordered">
 				</div>
-				
+
 				<!--  배송비 -->
 				<div class="form-control">
 					<label class="label">
@@ -195,7 +195,7 @@ body {
 					<input name="fee" type="text" placeholder="배송비"
 						class="input input-bordered">
 				</div>
-				
+
 				<!--  상품설명 -->
 				<div class="form-control">
 					<label class="label">

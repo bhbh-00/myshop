@@ -16,8 +16,7 @@ import com.bh.myshop.dto.ResultData;
 import com.bh.myshop.util.Util;
 
 @Service
-public class ProductService {
-	
+public class ProductService {	
 	@Autowired
 	private ProductDao productDao;
 	@Autowired
@@ -25,7 +24,7 @@ public class ProductService {
 	@Autowired
 	private GenFileService genFileService;
 
-	//
+	// 아이디로 해당 제품 가져오기
 	public Product getproduct(int id) {
 		return productDao.getproduct(id);
 	}

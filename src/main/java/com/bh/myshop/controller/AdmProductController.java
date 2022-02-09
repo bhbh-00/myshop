@@ -163,49 +163,39 @@ public class AdmProductController extends BaseController {
 	@RequestMapping("/adm/product/doAdd")
 	public String doAdd(@RequestParam Map<String, Object> param, HttpServletRequest req,
 			MultipartRequest multipartRequest) {
-		// String name, String body이 null이면 내용이 없는 거!!
 
 		int loginMemberId = (int) req.getAttribute("loginedMemberId");
 
-		/*
-		 * HttpSession 말고 Http서블릿리쿼스트 req로 바꿔주기 Util.getAsInt 필요 없음 (int로 형변환 필요함)
-		 * !!로그인과 회원가입은 세션이 필요함
-		 */
-
 		if (param.get("name") == null) {
-			return msgAndBack(req, "제품명을 입력해주세요.");
+			return msgAndBack(req, "제목을 입력해주세요.");
 		}
 
 		if (param.get("body") == null) {
-			return msgAndBack(req, "내용을 입력해주세요.");
-		}
-		
-		if (param.get("categoryId") == null) {
-			return msgAndBack(req, "상품종류를 입력해주세요.");
+			return msgAndBack(req, "제목을 입력해주세요.");
 		}
 		
 		if (param.get("color") == null) {
-			return msgAndBack(req, "색상을 입력해주세요.");
+			return msgAndBack(req, "제목을 입력해주세요.");
 		}
 
 		if (param.get("price") == null) {
-			return msgAndBack(req, "가격을 입력해주세요.");
+			return msgAndBack(req, "제목을 입력해주세요.");
 		}
 		
 		if (param.get("fee") == null) {
-			return msgAndBack(req, "배송비를 입력해주세요.");
+			return msgAndBack(req, "제목을 입력해주세요.");
 		}
 
 		param.put("memberId", loginMemberId);
 
-		ResultData addproductRd = productService.doAdd(param);
+		ResultData addProductRd = productService.doAdd(param);
 
-		int newproductId = (int) addproductRd.getBody().get("id");
+		int newProductId = (int) addProductRd.getBody().get("id");
 
-		return msgAndReplace(req, String.format("%d번 상품이 등록되었습니다.", newproductId),
-				"../product/detail?id=" + newproductId);
+		return msgAndReplace(req, String.format("%d번 상품이 등록되었습니다.", newProductId),
+				"../product/detail?id=" + newProductId);
 	}
-
+	
 	// 상품 상세보기
 	@RequestMapping("/adm/product/detail")
 	public String showDetail(HttpServletRequest req, Integer id) {
@@ -248,10 +238,8 @@ public class AdmProductController extends BaseController {
 
 	// 상품 리스트
 	@RequestMapping("/adm/product/list")
-	// @ResponseBody가 없으면 return /adm/product/list.jps로 가야함
 	public String showList(HttpServletRequest req, @RequestParam(defaultValue = "1") int categoryId,
 			String searchKeywordType, String searchKeyword, @RequestParam(defaultValue = "1") int page) {
-		// @RequestParam(defaultValue = "1") -> page를 입력하지 않아도 1page가 되도록
 
 		Category category = productService.getCategory(categoryId);
 

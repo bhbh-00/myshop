@@ -24,7 +24,7 @@ public class ArticleService {
 	@Autowired
 	private GenFileService genFileService;
 
-	//
+	// 아이디로 해당 게시물 가져오기
 	public Article getArticle(int id) {
 		return articleDao.getArticle(id);
 	}

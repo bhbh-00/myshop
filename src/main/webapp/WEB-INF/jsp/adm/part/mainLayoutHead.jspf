@@ -11,16 +11,17 @@ body {
 }
 </style>
 
+<!-- 관리자 -->
 <header class="top-bar h-10 top-bar--fly">
 
 	<div class="container flex h-full justify-center m-auto">
 
 		<!-- 메인 -->
-		<a href="/usr/home/main" class="px-3 flex items-center">
+		<a href="../home/main" class="px-3 flex items-center">
 			<span class="text-4xl">
 				<i class="fas fa-store-alt"></i>
 			</span>
-			<span class="hidden sm:block text-3xl font-black">&nbsp;MyShop</span>
+			<span class="hidden sm:block text-3xl font-black">&nbsp;MyShop Admin</span>
 		</a>
 
 		<div class="flex-grow"></div>
@@ -39,25 +40,25 @@ body {
 					<div>
 						<ul>
 							<li>
-								<a href="/usr/product/list?category=1"
+								<a href="../product/list?category=1"
 									class="inline-block text-lg">
 									<span>&nbsp;상의</span>
 								</a>
 							</li>
 							<li>
-								<a href="/usr//product/list?category=2"
+								<a href="../product/list?category=2"
 									class="inline-block text-lg">
 									<span>&nbsp;하의</span>
 								</a>
 							</li>
 							<li>
-								<a href="/usr/product/list?category=3"
+								<a href="../product/list?category=3"
 									class="inline-block text-lg">
 									<span>&nbsp;가방</span>
 								</a>
 							</li>
 							<li>
-								<a href="/usr/product/list?category=2"
+								<a href="../product/list?category=2"
 									class="inline-block text-lg">
 									<span>&nbsp;악세사리</span>
 								</a>
@@ -77,12 +78,12 @@ body {
 					<div>
 						<ul>
 							<li>
-								<a href="/usr/article/list?boardId=1" class="inline-block text-lg">
+								<a href="../article/list?boardId=1" class="inline-block text-lg">
 									<span>&nbsp;공지사항 게시판</span>
 								</a>
 							</li>
 							<li>
-								<a href="/usr/article/list?boardId=2" class="inline-block text-lg">
+								<a href="../article/list?boardId=2" class="inline-block text-lg">
 									<span>&nbsp;자유 게시판</span>
 								</a>
 							</li>
@@ -102,13 +103,13 @@ body {
 						<div>
 							<ul>
 								<li>
-									<a href="/usr/member/mypage?id=${ loginedMember.id }"
+									<a href="../member/mypage?id=${ loginedMember.id }"
 										class="inline-block text-lg">
 										<span>&nbsp;내 프로필 보기</span>
 									</a>
 								</li>
 								<li>
-									<a href="/usr/article/myList?boardId=1"
+									<a href="../article/myList?boardId=1"
 										class="inline-block text-lg">
 										<span>&nbsp;내 게시물 보기</span>
 									</a>
@@ -125,18 +126,18 @@ body {
 							<span class="text-xl">
 								<i class="fas fa-house-user"></i>
 							</span>
-							<span class="hidden sm:block text-lg">&nbsp;admin</span>
+							<span class="hidden sm:block text-lg">&nbsp;관리</span>
 						</a>
 						<div>
 							<ul>
 								<li>
-									<a href="/adm/product/page"
+									<a href="../product/page"
 										class="inline-block text-lg">
 										<span>&nbsp;상품관리</span>
 									</a>
 								</li>
 								<li>
-									<a href="/adm/category/list"
+									<a href="../category/list"
 										class="inline-block text-lg">
 										<span>&nbsp;카테고리관리</span>
 									</a>
@@ -148,13 +149,13 @@ body {
 									</a>
 								</li>
 								<li>
-									<a href="/adm/board/list"
+									<a href="../board/list"
 										class="inline-block text-lg">
 										<span>&nbsp;게시판관리</span>
 									</a>
 								</li>
 								<li>
-									<a href="/adm/member/list"
+									<a href="../member/list"
 										class="inline-block text-lg">
 										<span>&nbsp;회원관리</span>
 									</a>
@@ -169,7 +170,7 @@ body {
 				<c:choose>
 					<c:when test="${ loginedMember.id == null}">
 						<li>
-							<a href="/usr/member/login" class="h-full flex items-center px-5">
+							<a href="../member/login" class="h-full flex items-center px-5">
 								<span class="text-xl">
 									<i class="fas fa-sign-in-alt"></i>
 								</span>
@@ -179,7 +180,7 @@ body {
 						</li>
 
 						<li>
-							<a href="/usr/member/join" class="h-full flex items-center px-5">
+							<a href="../member/join" class="h-full flex items-center px-5">
 								<span class="text-xl">
 									<i class="fas fa-user"></i>
 								</span>

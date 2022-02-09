@@ -11,6 +11,7 @@ body {
 }
 </style>
 
+<!-- 사용자 -->
 <header class="top-bar h-10 top-bar--fly">
 
 	<div class="container flex h-full justify-center m-auto">
@@ -121,46 +122,12 @@ body {
 				<!-- 관리자  -->
 				<c:if test="${ loginedMember.authLevel == 7 }">
 					<li>
-						<a href="#" class="h-full flex items-center px-5">
+						<a href="/adm/home/main" class="h-full flex items-center px-5">
 							<span class="text-xl">
 								<i class="fas fa-house-user"></i>
 							</span>
-							<span class="hidden sm:block text-lg">&nbsp;admin</span>
+							<span class="hidden sm:block text-lg">&nbsp;관리자</span>
 						</a>
-						<div>
-							<ul>
-								<li>
-									<a href="/adm/product/page"
-										class="inline-block text-lg">
-										<span>&nbsp;상품관리</span>
-									</a>
-								</li>
-								<li>
-									<a href="/adm/category/list"
-										class="inline-block text-lg">
-										<span>&nbsp;카테고리관리</span>
-									</a>
-								</li>
-								<li>
-									<a href="../article/list?boardId=1"
-										class="inline-block text-lg">
-										<span>&nbsp;게시물관리</span>
-									</a>
-								</li>
-								<li>
-									<a href="/adm/board/list"
-										class="inline-block text-lg">
-										<span>&nbsp;게시판관리</span>
-									</a>
-								</li>
-								<li>
-									<a href="/adm/member/list"
-										class="inline-block text-lg">
-										<span>&nbsp;회원관리</span>
-									</a>
-								</li>
-							</ul>
-						</div>
 					</li>
 				</c:if>
 
@@ -177,17 +144,6 @@ body {
 							</a>
 							<div></div>
 						</li>
-
-						<li>
-							<a href="../member/join" class="h-full flex items-center px-5">
-								<span class="text-xl">
-									<i class="fas fa-user"></i>
-								</span>
-								<span class="hidden md:block text-lg">&nbsp;회원가입</span>
-							</a>
-							<div></div>
-						</li>
-
 					</c:when>
 
 					<c:otherwise>
