@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bh.myshop.dao.CategoryDao">
+
+	<!-- 게시판 삭제 -->
+	<update id="delete">
+		UPDATE category
+		SET delDate = NOW(),
+		delStatus = 1
+		WHERE
+		id = #{id}
+	</update>
+	
+	<!-- 게시판 수정 -->
+	<update id="modify">
+		UPDATE category
+		<set>
+			<if test="name != null">
+				`name` = #{name}
+			</if>
+		</set>
+		WHERE id = #{id}
+		AND delStatus = 0
+	</update>
+	
+	<!-- 게시판 번호 확인 -->
+	<select id="getcategory" resultType="category">
+		SELECT *
+		FROM category
+		WHERE
+		id =
+		#{id}
+		AND delStatus = 0
+	</select>
+
+	<!-- 게시판 생성 -->
+	<insert id="add" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO
+		category
+		SET regDate = NOW(),
+		updateDate = NOW(),
+		memberId = #{memberId},
+		code = #{code},
+		`name` = #{name}
+	</insert>
+	
+	<!-- 기존의 이름 확인 -->
+	<select id="getcategoryByName" resultType="category">
+		SELECT *
+		FROM category
+		WHERE `name` = #{name}
+	</select>
+
+	<!-- 기존의 코드 확인 -->
+	<select id="getcategoryByCode" resultType="category">
+		SELECT *
+		FROM category
+		WHERE `code` = #{code}
+		AND delStatus = 0
+	</select>
+
+	<!-- 게시판 리스트 -->
+	<select id="getForPrintcategorys" resultType="category">
+		SELECT C.*,
+		IFNULL(M.nickname, "탈퇴회원") AS extra__writer
+		FROM category AS C
+		LEFT JOIN `member` AS M
+		ON C.memberId = M.id
+		WHERE 1
+		AND C.delStatus = 0
+		<if test="searchKeywordType == 'name'">
+			AND C.'name' LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchKeywordType == 'code'">
+			AND C.`code` LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchKeywordType == 'codeAndName'">
+			AND (C.`code` LIKE CONCAT('%', #{searchKeyword}, '%') OR
+			C.`name` LIKE CONCAT('%', #{searchKeyword}, '%'))
+		</if>
+		ORDER BY id DESC
+		<if test="limitStart != null and limitTake != null">
+			LIMIT #{limitStart}, #{limitTake}
+		</if>
+	</select>
+
+	<!-- 게시판의 총 갯수 -->
+	<select id="getcategorysTotleCount" resultType="int">
+		SELECT count(*)
+		FROM category
+		WHERE 1
+		AND delStatus = 0
+		<if test="searchKeywordType == 'name'">
+			AND `name` LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchKeywordType == 'code'">
+			AND `code` LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchKeywordType == 'nameAndCode'">
+			AND (`name` LIKE CONCAT('%', #{searchKeyword}, '%') OR
+			code
+			LIKE CONCAT('%', #{searchKeyword}, '%'))
+		</if>
+		ORDER BY id DESC
+	</select>
+	
+	<!-- 게시판 번호로 정보 불러오기 -->
+	<select id="getForPrintcategory" resultType="category">
+		SELECT *
+		FROM `category`
+		WHERE
+		id = #{id}
+		AND delStatus = 0
+	</select>
+
+</mapper>

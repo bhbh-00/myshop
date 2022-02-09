@@ -5,12 +5,12 @@ USE myshop;
 
 # ============================================== product
 
-# 게시물 테이블 생성
+# 제품 테이블 생성
 CREATE TABLE product (
     id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     regDate DATETIME NOT NULL,
     updateDate DATETIME NOT NULL,
-    name CHAR(100) NOT NULL,
+    `name` CHAR(100) NOT NULL,
     `body` TEXT NOT NULL,
     color TEXT NOT NULL,
     price CHAR(20) NOT NULL,
@@ -20,6 +20,12 @@ CREATE TABLE product (
     delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '삭제여부',
     delDate DATETIME COMMENT '삭제날짜'
 );
+
+# 제품 테이블에 boardId 칼럼 추가
+ALTER TABLE product ADD COLUMN categoryId INT(10) UNSIGNED NOT NULL AFTER updateDate;
+
+# 제품 테이블에 회원번호 칼럼 추가
+ALTER TABLE product ADD COLUMN memberId INT(10) UNSIGNED NOT NULL AFTER updateDate;
 
 # ============================================== article
 
@@ -311,7 +317,43 @@ INSERT INTO attr (
 	type2Code,
 	`value`,
 	expireDate
-)
+);
 
 SELECT NOW(), NOW(), 'member', id, 'extra', 'needToChangePassword', 0, NULL
-FROM `member`
+FROM `member`;
+
+# ============================================== category
+
+# 카테고리 별 리스팅(category) 테이블 생성
+CREATE TABLE category (
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    updateDate DATETIME NOT NULL,
+    `code` CHAR(20) UNIQUE NOT NULL,
+    `name` CHAR(20) UNIQUE NOT NULL,
+    blindStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '블라인드여부',
+    blindDate DATETIME COMMENT '블라인드날짜',
+    delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '삭제여부',
+    delDate DATETIME COMMENT '삭제날짜'
+);
+
+# 카테고리 테이블에 회원번호 칼럼 추가
+ALTER TABLE category ADD COLUMN memberId INT(10) UNSIGNED NOT NULL AFTER updateDate;
+
+# 게시판 별 리스팅 테스트 생성
+INSERT INTO category
+SET regDate = NOW(),
+updateDate = NOW(),
+`code` = "101",
+`name` = "상의";
+
+INSERT INTO category
+SET regDate = NOW(),
+updateDate = NOW(),
+`code` = "102",
+`name` = "하의";
+
+# 카테고리 memberId 1로 하기
+UPDATE category
+SET memberId = 1
+WHERE memberId = 0;
