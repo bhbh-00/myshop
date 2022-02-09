@@ -31,20 +31,16 @@ public interface ProductDao {
 	// 제품 상세페이지
 	Product getForPrintproduct(@Param("id") Integer id);
 
-	List<Product> getForPrintproducts(@Param("boardId") int boardId,
+	List<Product> getForPrintproducts(@Param("categoryId") int categoryId,
 			@Param("searchKeywordType") String searchKeywordType, @Param("searchKeyword") String searchKeyword,
 			@Param("limitStart") int limitStart, @Param("limitTake") int limitTake);
 
-	int getproductsTotleCount(@Param("boardId") int boardId, @Param("searchKeywordType") String searchKeywordType,
+	int getproductsTotleCount(@Param("categoryId") int categoryId, @Param("searchKeywordType") String searchKeywordType,
 			@Param("searchKeyword") String searchKeyword);
 
 	List<Product> getForPrintproductByMemberId(@Param("id") int id);
 
-	List<Product> getForPrintproductsByMyList(@Param("id") int id, @Param("boardId") int boardId,
-			@Param("searchKeywordType") String searchKeywordType, @Param("searchKeyword") String searchKeyword,
-			@Param("limitStart") int limitStart, @Param("limitTake") int limitTake);
-
-	int getproductsTotleCountByMyList(@Param("id") int id, @Param("boardId") int boardId,
+	int getproductsTotleCountByMyList(@Param("id") int id, @Param("categoryId") int categoryId,
 			@Param("searchKeywordType") String searchKeywordType, @Param("searchKeyword") String searchKeyword);
 
 	// 가장 최신 자유 제품 2개

@@ -26,7 +26,7 @@ public class Product extends EntityDto {
 	private String delDate;
 
 	private String extra__writer;
-	private String extra__boardName;
+	private String extra__categoryName;
 	private String extra__thumbImg; // 썸네일
 
 	public String getWriterThumbImgUrl() {

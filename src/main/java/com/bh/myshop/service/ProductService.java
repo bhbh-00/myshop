@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bh.myshop.dao.ProductDao;
-import com.bh.myshop.dto.Board;
 import com.bh.myshop.dto.Category;
 import com.bh.myshop.dto.GenFile;
 import com.bh.myshop.dto.Member;
@@ -115,44 +114,17 @@ public class ProductService {
 		return new ResultData("S-1", "삭제되었습니다.", "id", id);
 	}
 
-	public int getproductsTotleCount(int boardId, String searchKeywordType, String searchKeyword) {
-		return productDao.getproductsTotleCount(boardId, searchKeywordType, searchKeyword);
+	public int getproductsTotleCount(int categoryId, String searchKeywordType, String searchKeyword) {
+		return productDao.getproductsTotleCount(categoryId, searchKeywordType, searchKeyword);
 	}
 
 	public List<Product> getForPrintproductByMemberId(int id) {
 		return productDao.getForPrintproductByMemberId(id);
 	}
 	
-	// 
-	public List<Product> getForPrintproductsByMyList(int loginMemberId, int boardId, String searchKeywordType,
-			String searchKeyword, int page, int itemsInAPage) {
-		// 페이징 - 시작과 끝 범위
-		int limitStart = (page - 1) * itemsInAPage;
-		// controller에서 한 페이지에 포함 되는 상품의 갯수의 값을(itemsInAPage) 설정했음.
-		int limitTake = itemsInAPage;
-		// 한 페이지에 포함 되는 상품의 갯수의 값
-		// LIMIT 20, 20 => 2page LIMIT 40, 20 => 3page
-
-		List<Product> products = productDao.getForPrintproductsByMyList(loginMemberId, boardId, searchKeywordType,
-				searchKeyword, limitStart, limitTake);
-		List<Integer> productIds = products.stream().map(product -> product.getId()).collect(Collectors.toList());
-		Map<Integer, Map<String, GenFile>> filesMap = genFileService.getFilesMapKeyRelIdAndFileNo("product", productIds,
-				"common", "attachment");
-
-		for (Product product : products) {
-			Map<String, GenFile> mapByFileNo = filesMap.get(product.getId());
-
-			if (mapByFileNo != null) {
-				product.getExtraNotNull().put("file__common__attachment", mapByFileNo);
-			}
-		}
-
-		return products;
-	}
-
-	public int getproductsTotleCountByMyList(int loginMemberId, int boardId, String searchKeywordType,
+	public int getproductsTotleCountByMyList(int loginMemberId, int categoryId, String searchKeywordType,
 			String searchKeyword) {
-		return productDao.getproductsTotleCountByMyList(loginMemberId, boardId, searchKeywordType, searchKeyword);
+		return productDao.getproductsTotleCountByMyList(loginMemberId, categoryId, searchKeywordType, searchKeyword);
 	}
 	
 	// 가장 최신 자유 상품 2개
