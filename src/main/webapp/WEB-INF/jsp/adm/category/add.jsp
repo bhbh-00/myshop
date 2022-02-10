@@ -11,7 +11,7 @@
 
 <style>
 body {
-	margin-top: 125px;
+	margin-top: 100px;
 }
 </style>
 
@@ -94,17 +94,14 @@ body {
 <section class="section-category-add">
 
 	<div
-		class="container max-w-3xl min-w-max mx-auto p-5 mb-5 relative item-bt-1-not-last-child">
+		class="container max-w-3xl min-w-max mx-auto p-5 mb-5 relative item-bt-1-not-last-child ">
 
-		<div class="card-title">
-			<a href="javascript:history.back();" class="cursor-pointer">
-				<i class="fas fa-chevron-left"></i>
-			</a>
-			<span>게시판 작성</span>
+		<div class="text-center">
+			<span class="text-lg font-bold">카테고리 등록</span>
 		</div>
-
-		<div class="px-4 py-8">
-
+		
+		<div class="px-4 py-4">
+		
 			<form class="formCode" action="doAdd" method="POST"
 				onsubmit="CategoryAdd__checkAndSubmit(this); return false;">
 
@@ -113,7 +110,7 @@ body {
 				<!-- 코드 -->
 				<div class="form-control">
 					<label class="label">
-						<span class="label-text">코드</span>
+						<span class="font-bold label-text">코드</span>
 					</label>
 					<input type="text" name="code" placeholder="코드을 입력해주세요."
 						autofocus="autofocus" class="inputCode input input-bordered">
@@ -128,28 +125,18 @@ body {
 				<!-- 이름 -->
 				<div class="form-control">
 					<label class="label">
-						<span class="label-text">이름</span>
+						<span class="font-bold label-text">이름</span>
 					</label>
 					<input type="text" name="name" placeholder="이름을 입력해주세요."
 						autofocus="autofocus" class="input input-bordered">
 				</div>
 
-				<div class="mt-2">
-					<button class="btn btn-ghost btn-sm mb-1 text-blue-500"
-						type="submit">
-						<i class="fas fa-edit mr-1"></i>
-						<span>작성</span>
-					</button>
-
-					<a href="list" class="btn btn-ghost btn-sm mb-1" title="리스트 보기">
-						<span>
-							<i class="fas fa-list"></i>
-						</span>
-						&nbsp;
-						<span>리스트</span>
-					</a>
-				</div>
-
+				<button
+					class="btn btn-block btn-sm mt-7 mb-1 bg-white text-black hover:bg-black hover:text-white"
+					type="submit">
+					<span>작성</span>
+				</button>
+				
 			</form>
 
 		</div>

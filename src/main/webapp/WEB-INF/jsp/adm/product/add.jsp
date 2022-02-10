@@ -162,11 +162,14 @@ body {
 </script>
 
 <section class="section-adm-product-add">
+	
 	<div
 		class="container max-w-3xl min-w-max mx-auto p-5 mb-5 relative item-bt-1-not-last-child ">
+		
 		<div class="text-center">
 			<span class="text-lg font-bold">상품 등록</span>
 		</div>
+		
 		<div class="px-4 py-4">
 
 			<form class="formName grid form-type-1"
@@ -244,11 +247,13 @@ body {
 						</div>
 					</div>
 				</c:forEach>
+				
 				<button
 					class="btn btn-block btn-sm mt-4 mb-1 bg-white text-black hover:bg-black hover:text-white"
 					type="submit">
 					<span>작성</span>
 				</button>
+			
 			</form>
 		</div>
 	</div>

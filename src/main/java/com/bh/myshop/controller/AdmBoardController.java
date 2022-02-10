@@ -86,7 +86,7 @@ public class AdmBoardController extends BaseController {
 			return new ResultData("F-2", String.format("%s(은)는 이미 사용중인 code 입니다.", code));
 		}
 		
-		if (Util.isStandardCodeString(code) == false) {
+		if (Util.isStandardBoardCodeString(code) == false) {
 			return new ResultData("F-1", "영문 소문자 조합으로 1자 이상으로 구성되어야 합니다.");
 		}
 
