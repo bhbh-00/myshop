@@ -126,7 +126,7 @@ body {
 							<span class="text-xl">
 								<i class="fas fa-house-user"></i>
 							</span>
-							<span class="hidden sm:block text-lg">&nbsp;관리</span>
+							<span class="hidden md:block text-lg">&nbsp;관리</span>
 						</a>
 						<div>
 							<ul>
@@ -137,7 +137,7 @@ body {
 									</a>
 								</li>
 								<li>
-									<a href="../category/list"
+									<a href="../category/page"
 										class="inline-block text-lg">
 										<span>&nbsp;카테고리관리</span>
 									</a>

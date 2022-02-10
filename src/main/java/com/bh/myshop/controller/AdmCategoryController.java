@@ -21,8 +21,14 @@ import com.bh.myshop.util.Util;
 public class AdmCategoryController extends BaseController {
 	@Autowired
 	private CategoryService categoryService;
-	
-	// 게시판 삭제
+
+	@RequestMapping("/adm/category/page")
+	public String Page(HttpServletRequest req) {
+
+		return "/adm/category/page";
+	}
+
+	// 카테고리 삭제
 	@RequestMapping("/adm/category/doDelete")
 	@ResponseBody
 	public String doDelete(int id, HttpServletRequest req) {
@@ -38,7 +44,7 @@ public class AdmCategoryController extends BaseController {
 		if (category == null) {
 			return msgAndBack(req, "해당 카테고리는 존재하지 않습니다.");
 		}
-		
+
 		ResultData actorCanDeleteRd = categoryService.getActorCanDeleteRd(category, loginedMember);
 
 		if (actorCanDeleteRd.isFail()) {
@@ -51,8 +57,8 @@ public class AdmCategoryController extends BaseController {
 
 		return Util.msgAndReplace(deletecategoryRd.getMsg(), redirectUrl);
 	}
-	
-	// 게시판 이름 중복 확인
+
+	// 카테고리 이름 중복 확인
 	@RequestMapping("/adm/category/getNameDup")
 	@ResponseBody
 	public ResultData getNameDup(String name) {
@@ -70,7 +76,7 @@ public class AdmCategoryController extends BaseController {
 		return new ResultData("S-1", String.format("%s(은)는 사용가능한 이름 입니다.", name), "name", name);
 	}
 
-	// 게시판 코드 생성의 조건
+	// 카테고리 코드 생성의 조건
 	@RequestMapping("/adm/category/getCodeDup")
 	@ResponseBody
 	public ResultData getCodeDup(String code) {
@@ -78,22 +84,22 @@ public class AdmCategoryController extends BaseController {
 		if (code == null) {
 			return new ResultData("F-1", "code를 입력해주세요.");
 		}
-		
+
 		// 기존의 코드 확인
 		Category existingcategory = categoryService.getcategoryByCode(code);
 
 		if (existingcategory != null) {
 			return new ResultData("F-2", String.format("%s(은)는 이미 사용중인 code 입니다.", code));
 		}
-		
+
 		if (Util.isStandardCodeString(code) == false) {
 			return new ResultData("F-1", "영문 소문자 조합으로 1자 이상으로 구성되어야 합니다.");
 		}
 
 		return new ResultData("S-1", String.format("%s(은)는 사용가능한 code 입니다.", code), "code", code);
 	}
-	
-	// 게시판 수정
+
+	// 카테고리 수정
 	@RequestMapping("/adm/category/modify")
 	public String ShowModify(Integer id, HttpServletRequest req) {
 
@@ -104,15 +110,15 @@ public class AdmCategoryController extends BaseController {
 		Category category = categoryService.getForPrintcategory(id);
 
 		if (category == null) {
-			return msgAndBack(req, "해당 게시판은 존재하지 않습니다.");
+			return msgAndBack(req, "해당 카테고리은 존재하지 않습니다.");
 		}
 
 		req.setAttribute("category", category);
 
 		return "/adm/category/modify";
 	}
-	
-	// 게시판 수정
+
+	// 카테고리 수정
 	@RequestMapping("/adm/category/doModify")
 	@ResponseBody
 	public String doModify(@RequestParam Map<String, Object> param, HttpServletRequest req) {
@@ -132,7 +138,7 @@ public class AdmCategoryController extends BaseController {
 		Category category = categoryService.getcategory(id);
 
 		if (category == null) {
-			return msgAndBack(req, "해당 게시판은 존재하지 않습니다.");
+			return msgAndBack(req, "해당 카테고리은 존재하지 않습니다.");
 		}
 
 		ResultData actorCanModifyRd = categoryService.getActorCanModifyRd(category, loginedMember);
@@ -151,8 +157,8 @@ public class AdmCategoryController extends BaseController {
 	public String ShowAdd(@RequestParam Map<String, Object> param, HttpServletRequest req) {
 		return "/adm/category/add";
 	}
-	
-	// 게시판 작성
+
+	// 카테고리 작성
 	@RequestMapping("/adm/category/doAdd")
 	public String doAdd(@RequestParam Map<String, Object> param, HttpServletRequest req) {
 
@@ -165,24 +171,24 @@ public class AdmCategoryController extends BaseController {
 		if (param.get("name") == null) {
 			return msgAndBack(req, "name를 입력해주세요");
 		}
-		
+
 		// 기존의 이름 확인
 		Category existingcategory = categoryService.getcategoryByName((String) param.get("name"));
 
 		if (existingcategory != null) {
 			return msgAndBack(req, String.format("「 %s 」은 이미 등록되어 있습니다.", existingcategory.getName()));
 		}
-		
+
 		param.put("loginedMember", loginedMember);
 
 		ResultData addcategoryRd = categoryService.doAdd(param);
 
 		int newcategoryId = (int) addcategoryRd.getBody().get("id");
 
-		return msgAndReplace(req, String.format("%s번 게시판이 생성되었습니다.", newcategoryId), "../category/list");
+		return msgAndReplace(req, String.format("%s번 카테고리이 생성되었습니다.", newcategoryId), "../category/list");
 	}
 
-	// 게시판 리스트
+	// 카테고리 리스트
 	@RequestMapping("/adm/category/list")
 	public String showList(HttpServletRequest req, String searchKeywordType, String searchKeyword,
 			@RequestParam(defaultValue = "1") int page) {
@@ -214,7 +220,7 @@ public class AdmCategoryController extends BaseController {
 		int totleItemsCount = categoryService.getcategorysTotleCount(searchKeywordType, searchKeyword);
 
 		List<Category> categorys = categoryService.getForPrintcategorys(searchKeywordType, searchKeyword, page,
-				itemsInAPage );
+				itemsInAPage);
 
 		// 총 페이지 갯수 (총 게시물 수 / 한 페이지 안의 게시물 갯수)
 		int totlePage = (int) Math.ceil(totleItemsCount / (double) itemsInAPage);

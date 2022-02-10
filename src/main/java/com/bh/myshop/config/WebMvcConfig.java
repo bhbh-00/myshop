@@ -98,6 +98,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
 			.excludePathPatterns("/usr/member/findLoginPw")
 			.excludePathPatterns("/usr/member/doFindLoginPw")
 			.excludePathPatterns("/usr/member/doConfirmPassword")
+			.excludePathPatterns("/usr/product/list")
+			.excludePathPatterns("/usr/product/detail")
 			.excludePathPatterns("/usr/file/test*")
 			.excludePathPatterns("/usr/file/doTest*")
 			.excludePathPatterns("/test/**")

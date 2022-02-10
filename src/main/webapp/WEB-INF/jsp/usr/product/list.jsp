@@ -19,7 +19,8 @@ body {
 
 <section class="section-usr-product-list">
 
-	<div class="container mx-auto bg-white card bordered shadow-lg p-5 mb-5 relative">
+	<div
+		class="container mx-auto bg-white card bordered shadow-lg p-5 mb-5 relative">
 		<!-- 검색 -->
 		<form class="flex">
 			<select name="searchKeywordType">
@@ -63,9 +64,9 @@ body {
 				</span>
 			</div>
 		</div>
-		
-		
-		
+
+
+
 		<div class="w-30 h-30 bg-red">
 			<c:forEach items="${products}" var="product">
 
@@ -76,7 +77,61 @@ body {
 					value="${product.extra.file__common__attachment[thumbFileNo]}" />
 				<c:set var="thumbUrl" value="${thumbFile.getForPrintUrl()}" />
 
-				<div class="w-30 h-30">zzzzz</div>
+				<div class="p-4">
+					<!-- 카테고리 번호 -->
+					<c:if test="${category.id == 1}">
+						<a href="${detailUrl}" class="cursor-pointer hover:underline">
+							<span class="badge badge-info">${product.extra__categoryName}</span>
+						</a>
+					</c:if>
+					<c:if test="${category.id == 2}">
+						<a href="${detailUrl}" class="cursor-pointer hover:underline">
+							<span class="badge badge-warning">${product.extra__categoryName}</span>
+						</a>
+					</c:if>
+					<!-- 상품 번호 -->
+					<a href="${detailUrl}" class="hover:underline">
+						<span class="text-base">No.${product.id}</span>
+					</a>
+					<div
+						class="mt-3 grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+
+						<!-- 썸네일 -->
+						<a href="${detailUrl}" class="row-span-7">
+							<img class="w-full h-40 object-cover rounded" src="${thumbUrl}"
+								alt=""
+								onerror="${product.writerProfileFallbackImgOnErrorHtmlAttr}">
+						</a>
+						<!-- 제목 -->
+						<a href="${detailUrl}" class="hover:underline cursor-pointer">
+							<span class="badge badge-outline mb-1">상품명</span>
+							<span class="line-clamp-3 ml-1"> ${product.name} </span>
+						</a>
+						<!-- 본문 -->
+						<a href="${detailUrl}"
+							class="mt-3 hover:underline cursor-pointer col-span-1 sm:col-span-2 xl:col-span-3">
+							<span class="badge badge-outline mb-1">본문</span>
+							<span class="line-clamp-3 ml-1"> ${product.body} </span>
+						</a>
+						<!-- 작성자 -->
+						<a href="${detailUrl}" class="cursor-pointer hover:underline">
+							<span class="badge badge-accent">작성자</span>
+							<span>${product.extra__writer}</span>
+						</a>
+						<!-- 등록날짜 -->
+						<a href="${detailUrl}" class="hover:underline">
+							<span class="badge">등록날짜</span>
+							<span class="text-gray-600 text-light">${product.regDate}</span>
+						</a>
+						<!-- 수정날짜 -->
+						<c:if test="${product.updateDate != product.regDate}">
+							<a href="${detailUrl}" class="hover:underline">
+								<span class="badge">수정날짜</span>
+								<span class="text-gray-600 text-light">${product.updateDate}</span>
+							</a>
+						</c:if>
+					</div>
+				</div>
 				<hr>
 			</c:forEach>
 		</div>

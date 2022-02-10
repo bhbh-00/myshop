@@ -126,7 +126,7 @@ body {
 							<span class="text-xl">
 								<i class="fas fa-house-user"></i>
 							</span>
-							<span class="hidden sm:block text-lg">&nbsp;관리자</span>
+							<span class="hidden md:block text-lg">&nbsp;관리자</span>
 						</a>
 					</li>
 				</c:if>

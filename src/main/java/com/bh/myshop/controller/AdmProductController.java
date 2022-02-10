@@ -186,23 +186,29 @@ public class AdmProductController extends BaseController {
 		int loginMemberId = (int) req.getAttribute("loginedMemberId");
 
 		if (param.get("name") == null) {
-			return msgAndBack(req, "제목을 입력해주세요.");
+			return msgAndBack(req, "상품명을 입력해주세요.");
+		}
+		
+		Product existingProduct = productService.getProductByName((String) param.get("name"));
+
+		if (existingProduct != null) {
+			return Util.msgAndBack("이미 사용 중인 아이디입니다.");
 		}
 
 		if (param.get("body") == null) {
-			return msgAndBack(req, "제목을 입력해주세요.");
+			return msgAndBack(req, "상품설명을 입력해주세요.");
 		}
 
 		if (param.get("color") == null) {
-			return msgAndBack(req, "제목을 입력해주세요.");
+			return msgAndBack(req, "색상을 입력해주세요.");
 		}
 
 		if (param.get("price") == null) {
-			return msgAndBack(req, "제목을 입력해주세요.");
+			return msgAndBack(req, "가격을 입력해주세요.");
 		}
 
 		if (param.get("fee") == null) {
-			return msgAndBack(req, "제목을 입력해주세요.");
+			return msgAndBack(req, "배송비을 입력해주세요.");
 		}
 
 		param.put("memberId", loginMemberId);
