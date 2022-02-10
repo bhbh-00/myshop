@@ -23,7 +23,7 @@ th,td {
 		class="container max-w-3xl min-w-max mx-auto p-5 mb-5 relative item-bt-1-not-last-child overflow-auto">
 
 		<div class="pb-7">
-			<span class="ml-4 text-2xl font-bold">카테고리 목록</span>
+			<span class="ml-4 text-2xl font-bold">게시판 목록</span>
 		</div>
 
 		<table
@@ -37,21 +37,21 @@ th,td {
 				</tr>
 			</thead>
 
-			<c:forEach items="${categorys}" var="category">
+			<c:forEach items="${boards}" var="board">
 
 				<!-- 반복문 안에 임시변수를 넣어둘 수 있음! c:set -->
-				<c:set var="detailUrl" value="detail?id=${category.id}" />
+				<c:set var="detailUrl" value="detail?id=${board.id}" />
 
 				<tbody>
 					<tr>
 						<td><a href="${detailUrl}" class="hover:underline">
-								<span>${category.id}</span>
+								<span>${board.id}</span>
 							</a></td>
 						<td><a href="${detailUrl}" class="hover:underline">
-								<span>${category.code}</span>
+								<span>${board.code}</span>
 							</a></td>
 						<td><a href="${detailUrl}" class="hover:underline">
-								<span>${category.name}</span>
+								<span>${board.name}</span>
 							</a></td>
 						<td><a href="modify?id=${ category.id }"
 								class="hover:underline">
