@@ -7,6 +7,6 @@
 
 <%@ include file="../part/mainLayoutHead.jspf"%>
 
-sss
+
 
 <%@ include file="../part/mainLayoutFoot.jspf"%>

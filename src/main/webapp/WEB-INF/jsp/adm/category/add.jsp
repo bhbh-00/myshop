@@ -11,7 +11,7 @@
 
 <style>
 body {
-	margin-top: 100px;
+	margin-top: 150px;
 }
 </style>
 
@@ -85,7 +85,7 @@ body {
 	}
 	$(function() {
 		$('.inputCode').change(function() {
-			AddForm__checkNameDup();
+			AddForm__checkCodeDup();
 		});
 		$('.inputCode').keyup(_.debounce(AddForm__checkCodeDup, 1000));
 	});
@@ -96,8 +96,8 @@ body {
 	<div
 		class="container max-w-3xl min-w-max mx-auto p-5 mb-5 relative item-bt-1-not-last-child ">
 
-		<div class="text-center">
-			<span class="text-lg font-bold">카테고리 등록</span>
+		<div class="ml-4 pb-7">
+			<span class="text-2xl font-bold">카테고리 등록</span>
 		</div>
 		
 		<div class="px-4 py-4">
