@@ -21,7 +21,8 @@ body {
 			<span class="text-4xl">
 				<i class="fas fa-store-alt"></i>
 			</span>
-			<span class="hidden sm:block text-3xl font-black">&nbsp;MyShop Admin</span>
+			<span class="hidden sm:block text-3xl font-black">&nbsp;MyShop
+				Admin</span>
 		</a>
 
 		<div class="flex-grow"></div>
@@ -131,14 +132,12 @@ body {
 						<div>
 							<ul>
 								<li>
-									<a href="../product/page"
-										class="inline-block text-lg">
+									<a href="../product/page" class="inline-block text-lg">
 										<span>&nbsp;상품관리</span>
 									</a>
 								</li>
 								<li>
-									<a href="../category/page"
-										class="inline-block text-lg">
+									<a href="../category/list" class="inline-block text-lg">
 										<span>&nbsp;카테고리관리</span>
 									</a>
 								</li>
@@ -149,14 +148,12 @@ body {
 									</a>
 								</li>
 								<li>
-									<a href="../board/list"
-										class="inline-block text-lg">
+									<a href="../board/list" class="inline-block text-lg">
 										<span>&nbsp;게시판관리</span>
 									</a>
 								</li>
 								<li>
-									<a href="../member/list"
-										class="inline-block text-lg">
+									<a href="../member/list" class="inline-block text-lg">
 										<span>&nbsp;회원관리</span>
 									</a>
 								</li>
@@ -165,6 +162,15 @@ body {
 					</li>
 				</c:if>
 
+				<!-- 게시판 -->
+				<li>
+					<a href="/usr/home/main" class="h-full flex items-center px-5">
+						<span class="text-xl">
+							<i class="fas fa-home"></i>
+						</span>
+						<span class="hidden md:block text-lg">&nbsp;홈</span>
+					</a>
+				</li>
 
 				<!-- 로그인 · 회원가입 / 로그아웃 -->
 				<c:choose>

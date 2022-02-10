@@ -22,12 +22,6 @@ public class AdmCategoryController extends BaseController {
 	@Autowired
 	private CategoryService categoryService;
 
-	@RequestMapping("/adm/category/page")
-	public String Page(HttpServletRequest req) {
-
-		return "/adm/category/page";
-	}
-
 	// 카테고리 삭제
 	@RequestMapping("/adm/category/doDelete")
 	@ResponseBody
@@ -76,27 +70,27 @@ public class AdmCategoryController extends BaseController {
 		return new ResultData("S-1", String.format("%s(은)는 사용가능한 이름 입니다.", name), "name", name);
 	}
 
-	// 카테고리 코드 생성의 조건
+	// 카테고리 코드 중복 확인
 	@RequestMapping("/adm/category/getCodeDup")
 	@ResponseBody
 	public ResultData getCodeDup(String code) {
 
 		if (code == null) {
-			return new ResultData("F-1", "code를 입력해주세요.");
+			return new ResultData("F-1", "코드를 입력해주세요.");
 		}
 
 		// 기존의 코드 확인
 		Category existingcategory = categoryService.getcategoryByCode(code);
 
 		if (existingcategory != null) {
-			return new ResultData("F-2", String.format("%s(은)는 이미 사용중인 code 입니다.", code));
+			return new ResultData("F-2", String.format("%s(은)는 이미 사용중인 코드 입니다.", code));
 		}
 
 		if (Util.isStandardCategoryCodeString(code) == false) {
 			return new ResultData("F-1", "숫자로 구성되어야 합니다.");
 		}
 
-		return new ResultData("S-1", String.format("%s(은)는 사용가능한 code 입니다.", code), "code", code);
+		return new ResultData("S-1", String.format("%s(은)는 사용가능한 코드 입니다.", code), "code", code);
 	}
 
 	// 카테고리 수정
@@ -104,7 +98,7 @@ public class AdmCategoryController extends BaseController {
 	public String ShowModify(Integer id, HttpServletRequest req) {
 
 		if (id == null) {
-			return msgAndBack(req, "게시물 번호를 입력해주세요.");
+			return msgAndBack(req, "카테고리 번호를 입력해주세요.");
 		}
 
 		Category category = categoryService.getForPrintcategory(id);
@@ -213,16 +207,16 @@ public class AdmCategoryController extends BaseController {
 			searchKeywordType = null;
 		}
 
-		// 한 페이지에 포함 되는 게시물의 갯수
+		// 한 페이지에 포함 되는 카테고리의 갯수
 		int itemsInAPage = 10;
 
-		// 총 게시물의 갯수를 구하는
+		// 총 카테고리의 갯수를 구하는
 		int totleItemsCount = categoryService.getcategorysTotleCount(searchKeywordType, searchKeyword);
 
 		List<Category> categorys = categoryService.getForPrintcategorys(searchKeywordType, searchKeyword, page,
 				itemsInAPage);
 
-		// 총 페이지 갯수 (총 게시물 수 / 한 페이지 안의 게시물 갯수)
+		// 총 페이지 갯수 (총 카테고리 수 / 한 페이지 안의 카테고리 갯수)
 		int totlePage = (int) Math.ceil(totleItemsCount / (double) itemsInAPage);
 
 		// 페이징의 반지름
