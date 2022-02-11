@@ -7,19 +7,22 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Product extends EntityDto {
+public class Order extends EntityDto {
 
 	// 중요한 순으로 나열하는 게 좋음
 	private int id;
 	private String regDate; // 등록 시점
 	private String updateDate; // 수정 시점
-	private int categoryId; 
+	private int productId;
+	private int categoryId;
 	private int memberId;
-	private String name;
-	private String body;
-	private String color;
-	private int price;
-	private int fee;
+	private int orderCode;
+	private String orderName;
+	private String orderCellphoneNo;
+	private String orderEmail;
+	private String orderAddress;
+	private String orderPayment;
+	private int orderPrice;
 	private boolean blindStatus;
 	private String blindDate;
 	private boolean delStatus;

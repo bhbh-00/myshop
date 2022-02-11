@@ -174,9 +174,6 @@ body {
 		class="container max-w-3xl min-w-max mx-auto p-5 mb-5 relative item-bt-1-not-last-child ">
 
 		<div class="">
-			<a href="javascript:history.back();" class="cursor-pointer">
-				<i class="fas fa-chevron-left"></i>
-			</a>
 			<span class="ml-2 font-bold">상품 등록</span>
 		</div>
 

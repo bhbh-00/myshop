@@ -33,6 +33,14 @@
 <!-- vue 3.0 불러오기 -->
 <script src="https://unpkg.com/vue@next"></script>
 
+<!-- 슬라이더 불러오기 -->
+<link rel="stylesheet"
+	href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+<!-- Swiper JS -->
+		<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+
 <%="<script>"%>
 const param = ${paramJson};
 <%="</script>"%>
