@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bh.myshop.dao.OrderDao">
+
+	<!-- 주문 -->
+	<insert id="add" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO
+		`order`
+		SET regDate = NOW(),
+		updateDate = NOW(),
+		productId = #{productId},
+		categoryId = #{categoryId},
+		memberId = #{memberId},
+		orderCode = CONCAT("authKey1__", UUID(), "__",  RAND()),
+		`name` = #{name},
+		name = #{name},
+		cellphoneNo = #{cellphoneNo},
+		address = #{address},
+		email = #{email},
+		payment = #{payment},
+		price = #{price}
+	</insert>
+
+</mapper>

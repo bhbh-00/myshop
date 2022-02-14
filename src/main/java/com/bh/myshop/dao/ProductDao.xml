@@ -55,7 +55,7 @@
 		LIMIT 2;
 	</select>
 
-	<select id="getForPrintproductByMemberId" resultType="Product">
+	<select id="getForPrintProductByMemberId" resultType="Product">
 		SELECT P.*,
 		IFNULL(M.nickname, "탈퇴회원") AS extra__writer,
 		C.name AS
