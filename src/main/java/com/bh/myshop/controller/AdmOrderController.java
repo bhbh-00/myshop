@@ -25,13 +25,13 @@ public class AdmOrderController extends BaseController {
 
 	}
 
-	// 상품 등록
+	// 주문하기
 	@RequestMapping("/adm/order/doAdd")
 	public String doAdd(@RequestParam Map<String, Object> param, HttpServletRequest req,
 			MultipartRequest multipartRequest) {
 
 		int loginMemberId = (int) req.getAttribute("loginedMemberId");
-
+		
 		if (param.get("name") == null) {
 			return msgAndBack(req, "이름을 입력해주세요.");
 		}

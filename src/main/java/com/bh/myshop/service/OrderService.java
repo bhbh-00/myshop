@@ -11,7 +11,7 @@ import com.bh.myshop.util.Util;
 
 @Service
 public class OrderService {
-	
+
 	@Autowired
 	private OrderDao orderDao;
 
@@ -20,7 +20,7 @@ public class OrderService {
 
 		int id = Util.getAsInt(param.get("id"), 0);
 
-		return new ResultData("s-1", "게시물이 추가되었습니다.", "id", id);
+		return new ResultData("s-1", "주문이 완료되었습니다.", "id", id);
 	}
 
 }

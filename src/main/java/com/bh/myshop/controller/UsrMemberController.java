@@ -238,7 +238,7 @@ public class UsrMemberController extends BaseController {
 
 		session.removeAttribute("loginedMemberId");
 
-		return Util.msgAndReplace("로그아웃 되었습니다.", "../member/login");
+		return Util.msgAndReplace("로그아웃 되었습니다.", "../home/main");
 	}
 
 	// 로그인

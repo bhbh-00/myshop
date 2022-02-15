@@ -252,7 +252,8 @@
 		product
 		SET regDate = NOW(),
 		updateDate = NOW(),
-		categoryId = #{categoryId},
+		categoryId =
+		#{categoryId},
 		memberId = #{memberId},
 		name = #{name},
 		`body` = #{body},
@@ -274,7 +275,8 @@
 	<update id="modify">
 		UPDATE product
 		<set>
-			<if test="name != null or body != null or color != null or price != null or fee != null">
+			<if
+				test="name != null or body != null or color != null or price != null or fee != null">
 				updateDate = NOW(),
 			</if>
 			<if test="name != null">
@@ -296,12 +298,12 @@
 		WHERE id = #{id}
 		AND delStatus = 0
 	</update>
-	
+
 	<!-- 기존의 상품명 확인 -->
 	<select id="getProductByName" resultType="Product">
 		SELECT *
 		FROM product
 		WHERE name = #{name}
 	</select>
-
+	
 </mapper>

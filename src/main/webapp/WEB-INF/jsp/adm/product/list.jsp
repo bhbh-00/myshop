@@ -102,27 +102,32 @@ body {
 								alt=""
 								onerror="${product.writerProfileFallbackImgOnErrorHtmlAttr}">
 						</a>
-						<!-- 제목 -->
+						
+						<!-- 상품명 -->
 						<a href="${detailUrl}" class="hover:underline cursor-pointer">
 							<span class="badge badge-outline mb-1">상품명</span>
 							<span class="line-clamp-3 ml-1"> ${product.name} </span>
 						</a>
-						<!-- 본문 -->
+						
+						<!-- 상품 설명 -->
 						<a href="${detailUrl}"
 							class="mt-3 hover:underline cursor-pointer col-span-1 sm:col-span-2 xl:col-span-3">
-							<span class="badge badge-outline mb-1">본문</span>
+							<span class="badge badge-outline mb-1">상품 설명</span>
 							<span class="line-clamp-3 ml-1"> ${product.body} </span>
 						</a>
+						
 						<!-- 작성자 -->
 						<a href="${detailUrl}" class="cursor-pointer hover:underline">
 							<span class="badge badge-accent">작성자</span>
 							<span>${product.extra__writer}</span>
 						</a>
+						
 						<!-- 등록날짜 -->
 						<a href="${detailUrl}" class="hover:underline">
 							<span class="badge">등록날짜</span>
 							<span class="text-gray-600 text-light">${product.regDate}</span>
 						</a>
+						
 						<!-- 수정날짜 -->
 						<c:if test="${product.updateDate != product.regDate}">
 							<a href="${detailUrl}" class="hover:underline">

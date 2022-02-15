@@ -15,10 +15,8 @@ import org.springframework.web.multipart.MultipartRequest;
 
 import com.bh.myshop.dto.Category;
 import com.bh.myshop.dto.GenFile;
-import com.bh.myshop.dto.Like;
 import com.bh.myshop.dto.Member;
 import com.bh.myshop.dto.Product;
-import com.bh.myshop.dto.Reply;
 import com.bh.myshop.dto.ResultData;
 import com.bh.myshop.service.GenFileService;
 import com.bh.myshop.service.LikeService;

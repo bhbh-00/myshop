@@ -55,5 +55,8 @@ public interface ProductDao {
 	
 	// 기존의 상픔명 확인
 	Product getProductByName(@Param("name") String name);
+	
+	// 주문할 제품 가져오기
+	Product getOrderProduct(Map<String, Object> param);
 
 }

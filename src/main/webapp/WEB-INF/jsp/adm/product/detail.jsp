@@ -64,7 +64,7 @@ body {
 			class="product-detail-img-box mx-auto w-9 min-w-max h-500 min-h-full">
 		</div>
 		
-		<div><a href="../order/add?propductId=${product.id}">주문하기</a></div>
+		<div><a href="../order/add?productId=${product.id}&categoryId=${product.categoryId}">주문하기</a></div>
 
 	</div>
 
