@@ -3,10 +3,6 @@ DROP DATABASE IF EXISTS myshop;
 CREATE DATABASE myshop;
 USE myshop;
 
-SELECT * FROM product;
-SELECT * FROM category;
-SELECT * FROM genfile;
-SELECT * FROM attr;
 # ============================================== product
 
 # 제품 테이블 생성
@@ -38,9 +34,9 @@ categoryId = 1,
 memberId = 1,
 `name` = "104",
 color = "악세사리",
-price = "악세사리",
+price = 10000,
 `body` = "악세사리",
- fee = "악세사리";
+ fee = 2500;
 
 # ============================================== article
 
@@ -169,6 +165,11 @@ DEFAULT 3 NOT NULL COMMENT '(3=일반,7=관리자)' AFTER `loginPw`;
 UPDATE `member`
 SET authLevel = 7
 WHERE id = 1;
+
+# 1번 회원을 관리자로 지정한다.
+UPDATE `member`
+SET authLevel = 7
+WHERE id = 2;
 
 # ============================================== board
 
@@ -346,20 +347,19 @@ UPDATE category
 SET memberId = 1
 WHERE memberId = 0;
 
-# ============================================== category
+# ============================================== order
 
 # 주문 별 리스팅(order) 테이블 생성
 CREATE TABLE `order` (
     id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     regDate DATETIME NOT NULL,
     updateDate DATETIME NOT NULL,
-    orderCode INT(10) UNIQUE NOT NULL,
-    orderName CHAR(20) UNIQUE NOT NULL,
-    orderCellphoneNo CHAR(20) NOT NULL,
-    orderAddress TEXT NOT NULL,
-    orderEmail CHAR(100) NOT NULL,
-    orderPayment CHAR(20) NOT NULL,
-    orderPrice INT(10) NOT NULL,
+    orderCode CHAR(80) UNIQUE NOT NULL,
+    `name` CHAR(80) UNIQUE NOT NULL,
+    cellphoneNo CHAR(20) NOT NULL,
+    address TEXT NOT NULL,
+    email CHAR(100) NOT NULL,
+    price INT(10) NOT NULL,
     blindStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '블라인드여부',
     blindDate DATETIME COMMENT '블라인드날짜',
     delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '삭제여부',
@@ -370,7 +370,18 @@ CREATE TABLE `order` (
 ALTER TABLE `order` ADD COLUMN productId INT(10) UNSIGNED NOT NULL AFTER updateDate;
 
 # 주문 테이블에 categoryId 칼럼 추가
-ALTER TABLE `order` ADD COLUMN categoryId INT(10) UNSIGNED NOT NULL AFTER updateDate;
+ALTER TABLE `order` ADD COLUMN categoryId INT(10) UNSIGNED NOT NULL AFTER productId;
+
+# 주문 테이블에 categoryId 칼럼 추가
+ALTER TABLE `order` ADD COLUMN memberId INT(10) UNSIGNED NOT NULL AFTER categoryId;
+
+# 주문 테이블에 categoryId 칼럼 추가
+ALTER TABLE `order` ADD COLUMN payment INT(10) UNSIGNED NOT NULL AFTER price;
+
+# 주문 테이블에 권한레벨 필드 추가
+ALTER TABLE `order`
+ADD COLUMN price  INT(10) UNSIGNED
+DEFAULT 3 NOT NULL COMMENT '(1=무통장입금,2=신용카드)' AFTER price; 
 
 # ============================================== attr
 

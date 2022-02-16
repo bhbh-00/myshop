@@ -13,7 +13,7 @@ body {
 }
 
 th,td {
-	padding: 10PX;
+	padding: 10px;
 }
 </style>
 

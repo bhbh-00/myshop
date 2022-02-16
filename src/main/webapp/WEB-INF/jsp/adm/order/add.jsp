@@ -77,7 +77,9 @@ body {
 		<div class="ml-4 pb-7">
 			<span class="text-2xl font-bold">주문</span>
 		</div>
-
+		
+		${orderProduct.name}
+		
 		<div class="px-4 py-4">
 
 			<form onsubmit="OrderAdd__checkAndSubmit(this); return false;"
@@ -85,52 +87,54 @@ body {
 
 				<input type="hidden" name="productId" value="${param.productId}" />
 				<input type="hidden" name="categoryId" value="${param.categoryId}" />
-				<input type="hidden" name="memberId" value="${param.memberId}" />
 
 				<!-- name -->
 				<div class="form-control">
 					<label class="label">
-						<span class="font-bold label-text">name</span>
+						<span class="font-bold label-text">이름</span>
 					</label>
-					<input type="text" name="name" placeholder="name 입력해주세요."
+					<input type="text" name="name" placeholder="이름을 입력해주세요."
 						autofocus="autofocus" class="input input-bordered">
 				</div>
 
 				<!-- cellphoneNo -->
 				<div class="form-control">
 					<label class="label">
-						<span class="font-bold label-text">cellphoneNo</span>
+						<span class="font-bold label-text">연락처</span>
 					</label>
-					<input type="text" name="cellphoneNo"
-						placeholder="cellphoneNo 입력해주세요." autofocus="autofocus"
-						class="input input-bordered">
+					<input type="text" name="cellphoneNo" placeholder="연락처를 입력해주세요."
+						autofocus="autofocus" class="input input-bordered">
 				</div>
 
 				<!-- address -->
 				<div class="form-control">
 					<label class="label">
-						<span class="font-bold label-text">address</span>
+						<span class="font-bold label-text">주소</span>
 					</label>
-					<input type="text" name="address" placeholder="address 입력해주세요."
-						autofocus="autofocus" class="inputCode input input-bordered">
+					<input type="text" name="address" placeholder="주소를 입력해주세요."
+						autofocus="autofocus" class="input input input-bordered">
 				</div>
 
 				<!-- email -->
 				<div class="form-control">
 					<label class="label">
-						<span class="font-bold label-text">email</span>
+						<span class="font-bold label-text">이메일</span>
 					</label>
-					<input type="email" name="email" placeholder="email 입력해주세요."
+					<input type="email" name="email" placeholder="이메일을 입력해주세요."
 						autofocus="autofocus" class="input input-bordered">
 				</div>
 
 				<!-- payment -->
 				<div class="form-control">
 					<label class="label">
-						<span class="font-bold label-text">payment</span>
+						<span class="font-bold label-text">결제 방식</span>
 					</label>
-					<input type="text" name="payment" placeholder="address 입력해주세요."
-						autofocus="autofocus" class="inputCode input input-bordered">
+					<select name="payment" class="select select-bordered">
+						<option disabled="disabled" selected="selected">결제방식을
+							선택해주세요.</option>
+						<option value="1">무통장입금</option>
+						<option value="2">신용카드</option>
+					</select>
 				</div>
 
 				<!-- price -->
@@ -138,7 +142,7 @@ body {
 					<label class="label">
 						<span class="font-bold label-text">price</span>
 					</label>
-					<input type="text" name="price" placeholder="email 입력해주세요."
+					<input type="text" name="price" placeholder="price 입력해주세요."
 						autofocus="autofocus" class="input input-bordered">
 				</div>
 

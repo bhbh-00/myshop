@@ -11,16 +11,30 @@
 		`order`
 		SET regDate = NOW(),
 		updateDate = NOW(),
-		productId = #{productId},
+		productId =
+		#{productId},
 		categoryId = #{categoryId},
 		memberId = #{memberId},
-		orderCode = 1234,
+		orderCode = CONCAT("orderCode__", UUID(), "__",  RAND()),
 		`name` = #{name},
 		cellphoneNo = #{cellphoneNo},
 		address = #{address},
 		email = #{email},
 		payment = #{payment},
-		price = #{price}
+		price =
+		#{price}
 	</insert>
+
+	<select id="getForPrintOrderProduct" resultType="Product">
+		SELECT P.*
+		FROM
+		product AS P
+		LEFT JOIN
+		`order` AS O
+		ON P.id = O.productId
+		WHERE P.id = #{productId}
+		AND P.delStatus = 0
+		LIMIT 1;
+	</select>
 
 </mapper>

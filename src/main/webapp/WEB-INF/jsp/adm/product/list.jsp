@@ -100,7 +100,7 @@ body {
 						<a href="${detailUrl}" class="row-span-7">
 							<img class="w-full h-40 object-cover rounded" src="${thumbUrl}"
 								alt=""
-								onerror="${product.writerProfileFallbackImgOnErrorHtmlAttr}">
+								onerror="${product.productProfileFallbackImgOnErrorHtmlAttr}">
 						</a>
 						
 						<!-- 상품명 -->
