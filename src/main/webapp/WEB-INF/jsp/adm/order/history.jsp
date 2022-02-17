@@ -20,8 +20,8 @@ th, td {
 	<div
 		class="container max-w-3xl min-w-max mx-auto p-5 mb-5 relative item-bt-1-not-last-child">
 
-		<div class="ml-4 pb-7">
-			<span class="text-2xl font-bold">주문내역</span>
+		<div class="pb-7">
+			<span class="ml-4 text-2xl font-bold">주문내역</span>
 		</div>
 
 		<div class="px-4 py-4">

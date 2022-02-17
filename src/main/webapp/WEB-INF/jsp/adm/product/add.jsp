@@ -173,8 +173,8 @@ body {
 	<div
 		class="container max-w-3xl min-w-max mx-auto p-5 mb-5 relative item-bt-1-not-last-child ">
 
-		<div class="">
-			<span class="ml-2 font-bold">상품 등록</span>
+		<div class="pb-7">
+			<span class="ml-2 ml-4 font-bold">상품 등록</span>
 		</div>
 
 		<div class="px-4 py-4">

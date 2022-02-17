@@ -22,8 +22,18 @@ th, td {
 	<div
 		class="container max-w-3xl min-w-max mx-auto p-5 mb-5 relative item-bt-1-not-last-child">
 
-		<div class="pb-7">
-			<span class="ml-4 text-2xl font-bold">카테고리 목록</span>
+		<div class="flex pb-7">
+			<div class="items-center ml-2">
+				<span class="ml-4 text-2xl font-bold">카테고리 목록</span>
+			</div>
+
+			<div class="flex-grow"></div>
+
+			<div class="flex items-center mr-4 text-gray-500">
+				<a href="add">
+					<span>카테고리 등록</span>
+				</a>
+			</div>
 		</div>
 
 		<div class="p-4">
