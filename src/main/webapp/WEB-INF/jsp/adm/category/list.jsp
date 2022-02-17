@@ -56,6 +56,7 @@ th, td {
 
 		<table
 			class="container max-w-3xl min-w-max mx-auto item-bt-1-not-last-child text-center h-6 font-medium">
+
 			<thead>
 				<tr>
 					<th>번호</th>
@@ -66,20 +67,19 @@ th, td {
 			</thead>
 
 			<c:forEach items="${categorys}" var="category">
-
 				<!-- 반복문 안에 임시변수를 넣어둘 수 있음! c:set -->
 				<c:set var="detailUrl" value="detail?id=${category.id}" />
-
 				<tbody>
 					<tr>
 						<td><span>${category.id}</span></td>
 						<td><span>${category.code}</span></td>
 						<td><span>${category.categoryName}</span></td>
 						<td><a href="modify?id=${ category.id }"
-								class="hover:underline"><span class="text-blue-500 font-semibold">수정</span>
+								class="hover:underline">
+								<span class="text-blue-500 font-semibold">수정</span>
 							</a></td>
-						<td><a onclick="if ( !confirm('삭제하시겠습니까?') ) return false;" href="doDelete?id=${ category.id }"
-								class="text-red-600">
+						<td><a onclick="if ( !confirm('삭제하시겠습니까?') ) return false;"
+								href="doDelete?id=${ category.id }" class="text-red-600">
 								<i class="fas fa-times"></i>
 							</a></td>
 					</tr>

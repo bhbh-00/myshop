@@ -36,8 +36,11 @@ public class AdmOrderController extends BaseController {
 		}
 
 		Order orderHistory = orderService.getForPrintOrderHistory(id);
+		
+		Product orderProduct = orderService.getForPrintOrderProduct(id);
 
 		req.setAttribute("order", orderHistory);
+		req.setAttribute("product", orderProduct);
 
 		return "/adm/order/history";
 	}
@@ -78,7 +81,7 @@ public class AdmOrderController extends BaseController {
 
 		int loginMemberId = (int) req.getAttribute("loginedMemberId");
 
-		if (param.get("name") == null) {
+		if (param.get("orderName") == null) {
 			return msgAndBack(req, "이름을 입력해주세요.");
 		}
 

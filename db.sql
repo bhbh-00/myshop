@@ -3,6 +3,12 @@ DROP DATABASE IF EXISTS myshop;
 CREATE DATABASE myshop;
 USE myshop;
 
+SELECT * FROM product;
+SELECT * FROM `order`;
+SELECT * FROM category;
+SELECT * FROM genfile;
+SELECT * FROM `member`;
+
 # ============================================== product
 
 # 제품 테이블 생성
@@ -359,7 +365,7 @@ CREATE TABLE `order` (
     cellphoneNo CHAR(20) NOT NULL,
     address TEXT NOT NULL,
     email CHAR(100) NOT NULL,
-    price INT(10) NOT NULL,
+    totalPayment INT(10) NOT NULL,
     blindStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '블라인드여부',
     blindDate DATETIME COMMENT '블라인드날짜',
     delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '삭제여부',
@@ -386,16 +392,16 @@ DEFAULT 3 NOT NULL COMMENT '(1=무통장입금,2=신용카드)' AFTER price;
 INSERT INTO `order`
 SET regDate = NOW(),
 updateDate = NOW(),
-productId=1,
-categoryId=1,
-memberId=1,
+productId = 1,
+categoryId = 1,
+memberId = 1,
 orderCode = 2022021508275,
-orderName ="김철수",
-cellphoneNo="01012341234",
-address="서울특별시 ㅇㅇ동 ㄷㄷ아파트",
-email="sss@s22.com",
-price=12000,
-payment=1;
+orderName = "김철수",
+cellphoneNo= "01012341234",
+address = "서울특별시 ㅇㅇ동 ㄷㄷ아파트",
+email = "sss@s22.com",
+totalPayment = 12000,
+payment = 1;
 
 # ============================================== attr
 

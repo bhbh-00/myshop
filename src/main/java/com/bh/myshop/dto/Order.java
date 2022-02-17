@@ -17,12 +17,12 @@ public class Order extends EntityDto {
 	private int categoryId;
 	private int memberId;
 	private String orderCode;
-	private String name;
+	private String orderName;
 	private String cellphoneNo;
 	private String address;
 	private String email;
 	private int payment;
-	private int price;
+	private int totalPayment;
 	private boolean blindStatus;
 	private String blindDate;
 	private boolean delStatus;

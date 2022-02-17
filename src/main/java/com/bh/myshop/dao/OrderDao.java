@@ -3,6 +3,7 @@ package com.bh.myshop.dao;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.bh.myshop.dto.Order;
 import com.bh.myshop.dto.Product;
@@ -15,6 +16,6 @@ public interface OrderDao {
 
 	Product getForPrintOrderProduct(Integer productId);
 
-	Order getForPrintOrderHistory(Integer id);
+	Order getForPrintOrderHistory(@Param("id") Integer id);
 
 }

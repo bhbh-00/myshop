@@ -22,44 +22,44 @@ body {
 		}
 
 		// 기본적인 처리
-		form.name.value = form.name.value.trim();
-		if (form.name.value.length == 0) {
-			alert('name 입력해주세요.');
-			form.name.focus();
+		form.orderName.value = form.orderName.value.trim();
+		if (form.orderName.value.length == 0) {
+			alert('이름을(받는 사람) 입력해주세요.');
+			form.orderName.focus();
 			return false;
 		}
 
 		form.cellphoneNo.value = form.cellphoneNo.value.trim();
 		if (form.cellphoneNo.value.length == 0) {
-			alert('cellphoneNo 입력해주세요.');
+			alert('연락처를 입력해주세요.');
 			form.cellphoneNo.focus();
 			return;
 		}
 
 		form.address.value = form.address.value.trim();
 		if (form.address.value.length == 0) {
-			alert('address 입력해주세요.');
+			alert('주소를 입력해주세요.');
 			form.address.focus();
 			return false;
 		}
 
 		form.email.value = form.email.value.trim();
 		if (form.email.value.length == 0) {
-			alert('email 입력해주세요.');
+			alert('이메일을 입력해주세요.');
 			form.email.focus();
 			return;
 		}
 
 		form.payment.value = form.payment.value.trim();
 		if (form.payment.value.length == 0) {
-			alert('payment 입력해주세요.');
+			alert('결제방식 입력해주세요.');
 			form.payment.focus();
 			return false;
 		}
 
 		form.price.value = form.price.value.trim();
 		if (form.price.value.length == 0) {
-			alert('price 입력해주세요.');
+			alert('결제금액 입력해주세요.');
 			form.price.focus();
 			return;
 		}
@@ -78,8 +78,6 @@ body {
 			<span class="text-2xl font-bold">주문</span>
 		</div>
 		
-		${orderProduct.name}
-		
 		<div class="px-4 py-4">
 
 			<form onsubmit="OrderAdd__checkAndSubmit(this); return false;"
@@ -93,7 +91,7 @@ body {
 					<label class="label">
 						<span class="font-bold label-text">이름</span>
 					</label>
-					<input type="text" name="name" placeholder="이름을 입력해주세요."
+					<input type="text" name="orderName" placeholder="이름을 입력해주세요."
 						autofocus="autofocus" class="input input-bordered">
 				</div>
 

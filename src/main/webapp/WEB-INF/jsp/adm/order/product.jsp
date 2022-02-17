@@ -40,59 +40,44 @@ th, td {
 				</a>
 			</div>
 
-			<table
-				class="container max-w-3xl min-w-max mx-auto item-bt-1-not-last-child text-center mt-6 h-6">
+			<div class="px-10">
 
-				<tr class="border-b border-gray-400">
-					<th>제품명</th>
-					<td><a
-							href="../order/add?productId=${product.id}&categoryId=${product.categoryId}"
-							class="hover:underline">
-							<span>${product.name}</span>
-						</a></td>
-				</tr>
+				<table
+					class="container max-w-3xl min-w-max mx-auto item-bt-1-not-last-child text-center mt-6 h-6">
 
-				<tr class="border-b border-gray-400">
-					<th>색상</th>
-					<td><a
-							href="../order/add?productId=${product.id}&categoryId=${product.categoryId}"
-							class="hover:underline">
-							<span>${product.color}</span>
-						</a></td>
-				</tr>
+					<tr class="border-b border-gray-400">
+						<th>제품명</th>
+						<td>${product.productName}</td>
+					</tr>
 
-				<tr class="border-b border-gray-400">
-					<th>가격</th>
-					<td><a
-							href="../order/add?productId=${product.id}&categoryId=${product.categoryId}"
-							class="hover:underline">
-							<span>${product.price}</span>
-						</a></td>
+					<tr class="border-b border-gray-400">
+						<th>색상</th>
+						<td>${product.color}</td>
+					</tr>
 
-				</tr>
+					<tr class="border-b border-gray-400">
+						<th>가격</th>
+						<td>${product.price}</td>
+					</tr>
 
-				<tr class="border-b border-gray-400">
+					<tr class="border-b border-gray-400">
+						<th>배송비</th>
+						<td>${product.fee}</td>
+					</tr>
 
-					<th>배송비</th>
-					<td><a
-							href="../order/add?productId=${product.id}&categoryId=${product.categoryId}"
-							class="hover:underline">
-							<span>${product.fee}</span>
-						</a></td>
-				</tr>
+					<tr>
+						<th>결제 금액</th>
+						<td>${product.fee + product.price}</td>
+					</tr>
+				</table>
 
-				<tr class="border-b border-gray-400">
-					<th>결제 금액</th>
-					<td>${product.fee + product.price}</td>
-				</tr>
-			</table>
+				<div class="text-center text-lg font-bold mt-4 hover:bg-black hover:text-gray-50">
+					<a href="add?productId=${product.id}&categoryId=${product.categoryId}">
+						<span>결제하기</span>
+					</a>
+				</div>
 
 
-			<div class="text-center text-lg font-bold mt-2 hover:underline">
-				<a
-					href="../order/add?productId=${product.id}&categoryId=${product.categoryId}">
-					<span>결제하기</span>
-				</a>
 			</div>
 		</div>
 	</div>

@@ -16,15 +16,14 @@
 		categoryId = #{categoryId},
 		memberId = #{memberId},
 		orderCode = CONCAT("orderCode__", UUID(), "__", RAND()),
-		`name` =
-		#{name},
+		orderName = #{orderName},
 		cellphoneNo = #{cellphoneNo},
 		address = #{address},
 		email =
 		#{email},
 		payment = #{payment},
-		price =
-		#{price}
+		totalPayment =
+		#{totalPayment}
 	</insert>
 
 	<!-- 주문할 제품 불러오기 -->
@@ -43,15 +42,11 @@
 
 	<!-- 주문내역 불러오기 -->
 	<select id="getForPrintOrderHistory" resultType="Order">
-		SELECT P.*, O.*
+		SELECT *
 		FROM
-		`order` AS O
-		LEFT JOIN
-		product AS P
-		ON O.productId = P.id
-		WHERE O.id =
-		#{id}
-		AND O.delStatus = 0;
+		`order`
+		WHERE id = #{id}
+		AND delStatus = 0;
 	</select>
 
 </mapper>

@@ -5,8 +5,6 @@
 
 <%@ include file="../part/mainLayoutHead.jspf"%>
 
-<c:set var="fileInputMaxCount" value="5" />
-
 <style>
 body {
 	margin-top: 150px;
@@ -17,71 +15,92 @@ th, td {
 }
 </style>
 
-<section class="section-order-product">
+<section class="section-order-history">
 
 	<div
 		class="container max-w-3xl min-w-max mx-auto p-5 mb-5 relative item-bt-1-not-last-child">
 
 		<div class="ml-4 pb-7">
-			<span class="text-2xl font-bold">제품확인</span>
+			<span class="text-2xl font-bold">주문내역</span>
 		</div>
 
 		<div class="px-4 py-4">
+
+			<div class="text-center">
+				<span class="text-lg font-bold">제품정보</span>
+			</div>
 
 			<table
 				class="container max-w-3xl min-w-max mx-auto item-bt-1-not-last-child text-center mt-6 h-6">
 
 				<tr class="border-b border-gray-400">
 					<th>제품명</th>
-					<td><a
-							href="../order/add?productId=${product.id}&categoryId=${product.categoryId}"
-							class="hover:underline">
-							<span>${product.name}</span>
-						</a></td>
-				</tr>
-
-				<tr class="border-b border-gray-400">
 					<th>색상</th>
-					<td><a
-							href="../order/add?productId=${product.id}&categoryId=${product.categoryId}"
-							class="hover:underline">
-							<span>${product.color}</span>
-						</a></td>
-				</tr>
-
-				<tr class="border-b border-gray-400">
 					<th>가격</th>
-					<td><a
-							href="../order/add?productId=${product.id}&categoryId=${product.categoryId}"
-							class="hover:underline">
-							<span>${product.price}</span>
-						</a></td>
-
-				</tr>
-
-				<tr class="border-b border-gray-400">
-
 					<th>배송비</th>
-					<td><a
-							href="../order/add?productId=${product.id}&categoryId=${product.categoryId}"
-							class="hover:underline">
-							<span>${product.fee}</span>
-						</a></td>
+					<th>결제 금액</th>
 				</tr>
 
 				<tr class="border-b border-gray-400">
-					<th>결제 금액</th>
+					<td>${product.productName}</td>
+					<td>${product.color}</td>
+					<td>${product.price}</td>
+					<td>${product.fee}</td>
 					<td>${product.fee + product.price}</td>
 				</tr>
+
 			</table>
-
-
-			<div class="text-center text-lg font-bold mt-2 hover:underline">
-				<a
-					href="../order/add?productId=${product.id}&categoryId=${product.categoryId}">
-					<span>결제하기</span>
-				</a>
+			
+			<div class="mt-10 text-center">
+				<span class="text-lg font-bold">결제정보</span>
 			</div>
+			
+			<div  class="px-10">
+				<table
+					class="container max-w-3xl min-w-max mx-auto item-bt-1-not-last-child text-center mt-6 h-6">
+
+					<tr class="border-b border-gray-400">
+						<th>주문번호</th>
+						<td>${order.orderCode}</td>
+					</tr>
+
+					<tr class="border-b border-gray-400">
+						<th>이름</th>
+						<td>${order.orderName}</td>
+					</tr>
+
+					<tr class="border-b border-gray-400">
+						<th>연락처</th>
+						<td>${order.cellphoneNo}</td>
+					</tr>
+
+					<tr class="border-b border-gray-400">
+						<th>주소</th>
+						<td>${order.address}</td>
+					</tr>
+
+					<tr class="border-b border-gray-400">
+						<th>이메일</th>
+						<td>${order.email}</td>
+					</tr>
+
+					<tr class="border-b border-gray-400">
+						<th>결제수단</th>
+						<td>${order.payment}</td>
+					</tr>
+
+					<tr class="border-b border-gray-400">
+						<th>결제금액</th>
+						<td>${order.totalPayment}</td>
+					</tr>
+
+				</table>
+			</div>
+			
+			<div class="mt-10 text-center">
+				<span class="text-lg font-bold">배송정보</span>
+			</div>
+			
 		</div>
 	</div>
 </section>
