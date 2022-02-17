@@ -17,15 +17,15 @@ body {
 	param.categoryId = parseInt("${category.id}");
 </script>
 
-<section class="section-usr-product-list">
+<section class="section-adm-product-list">
 
 	<div
 		class="container mx-auto bg-white card bordered shadow-lg p-5 mb-5 relative">
 		<!-- 검색 -->
 		<form class="flex">
 			<select name="searchKeywordType">
-				<option value="nameAndBodyAndColorAndPriceAndFee">전체</option>
-				<option value="name">상품명</option>
+				<option value="productNameAndBodyAndColorAndPriceAndFee">전체</option>
+				<option value="productName">상품명</option>
 				<option value="body">내용</option>
 				<option value="color">제목</option>
 				<option value="price">가격</option>
@@ -60,7 +60,7 @@ body {
 			<div class="items-center ml-2">
 
 				<span class="text-xl font-bold">
-					<span>${category.name}</span>
+					<span>${category.categoryName}</span>
 				</span>
 			</div>
 		</div>
@@ -106,7 +106,7 @@ body {
 						<!-- 상품명 -->
 						<a href="${detailUrl}" class="hover:underline cursor-pointer">
 							<span class="badge badge-outline mb-1">상품명</span>
-							<span class="line-clamp-3 ml-1"> ${product.name} </span>
+							<span class="line-clamp-3 ml-1"> ${product.productName} </span>
 						</a>
 						
 						<!-- 상품 설명 -->

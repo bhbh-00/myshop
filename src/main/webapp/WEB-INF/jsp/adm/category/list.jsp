@@ -55,7 +55,7 @@ th, td {
 		</div>
 
 		<table
-			class="container max-w-3xl min-w-max mx-auto item-bt-1-not-last-child text-center h-6">
+			class="container max-w-3xl min-w-max mx-auto item-bt-1-not-last-child text-center h-6 font-medium">
 			<thead>
 				<tr>
 					<th>번호</th>
@@ -72,18 +72,15 @@ th, td {
 
 				<tbody>
 					<tr>
-						<td><a href="${detailUrl}" class="hover:underline">
-								<span>${category.id}</span>
-							</a></td>
-						<td><a href="${detailUrl}" class="hover:underline">
-								<span>${category.code}</span>
-							</a></td>
-						<td><a href="${detailUrl}" class="hover:underline">
-								<span>${category.categoryName}</span>
-							</a></td>
+						<td><span>${category.id}</span></td>
+						<td><span>${category.code}</span></td>
+						<td><span>${category.categoryName}</span></td>
 						<td><a href="modify?id=${ category.id }"
-								class="hover:underline">
-								<span class="line-clamp-3 ml-1"> 수정 </span>
+								class="hover:underline"><span class="text-blue-500 font-semibold">수정</span>
+							</a></td>
+						<td><a onclick="if ( !confirm('삭제하시겠습니까?') ) return false;" href="doDelete?id=${ category.id }"
+								class="text-red-600">
+								<i class="fas fa-times"></i>
 							</a></td>
 					</tr>
 				</tbody>

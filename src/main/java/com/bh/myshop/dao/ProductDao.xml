@@ -22,18 +22,21 @@
 		resultType="Product">
 		SELECT P.*,
 		IFNULL(M.nickname, "탈퇴회원") AS extra__writer,
-		C.name AS extra__categoryName
+		C.categoryName AS extra__categoryName
 		FROM product AS P
-		LEFT JOIN `member` AS M
+		LEFT JOIN
+		`member` AS M
 		ON
 		P.memberId = M.id
 		LEFT JOIN category AS C
-		ON P.categoryId = C.id
+		ON P.categoryId
+		= C.id
 		WHERE
 		P.categoryId = 2
 		AND P.delStatus = 0
 		ORDER BY P.id DESC
-		LIMIT 2;
+		LIMIT
+		2;
 	</select>
 
 	<!-- 가장 최신 categoryId=1 2개 -->
@@ -41,7 +44,7 @@
 		resultType="Product">
 		SELECT P.*,
 		IFNULL(M.nickname, "탈퇴회원") AS extra__writer,
-		C.name AS extra__categoryName
+		C.categoryName AS extra__categoryName
 		FROM product AS P
 		LEFT JOIN `member` AS M
 		ON
@@ -58,7 +61,7 @@
 	<select id="getForPrintProductByMemberId" resultType="Product">
 		SELECT P.*,
 		IFNULL(M.nickname, "탈퇴회원") AS extra__writer,
-		C.name AS
+		C.categoryName AS
 		extra__categoryName
 		FROM product AS P
 		LEFT JOIN `member` AS M
@@ -81,8 +84,8 @@
 		#{
 		categoryId }
 		AND delStatus = 0
-		<if test="searchKeywordType == 'name'">
-			AND name LIKE CONCAT('%', #{searchKeyword}, '%')
+		<if test="searchKeywordType == 'productName'">
+			AND productName LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
 		<if test="searchKeywordType == 'body'">
 			AND `body` LIKE CONCAT('%', #{searchKeyword}, '%')
@@ -96,9 +99,13 @@
 		<if test="searchKeywordType == 'fee'">
 			AND fee LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
-		<if test="searchKeywordType == 'nameAndBodyAndColorAndPriceAndFee'">
-			AND (name LIKE CONCAT('%', #{searchKeyword}, '%') OR
-			`body` LIKE CONCAT('%', #{searchKeyword}, '%'))
+		<if
+			test="searchKeywordType == 'productNameAndBodyAndColorAndPriceAndFee'">
+			AND (productName LIKE CONCAT('%', #{searchKeyword}, '%') 
+			OR`body` LIKE CONCAT('%', #{searchKeyword}, '%')
+			OR color LIKE CONCAT('%', #{searchKeyword}, '%')
+			OR price LIKE CONCAT('%', #{searchKeyword}, '%')
+			OR fee LIKE CONCAT('%', #{searchKeyword}, '%'))
 		</if>
 		ORDER BY id DESC
 	</select>
@@ -123,14 +130,12 @@
 		<if test="searchKeywordType == 'fee'">
 			AND fee LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
-		<if test="searchKeywordType == 'nameAndBodyAndColorAndPriceAndFee'">
-			AND (name LIKE CONCAT('%', #{searchKeyword}, '%') OR
-			`body` LIKE CONCAT('%', #{searchKeyword}, '%') OR
-			color LIKE
-			CONCAT('%', #{searchKeyword}, '%') OR
-			price LIKE CONCAT('%',
-			#{searchKeyword}, '%') OR
-			fee LIKE CONCAT('%', #{searchKeyword}, '%'))
+		<if test="searchKeywordType == 'productNameAndBodyAndColorAndPriceAndFee'">
+			AND (productName LIKE CONCAT('%', #{searchKeyword}, '%') 
+			OR`body` LIKE CONCAT('%', #{searchKeyword}, '%')
+			OR color LIKE CONCAT('%', #{searchKeyword}, '%')
+			OR price LIKE CONCAT('%', #{searchKeyword}, '%')
+			OR fee LIKE CONCAT('%', #{searchKeyword}, '%'))
 		</if>
 		AND delStatus = 0
 		ORDER BY id DESC
@@ -139,7 +144,7 @@
 	<select id="getForPrintproducts" resultType="Product">
 		SELECT P.*,
 		IFNULL(M.nickname, "탈퇴회원") AS extra__writer,
-		C.name AS
+		C.categoryName AS
 		extra__categoryName
 		FROM product AS P
 		LEFT JOIN `member` AS M
@@ -154,8 +159,8 @@
 		<if test="categoryId != null">
 			AND P.categoryId = #{categoryId}
 		</if>
-		<if test="searchKeywordType == 'name'">
-			AND P.name LIKE CONCAT('%', #{searchKeyword}, '%')
+		<if test="searchKeywordType == 'productName'">
+			AND P.productName LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
 		<if test="searchKeywordType == 'body'">
 			AND P.`body` LIKE CONCAT('%', #{searchKeyword}, '%')
@@ -169,15 +174,12 @@
 		<if test="searchKeywordType == 'fee'">
 			AND P.fee LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
-		<if test="searchKeywordType == 'nameAndBodyAndColorAndPriceAndFee'">
-			AND (P.name LIKE CONCAT('%', #{searchKeyword}, '%') OR
-			P.`body` LIKE CONCAT('%', #{searchKeyword}, '%')OR
-			P.color LIKE
-			CONCAT('%', #{searchKeyword}, '%')OR
-			P.price LIKE CONCAT('%',
-			#{searchKeyword}, '%')OR
-			P.fee LIKE CONCAT('%', #{searchKeyword},
-			'%'))
+		<if test="searchKeywordType == 'productNameAndBodyAndColorAndPriceAndFee'">
+			AND (P.productName LIKE CONCAT('%', #{searchKeyword}, '%') 
+			OR P.`body` LIKE CONCAT('%', #{searchKeyword}, '%')
+			OR P.color LIKE CONCAT('%', #{searchKeyword}, '%')
+			OR P.price LIKE CONCAT('%', #{searchKeyword}, '%')
+			OR P.fee LIKE CONCAT('%', #{searchKeyword}, '%'))
 		</if>
 		<!-- 페이지 마이바티스 if and, or 검색해보기 -->
 		ORDER BY P.id ASC
@@ -219,8 +221,8 @@
 		FROM product
 		WHERE 1
 		AND delStatus = 0
-		<if test="searchKeywordType == 'name'">
-			AND name LIKE CONCAT('%', #{searchKeyword}, '%')
+		<if test="searchKeywordType == 'productName'">
+			AND productName LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
 		<if test="searchKeywordType == 'body'">
 			AND `body` LIKE CONCAT('%', #{searchKeyword}, '%')
@@ -234,14 +236,12 @@
 		<if test="searchKeywordType == 'fee'">
 			AND fee LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
-		<if test="searchKeywordType == 'nameAndBodyAndColorAndPriceAndFee'">
-			AND (name LIKE CONCAT('%', #{searchKeyword}, '%') OR
-			`body` LIKE CONCAT('%', #{searchKeyword}, '%') OR
-			color LIKE
-			CONCAT('%', #{searchKeyword}, '%') OR
-			price LIKE CONCAT('%',
-			#{searchKeyword}, '%') OR
-			fee LIKE CONCAT('%', #{searchKeyword}, '%'))
+		<if test="searchKeywordType == 'productNameAndBodyAndColorAndPriceAndFee'">
+			AND (productName LIKE CONCAT('%', #{searchKeyword}, '%')
+			OR `body` LIKE CONCAT('%', #{searchKeyword}, '%')
+			OR color LIKE CONCAT('%', #{searchKeyword}, '%') 
+			OR price LIKE CONCAT('%', #{searchKeyword}, '%') 
+			OR fee LIKE CONCAT('%', #{searchKeyword}, '%'))
 		</if>
 		ORDER BY id DESC
 	</select>
@@ -252,10 +252,9 @@
 		product
 		SET regDate = NOW(),
 		updateDate = NOW(),
-		categoryId =
-		#{categoryId},
+		categoryId = #{categoryId},
 		memberId = #{memberId},
-		name = #{name},
+		productName = #{productName},
 		`body` = #{body},
 		color = #{color},
 		price = #{price},
@@ -276,11 +275,11 @@
 		UPDATE product
 		<set>
 			<if
-				test="name != null or body != null or color != null or price != null or fee != null">
+				test="productName != null or body != null or color != null or price != null or fee != null">
 				updateDate = NOW(),
 			</if>
-			<if test="name != null">
-				name = #{name},
+			<if test="productName != null">
+				productName = #{productName},
 			</if>
 			<if test="body != null">
 				`body` = #{body},
@@ -303,7 +302,7 @@
 	<select id="getProductByName" resultType="Product">
 		SELECT *
 		FROM product
-		WHERE name = #{name}
+		WHERE productName = #{productName}
 	</select>
-	
+
 </mapper>

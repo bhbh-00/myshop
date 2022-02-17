@@ -29,7 +29,7 @@ th, td {
 		<div class="px-4 py-4">
 
 			<div class="flex justify-center">
-				<!-- 프로필 -->
+
 				<a href="#">
 					<c:forEach begin="1" end="${fileInputMaxCount}" var="inputNo">
 						<c:set var="fileNo" value="${String.valueOf(inputNo)}" />

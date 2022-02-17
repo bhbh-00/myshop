@@ -15,7 +15,7 @@ public class Product extends EntityDto {
 	private String updateDate; // 수정 시점
 	private int categoryId; 
 	private int memberId;
-	private String name;
+	private String productName;
 	private String body;
 	private String color;
 	private int price;

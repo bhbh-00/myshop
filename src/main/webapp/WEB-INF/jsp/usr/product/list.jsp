@@ -24,8 +24,8 @@ body {
 		<!-- 검색 -->
 		<form class="flex">
 			<select name="searchKeywordType">
-				<option value="nameAndBodyAndColorAndPriceAndFee">전체</option>
-				<option value="name">상품명</option>
+				<option value="productNameAndBodyAndColorAndPriceAndFee">전체</option>
+				<option value="productName">상품명</option>
 				<option value="body">내용</option>
 				<option value="color">제목</option>
 				<option value="price">가격</option>
@@ -60,7 +60,7 @@ body {
 			<div class="items-center ml-2">
 
 				<span class="text-xl font-bold">
-					<span>${category.name}</span>
+					<span>${category.categoryName}</span>
 				</span>
 			</div>
 		</div>
@@ -89,6 +89,17 @@ body {
 							<span class="badge badge-warning">${product.extra__categoryName}</span>
 						</a>
 					</c:if>
+					<c:if test="${category.id == 3}">
+						<a href="${detailUrl}" class="cursor-pointer hover:underline">
+							<span class="badge badge-warning">${product.extra__categoryName}</span>
+						</a>
+					</c:if>
+					<c:if test="${category.id == 4}">
+						<a href="${detailUrl}" class="cursor-pointer hover:underline">
+							<span class="badge badge-warning">${product.extra__categoryName}</span>
+						</a>
+					</c:if>
+					
 					<!-- 상품 번호 -->
 					<a href="${detailUrl}" class="hover:underline">
 						<span class="text-base">No.${product.id}</span>
@@ -105,7 +116,7 @@ body {
 						<!-- 제목 -->
 						<a href="${detailUrl}" class="hover:underline cursor-pointer">
 							<span class="badge badge-outline mb-1">상품명</span>
-							<span class="line-clamp-3 ml-1"> ${product.name} </span>
+							<span class="line-clamp-3 ml-1"> ${product.productName} </span>
 						</a>
 						<!-- 본문 -->
 						<a href="${detailUrl}"

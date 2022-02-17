@@ -85,7 +85,7 @@ public class AdmProductController extends BaseController {
 			return msgAndBack(req, "상품 번호를 입력해주세요.");
 		}
 
-		if (Util.isEmpty(param.get("name"))) {
+		if (Util.isEmpty(param.get("productName"))) {
 			return msgAndBack(req, "제품명을 입력해주세요.");
 		}
 
@@ -160,20 +160,20 @@ public class AdmProductController extends BaseController {
 	// 상품명 생성의 조건
 	@RequestMapping("/adm/product/getNameDup")
 	@ResponseBody
-	public ResultData getNameDup(String name) {
+	public ResultData getNameDup(String productName) {
 
-		if (name == null) {
+		if (productName == null) {
 			return new ResultData("F-1", "상품명을 입력해주세요.");
 		}
 
 		// 기존의 상품명 확인
-		Product existingpProduct = productService.getProductByName(name);
+		Product existingpProduct = productService.getProductByName(productName);
 
 		if (existingpProduct != null) {
-			return new ResultData("F-2", String.format("%s(은)는 이미 사용중인 상품 명 입니다.", name));
+			return new ResultData("F-2", String.format("%s(은)는 이미 사용중인 상품 명 입니다.", productName));
 		}
 
-		return new ResultData("S-1", String.format("%s(은)는 사용가능한 상품명 입니다.", name), "name", name);
+		return new ResultData("S-1", String.format("%s(은)는 사용가능한 상품명 입니다.", productName), "productName", productName);
 	}
 
 	// 상품 등록
@@ -183,11 +183,11 @@ public class AdmProductController extends BaseController {
 
 		int loginMemberId = (int) req.getAttribute("loginedMemberId");
 
-		if (param.get("name") == null) {
+		if (param.get("productName") == null) {
 			return msgAndBack(req, "상품명을 입력해주세요.");
 		}
 		
-		Product existingProduct = productService.getProductByName((String) param.get("name"));
+		Product existingProduct = productService.getProductByName((String) param.get("productName"));
 
 		if (existingProduct != null) {
 			return Util.msgAndBack("이미 사용 중인 아이디입니다.");
@@ -277,7 +277,7 @@ public class AdmProductController extends BaseController {
 		}
 
 		if (searchKeywordType == null || searchKeywordType.length() == 0) {
-			searchKeywordType = "nameAndBodyAndColorAndPriceAndFee";
+			searchKeywordType = "productNameAndBodyAndColorAndPriceAndFee";
 		}
 
 		if (searchKeyword != null && searchKeyword.length() == 0) {

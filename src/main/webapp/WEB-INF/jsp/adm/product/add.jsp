@@ -32,12 +32,12 @@ body {
 	//조건 체크 함수 ajax
 	function AddForm__checkNameDup(obj) {
 		const form = $('.formName').get(0);
-		form.name.value = form.name.value.trim();
-		if (form.name.value.length == 0) {
+		form.productName.value = form.productName.value.trim();
+		if (form.productName.value.length == 0) {
 			return;
 		}
 		$.get('getNameDup', {
-			name : form.name.value
+			productName : form.productName.value
 		}, function(data) {
 			let colorClass = 'text-green-500';
 			if (data.fail) {
@@ -47,7 +47,7 @@ body {
 			if (data.fail) {
 				form.name.focus();
 			} else {
-				ProductAdd__validCode = data.body.name;
+				ProductAdd__validCode = data.body.productName;
 			}
 		}, 'json');
 	}
@@ -60,15 +60,15 @@ body {
 			return;
 		}
 		// 기본적인 처리
-		form.name.value = form.name.value.trim();
-		if (form.name.value.length == 0) {
+		form.productName.value = form.productName.value.trim();
+		if (form.productName.value.length == 0) {
 			alert('상품명을 입력해주세요.');
-			form.name.focus();
+			form.productName.focus();
 			return false;
 		}		
-		if (form.name.value != ProductAdd__validCode) {
+		if (form.productName.value != ProductAdd__validCode) {
 			alert('상품명 중복체크를 해주세요.');
-			form.name.focus();
+			form.productName.focus();
 			return;
 		}
 		form.body.value = form.body.value.trim();
@@ -189,7 +189,7 @@ body {
 					<label class="label">
 						<span class="label-text">상품명</span>
 					</label>
-					<input name="name" type="text" placeholder="상품명"
+					<input name="productName" type="text" placeholder="상품명"
 						class="inputName input input-bordered">
 				</div>
 				

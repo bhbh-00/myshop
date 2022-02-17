@@ -145,8 +145,8 @@ public class ProductService {
 	}
 	
 	// 기존의 상품명 확인
-	public Product getProductByName(String name) {
-		return productDao.getProductByName(name);
+	public Product getProductByName(String productName) {
+		return productDao.getProductByName(productName);
 	}
 
 }
