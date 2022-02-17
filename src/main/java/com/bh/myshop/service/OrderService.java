@@ -1,12 +1,12 @@
 package com.bh.myshop.service;
 
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bh.myshop.dao.OrderDao;
+import com.bh.myshop.dto.Order;
 import com.bh.myshop.dto.Product;
 import com.bh.myshop.dto.ResultData;
 import com.bh.myshop.util.Util;
@@ -27,6 +27,10 @@ public class OrderService {
 
 	public Product getForPrintOrderProduct(Integer productId) {
 		return orderDao.getForPrintOrderProduct(productId);
+	}
+
+	public Order getForPrintOrderHistory(Integer id) {
+		return orderDao.getForPrintOrderHistory(id);
 	}
 
 }

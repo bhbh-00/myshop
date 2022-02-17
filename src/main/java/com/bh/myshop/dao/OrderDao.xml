@@ -15,16 +15,19 @@
 		#{productId},
 		categoryId = #{categoryId},
 		memberId = #{memberId},
-		orderCode = CONCAT("orderCode__", UUID(), "__",  RAND()),
-		`name` = #{name},
+		orderCode = CONCAT("orderCode__", UUID(), "__", RAND()),
+		`name` =
+		#{name},
 		cellphoneNo = #{cellphoneNo},
 		address = #{address},
-		email = #{email},
+		email =
+		#{email},
 		payment = #{payment},
 		price =
 		#{price}
 	</insert>
 
+	<!-- 주문할 제품 불러오기 -->
 	<select id="getForPrintOrderProduct" resultType="Product">
 		SELECT P.*
 		FROM
@@ -32,9 +35,23 @@
 		LEFT JOIN
 		`order` AS O
 		ON P.id = O.productId
-		WHERE P.id = #{productId}
+		WHERE P.id =
+		#{productId}
 		AND P.delStatus = 0
 		LIMIT 1;
+	</select>
+
+	<!-- 주문내역 불러오기 -->
+	<select id="getForPrintOrderHistory" resultType="Order">
+		SELECT P.*, O.*
+		FROM
+		`order` AS O
+		LEFT JOIN
+		product AS P
+		ON O.productId = P.id
+		WHERE O.id =
+		#{id}
+		AND O.delStatus = 0;
 	</select>
 
 </mapper>

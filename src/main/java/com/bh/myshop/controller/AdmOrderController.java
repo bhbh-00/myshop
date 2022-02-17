@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartRequest;
 
 import com.bh.myshop.dto.GenFile;
+import com.bh.myshop.dto.Order;
 import com.bh.myshop.dto.Product;
 import com.bh.myshop.dto.ResultData;
 import com.bh.myshop.service.GenFileService;
@@ -26,6 +27,20 @@ public class AdmOrderController extends BaseController {
 
 	@Autowired
 	private GenFileService genFileService;
+
+	@RequestMapping("/adm/order/history")
+	public String Showhistory(@RequestParam Integer id, HttpServletRequest req) {
+
+		if (id == 0) {
+			return msgAndBack(req, "제품 번호를 입력해주세요.");
+		}
+
+		Order orderHistory = orderService.getForPrintOrderHistory(id);
+
+		req.setAttribute("order", orderHistory);
+
+		return "/adm/order/history";
+	}
 
 	@RequestMapping("/adm/order/product")
 	public String ShowProduct(@RequestParam Integer productId, HttpServletRequest req) {
@@ -89,7 +104,7 @@ public class AdmOrderController extends BaseController {
 
 		int newOrderId = (int) addOrderRd.getBody().get("id");
 
-		return msgAndReplace(req, String.format("주문이 완료 되었습니다.(%d)", newOrderId), "../order/detail?id=" + newOrderId);
+		return msgAndReplace(req, String.format("주문이 완료 되었습니다.(%d)", newOrderId), "../order/history?id=" + newOrderId);
 	}
 
 }
