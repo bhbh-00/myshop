@@ -13,21 +13,21 @@
 		WHERE
 		id = #{id}
 	</update>
-	
+
 	<!-- 게시판 수정 -->
 	<update id="modify">
 		UPDATE category
 		<set>
-			<if test="name != null">
-				`name` = #{name}
+			<if test="categoryName != null">
+				categoryName = #{categoryName}
 			</if>
 		</set>
 		WHERE id = #{id}
 		AND delStatus = 0
 	</update>
-	
+
 	<!-- 게시판 번호 확인 -->
-	<select id="getcategory" resultType="category">
+	<select id="getCategory" resultType="category">
 		SELECT *
 		FROM category
 		WHERE
@@ -44,18 +44,18 @@
 		updateDate = NOW(),
 		memberId = #{memberId},
 		code = #{code},
-		`name` = #{name}
+		categoryName = #{categoryName}
 	</insert>
-	
+
 	<!-- 기존의 이름 확인 -->
-	<select id="getcategoryByName" resultType="category">
+	<select id="getCategoryByName" resultType="category">
 		SELECT *
 		FROM category
-		WHERE `name` = #{name}
+		WHERE categoryName = #{categoryName}
 	</select>
 
 	<!-- 기존의 코드 확인 -->
-	<select id="getcategoryByCode" resultType="category">
+	<select id="getCategoryByCode" resultType="category">
 		SELECT *
 		FROM category
 		WHERE `code` = #{code}
@@ -63,23 +63,24 @@
 	</select>
 
 	<!-- 게시판 리스트 -->
-	<select id="getForPrintcategorys" resultType="category">
+	<select id="getForPrintCategorys" resultType="category">
 		SELECT C.*,
 		IFNULL(M.nickname, "탈퇴회원") AS extra__writer
-		FROM category AS C
+		FROM category AS
+		C
 		LEFT JOIN `member` AS M
 		ON C.memberId = M.id
 		WHERE 1
 		AND C.delStatus = 0
-		<if test="searchKeywordType == 'name'">
-			AND C.'name' LIKE CONCAT('%', #{searchKeyword}, '%')
+		<if test="searchKeywordType == 'categoryName'">
+			AND C.categoryName LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
 		<if test="searchKeywordType == 'code'">
 			AND C.`code` LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
-		<if test="searchKeywordType == 'codeAndName'">
+		<if test="searchKeywordType == 'codeAndCategoryName'">
 			AND (C.`code` LIKE CONCAT('%', #{searchKeyword}, '%') OR
-			C.`name` LIKE CONCAT('%', #{searchKeyword}, '%'))
+			C.categoryName LIKE CONCAT('%', #{searchKeyword}, '%'))
 		</if>
 		ORDER BY id DESC
 		<if test="limitStart != null and limitTake != null">
@@ -88,29 +89,29 @@
 	</select>
 
 	<!-- 게시판의 총 갯수 -->
-	<select id="getcategorysTotleCount" resultType="int">
+	<select id="getCategorysTotleCount" resultType="int">
 		SELECT count(*)
 		FROM category
 		WHERE 1
 		AND delStatus = 0
-		<if test="searchKeywordType == 'name'">
-			AND `name` LIKE CONCAT('%', #{searchKeyword}, '%')
+		<if test="searchKeywordType == 'categoryName'">
+			AND categoryName LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
 		<if test="searchKeywordType == 'code'">
 			AND `code` LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
-		<if test="searchKeywordType == 'nameAndCode'">
-			AND (`name` LIKE CONCAT('%', #{searchKeyword}, '%') OR
-			code
-			LIKE CONCAT('%', #{searchKeyword}, '%'))
+		<if test="searchKeywordType == 'codeAndCategoryName'">
+			AND (`code` LIKE CONCAT('%', #{searchKeyword}, '%') OR
+			categoryName LIKE CONCAT('%', #{searchKeyword}, '%'))
 		</if>
 		ORDER BY id DESC
 	</select>
-	
+
 	<!-- 게시판 번호로 정보 불러오기 -->
-	<select id="getForPrintcategory" resultType="category">
+	<select id="getForPrintCategory" resultType="category">
 		SELECT *
-		FROM `category`
+		FROM
+		`category`
 		WHERE
 		id = #{id}
 		AND delStatus = 0

@@ -35,7 +35,7 @@ body {
 			<script>
 				/* 값이 있다면 */
 				if (param.searchKeywordType) {
-					$('.section-1 select[name="searchKeywordType"]').val(param.searchKeywordType);
+					$('.section-usr-product-list select[name="searchKeywordType"]').val(param.searchKeywordType);
 				}
 			</script>
 

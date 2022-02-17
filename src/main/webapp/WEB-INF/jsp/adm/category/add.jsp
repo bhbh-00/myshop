@@ -61,22 +61,16 @@ body {
 			return false;
 		}
 
-		if (form.code.value != BoardAdd__validCode) {
+		if (form.code.value != CategoryAdd__validCode) {
 			alert('코드 중복체크를 해주세요.');
 			form.code.focus();
 			return;
 		}
 
-		form.name.value = form.name.value.trim();
-		if (form.name.value.length == 0) {
+		form.categoryName.value = form.categoryName.value.trim();
+		if (form.categoryName.value.length == 0) {
 			alert('이름을 입력해주세요.');
-			form.name.focus();
-			return;
-		}
-
-		if (form.name.value != BoardAdd__validName) {
-			alert('이름 중복체크를 해주세요.');
-			form.name.focus();
+			form.categoryName.focus();
 			return;
 		}
 
@@ -127,7 +121,7 @@ body {
 					<label class="label">
 						<span class="font-bold label-text">이름</span>
 					</label>
-					<input type="text" name="name" placeholder="이름을 입력해주세요."
+					<input type="text" name="categoryName" placeholder="이름을 입력해주세요."
 						autofocus="autofocus" class="input input-bordered">
 				</div>
 

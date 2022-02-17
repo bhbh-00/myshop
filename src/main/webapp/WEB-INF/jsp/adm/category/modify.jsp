@@ -7,10 +7,15 @@
 
 <%@ include file="../part/mainLayoutHead.jspf"%>
 
+<!-- lodash -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+
 <style>
 body {
 	margin-top: 150px;
 }
+
 </style>
 
 <script>
@@ -21,23 +26,25 @@ body {
 	//조건 체크 함수 ajax
 	function ModifyForm__checkCodeDup(obj) {
 
-		const form = $('.formName').get(0);
-		form.name.value = form.name.value.trim();
-		if (form.name.value.length == 0) {
+		const form = $('.formCategoryName').get(0);
+		
+		form.categoryName.value = form.categoryName.value.trim();
+		
+		if (form.categoryName.value.length == 0) {
 			return;
 		}
 		$.get('getNameDup', {
-			name : form.name.value
+			categoryName : form.categoryName.value
 		}, function(data) {
 			let colorClass = 'text-green-500';
 			if (data.fail) {
 				colorClass = 'text-red-500';
 			}
-			$('.NameInputMsg').html("<span class='" + colorClass + "'>" + data.msg + "</span>");
+			$('.CategoryNameInputMsg').html("<span class='" + colorClass + "'>" + data.msg + "</span>");
 			if (data.fail) {
-				form.name.focus();
+				form.categoryName.focus();
 			} else {
-				CategoryModify__validName = data.body.name;
+				CategoryModify__validName = data.body.categoryName;
 			}
 		}, 'json');
 	}
@@ -49,23 +56,16 @@ body {
 		}
 
 		// 기본적인 처리
-		form.code.value = form.code.value.trim();
-		if (form.code.value.length == 0) {
-			alert('코드을 입력해주세요.');
-			form.code.focus();
-			return false;
-		}
-
-		form.name.value = form.name.value.trim();
-		if (form.name.value.length == 0) {
+		form.categoryName.value = form.categoryName.value.trim();
+		if (form.categoryName.value.length == 0) {
 			alert('이름을 입력해주세요.');
-			form.name.focus();
+			form.categoryName.focus();
 			return;
 		}
 
-		if (form.name.value != CategoryModify__validName) {
+		if (form.categoryName.value != CategoryModify__validName) {
 			alert('이름 중복체크를 해주세요.');
-			form.name.focus();
+			form.categoryName.focus();
 			return;
 		}
 
@@ -73,15 +73,14 @@ body {
 		CategoryModify_checkAndSubmitDone = true;
 	}
 	$(function() {
-		$('.inputName').change(function() {
-			CategoryModify__validName();
+		$('.inputCategoryName').change(function() {
+			ModifyForm__checkCodeDup();
 		});
-		$('.inputName').keyup(_.debounce(CategoryModify__validName, 1000));
+		$('.inputCategoryName').keyup(_.debounce(ModifyForm__checkCodeDup, 1000));
 	});
 </script>
 
 <section class="section-category-modify">
-
 	<div
 		class="container max-w-3xl min-w-max mx-auto p-5 mb-5 relative item-bt-1-not-last-child ">
 
@@ -91,7 +90,7 @@ body {
 
 		<div class="px-4 py-8">
 
-			<form class="formCode grid form-type-1"
+			<form class="formCategoryName grid form-type-1"
 				onsubmit="CategoryModify_checkAndSubmit(this); return false;"
 				action="doModify" method="POST" enctype="multipart/form-data">
 
@@ -129,14 +128,14 @@ body {
 					<label class="label">
 						<span class="label-text">이름</span>
 					</label>
-					<input type="text" name="name" placeholder="이름"
-						class="inputName input input-bordered" maxlength="20"
-						value="${category.name}">
+					<input type="text" name="categoryName" placeholder="이름"
+						class="inputCategoryName input input-bordered" maxlength="20"
+						value="${category.categoryName}">
 				</div>
 
 				<!-- 중복확인 -->
 				<div class="form-control">
-					<div class="NameInputMsg"></div>
+					<div class="CategoryNameInputMsg"></div>
 				</div>
 
 				<div>
@@ -157,9 +156,6 @@ body {
 
 		</div>
 	</div>
-	</div>
-	</div>
-
 </section>
 
 <%@ include file="../part/mainLayoutFoot.jspf"%>

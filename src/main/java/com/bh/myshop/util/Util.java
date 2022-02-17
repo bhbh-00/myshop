@@ -374,7 +374,7 @@ public class Util {
 		// 2자 이상, 20자 이하로 구성
 		// 숫자로 시작 금지
 		// 숫자로만 구성
-		return Pattern.matches("^{2,10}$", str);
+		return Pattern.matches("^[0-9]{2,10}$", str);
 	}
 
 	public static String getNewUrlRemoved(String url, String paramName) {

@@ -33,7 +33,7 @@ public class AdmCategoryController extends BaseController {
 			return msgAndBack(req, "id를 입력해주세요.");
 		}
 
-		Category category = categoryService.getcategory(id);
+		Category category = categoryService.getCategory(id);
 
 		if (category == null) {
 			return msgAndBack(req, "해당 카테고리는 존재하지 않습니다.");
@@ -45,29 +45,29 @@ public class AdmCategoryController extends BaseController {
 			return Util.msgAndBack(actorCanDeleteRd.getMsg());
 		}
 
-		ResultData deletecategoryRd = categoryService.delete(id);
+		ResultData deleteCategoryRd = categoryService.delete(id);
 
 		String redirectUrl = "../category/list";
 
-		return Util.msgAndReplace(deletecategoryRd.getMsg(), redirectUrl);
+		return Util.msgAndReplace(deleteCategoryRd.getMsg(), redirectUrl);
 	}
 
 	// 카테고리 이름 중복 확인
 	@RequestMapping("/adm/category/getNameDup")
 	@ResponseBody
-	public ResultData getNameDup(String name) {
+	public ResultData getNameDup(String categoryName) {
 
-		if (name == null) {
+		if (categoryName == null) {
 			return new ResultData("F-1", "이름을 입력해주세요.");
 		}
 
-		Category existingcategory = categoryService.getcategoryByName(name);
+		Category existingCategory = categoryService.getCategoryByName(categoryName);
 
-		if (existingcategory != null) {
-			return new ResultData("F-2", String.format("%s(은)는 이미 사용중인 이름 입니다.", name));
+		if (existingCategory != null) {
+			return new ResultData("F-2", String.format("%s(은)는 이미 사용중인 이름 입니다.", categoryName));
 		}
 
-		return new ResultData("S-1", String.format("%s(은)는 사용가능한 이름 입니다.", name), "name", name);
+		return new ResultData("S-1", String.format("%s(은)는 사용가능한 이름 입니다.", categoryName), "categoryName", categoryName);
 	}
 
 	// 카테고리 코드 중복 확인
@@ -80,7 +80,7 @@ public class AdmCategoryController extends BaseController {
 		}
 
 		// 기존의 코드 확인
-		Category existingcategory = categoryService.getcategoryByCode(code);
+		Category existingcategory = categoryService.getCategoryByCode(code);
 
 		if (existingcategory != null) {
 			return new ResultData("F-2", String.format("%s(은)는 이미 사용중인 코드 입니다.", code));
@@ -101,7 +101,7 @@ public class AdmCategoryController extends BaseController {
 			return msgAndBack(req, "카테고리 번호를 입력해주세요.");
 		}
 
-		Category category = categoryService.getForPrintcategory(id);
+		Category category = categoryService.getForPrintCategory(id);
 
 		if (category == null) {
 			return msgAndBack(req, "해당 카테고리은 존재하지 않습니다.");
@@ -125,11 +125,11 @@ public class AdmCategoryController extends BaseController {
 			return msgAndBack(req, "번호를 입력해주세요.");
 		}
 
-		if (Util.isEmpty(param.get("name"))) {
+		if (Util.isEmpty(param.get("categoryName"))) {
 			return msgAndBack(req, "이름을 입력해주세요.");
 		}
 
-		Category category = categoryService.getcategory(id);
+		Category category = categoryService.getCategory(id);
 
 		if (category == null) {
 			return msgAndBack(req, "해당 카테고리은 존재하지 않습니다.");
@@ -159,18 +159,18 @@ public class AdmCategoryController extends BaseController {
 		Member loginedMember = (Member) req.getAttribute("loginedMember");
 
 		if (param.get("code") == null) {
-			return msgAndBack(req, "code를 입력해주세요");
+			return msgAndBack(req, "코드를 입력해주세요");
 		}
 
-		if (param.get("name") == null) {
-			return msgAndBack(req, "name를 입력해주세요");
+		if (param.get("categoryName") == null) {
+			return msgAndBack(req, "이름을 입력해주세요");
 		}
 
 		// 기존의 이름 확인
-		Category existingcategory = categoryService.getcategoryByName((String) param.get("name"));
+		Category existingcategory = categoryService.getCategoryByName((String) param.get("categoryName"));
 
 		if (existingcategory != null) {
-			return msgAndBack(req, String.format("「 %s 」은 이미 등록되어 있습니다.", existingcategory.getName()));
+			return msgAndBack(req, String.format("「 %s 」은 이미 등록되어 있습니다.", existingcategory.getCategoryName()));
 		}
 
 		param.put("loginedMember", loginedMember);
@@ -192,7 +192,7 @@ public class AdmCategoryController extends BaseController {
 		}
 
 		if (searchKeywordType == null || searchKeywordType.length() == 0) {
-			searchKeywordType = "codeAndName";
+			searchKeywordType = "codeAndCategoryName";
 		}
 
 		if (searchKeyword != null && searchKeyword.length() == 0) {
@@ -211,9 +211,9 @@ public class AdmCategoryController extends BaseController {
 		int itemsInAPage = 10;
 
 		// 총 카테고리의 갯수를 구하는
-		int totleItemsCount = categoryService.getcategorysTotleCount(searchKeywordType, searchKeyword);
+		int totleItemsCount = categoryService.getCategorysTotleCount(searchKeywordType, searchKeyword);
 
-		List<Category> categorys = categoryService.getForPrintcategorys(searchKeywordType, searchKeyword, page,
+		List<Category> categorys = categoryService.getForPrintCategorys(searchKeywordType, searchKeyword, page,
 				itemsInAPage);
 
 		// 총 페이지 갯수 (총 카테고리 수 / 한 페이지 안의 카테고리 갯수)

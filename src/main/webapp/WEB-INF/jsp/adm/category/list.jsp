@@ -12,7 +12,7 @@ body {
 	margin-top: 150px;
 }
 
-th,td {
+th, td {
 	padding: 10px;
 }
 </style>
@@ -20,10 +20,38 @@ th,td {
 <section class="section-adm-category-list">
 
 	<div
-		class="container max-w-3xl min-w-max mx-auto p-5 mb-5 relative item-bt-1-not-last-child overflow-auto">
+		class="container max-w-3xl min-w-max mx-auto p-5 mb-5 relative item-bt-1-not-last-child">
 
 		<div class="pb-7">
 			<span class="ml-4 text-2xl font-bold">카테고리 목록</span>
+		</div>
+
+		<div class="p-4">
+			<form class="flex">
+				<select name="searchKeywordType">
+					<option value="codeAndCategoryName">전체</option>
+					<option value="code">코드</option>
+					<option value="categoryName">내용</option>
+				</select>
+
+				<script>
+					/* 값이 있다면 */
+					if (param.searchKeywordType) {
+						$('.section-adm-category-list select[name="searchKeywordType"]').val(param.searchKeywordType);
+					}
+				</script>
+
+				<input autofocus="autofocus" type="text" style="border-radius: 25px"
+					placeholder="검색어를 입력해주세요" name="searchKeyword" maxlength="20"
+					autocomplete="off" value="${param.searchKeyword}"
+					class="w-full py-2 pl-4 pr-10 text-sm bg-gray-100 border border-transparent appearance-none rounded-tg placeholder-gray-400
+								focus:bg-white focus:outline-none focus:border-blue-500 focus:text-gray-900 focus:shadow-outline-blue" />
+
+				<button type="submit" class="ml-2">
+					<i class="fas fa-pen"></i>
+				</button>
+
+			</form>
 		</div>
 
 		<table
@@ -51,7 +79,7 @@ th,td {
 								<span>${category.code}</span>
 							</a></td>
 						<td><a href="${detailUrl}" class="hover:underline">
-								<span>${category.name}</span>
+								<span>${category.categoryName}</span>
 							</a></td>
 						<td><a href="modify?id=${ category.id }"
 								class="hover:underline">

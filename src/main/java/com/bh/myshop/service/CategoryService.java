@@ -20,24 +20,24 @@ public class CategoryService {
 	private MemberService memberService;
 
 	// 카테고리 리스트
-	public List<Category> getForPrintcategorys(String searchKeywordType, String searchKeyword, int page,
+	public List<Category> getForPrintCategorys(String searchKeywordType, String searchKeyword, int page,
 			int itemsInAPage) {
 		int limitStart = (page - 1) * itemsInAPage;
 		int limitTake = itemsInAPage;
 
-		List<Category> categorys = categoryDao.getForPrintcategorys(searchKeywordType, searchKeyword, limitStart,
+		List<Category> categorys = categoryDao.getForPrintCategorys(searchKeywordType, searchKeyword, limitStart,
 				limitTake);
 
 		return categorys;
 	}
 
 	// 카테고리의 총 갯수
-	public int getcategorysTotleCount(String searchKeywordType, String searchKeyword) {
-		return categoryDao.getcategorysTotleCount(searchKeywordType, searchKeyword);
+	public int getCategorysTotleCount(String searchKeywordType, String searchKeyword) {
+		return categoryDao.getCategorysTotleCount(searchKeywordType, searchKeyword);
 	}
 
-	public Category getForPrintcategory(int id) {
-		return categoryDao.getForPrintcategory(id);
+	public Category getForPrintCategory(int id) {
+		return categoryDao.getForPrintCategory(id);
 	}
 
 	// 카테고리 생성
@@ -50,13 +50,13 @@ public class CategoryService {
 	}
 
 	// 기존의 이름 확인
-	public Category getcategoryByName(String name) {
-		return categoryDao.getcategoryByName(name);
+	public Category getCategoryByName(String categoryName) {
+		return categoryDao.getCategoryByName(categoryName);
 	}
 
 	// 기존의 코드 확인
-	public Category getcategoryByCode(String code) {
-		return categoryDao.getcategoryByCode(code);
+	public Category getCategoryByCode(String code) {
+		return categoryDao.getCategoryByCode(code);
 	}
 
 	// 수정 권한 확인
@@ -94,8 +94,8 @@ public class CategoryService {
 	}
 
 	// 카테고리 번호 확인
-	public Category getcategory(int id) {
-		return categoryDao.getcategory(id);
+	public Category getCategory(int id) {
+		return categoryDao.getCategory(id);
 	}
 
 }
