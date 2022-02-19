@@ -46,16 +46,19 @@
 		IFNULL(M.nickname, "탈퇴회원") AS extra__writer,
 		C.categoryName AS extra__categoryName
 		FROM product AS P
-		LEFT JOIN `member` AS M
+		LEFT JOIN
+		`member` AS M
 		ON
 		P.memberId = M.id
 		LEFT JOIN category AS C
-		ON P.categoryId = C.id
+		ON P.categoryId
+		= C.id
 		WHERE
 		P.categoryId = 1
 		AND P.delStatus = 0
 		ORDER BY P.id DESC
-		LIMIT 2;
+		LIMIT
+		2;
 	</select>
 
 	<select id="getForPrintProductByMemberId" resultType="Product">
@@ -101,10 +104,12 @@
 		</if>
 		<if
 			test="searchKeywordType == 'productNameAndBodyAndColorAndPriceAndFee'">
-			AND (productName LIKE CONCAT('%', #{searchKeyword}, '%') 
+			AND (productName LIKE CONCAT('%', #{searchKeyword}, '%')
 			OR`body` LIKE CONCAT('%', #{searchKeyword}, '%')
-			OR color LIKE CONCAT('%', #{searchKeyword}, '%')
-			OR price LIKE CONCAT('%', #{searchKeyword}, '%')
+			OR color LIKE
+			CONCAT('%', #{searchKeyword}, '%')
+			OR price LIKE CONCAT('%',
+			#{searchKeyword}, '%')
 			OR fee LIKE CONCAT('%', #{searchKeyword}, '%'))
 		</if>
 		ORDER BY id DESC
@@ -130,11 +135,14 @@
 		<if test="searchKeywordType == 'fee'">
 			AND fee LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
-		<if test="searchKeywordType == 'productNameAndBodyAndColorAndPriceAndFee'">
-			AND (productName LIKE CONCAT('%', #{searchKeyword}, '%') 
+		<if
+			test="searchKeywordType == 'productNameAndBodyAndColorAndPriceAndFee'">
+			AND (productName LIKE CONCAT('%', #{searchKeyword}, '%')
 			OR`body` LIKE CONCAT('%', #{searchKeyword}, '%')
-			OR color LIKE CONCAT('%', #{searchKeyword}, '%')
-			OR price LIKE CONCAT('%', #{searchKeyword}, '%')
+			OR color LIKE
+			CONCAT('%', #{searchKeyword}, '%')
+			OR price LIKE CONCAT('%',
+			#{searchKeyword}, '%')
 			OR fee LIKE CONCAT('%', #{searchKeyword}, '%'))
 		</if>
 		AND delStatus = 0
@@ -144,7 +152,8 @@
 	<select id="getForPrintproducts" resultType="Product">
 		SELECT P.*,
 		IFNULL(M.nickname, "탈퇴회원") AS extra__writer,
-		C.categoryName AS
+		C.categoryName
+		AS
 		extra__categoryName
 		FROM product AS P
 		LEFT JOIN `member` AS M
@@ -174,12 +183,16 @@
 		<if test="searchKeywordType == 'fee'">
 			AND P.fee LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
-		<if test="searchKeywordType == 'productNameAndBodyAndColorAndPriceAndFee'">
-			AND (P.productName LIKE CONCAT('%', #{searchKeyword}, '%') 
+		<if
+			test="searchKeywordType == 'productNameAndBodyAndColorAndPriceAndFee'">
+			AND (P.productName LIKE CONCAT('%', #{searchKeyword}, '%')
 			OR P.`body` LIKE CONCAT('%', #{searchKeyword}, '%')
-			OR P.color LIKE CONCAT('%', #{searchKeyword}, '%')
-			OR P.price LIKE CONCAT('%', #{searchKeyword}, '%')
-			OR P.fee LIKE CONCAT('%', #{searchKeyword}, '%'))
+			OR P.color LIKE
+			CONCAT('%', #{searchKeyword}, '%')
+			OR P.price LIKE CONCAT('%',
+			#{searchKeyword}, '%')
+			OR P.fee LIKE CONCAT('%', #{searchKeyword},
+			'%'))
 		</if>
 		<!-- 페이지 마이바티스 if and, or 검색해보기 -->
 		ORDER BY P.id ASC
@@ -236,11 +249,14 @@
 		<if test="searchKeywordType == 'fee'">
 			AND fee LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
-		<if test="searchKeywordType == 'productNameAndBodyAndColorAndPriceAndFee'">
+		<if
+			test="searchKeywordType == 'productNameAndBodyAndColorAndPriceAndFee'">
 			AND (productName LIKE CONCAT('%', #{searchKeyword}, '%')
-			OR `body` LIKE CONCAT('%', #{searchKeyword}, '%')
-			OR color LIKE CONCAT('%', #{searchKeyword}, '%') 
-			OR price LIKE CONCAT('%', #{searchKeyword}, '%') 
+			OR
+			`body` LIKE CONCAT('%', #{searchKeyword}, '%')
+			OR color LIKE
+			CONCAT('%', #{searchKeyword}, '%')
+			OR price LIKE CONCAT('%', #{searchKeyword}, '%')
 			OR fee LIKE CONCAT('%', #{searchKeyword}, '%'))
 		</if>
 		ORDER BY id DESC
@@ -252,7 +268,8 @@
 		product
 		SET regDate = NOW(),
 		updateDate = NOW(),
-		categoryId = #{categoryId},
+		categoryId =
+		#{categoryId},
 		memberId = #{memberId},
 		productName = #{productName},
 		`body` = #{body},

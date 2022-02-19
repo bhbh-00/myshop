@@ -28,6 +28,54 @@ public class AdmOrderController extends BaseController {
 	@Autowired
 	private GenFileService genFileService;
 
+	// 내 게시물 보기
+	@RequestMapping("/adm/order/myList")
+	public String showMyList(HttpServletRequest req, @RequestParam(defaultValue = "1") int page) {
+
+		int loginMemberId = (int) req.getAttribute("loginedMemberId");
+
+		List<Order> orders = orderService.getForPrintOrdersByMemberId(loginMemberId);
+
+		// 한 페이지에 포함 되는 게시물의 갯수
+		int itemsInAPage = 20;
+
+		// 총 게시물의 갯수를 구하는
+		int totleItemsCount = orderService.getOrdersTotleCountByMyList(loginMemberId);
+
+		orders = orderService.getForPrintOrdersByMyList(loginMemberId, page, itemsInAPage);
+
+		// 총 페이지 갯수 (총 게시물 수 / 한 페이지 안의 게시물 갯수)
+		int totlePage = (int) Math.ceil(totleItemsCount / (double) itemsInAPage);
+
+		int pageMenuArmSize = 5;
+
+		// 시작 페이지 번호
+		int pageMenuStrat = page - pageMenuArmSize;
+
+		// 시작 페이지가 1보다 작다면 시작 페이지는 1
+		if (pageMenuStrat < 1) {
+			pageMenuStrat = 1;
+		}
+
+		// 끝 페이지 페이지 번호
+		int pageMenuEnd = page + pageMenuArmSize;
+
+		if (pageMenuEnd > totlePage) {
+			pageMenuEnd = totlePage;
+		}
+
+		// req.setAttribute( "" , ) -> 이게 있어야지 jsp에서 뜸!
+		req.setAttribute("totleItemsCount", totleItemsCount);
+		req.setAttribute("totlePage", totlePage);
+		req.setAttribute("pageMenuArmSize", pageMenuArmSize);
+		req.setAttribute("pageMenuStrat", pageMenuStrat);
+		req.setAttribute("pageMenuEnd", pageMenuEnd);
+		req.setAttribute("page", page);
+		req.setAttribute("orders", orders);
+
+		return "/adm/order/myList";
+	}
+
 	@RequestMapping("/adm/order/history")
 	public String Showhistory(@RequestParam Integer id, HttpServletRequest req) {
 
@@ -36,7 +84,7 @@ public class AdmOrderController extends BaseController {
 		}
 
 		Order orderHistory = orderService.getForPrintOrderHistory(id);
-		
+
 		Product orderProduct = orderService.getForPrintOrderProduct(id);
 
 		req.setAttribute("order", orderHistory);
@@ -52,9 +100,9 @@ public class AdmOrderController extends BaseController {
 			return msgAndBack(req, "제품 번호를 입력해주세요.");
 		}
 
-		Product orderProduct = orderService.getForPrintOrderProduct(productId);
+		Product product = orderService.getForPrintProduct(productId);
 
-		List<GenFile> files = genFileService.getGenFiles("product", orderProduct.getId(), "common", "attachment");
+		List<GenFile> files = genFileService.getGenFiles("product", product.getId(), "common", "attachment");
 
 		Map<String, GenFile> filesMap = new HashMap<>();
 
@@ -62,8 +110,8 @@ public class AdmOrderController extends BaseController {
 			filesMap.put(file.getFileNo() + "", file);
 		}
 
-		orderProduct.getExtraNotNull().put("file__common__attachment", filesMap);
-		req.setAttribute("product", orderProduct);
+		product.getExtraNotNull().put("file__common__attachment", filesMap);
+		req.setAttribute("product", product);
 
 		return "/adm/order/product";
 	}

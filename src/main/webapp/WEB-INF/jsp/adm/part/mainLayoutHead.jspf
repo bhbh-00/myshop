@@ -106,15 +106,22 @@ body {
 								<li>
 									<a href="../member/mypage?id=${ loginedMember.id }"
 										class="inline-block text-lg">
-										<span>&nbsp;내 프로필 보기</span>
+										<span>&nbsp;프로필 보기</span>
 									</a>
 								</li>
 								<li>
 									<a href="../article/myList?boardId=1"
 										class="inline-block text-lg">
-										<span>&nbsp;내 게시물 보기</span>
+										<span>&nbsp;게시물 보기</span>
 									</a>
 								</li>
+								<li>
+									<a href="../order/myList?memberId=${ loginedMember.id }"
+										class="inline-block text-lg">
+										<span>&nbsp;주문내역 보기</span>
+									</a>
+								</li>
+
 							</ul>
 						</div>
 					</li>

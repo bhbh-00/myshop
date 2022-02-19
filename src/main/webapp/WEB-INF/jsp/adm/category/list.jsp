@@ -77,8 +77,6 @@ th, td {
 			</thead>
 
 			<c:forEach items="${categorys}" var="category">
-				<!-- 반복문 안에 임시변수를 넣어둘 수 있음! c:set -->
-				<c:set var="detailUrl" value="detail?id=${category.id}" />
 				<tbody>
 					<tr>
 						<td><span>${category.id}</span></td>

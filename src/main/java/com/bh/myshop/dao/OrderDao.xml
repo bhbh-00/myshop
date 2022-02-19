@@ -5,7 +5,44 @@
 
 <mapper namespace="com.bh.myshop.dao.OrderDao">
 
-	<!-- 주문 -->
+	<select id="getForPrintOrdersByMyList" resultType="Order">
+		SELECT O.*,
+		IFNULL(M.nickname, "탈퇴회원") AS extra__writerㅡ
+		FROM `order` AS
+		O
+		LEFT JOIN `member` AS M
+		ON O.memberId = M.id
+		WHERE O.memberId = #{id}
+		AND O.delStatus = 0
+		ORDER BY O.id ASC
+		<if test="limitStart != null and limitTake != null">
+			LIMIT #{limitStart}, #{limitTake}
+		</if>
+	</select>
+
+	<select id="getOrdersTotleCountByMyList" resultType="int">
+		SELECT
+		count(*)
+		FROM `order`
+		WHERE memberId = #{id}
+		AND delStatus = 0
+		ORDER BY id
+		DESC;
+	</select>
+
+	<select id="getForPrintOrdersByMemberId" resultType="Order">
+		SELECT O.*,
+		IFNULL(M.nickname, "탈퇴회원") AS extra__writer
+		FROM `order` AS O
+		LEFT JOIN
+		`member` AS M
+		ON O.memberId = M.id
+		WHERE O.memberId = #{id}
+		AND
+		O.delStatus = 0;
+	</select>
+
+	<!-- 주문하기 -->
 	<insert id="add" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO
 		`order`
@@ -16,26 +53,38 @@
 		categoryId = #{categoryId},
 		memberId = #{memberId},
 		orderCode = CONCAT("orderCode__", UUID(), "__", RAND()),
-		orderName = #{orderName},
+		orderName =
+		#{orderName},
 		cellphoneNo = #{cellphoneNo},
 		address = #{address},
 		email =
 		#{email},
 		payment = #{payment},
 		totalPayment =
-		#{totalPayment}
+		#{totalPayment};
 	</insert>
 
-	<!-- 주문할 제품 불러오기 -->
+	<!-- 제품번호로 주문한 제품 불러오기 -->
 	<select id="getForPrintOrderProduct" resultType="Product">
 		SELECT P.*
 		FROM
 		product AS P
-		LEFT JOIN
-		`order` AS O
+		LEFT JOIN `order` AS O
 		ON P.id = O.productId
-		WHERE P.id =
-		#{productId}
+		WHERE O.id =
+		#{id}
+		AND P.delStatus = 0;
+	</select>
+
+	<!-- 제품 보기 -->
+	<select id="getForPrintProduct" resultType="Product">
+		SELECT P.*
+		FROM
+		product AS P
+		LEFT JOIN `order` AS O
+		ON P.id = O.productId
+		WHERE
+		O.productId = #{productId}
 		AND P.delStatus = 0
 		LIMIT 1;
 	</select>

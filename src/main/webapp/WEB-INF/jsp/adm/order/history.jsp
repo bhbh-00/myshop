@@ -50,12 +50,12 @@ th, td {
 				</tr>
 
 			</table>
-			
+
 			<div class="mt-10 text-center">
 				<span class="text-lg font-bold">결제정보</span>
 			</div>
-			
-			<div  class="px-10">
+
+			<div class="px-10">
 				<table
 					class="container max-w-3xl min-w-max mx-auto item-bt-1-not-last-child text-center mt-6 h-6">
 
@@ -86,7 +86,13 @@ th, td {
 
 					<tr class="border-b border-gray-400">
 						<th>결제수단</th>
-						<td>${order.payment}</td>
+						<c:if test="${order.payment == 1}">
+							<td>무통장입금</td>
+						</c:if>
+
+						<c:if test="${order.payment == 2}">
+							<td>신용카드</td>
+						</c:if>
 					</tr>
 
 					<tr class="border-b border-gray-400">
@@ -96,11 +102,11 @@ th, td {
 
 				</table>
 			</div>
-			
+
 			<div class="mt-10 text-center">
 				<span class="text-lg font-bold">배송정보</span>
 			</div>
-			
+
 		</div>
 	</div>
 </section>

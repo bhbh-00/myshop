@@ -1,5 +1,6 @@
 package com.bh.myshop.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ public class OrderService {
 	@Autowired
 	private OrderDao orderDao;
 
+	// 주문하기
 	public ResultData doAdd(Map<String, Object> param) {
 		orderDao.add(param);
 
@@ -25,12 +27,43 @@ public class OrderService {
 		return new ResultData("s-1", "주문이 완료되었습니다.", "id", id);
 	}
 
-	public Product getForPrintOrderProduct(Integer productId) {
-		return orderDao.getForPrintOrderProduct(productId);
+	// 제품번호로 주문한 제품 불러오기
+	public Product getForPrintOrderProduct(Integer id) {
+		return orderDao.getForPrintOrderProduct(id);
 	}
 
+	// 주문번호로 주문내역 불러오기
 	public Order getForPrintOrderHistory(Integer id) {
 		return orderDao.getForPrintOrderHistory(id);
+	}
+
+	// 회원번호로 주문내역 불러오기
+	public List<Order> getForPrintOrdersByMemberId(int loginMemberId) {
+		return orderDao.getForPrintOrdersByMemberId(loginMemberId);
+	}
+
+	// 내 주문내역 불러오기
+	public List<Order> getForPrintOrdersByMyList(int loginMemberId, int page, int itemsInAPage) {
+		// 페이징 - 시작과 끝 범위
+		int limitStart = (page - 1) * itemsInAPage;
+		// controller에서 한 페이지에 포함 되는 게시물의 갯수의 값을(itemsInAPage) 설정했음.
+		int limitTake = itemsInAPage;
+		// 한 페이지에 포함 되는 게시물의 갯수의 값
+		// LIMIT 20, 20 => 2page LIMIT 40, 20 => 3page
+
+		List<Order> orders = orderDao.getForPrintOrdersByMyList(loginMemberId, limitStart, limitTake);
+
+		return orders;
+	}
+
+	// 내 주문내역의 총 갯수
+	public int getOrdersTotleCountByMyList(int loginMemberId) {
+		return orderDao.getOrdersTotleCountByMyList(loginMemberId);
+	}
+	
+	// 제품 보기
+	public Product getForPrintProduct(Integer productId) {
+		return orderDao.getForPrintProduct(productId);
 	}
 
 }

@@ -57,13 +57,6 @@ body {
 			return false;
 		}
 
-		form.price.value = form.price.value.trim();
-		if (form.price.value.length == 0) {
-			alert('결제금액 입력해주세요.');
-			form.price.focus();
-			return;
-		}
-
 		form.submit();
 		OrderAdd_checkAndSubmitDone = true;
 	}
@@ -85,6 +78,7 @@ body {
 
 				<input type="hidden" name="productId" value="${param.productId}" />
 				<input type="hidden" name="categoryId" value="${param.categoryId}" />
+				<input type="hidden" name="totalPayment" value="0" />
 
 				<!-- name -->
 				<div class="form-control">
@@ -133,15 +127,6 @@ body {
 						<option value="1">무통장입금</option>
 						<option value="2">신용카드</option>
 					</select>
-				</div>
-
-				<!-- price -->
-				<div class="form-control">
-					<label class="label">
-						<span class="font-bold label-text">price</span>
-					</label>
-					<input type="text" name="price" placeholder="price 입력해주세요."
-						autofocus="autofocus" class="input input-bordered">
 				</div>
 
 				<button
