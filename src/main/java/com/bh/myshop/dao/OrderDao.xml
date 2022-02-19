@@ -7,7 +7,7 @@
 
 	<select id="getForPrintOrdersByMyList" resultType="Order">
 		SELECT O.*,
-		IFNULL(M.nickname, "탈퇴회원") AS extra__writerㅡ
+		IFNULL(M.nickname, "탈퇴회원") AS extra__writer
 		FROM `order` AS
 		O
 		LEFT JOIN `member` AS M
@@ -52,9 +52,7 @@
 		#{productId},
 		categoryId = #{categoryId},
 		memberId = #{memberId},
-		orderCode = CONCAT("orderCode__", UUID(), "__", RAND()),
-		orderName =
-		#{orderName},
+		orderName = #{orderName},
 		cellphoneNo = #{cellphoneNo},
 		address = #{address},
 		email =

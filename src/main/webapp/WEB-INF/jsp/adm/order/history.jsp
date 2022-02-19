@@ -60,11 +60,6 @@ th, td {
 					class="container max-w-3xl min-w-max mx-auto item-bt-1-not-last-child text-center mt-6 h-6">
 
 					<tr class="border-b border-gray-400">
-						<th>주문번호</th>
-						<td>${order.orderCode}</td>
-					</tr>
-
-					<tr class="border-b border-gray-400">
 						<th>이름</th>
 						<td>${order.orderName}</td>
 					</tr>
