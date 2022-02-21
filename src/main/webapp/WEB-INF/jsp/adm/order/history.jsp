@@ -15,7 +15,7 @@ th, td {
 }
 </style>
 
-<section class="section-order-history">
+<section class="section-adm-order-history">
 
 	<div
 		class="container max-w-3xl min-w-max mx-auto p-5 mb-5 relative item-bt-1-not-last-child">

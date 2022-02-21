@@ -6,7 +6,7 @@
 <mapper namespace="com.bh.myshop.dao.OrderDao">
 
 	<!-- 주문내역 리스트 -->
-	<select id="getForPrintOrders" resultType="Member">
+	<select id="getForPrintOrders" resultType="Order">
 		SELECT *
 		FROM `order`
 		WHERE 1
@@ -50,11 +50,10 @@
 	<select id="getForPrintOrderDelivery" resultType="Delivery">
 		SELECT D.*
 		FROM
-		delivery AS D
-		LEFT JOIN `order` AS O
-		ON D.orderId = O.id
-		WHERE O.id =
-		#{id}
+		`order` AS O
+		LEFT JOIN delivery AS D
+		ON O.id = D.orderId
+		WHERE D.id = #{id}
 		AND D.delStatus = 0;
 	</select>
 
