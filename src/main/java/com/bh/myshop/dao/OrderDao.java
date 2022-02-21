@@ -35,3 +35,4 @@ public interface OrderDao {
 	Product getForPrintProduct(@Param("productId") Integer productId);
 
 }
+

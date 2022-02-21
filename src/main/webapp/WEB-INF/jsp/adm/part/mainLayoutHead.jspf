@@ -149,6 +149,12 @@ body {
 									</a>
 								</li>
 								<li>
+									<a href="../order/list"
+										class="inline-block text-lg">
+										<span>&nbsp;주문내역관리</span>
+									</a>
+								</li>
+								<li>
 									<a href="../article/list?boardId=1"
 										class="inline-block text-lg">
 										<span>&nbsp;게시물관리</span>
