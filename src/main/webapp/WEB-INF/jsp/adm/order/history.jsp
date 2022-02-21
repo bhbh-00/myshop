@@ -117,6 +117,10 @@ th, td {
 								<td>배송전</td>
 							</tr>
 
+							<tr>
+								<td><a href="/adm/delivery/add?orderId=${order.id}">입력</a></td>
+							</tr>
+
 						</c:when>
 
 						<c:otherwise>
@@ -136,7 +140,7 @@ th, td {
 								</c:if>
 								<td>${delivery.company}</td>
 								<td>${delivery.waybillNum}</td>
-								<td>${delivery.deliveryDate}</td>
+								<td>${delivery.regDate}</td>
 							</tr>
 						</c:otherwise>
 					</c:choose>

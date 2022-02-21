@@ -29,6 +29,75 @@ public class AdmOrderController extends BaseController {
 	@Autowired
 	private GenFileService genFileService;
 
+	// 회원 리스트
+	@RequestMapping("/adm/order/list")
+	public String showList(HttpServletRequest req, @RequestParam Map<String, Object> param,
+			@RequestParam(defaultValue = "1") int page) {
+
+		String searchKeywordType = (String) param.get("searchKeywordType");
+
+		String searchKeyword = (String) param.get("searchKeyword");
+
+		if (searchKeywordType != null) {
+			searchKeywordType = searchKeywordType.trim();
+		}
+
+		if (searchKeywordType == null || searchKeywordType.length() == 0) {
+			searchKeywordType = "regDate";
+		}
+
+		if (searchKeyword != null && searchKeyword.length() == 0) {
+			searchKeyword = null;
+		}
+
+		if (searchKeyword != null) {
+			searchKeyword = searchKeyword.trim();
+		}
+
+		if (searchKeyword == null) {
+			searchKeywordType = null;
+		}
+
+		// 한 페이지에 포함 되는 게시물의 갯수
+		int itemsInAPage = 20;
+
+		// 총 게시물의 갯수를 구하는
+		int totleItemsCount = orderService.getOrderTotleCount(searchKeywordType, searchKeyword);
+
+		// 총 페이지 갯수 (총 게시물 수 / 한 페이지 안의 게시물 갯수)
+		int totlePage = (int) Math.ceil(totleItemsCount / (double) itemsInAPage);
+
+		int pageMenuArmSize = 5;
+
+		// 시작 페이지 번호
+		int pageMenuStrat = page - pageMenuArmSize;
+
+		// 시작 페이지가 1보다 작다면 시작 페이지는 1
+		if (pageMenuStrat < 1) {
+			pageMenuStrat = 1;
+		}
+
+		// 끝 페이지 페이지 번호
+		int pageMenuEnd = page + pageMenuArmSize;
+
+		if (pageMenuEnd > totlePage) {
+			pageMenuEnd = totlePage;
+		}
+
+		List<Order> orders = orderService.getForPrintOrders(searchKeywordType, searchKeyword, itemsInAPage,
+				itemsInAPage, param);
+
+		req.setAttribute("totleItemsCount", totleItemsCount);
+		req.setAttribute("totlePage", totlePage);
+		req.setAttribute("pageMenuArmSize", pageMenuArmSize);
+		req.setAttribute("pageMenuStrat", pageMenuStrat);
+		req.setAttribute("pageMenuEnd", pageMenuEnd);
+		req.setAttribute("page", page);
+		req.setAttribute("orders", orders);
+
+		return "adm/order/list";
+	}
+
 	// 내 게시물 보기
 	@RequestMapping("/adm/order/myList")
 	public String showMyList(HttpServletRequest req, @RequestParam(defaultValue = "1") int page) {
@@ -87,7 +156,7 @@ public class AdmOrderController extends BaseController {
 		Order orderHistory = orderService.getForPrintOrderHistory(id);
 
 		Product orderProduct = orderService.getForPrintOrderProduct(id);
-		
+
 		Delivery orderDelivery = orderService.getForPrintOrderDelivery(id);
 
 		req.setAttribute("order", orderHistory);

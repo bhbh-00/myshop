@@ -49,25 +49,29 @@ body {
 		<div class="pb-7">
 			<span class="text-2xl ml-4 font-bold">배송정보 등록</span>
 		</div>
-		
+
 		<div class="px-4 py-4">
 
 			<form onsubmit="DeliveryAdd__checkAndSubmit(this); return false;"
 				action="doAdd" method="POST" enctype="multipart/form-data">
 
 				<input type="hidden" name="orderId" value="${param.orderId}" />
-				<input type="hidden" name="deliveryState" value="${1}" />
 
-				<!-- name -->
+				<!-- 택배사 -->
 				<div class="form-control">
 					<label class="label">
 						<span class="font-bold label-text">택배사</span>
 					</label>
-					<input type="text" name="company" placeholder="택배사를 입력해주세요."
-						autofocus="autofocus" class="input input-bordered">
+					<select name="company" class="select select-bordered">
+						<option disabled="disabled" selected="selected">택배사를
+							선택해주세요.</option>
+						<option>대한통운</option>
+						<option>우체국</option>
+						<option>로젠택배</option>
+					</select>
 				</div>
 
-				<!-- cellphoneNo -->
+				<!-- 운송장번호 -->
 				<div class="form-control mt-4">
 					<label class="label">
 						<span class="font-bold label-text">운송장번호</span>
@@ -75,7 +79,7 @@ body {
 					<input type="text" name="waybillNum" placeholder="운송장번호 입력해주세요."
 						autofocus="autofocus" class="input input-bordered">
 				</div>
-				
+
 				<button
 					class="btn btn-block btn-sm mt-7 mb-1 bg-white text-black hover:bg-black hover:text-white"
 					type="submit">

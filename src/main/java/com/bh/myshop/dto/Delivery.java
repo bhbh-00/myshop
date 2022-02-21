@@ -17,8 +17,7 @@ public class Delivery extends EntityDto {
 	private int memberId;
 	private String company; // 택배사
 	private String waybillNum; // 운송장번호
-	private int deliveryState; // 배송상태 (2=발송, 3=배송완료)
-	private String deliveryDate; // 배송날짜
+	private int deliveryState; // 배송상태 (1=발송, 2=배송완료)
 	private boolean blindStatus;
 	private String blindDate;
 	private boolean delStatus;

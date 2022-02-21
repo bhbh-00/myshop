@@ -37,6 +37,12 @@ public interface OrderDao {
 	
 	// 주문번호로 배송내역 불러오기
 	Delivery getForPrintOrderDelivery(@Param("id") Integer id);
+	
+	// 총 주문 수 확인하기
+	int getOrderTotleCount(@Param("searchKeywordType") String searchKeywordType, @Param("searchKeyword") String searchKeyword);
+	
+	// 주문내역 불러오기
+	List<Order> getForPrintOrders(Map<String, Object> param);
 
 }
 

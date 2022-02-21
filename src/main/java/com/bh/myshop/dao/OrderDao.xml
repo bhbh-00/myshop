@@ -5,6 +5,47 @@
 
 <mapper namespace="com.bh.myshop.dao.OrderDao">
 
+	<!-- 주문내역 리스트 -->
+	<select id="getForPrintOrders" resultType="Member">
+		SELECT *
+		FROM `order`
+		WHERE 1
+		AND delStatus = 0
+		<if test="searchKeywordType == 'regDate'">
+			AND regDate LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchKeywordType == 'productId'">
+			AND productId LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchKeywordType == 'regDateAndproductId'">
+			AND (regDate LIKE CONCAT('%', #{searchKeyword}, '%') OR
+			productId LIKE CONCAT('%', #{searchKeyword}, '%')))
+		</if>
+		ORDER BY id DESC
+		<if test="limitStart != null and limitTake != null">
+			LIMIT #{limitStart}, #{limitTake}
+		</if>
+	</select>
+
+	<!-- 총 게시물의 갯수를 구하는 -->
+	<select id="getOrderTotleCount" resultType="int">
+		SELECT count(*)
+		FROM `order`
+		WHERE 1
+		AND delStatus = 0
+		<if test="searchKeywordType == 'regDate'">
+			AND regDate LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchKeywordType == 'productId'">
+			AND productId LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchKeywordType == 'regDateAndproductId'">
+			AND (regDate LIKE CONCAT('%', #{searchKeyword}, '%') OR
+			productId LIKE CONCAT('%', #{searchKeyword}, '%')))
+		</if>
+		ORDER BY id DESC
+	</select>
+
 	<!-- 주문번호로 배송내역 불러오기 -->
 	<select id="getForPrintOrderDelivery" resultType="Delivery">
 		SELECT D.*

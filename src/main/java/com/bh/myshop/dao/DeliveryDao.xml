@@ -5,7 +5,7 @@
 
 <mapper namespace="com.bh.myshop.dao.DeliveryDao">
 
-	<!-- 게시판 생성 -->
+	<!-- 배송정보 등록 -->
 	<insert id="add" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO
 		delivery
@@ -13,7 +13,8 @@
 		updateDate = NOW(),
 		orderId = #{orderId},
 		memberId = #{memberId},
-		deliveryState = #{1};
+		company = #{company},
+		waybillNum = #{waybillNum};
 	</insert>
 
 

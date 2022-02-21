@@ -5,7 +5,7 @@
 
 <mapper namespace="com.bh.myshop.dao.MemberDao">
 
-	<!-- 총 게시물의 갯수를 구하는 -->
+	<!-- 총 회원의 갯수를 구하는 -->
 	<select id="getMemberTotleCount" resultType="int">
 		SELECT count(*)
 		FROM `member`

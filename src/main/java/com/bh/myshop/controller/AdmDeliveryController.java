@@ -31,8 +31,6 @@ public class AdmDeliveryController extends BaseController {
 
 		int loginMemberId = (int) req.getAttribute("loginedMemberId");
 
-		param.put("memberId", loginMemberId);
-
 		if (param.get("company") == null) {
 			return msgAndBack(req, "택배사를 입력해주세요.");
 		}
@@ -41,12 +39,13 @@ public class AdmDeliveryController extends BaseController {
 			return msgAndBack(req, "운송장번호를 입력해주세요.");
 		}
 
+		param.put("memberId", loginMemberId);
+
 		ResultData addDeliveryRd = deliveryService.doAdd(param);
 
 		int newDeliveryId = (int) addDeliveryRd.getBody().get("id");
 
-		return msgAndReplace(req, String.format("배송정보가 등록 되었습니다.(%d)", newDeliveryId),
-				"../delivery/list");
+		return msgAndReplace(req, String.format("배송정보가 등록 되었습니다.(%d)", newDeliveryId), "../delivery/list");
 	}
 
 }

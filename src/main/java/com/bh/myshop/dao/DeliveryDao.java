@@ -4,11 +4,10 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.bh.myshop.dto.ResultData;
-
 @Mapper
 public interface DeliveryDao {
-
-	ResultData doAdd(Map<String, Object> param);
+	
+	// 배송정보 등록
+	void add(Map<String, Object> param);
 
 }

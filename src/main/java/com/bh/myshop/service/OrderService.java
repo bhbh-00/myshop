@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bh.myshop.dao.OrderDao;
 import com.bh.myshop.dto.Delivery;
@@ -70,6 +71,23 @@ public class OrderService {
 	// 배송정보 보기
 	public Delivery getForPrintOrderDelivery(Integer id) {
 		return orderDao.getForPrintOrderDelivery(id);
+	}
+
+	public int getOrderTotleCount(String searchKeywordType, String searchKeyword) {
+		return orderDao.getOrderTotleCount(searchKeywordType,searchKeyword);
+	}
+
+	public List<Order> getForPrintOrders(String searchKeywordType, String searchKeyword, int page, int itemsInAPage,
+			@RequestParam Map<String, Object> param) {
+		int limitStart = (page - 1) * itemsInAPage;
+		int limitTake = itemsInAPage;
+
+		param.put("searchKeywordType", searchKeywordType);
+		param.put("searchKeyword", searchKeyword);
+		param.put("page", page);
+		param.put("itemsInAPage", itemsInAPage);
+
+		return orderDao.getForPrintOrders(param);
 	}
 
 }
