@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartRequest;
 
+import com.bh.myshop.dto.Delivery;
 import com.bh.myshop.dto.GenFile;
 import com.bh.myshop.dto.Order;
 import com.bh.myshop.dto.Product;
@@ -86,9 +87,12 @@ public class AdmOrderController extends BaseController {
 		Order orderHistory = orderService.getForPrintOrderHistory(id);
 
 		Product orderProduct = orderService.getForPrintOrderProduct(id);
+		
+		Delivery orderDelivery = orderService.getForPrintOrderDelivery(id);
 
 		req.setAttribute("order", orderHistory);
 		req.setAttribute("product", orderProduct);
+		req.setAttribute("delivery", orderDelivery);
 
 		return "/adm/order/history";
 	}

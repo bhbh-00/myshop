@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.bh.myshop.dto.Delivery;
 import com.bh.myshop.dto.Order;
 import com.bh.myshop.dto.Product;
 
@@ -29,10 +30,13 @@ public interface OrderDao {
 			@Param("limitTake") int limitTake);
 	
 	// 내 주문내역의 총 갯수
-	int getOrdersTotleCountByMyList(@Param("id")  int id);
+	int getOrdersTotleCountByMyList(@Param("id") int id);
 	
 	// 제품 보기
 	Product getForPrintProduct(@Param("productId") Integer productId);
+	
+	// 주문번호로 배송내역 불러오기
+	Delivery getForPrintOrderDelivery(@Param("id") Integer id);
 
 }
 

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bh.myshop.dao.OrderDao;
+import com.bh.myshop.dto.Delivery;
 import com.bh.myshop.dto.Order;
 import com.bh.myshop.dto.Product;
 import com.bh.myshop.dto.ResultData;
@@ -64,6 +65,11 @@ public class OrderService {
 	// 제품 보기
 	public Product getForPrintProduct(Integer productId) {
 		return orderDao.getForPrintProduct(productId);
+	}
+	
+	// 배송정보 보기
+	public Delivery getForPrintOrderDelivery(Integer id) {
+		return orderDao.getForPrintOrderDelivery(id);
 	}
 
 }

@@ -98,8 +98,50 @@ th, td {
 				</table>
 			</div>
 
-			<div class="mt-10 text-center">
-				<span class="text-lg font-bold">배송정보</span>
+			<div class="mt-10">
+				<div class="text-center">
+					<span class="text-lg font-bold">배송정보</span>
+				</div>
+
+				<table
+					class="container max-w-3xl min-w-max mx-auto item-bt-1-not-last-child text-center mt-6 h-6">
+
+					<c:choose>
+						<c:when test="${delivery.deliveryState == null}">
+
+							<tr class="border-b border-gray-400">
+								<th>배송상태</th>
+							</tr>
+
+							<tr class="border-b border-gray-400">
+								<td>배송전</td>
+							</tr>
+
+						</c:when>
+
+						<c:otherwise>
+							<tr class="border-b border-gray-400">
+								<th>배송상태</th>
+								<th>택배사</th>
+								<th>운송장번호</th>
+								<th>배송날짜</th>
+							</tr>
+
+							<tr class="border-b border-gray-400">
+								<c:if test="${delivery.deliveryState == 1}">
+									<td>발송</td>
+								</c:if>
+								<c:if test="${delivery.deliveryState == 2}">
+									<td>배송완료</td>
+								</c:if>
+								<td>${delivery.company}</td>
+								<td>${delivery.waybillNum}</td>
+								<td>${delivery.deliveryDate}</td>
+							</tr>
+						</c:otherwise>
+					</c:choose>
+
+				</table>
 			</div>
 
 		</div>

@@ -17,13 +17,13 @@ public class Delivery extends EntityDto {
 	private int memberId;
 	private String company; // 택배사
 	private String waybillNum; // 운송장번호
-	private int deliverystate; // 배송상태
-	private String deliveryDate;
+	private int deliveryState; // 배송상태 (2=발송, 3=배송완료)
+	private String deliveryDate; // 배송날짜
 	private boolean blindStatus;
 	private String blindDate;
 	private boolean delStatus;
 	private String delDate;
-	
+
 	private String extra__writer;
 	private String extra__thumbImg; // 썸네일
 
