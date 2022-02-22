@@ -3,14 +3,6 @@ DROP DATABASE IF EXISTS myshop;
 CREATE DATABASE myshop;
 USE myshop;
 
-SELECT * FROM product;
-SELECT * FROM `order` WHERE orderCode = "2022";
-SELECT * FROM category;
-SELECT * FROM genfile;
-SELECT * FROM `member`;
-
-
-
 # ============================================== product
 
 # 제품 테이블 생성
@@ -349,7 +341,6 @@ updateDate = NOW(),
 `code` = "104",
 categoryName = "악세사리";
 
-
 # 카테고리 memberId 1로 하기
 UPDATE category
 SET memberId = 1
@@ -379,29 +370,21 @@ ALTER TABLE `order` ADD COLUMN productId INT(10) UNSIGNED NOT NULL AFTER updateD
 # 주문 테이블에 categoryId 칼럼 추가
 ALTER TABLE `order` ADD COLUMN categoryId INT(10) UNSIGNED NOT NULL AFTER productId;
 
-# 주문 테이블에 categoryId 칼럼 추가
+# 주문 테이블에 memberId 칼럼 추가
 ALTER TABLE `order` ADD COLUMN memberId INT(10) UNSIGNED NOT NULL AFTER categoryId;
 
-# 주문 테이블에 categoryId 칼럼 추가
-ALTER TABLE `order` ADD COLUMN payment INT(10) UNSIGNED NOT NULL AFTER totalPayment;
-
-# 주문 테이블에 권한레벨 필드 추가
+# 주문 테이블에 결제 권한레벨 필드 추가
 ALTER TABLE `order`
-ADD COLUMN totalPayment INT(10) UNSIGNED
-DEFAULT 2 NOT NULL COMMENT '(1=무통장입금,2=신용카드)' AFTER totalPayment; 
+ADD COLUMN payment TINYINT(1)  UNSIGNED
+NOT NULL COMMENT '(1=무통장입금,2=신용카드)' AFTER email; 
 
-INSERT INTO `order`
-SET regDate = NOW(),
-updateDate = NOW(),
-productId=1,
-categoryId=1,
-memberId=1,
-orderName ="김철수",
-cellphoneNo="01012341234",
-address="서울특별시 ㅇㅇ동 ㄷㄷ아파트",
-email="sss@s22.com",
-totalPayment =12000,
-payment=1;
+# 주문 테이블에  결제 상태 권한레벨 필드 추가
+ALTER TABLE `order`
+ADD COLUMN paymentStatus TINYINT(1)  UNSIGNED
+COMMENT '(1=입금완료 2=결제완료)' AFTER totalPayment; 
+
+# 주문 테이블에 categoryId 칼럼 추가
+ALTER TABLE `order` ADD COLUMN paymentDate DATETIME AFTER paymentStatus;
 
 # ============================================== Delivery
 
@@ -410,26 +393,24 @@ CREATE TABLE delivery (
     id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     regDate DATETIME NOT NULL,
     updateDate DATETIME NOT NULL,
-    company CHAR(20) NOT NULL'택배사',
-    waybillNum CHAR(80) NOT NULL'택배번호',
-    deliverystate TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '배송상태',
-    deliveryDate DATETIME COMMENT '배송날짜',
+    company CHAR(20),
+    waybillNum CHAR(80),
     blindStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '블라인드여부',
     blindDate DATETIME COMMENT '블라인드날짜',
     delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '삭제여부',
     delDate DATETIME COMMENT '삭제날짜'
 );
 
-# 주문 테이블에 productId 칼럼 추가
-ALTER TABLE `delivery` ADD COLUMN orderId INT(10) UNSIGNED NOT NULL AFTER updateDate;
+# 배송 테이블에 productId 칼럼 추가
+ALTER TABLE delivery ADD COLUMN orderId INT(10) UNSIGNED NOT NULL AFTER updateDate;
 
-# 주문 테이블에 categoryId 칼럼 추가
-ALTER TABLE `delivery` ADD COLUMN memberId INT(10) UNSIGNED NOT NULL AFTER orderId;
+# 배송 테이블에 categoryId 칼럼 추가
+ALTER TABLE delivery ADD COLUMN memberId INT(10) UNSIGNED NOT NULL AFTER orderId;
 
-# 주문 테이블에 권한레벨 필드 추가
-ALTER TABLE `delivery`
-ADD COLUMN deliverystate TINYINT(1) UNSIGNED
-DEFAULT 3 NOT NULL COMMENT '(1=배송전 ,2=발송완료, 3=배송완료)' AFTER deliverystate; 
+# 배송 테이블에 권한레벨 필드 추가
+ALTER TABLE delivery
+ADD COLUMN deliveryState  TINYINT(1) UNSIGNED
+DEFAULT 1 NOT NULL COMMENT '(1=발송, 2=배송완료)' AFTER waybillNum; 
 
 # ============================================== attr
 
