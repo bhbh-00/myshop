@@ -22,6 +22,8 @@ public class Order extends EntityDto {
 	private String email;
 	private int payment;
 	private int totalPayment;
+	private int paymentStatus;
+	private String paymentDate;
 	private boolean blindStatus;
 	private String blindDate;
 	private boolean delStatus;

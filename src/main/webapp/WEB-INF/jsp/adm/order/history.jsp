@@ -95,6 +95,17 @@ th, td {
 						<td>${order.totalPayment}</td>
 					</tr>
 
+					<tr>
+						<th>결제상태</th>
+						<td>입금 전</td>
+						<c:if test="${order.paymentStatus == 1}">
+							<td>입금완료</td>
+						</c:if>
+						<c:if test="${order.paymentStatus == 2}">
+							<td>결제완료</td>
+						</c:if>
+					</tr>
+
 				</table>
 			</div>
 
