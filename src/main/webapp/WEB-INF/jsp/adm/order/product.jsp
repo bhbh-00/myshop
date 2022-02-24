@@ -5,7 +5,7 @@
 
 <%@ include file="../part/mainLayoutHead.jspf"%>
 
-<c:set var="fileInputMaxCount" value="5" />
+<c:set var="fileInputMaxCount" value="1" />
 
 <style>
 body {
