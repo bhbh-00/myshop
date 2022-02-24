@@ -186,7 +186,7 @@ public class AdmProductController extends BaseController {
 		if (param.get("productName") == null) {
 			return msgAndBack(req, "상품명을 입력해주세요.");
 		}
-		
+
 		Product existingProduct = productService.getProductByName((String) param.get("productName"));
 
 		if (existingProduct != null) {
@@ -243,17 +243,8 @@ public class AdmProductController extends BaseController {
 			filesMap.put(file.getFileNo() + "", file);
 		}
 
-		// Like like = likeService.getLikeByproduct(id);
-
-		// int totleItemsCountByLike = likeService.getLikeTotleCountByproduct(id);
-
-		// List<Reply> replys = replyService.getForPrintReplies(id);
-
 		product.getExtraNotNull().put("file__common__attachment", filesMap);
 		req.setAttribute("product", product);
-		// req.setAttribute("replys", replys);
-		// req.setAttribute("like", like);
-		// req.setAttribute("totleItemsCountByLike", totleItemsCountByLike);
 		req.setAttribute("loginMemberId", loginMemberId);
 
 		return "/adm/product/detail";

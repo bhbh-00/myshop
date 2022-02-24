@@ -76,8 +76,7 @@ th, td {
 						<span>결제하기</span>
 					</a>
 				</div>
-
-
+				
 			</div>
 		</div>
 	</div>

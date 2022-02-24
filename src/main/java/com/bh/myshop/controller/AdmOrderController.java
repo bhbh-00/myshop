@@ -169,6 +169,8 @@ public class AdmOrderController extends BaseController {
 	@RequestMapping("/adm/order/product")
 	public String ShowProduct(@RequestParam Integer productId, HttpServletRequest req) {
 
+		int loginMemberId = (int) req.getAttribute("loginedMemberId");
+
 		if (productId == 0) {
 			return msgAndBack(req, "제품 번호를 입력해주세요.");
 		}
@@ -184,6 +186,8 @@ public class AdmOrderController extends BaseController {
 		}
 
 		product.getExtraNotNull().put("file__common__attachment", filesMap);
+
+		req.setAttribute("loginMemberId", loginMemberId);
 		req.setAttribute("product", product);
 
 		return "/adm/order/product";

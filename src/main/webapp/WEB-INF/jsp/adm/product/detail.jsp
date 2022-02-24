@@ -7,20 +7,31 @@
 
 <%@ include file="../part/mainLayoutHead.jspf"%>
 
+<!-- lodash -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+
+<c:set var="fileInputMaxCount" value="5" />
+
 <style>
-html, .product-detail-img-box {
+html, body {
 	position: relative;
 	height: 100%;
+	margin-top: 125px;
 }
 
 body {
-	margin-top: 125px;
+	background: #eee;
+	margin: 0;
+	padding: 0;
+}
+
+th, td {
+	padding: 10px;
 }
 
 .swiper-slide {
 	text-align: center;
-	font-size: 18px;
-	background: #fff;
 	/* Center slide text vertically */
 	display: -webkit-box;
 	display: -ms-flexbox;
@@ -44,30 +55,67 @@ body {
 }
 </style>
 
-<!-- Initialize Swiper -->
-<script>
-	var swiper = new Swiper(".mySwiper", {
-		spaceBetween : 30,
-		pagination : {
-			el : ".swiper-pagination",
-			clickable : true,
-		},
-	});
-</script>
+<section class="section-adm-product-detail">
 
-<section class="section-usr-product-detail">
+	<div class="container max-w-3xl min-w-max mx-auto p-5 mb-5 relative">
 
-	<div
-		class="container max-w-3xl min-w-max mx-auto p-5 mb-5 relative bg-red-100">
-
-		<div
-			class="product-detail-img-box mx-auto w-9 min-w-max h-500 min-h-full">
+		<!-- Swiper -->
+		<div class="swiper mySwiper w-1/2 h-2/5 max-w-lg">
+			<div class="swiper-wrapper">
+				<c:forEach begin="1" end="${fileInputMaxCount}" var="inputNo">
+					<c:set var="fileNo" value="${String.valueOf(inputNo)}" />
+					<c:set var="file"
+						value="${product.extra.file__common__attachment[fileNo]}" />
+					<div class="swiper-slide">${file.mediaHtml}</div>
+				</c:forEach>
+			</div>
+			<div class="swiper-pagination"></div>
 		</div>
-		
-		<div><a href="../order/product?productId=${product.id}">주문하기</a></div>
 
+		<div class="p-10">
+
+			<table class="container max-w-3xl min-w-max mx-auto p-5 mb-5">
+
+				<tr class="border-b border-gray-400">
+					<th>제품명</th>
+					<td>${product.productName}</td>
+				</tr>
+
+				<tr class="border-b border-gray-400">
+					<th>색상</th>
+					<td>${product.color}</td>
+				</tr>
+
+				<tr class="border-b border-gray-400">
+					<th>가격</th>
+					<td>${product.price}</td>
+				</tr>
+
+			</table>
+
+			<div
+				class="container text-center text-lg font-bold mt-4 hover:bg-black hover:text-gray-50">
+				<a href="../order/product?productId=${product.id}">
+					<span>구매하기</span>
+				</a>
+			</div>
+
+		</div>
+
+		<!-- Swiper JS -->
+		<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+		<!-- Initialize Swiper -->
+		<script>
+			var swiper = new Swiper(".mySwiper", {
+				spaceBetween : 30,
+				pagination : {
+					el : ".swiper-pagination",
+					clickable : true,
+				},
+			});
+		</script>
 	</div>
-
-
 </section>
+
 <%@ include file="../part/mainLayoutFoot.jspf"%>
