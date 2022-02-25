@@ -66,7 +66,9 @@ th, td {
 					<c:set var="fileNo" value="${String.valueOf(inputNo)}" />
 					<c:set var="file"
 						value="${product.extra.file__common__attachment[fileNo]}" />
+					<c:set var="detailUrl" value="detail?id=${product.id}" />
 					<div class="swiper-slide">${file.mediaHtml}</div>
+
 				</c:forEach>
 			</div>
 			<div class="swiper-pagination"></div>
@@ -94,7 +96,12 @@ th, td {
 			</table>
 
 			<div
-				class="container text-center text-lg font-bold mt-4 hover:bg-black hover:text-gray-50">
+				class="container text-center text-lg font-bold m-6">
+				<span>${product.body}</span>
+			</div>
+
+			<div
+				class="container text-center text-lg font-bold border border-gray-400 hover:bg-black hover:text-gray-50">
 				<a href="../order/product?productId=${product.id}">
 					<span>구매하기</span>
 				</a>
