@@ -341,6 +341,7 @@ updateDate = NOW(),
 `code` = "104",
 categoryName = "악세사리";
 
+
 # 카테고리 memberId 1로 하기
 UPDATE category
 SET memberId = 1
@@ -376,7 +377,7 @@ ALTER TABLE `order` ADD COLUMN memberId INT(10) UNSIGNED NOT NULL AFTER category
 # 주문 테이블에 결제 권한레벨 필드 추가
 ALTER TABLE `order`
 ADD COLUMN payment TINYINT(1)  UNSIGNED
-NOT NULL COMMENT '(1=무통장입금,2=신용카드)' AFTER email; 
+NOT NULL COMMENT '(1=무통장입금)' AFTER email; 
 
 # 주문 테이블에  결제 상태 권한레벨 필드 추가
 ALTER TABLE `order`
@@ -386,6 +387,20 @@ COMMENT '(1=입금완료 2=결제완료)' AFTER totalPayment;
 # 주문 테이블에 categoryId 칼럼 추가
 ALTER TABLE `order` ADD COLUMN paymentDate DATETIME AFTER paymentStatus;
 
+INSERT INTO `order`
+SET regDate = NOW(),
+updateDate = NOW(),
+productId=1,
+categoryId=1,
+memberId=1,
+orderName ="김철수",
+cellphoneNo="01012341234",
+address="서울특별시 ㅇㅇ동 ㄷㄷ아파트",
+email="sss@s22.com",
+payment =1,
+totalPayment =12000;
+
+SELECT * FROM `order`;
 # ============================================== Delivery
 
 # 배송 리스팅(Delivery) 테이블 생성
@@ -411,6 +426,17 @@ ALTER TABLE delivery ADD COLUMN memberId INT(10) UNSIGNED NOT NULL AFTER orderId
 ALTER TABLE delivery
 ADD COLUMN deliveryState  TINYINT(1) UNSIGNED
 DEFAULT 1 NOT NULL COMMENT '(1=발송, 2=배송완료)' AFTER waybillNum; 
+
+select * from delivery;
+
+INSERT INTO
+delivery
+SET regDate = NOW(),
+updateDate = NOW(),
+orderId = 1,
+memberId = 1,
+company = "대한통운",
+waybillNum = "1234123415";
 
 # ============================================== attr
 

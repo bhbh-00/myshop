@@ -125,7 +125,6 @@ body {
 						<option disabled="disabled" selected="selected">결제방식을
 							선택해주세요.</option>
 						<option value="1">무통장입금</option>
-						<option value="2">신용카드</option>
 					</select>
 				</div>
 

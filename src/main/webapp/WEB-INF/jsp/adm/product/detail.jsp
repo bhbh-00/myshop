@@ -96,7 +96,7 @@ th, td {
 			</table>
 
 			<div
-				class="container text-center text-lg font-bold m-6">
+				class="container text-center text-lg font-bold my-6">
 				<span>${product.body}</span>
 			</div>
 
