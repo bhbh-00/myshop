@@ -18,7 +18,9 @@ public class Order extends EntityDto {
 	private int memberId;
 	private String orderName;
 	private String cellphoneNo;
+	private String post;
 	private String address;
+	private String detailAddress;
 	private String email;
 	private int payment;
 	private int totalPayment;

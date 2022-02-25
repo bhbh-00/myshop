@@ -5,6 +5,8 @@
 
 <%@ include file="../part/mainLayoutHead.jspf"%>
 
+<script
+	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <style>
 body {
@@ -36,10 +38,24 @@ body {
 			return;
 		}
 
+		form.post.value = form.post.value.trim();
+		if (form.post.value.length == 0) {
+			alert('우편번호를 입력해주세요.');
+			form.post.focus();
+			return false;
+		}
+
 		form.address.value = form.address.value.trim();
 		if (form.address.value.length == 0) {
 			alert('주소를 입력해주세요.');
 			form.address.focus();
+			return false;
+		}
+
+		form.detailAddress.value = form.detailAddress.value.trim();
+		if (form.detailAddress.value.length == 0) {
+			alert('상세주소를 입력해주세요.');
+			form.detailAddress.focus();
 			return false;
 		}
 
@@ -59,6 +75,29 @@ body {
 
 		form.submit();
 		OrderAdd_checkAndSubmitDone = true;
+
+	}
+
+	function findAddr() {
+		new daum.Postcode({
+			oncomplete : function(data) {
+
+				console.log(data);
+
+				// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+				// 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+				// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+				var roadAddr = data.roadAddress; // 도로명 주소 변수
+				var jibunAddr = data.jibunAddress; // 지번 주소 변수
+				// 우편번호와 주소 정보를 해당 필드에 넣는다.
+				document.getElementById('member_post').value = data.zonecode;
+				if (roadAddr !== '') {
+					document.getElementById("member_addr").value = roadAddr;
+				} else if (jibunAddr !== '') {
+					document.getElementById("member_addr").value = jibunAddr;
+				}
+			}
+		}).open();
 	}
 </script>
 
@@ -70,7 +109,7 @@ body {
 		<div class="pb-7">
 			<span class="text-2xl ml-4 font-bold">주문하기</span>
 		</div>
-		
+
 		<div class="px-4 py-4">
 
 			<form onsubmit="OrderAdd__checkAndSubmit(this); return false;"
@@ -81,57 +120,93 @@ body {
 				<input type="hidden" name="totalPayment" value="0" />
 
 				<!-- name -->
-				<div class="form-control">
-					<label class="label">
-						<span class="font-bold label-text">이름</span>
-					</label>
-					<input type="text" name="orderName" placeholder="이름을 입력해주세요."
-						autofocus="autofocus" class="input input-bordered">
+				<div class="flex flex-col mb-4 md:flex-row">
+					<div class="p-1 md:w-36 md:flex md:items-center">
+						<span>이름</span>
+					</div>
+					<div class="p-1 md:flex-grow">
+						<input type="text" name="orderName"
+							placeholder="받으 실 분의 이름을 입력해주세요." autofocus="autofocus"
+							class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker">
+					</div>
 				</div>
 
 				<!-- cellphoneNo -->
-				<div class="form-control">
-					<label class="label">
-						<span class="font-bold label-text">연락처</span>
-					</label>
-					<input type="text" name="cellphoneNo" placeholder="연락처를 입력해주세요."
-						autofocus="autofocus" class="input input-bordered">
+				<div class="flex flex-col mb-4 md:flex-row">
+					<div class="p-1 md:w-36 md:flex md:items-center">
+						<span>연락처</span>
+					</div>
+					<div class="p-1 md:flex-grow">
+						<input type="text" name="cellphoneNo"
+							placeholder="-는 제외하고 입력해주세요." autofocus="autofocus"
+							class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker">
+					</div>
 				</div>
 
-				<!-- address -->
-				<div class="form-control">
-					<label class="label">
-						<span class="font-bold label-text">주소</span>
-					</label>
-					<input type="text" name="address" placeholder="주소를 입력해주세요."
-						autofocus="autofocus" class="input input input-bordered">
+				<!-- address (readonly: 읽기 전용) -->
+				<div class="flex flex-col mb-4 md:flex-row">
+					<div class="p-1 md:w-36 md:flex md:items-center">
+						<span>우편주소</span>
+					</div>
+					<div class="p-1 md:flex-grow">
+						<input id="member_post" name="post" type="text" placeholder="우편번호"
+							readonly onclick="findAddr()"
+							class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker">
+					</div>
+				</div>
+
+				<div class="flex flex-col mb-4 md:flex-row">
+					<div class="p-1 md:w-36 md:flex md:items-center">
+						<span>주소지</span>
+					</div>
+					<div class="p-1 md:flex-grow">
+						<input id="member_addr" name="address" type="text"
+							placeholder="주소지" readonly
+							class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker">
+					</div>
+				</div>
+
+				<div class="flex flex-col mb-4 md:flex-row">
+					<div class="p-1 md:w-36 md:flex md:items-center">
+						<span>상세주소</span>
+					</div>
+					<div class="p-1 md:flex-grow">
+						<input type="text" name="detailAddress" placeholder="상세주소"
+							class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker">
+					</div>
 				</div>
 
 				<!-- email -->
-				<div class="form-control">
-					<label class="label">
-						<span class="font-bold label-text">이메일</span>
-					</label>
-					<input type="email" name="email" placeholder="이메일을 입력해주세요."
-						autofocus="autofocus" class="input input-bordered">
+				<div class="flex flex-col mb-4 md:flex-row">
+					<div class="p-1 md:w-36 md:flex md:items-center">
+						<span>이메일</span>
+					</div>
+					<div class="p-1 md:flex-grow">
+						<input type="email" name="email" placeholder="이메일을 입력해주세요."
+							autofocus="autofocus"
+							class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker">
+					</div>
 				</div>
 
 				<!-- payment -->
-				<div class="form-control">
-					<label class="label">
-						<span class="font-bold label-text">결제 방식</span>
-					</label>
-					<select name="payment" class="select select-bordered">
-						<option disabled="disabled" selected="selected">결제방식을
-							선택해주세요.</option>
-						<option value="1">무통장입금</option>
-					</select>
+				<div class="flex flex-col mb-4 md:flex-row">
+					<div class="p-1 md:w-36 md:flex md:items-center">
+						<span>결제 방식</span>
+					</div>
+					<div class="p-1 md:flex-grow">
+						<select name="payment"
+							class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker">
+							<option disabled="disabled" selected="selected">결제방식을
+								선택해주세요.</option>
+							<option value="1">무통장입금</option>
+						</select>
+					</div>
 				</div>
 
 				<button
 					class="btn btn-block btn-sm mt-7 mb-1 bg-white text-black hover:bg-black hover:text-white"
 					type="submit">
-					<span>작성</span>
+					<span>결제하기</span>
 				</button>
 
 			</form>
