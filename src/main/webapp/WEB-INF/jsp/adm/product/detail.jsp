@@ -95,11 +95,10 @@ th, td {
 
 			</table>
 
-			<div
-				class="container text-center text-lg font-bold my-6">
+			<div class="container text-center text-lg font-bold my-6">
 				<span>${product.body}</span>
 			</div>
-
+			
 			<div
 				class="container text-center text-lg font-bold border border-gray-400 hover:bg-black hover:text-gray-50">
 				<a href="../order/product?productId=${product.id}">

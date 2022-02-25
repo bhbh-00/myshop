@@ -52,25 +52,19 @@ public class AdmLikeController extends BaseController {
 	
 	// 좋아요
 	@RequestMapping("/adm/like/doLike")
-	@ResponseBody
 	public String doLike(@RequestParam Map<String, Object> param, HttpServletRequest req, String redirectUrl) {
 
-		Member loginedMember = (Member) req.getAttribute("loginedMember");
+		int loginMemberId = (int) req.getAttribute("loginedMemberId");
 
-		if (param.get("relTypeCode") == "article") {
-			Article articleid = articleService.getArticle((int) param.get("relId"));
-
-			if (articleid == null) {
-				return msgAndBack(req, "해당 게시물은 존재하지 않습니다.");
-			}
-
-			if (param.get("relTypeCode") == null) {
-				return msgAndBack(req, "relTypeCode를 입력해주세요.");
-			}
-
+		if (param.get("relTypeCode") == null) {
+			return msgAndBack(req, "relTypeCode를 입력해주세요.");
 		}
 
-		req.setAttribute("loginedMember", loginedMember);
+		if (param.get("relId") == null) {
+			return msgAndBack(req, "relId를 입력해주세요.");
+		}
+
+		param.put("memberId", loginMemberId);
 
 		ResultData doLikeRd = likeService.doLike(param);
 

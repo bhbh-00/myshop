@@ -22,8 +22,7 @@
 		#{relTypeCode},
 		relId = #{relId},
 		memberId = #{memberId},
-		`like` =
-		#{like}
+		`like` = #{like}
 	</insert>
 
 	<!-- 좋아요 갯수 -->

@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartRequest;
 
 import com.bh.myshop.dto.Category;
 import com.bh.myshop.dto.GenFile;
+import com.bh.myshop.dto.Like;
 import com.bh.myshop.dto.Member;
 import com.bh.myshop.dto.Product;
 import com.bh.myshop.dto.ResultData;
@@ -242,9 +243,13 @@ public class AdmProductController extends BaseController {
 		for (GenFile file : files) {
 			filesMap.put(file.getFileNo() + "", file);
 		}
+		
+		// Like like = likeService.getLike(id);
+		// http://localhost:8021/adm/like/dolike?relTypeCode=product&relId=1&memberId=1
 
 		product.getExtraNotNull().put("file__common__attachment", filesMap);
 		req.setAttribute("product", product);
+		// req.setAttribute("like", like);
 		req.setAttribute("loginMemberId", loginMemberId);
 
 		return "/adm/product/detail";
