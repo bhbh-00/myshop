@@ -52,6 +52,7 @@ public class AdmLikeController extends BaseController {
 	
 	// 좋아요
 	@RequestMapping("/adm/like/doLike")
+	@ResponseBody
 	public String doLike(@RequestParam Map<String, Object> param, HttpServletRequest req, String redirectUrl) {
 
 		int loginMemberId = (int) req.getAttribute("loginedMemberId");

@@ -37,7 +37,7 @@ public class LikeService {
 		return new ResultData("S-1", "좋아요를 해제합니다.", "id", id);
 	}
 
-	public Like getLike(String relTypeCode, int relId) {
+	public Like getLike(String relTypeCode, Integer relId) {
 		return likeDao.getLike(relTypeCode,relId);
 	}
 

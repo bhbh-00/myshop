@@ -55,9 +55,6 @@ th, td {
 }
 </style>
 
-<script>
-	
-</script>
 <section class="section-adm-product-detail">
 
 	<div class="container max-w-3xl min-w-max mx-auto p-5 mb-5 relative">
@@ -77,19 +74,26 @@ th, td {
 			<div class="swiper-pagination"></div>
 		</div>
 
-		<div id="like-app">
-			<form action="doLike" @submit.prevent="submit" method="POST"
-				enctype="multipart/form-data">
+		<!-- 좋아요 -->
+		<div class="py-10">
+			<form class="formName grid form-type-1" action="../like/doLike"
+				method="POST">
 
 				<input type="hidden" name="relTypeCode" value="product" />
-				<input type="hidden" name="relId" value="${param.relId}" />
-				
-				<input type="submit">
-				<i class="fab fa-gratipay"></i>
+				<input type="hidden" name="relId" value="${product.id}" />
+				<input type="hidden" name="like" value="like" />
+
+				<input type="hidden" name="redirectUrl"
+					value="../product/detail?id=${product.id}" />
+
+				<button type="submit">
+					<i class="fab fa-gratipay"></i>
+				</button>
 			</form>
 		</div>
 
-		<div class="p-10">
+		<!-- 제품 정보 -->
+		<div>
 
 			<table class="container max-w-3xl min-w-max mx-auto p-5 mb-5">
 
