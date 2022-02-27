@@ -75,21 +75,51 @@ th, td {
 		</div>
 
 		<!-- 좋아요 -->
-		<div class="py-10">
-			<form class="formName grid form-type-1" action="../like/doLike"
-				method="POST">
+		<!-- 만약에 좋아요의 멤버아이디와 아이디가 같으면 채우진 하트 아니면 빈하트 -->
+		<div class="py-10 text-center">
 
-				<input type="hidden" name="relTypeCode" value="product" />
-				<input type="hidden" name="relId" value="${product.id}" />
-				<input type="hidden" name="like" value="like" />
+			<c:choose>
+				<c:when test="${like.memberId == loginMemberId}">
+					<a
+						href="../like/doDelete?relTypeCode=product&relId=${product.id}&id=${like.id}&redirectUrl=../product/detail?id=${product.id}">
+						<span class="">
+							<!-- 하트 -->
+							<i class="fab fa-gratipay text-pink-500"></i>
+						</span>
+					</a>
+				</c:when>
+				
+				<c:otherwise>
+					<form class="grid form-type-1" action="../like/doLike"
+						method="POST">
 
-				<input type="hidden" name="redirectUrl"
-					value="../product/detail?id=${product.id}" />
+						<input type="hidden" name="relTypeCode" value="product" />
+						<input type="hidden" name="relId" value="${product.id}" />
+						<input type="hidden" name="like" value="like" />
 
-				<button type="submit">
-					<i class="fab fa-gratipay"></i>
-				</button>
-			</form>
+						<input type="hidden" name="redirectUrl"
+							value="../product/detail?id=${product.id}" />
+
+						<button type="submit">
+							<c:choose>
+								<c:when test="${like.memberId == loginMemberId}">
+									<span class="">
+										<i class="fab fa-gratipay text-pink-500"></i>
+									</span>
+								</c:when>
+
+								<c:otherwise>
+									<span class="">
+										<i class="fab fa-gratipay"></i>
+									</span>
+								</c:otherwise>
+
+							</c:choose>
+						</button>
+					</form>
+				</c:otherwise>
+			</c:choose>
+
 		</div>
 
 		<!-- 제품 정보 -->

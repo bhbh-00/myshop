@@ -29,16 +29,15 @@ public class LikeService {
 	public Like getLikeTotleCount(int id) {
 		return likeDao.getLikeTotleCount(id);
 	}
-	
-	// 좋아요 해제
-	public ResultData delete(Integer id) {
-		likeDao.delete(id);
-
-		return new ResultData("S-1", "좋아요를 해제합니다.", "id", id);
-	}
 
 	public Like getLike(String relTypeCode, Integer relId) {
 		return likeDao.getLike(relTypeCode,relId);
+	}
+
+	public ResultData delete(Map<String, Object> param) {
+		likeDao.delete(param);
+
+		return new ResultData("S-1", "좋아요를 취소합니다.");
 	}
 
 }

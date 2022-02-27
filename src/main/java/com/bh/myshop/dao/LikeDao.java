@@ -15,11 +15,11 @@ public interface LikeDao {
 
 	// 좋아요 갯수
 	Like getLikeTotleCount(@Param("id") Integer id);
-	
-	// 좋아요 해제
-	void delete(@Param("id") Integer id);
-	
+
 	// 좋아요 불러오기
-	Like getLike(@Param("relTypeCode") String relTypeCode, @Param("relId")int relId);
+	Like getLike(@Param("relTypeCode") String relTypeCode, @Param("relId") int relId);
+
+	// 좋아요 해제
+	void delete(Map<String, Object> param);
 
 }

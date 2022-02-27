@@ -11,7 +11,7 @@
 		WHERE memberId = #{id}
 		AND delStatus = 0
 	</select>
-	
+
 	<!-- 좋아요 -->
 	<insert id="doLike" useGeneratedKeys="true" keyProperty="id">
 		INSERT
@@ -22,7 +22,8 @@
 		#{relTypeCode},
 		relId = #{relId},
 		memberId = #{memberId},
-		`like` = #{like}
+		`like` =
+		#{like}
 	</insert>
 
 	<!-- 좋아요 갯수 -->
@@ -36,22 +37,20 @@
 	<select id="getLike" resultType="like">
 		SELECT *
 		FROM `like`
-		WHERE 1
-		<if test="relTypeCode != null">
-			AND relTypeCode = #{relTypeCode}
-		</if>
-		<if test="relId != null">
-			AND relId = #{relId}
-		</if>
+		WHERE relTypeCode = #{relTypeCode}
+		AND relId = #{relId}
 		AND delStatus = 0
 	</select>
 
 	<!-- 좋아요 해제 -->
 	<update id="delete">
 		UPDATE `like`
-		SET delDate = NOW(),
-		delStatus = 1
-		WHERE id = #{id}
+		SET delStatus = 1,
+		delDate = NOW()
+		WHERE
+		relTypeCode = #{relTypeCode}
+		AND relId = #{relId}
+		AND id = #{id}
 	</update>
 
 </mapper>
