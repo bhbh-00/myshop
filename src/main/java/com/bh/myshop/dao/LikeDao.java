@@ -14,7 +14,7 @@ public interface LikeDao {
 	void doLike(Map<String, Object> param);
 
 	// 좋아요 갯수
-	Like getLikeTotleCount(@Param("id") Integer id);
+	int getLikeTotleCount(@Param("relTypeCode") String relTypeCode, @Param("relId") int relId);
 
 	// 좋아요 불러오기
 	Like getLike(@Param("relTypeCode") String relTypeCode, @Param("relId") int relId);

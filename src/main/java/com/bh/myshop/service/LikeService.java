@@ -26,8 +26,8 @@ public class LikeService {
 	}
 
 	// 좋아요 갯수
-	public Like getLikeTotleCount(int id) {
-		return likeDao.getLikeTotleCount(id);
+	public int getLikeTotleCount(String relTypeCode, Integer relId) {
+		return likeDao.getLikeTotleCount(relTypeCode,relId);
 	}
 
 	public Like getLike(String relTypeCode, Integer relId) {

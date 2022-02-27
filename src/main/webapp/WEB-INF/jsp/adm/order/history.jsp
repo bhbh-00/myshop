@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
+<%@ page import="com.bh.myshop.util.Util"%>
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%@ include file="../part/mainLayoutHead.jspf"%>
@@ -44,9 +46,9 @@ th, td {
 				<tr class="border-b border-gray-400">
 					<td>${product.productName}</td>
 					<td>${product.color}</td>
-					<td>${product.price}</td>
-					<td>${product.fee}</td>
-					<td>${product.fee + product.price}</td>
+					<td>${Util.numberFormat(product.price)}</td>
+					<td>${Util.numberFormat(product.fee)}</td>
+					<td>${Util.numberFormat(product.price + product.fee)}</td>
 				</tr>
 
 			</table>
@@ -92,9 +94,9 @@ th, td {
 
 					<tr class="border-b border-gray-400">
 						<th>결제금액</th>
-						<td>${order.totalPayment}</td>
+						<td>${Util.numberFormat(order.totalPayment)}</td>
 					</tr>
-
+					
 					<tr>
 						<th>결제상태</th>
 						<td>입금 전</td>

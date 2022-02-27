@@ -245,10 +245,12 @@ public class AdmProductController extends BaseController {
 		}
 		
 		Like like = likeService.getLike("product", product.getId());
+		int totleItemsCountByLike = likeService.getLikeTotleCount("product", product.getId());
 		
 		product.getExtraNotNull().put("file__common__attachment", filesMap);
 		req.setAttribute("product", product);
 		req.setAttribute("like", like);
+		req.setAttribute("totleItemsCountByLike", totleItemsCountByLike);
 		req.setAttribute("loginMemberId", loginMemberId);
 
 		return "/adm/product/detail";

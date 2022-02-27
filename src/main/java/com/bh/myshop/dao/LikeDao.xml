@@ -29,8 +29,10 @@
 	<!-- 좋아요 갯수 -->
 	<select id="getLikeTotleCount" resultType="int">
 		SELECT count(*)
-		FROM
-		`like`
+		FROM `like`
+		WHERE
+		relTypeCode = #{relTypeCode}
+		AND relId = #{relId}
 		AND delStatus = 0
 	</select>
 

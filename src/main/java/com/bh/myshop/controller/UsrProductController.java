@@ -10,21 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartRequest;
 
 import com.bh.myshop.dto.Category;
 import com.bh.myshop.dto.GenFile;
 import com.bh.myshop.dto.Like;
-import com.bh.myshop.dto.Member;
 import com.bh.myshop.dto.Product;
 import com.bh.myshop.dto.Reply;
-import com.bh.myshop.dto.ResultData;
 import com.bh.myshop.service.GenFileService;
 import com.bh.myshop.service.LikeService;
 import com.bh.myshop.service.ProductService;
 import com.bh.myshop.service.ReplyService;
-import com.bh.myshop.util.Util;
 
 @Controller
 public class UsrProductController extends BaseController {
@@ -66,8 +61,7 @@ public class UsrProductController extends BaseController {
 		}
 
 		Like like = likeService.getLike("product", product.getId());
-
-		Like totleItemsCountByLike = likeService.getLikeTotleCount(id);
+		Like totleItemsCountByLike = likeService.getLikeTotleCount("product", product.getId());
 
 		List<Reply> replys = replyService.getForPrintReplies(id);
 

@@ -74,52 +74,70 @@ th, td {
 			<div class="swiper-pagination"></div>
 		</div>
 
-		<!-- 좋아요 -->
-		<!-- 만약에 좋아요의 멤버아이디와 아이디가 같으면 채우진 하트 아니면 빈하트 -->
-		<div class="py-10 text-center">
+		<div class="my-10  flex justify-center items-center text-center">
 
-			<c:choose>
-				<c:when test="${like.memberId == loginMemberId}">
-					<a
-						href="../like/doDelete?relTypeCode=product&relId=${product.id}&id=${like.id}&redirectUrl=../product/detail?id=${product.id}">
-						<span class="">
-							<!-- 하트 -->
-							<i class="fab fa-gratipay text-pink-500"></i>
-						</span>
-					</a>
-				</c:when>
-				
-				<c:otherwise>
-					<form class="grid form-type-1" action="../like/doLike"
-						method="POST">
+			<!-- 좋아요 -->
+			<!-- 만약에 좋아요의 멤버아이디와 아이디가 같으면 채우진 하트 아니면 빈하트 -->
+			<div class="w-1/2">
+				<c:choose>
+					<c:when test="${like.memberId == loginMemberId}">
+						<a
+							href="../like/doDelete?relTypeCode=product&relId=${product.id}&id=${like.id}&redirectUrl=../product/detail?id=${product.id}">
+							<span class="">
+								<!-- 하트 -->
+								<i class="fab fa-gratipay text-pink-500 text-xl"></i>
+							</span>
+						</a>
+					</c:when>
 
-						<input type="hidden" name="relTypeCode" value="product" />
-						<input type="hidden" name="relId" value="${product.id}" />
-						<input type="hidden" name="like" value="like" />
+					<c:otherwise>
+						<form class="grid form-type-1" action="../like/doLike"
+							method="POST">
 
-						<input type="hidden" name="redirectUrl"
-							value="../product/detail?id=${product.id}" />
+							<input type="hidden" name="relTypeCode" value="product" />
+							<input type="hidden" name="relId" value="${product.id}" />
+							<input type="hidden" name="like" value="like" />
 
-						<button type="submit">
-							<c:choose>
-								<c:when test="${like.memberId == loginMemberId}">
-									<span class="">
-										<i class="fab fa-gratipay text-pink-500"></i>
-									</span>
-								</c:when>
+							<input type="hidden" name="redirectUrl"
+								value="../product/detail?id=${product.id}" />
 
-								<c:otherwise>
-									<span class="">
-										<i class="fab fa-gratipay"></i>
-									</span>
-								</c:otherwise>
+							<button type="submit">
+								<c:choose>
+									<c:when test="${like.memberId == loginMemberId}">
+										<i class="fab fa-gratipay text-pink-500 text-xl"></i>
+										<span class="text-sm leading-5"> </span>
+									</c:when>
 
-							</c:choose>
-						</button>
-					</form>
-				</c:otherwise>
-			</c:choose>
+									<c:otherwise>
+										<span class="">
+											<i class="fab fa-gratipay text-xl"></i>
+										</span>
+									</c:otherwise>
 
+								</c:choose>
+							</button>
+						</form>
+					</c:otherwise>
+				</c:choose>
+			</div>
+
+			<!-- 장바구니 -->
+			<div class="w-1/2">
+				<form class="grid form-type-1" action="../like/doLike" method="POST">
+
+					<input type="hidden" name="relTypeCode" value="product" />
+					<input type="hidden" name="relId" value="${product.id}" />
+					<input type="hidden" name="like" value="like" />
+
+					<input type="hidden" name="redirectUrl"
+						value="../product/detail?id=${product.id}" />
+
+					<button type="submit">
+						<i class="fas fa-shopping-cart text-xl"></i>
+					</button>
+				</form>
+
+			</div>
 		</div>
 
 		<!-- 제품 정보 -->
@@ -139,7 +157,7 @@ th, td {
 
 				<tr class="border-b border-gray-400">
 					<th>가격</th>
-					<td>${product.price}</td>
+					<td>${Util.numberFormat(product.price)}</td>
 				</tr>
 
 			</table>

@@ -197,7 +197,7 @@ public class AdmArticleController extends BaseController {
 
 		Like like = likeService.getLike("article", article.getId());
 
-		Like totleItemsCountByLike = likeService.getLikeTotleCount(id);
+		Like totleItemsCountByLike = likeService.getLikeTotleCount("article", article.getId());
 
 		List<Reply> replys = replyService.getForPrintReplies(id);
 
