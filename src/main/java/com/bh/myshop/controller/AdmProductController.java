@@ -76,7 +76,7 @@ public class AdmProductController extends BaseController {
 	// 상품 수정
 	@RequestMapping("/adm/product/doModify")
 	@ResponseBody
-	public String doModify(@RequestParam Map<String, Object> param, HttpServletRequest req) {
+	public String doModify(@RequestParam Map<String, Object> param, HttpServletRequest req, String redirectUrl) {
 
 		Member loginedMember = (Member) req.getAttribute("loginedMember");
 
@@ -84,14 +84,6 @@ public class AdmProductController extends BaseController {
 
 		if (id == 0) {
 			return msgAndBack(req, "상품 번호를 입력해주세요.");
-		}
-
-		if (Util.isEmpty(param.get("productName"))) {
-			return msgAndBack(req, "제품명을 입력해주세요.");
-		}
-
-		if (Util.isEmpty(param.get("body"))) {
-			return msgAndBack(req, "내용을 입력해주세요.");
 		}
 
 		if (Util.isEmpty(param.get("color"))) {
@@ -104,6 +96,10 @@ public class AdmProductController extends BaseController {
 
 		if (Util.isEmpty(param.get("fee"))) {
 			return msgAndBack(req, "배송비를 입력해주세요.");
+		}
+
+		if (Util.isEmpty(param.get("body"))) {
+			return msgAndBack(req, "상품 설명을 입력해주세요.");
 		}
 
 		Product product = productService.getproduct(id);
@@ -119,7 +115,6 @@ public class AdmProductController extends BaseController {
 		}
 
 		ResultData modifyproductRd = productService.modify(param);
-		String redirectUrl = "../product/detail?id=" + product.getId();
 
 		return Util.msgAndReplace(modifyproductRd.getMsg(), redirectUrl);
 	}
@@ -243,10 +238,10 @@ public class AdmProductController extends BaseController {
 		for (GenFile file : files) {
 			filesMap.put(file.getFileNo() + "", file);
 		}
-		
+
 		Like like = likeService.getLike("product", product.getId());
 		int totleItemsCountByLike = likeService.getLikeTotleCount("product", product.getId());
-		
+
 		product.getExtraNotNull().put("file__common__attachment", filesMap);
 		req.setAttribute("product", product);
 		req.setAttribute("like", like);

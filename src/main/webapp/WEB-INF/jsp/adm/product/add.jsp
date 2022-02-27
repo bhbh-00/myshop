@@ -184,6 +184,7 @@ body {
 
 				<input type="hidden" name="genFileIdsStr" value="" />
 				<input type="hidden" name="categoryId" value="${param.categoryId}" />
+				
 				<!--  상품명 -->
 				<div class="form-control">
 					<label class="label">

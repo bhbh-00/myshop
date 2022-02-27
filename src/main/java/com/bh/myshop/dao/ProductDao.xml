@@ -234,9 +234,6 @@
 		FROM product
 		WHERE 1
 		AND delStatus = 0
-		<if test="searchKeywordType == 'productName'">
-			AND productName LIKE CONCAT('%', #{searchKeyword}, '%')
-		</if>
 		<if test="searchKeywordType == 'body'">
 			AND `body` LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
@@ -250,10 +247,8 @@
 			AND fee LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
 		<if
-			test="searchKeywordType == 'productNameAndBodyAndColorAndPriceAndFee'">
-			AND (productName LIKE CONCAT('%', #{searchKeyword}, '%')
-			OR
-			`body` LIKE CONCAT('%', #{searchKeyword}, '%')
+			test="searchKeywordType == 'BodyAndColorAndPriceAndFee'">
+			AND `body` LIKE CONCAT('%', #{searchKeyword}, '%')
 			OR color LIKE
 			CONCAT('%', #{searchKeyword}, '%')
 			OR price LIKE CONCAT('%', #{searchKeyword}, '%')

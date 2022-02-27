@@ -61,7 +61,7 @@ public class UsrProductController extends BaseController {
 		}
 
 		Like like = likeService.getLike("product", product.getId());
-		Like totleItemsCountByLike = likeService.getLikeTotleCount("product", product.getId());
+		int totleItemsCountByLike = likeService.getLikeTotleCount("product", product.getId());
 
 		List<Reply> replys = replyService.getForPrintReplies(id);
 

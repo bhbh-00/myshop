@@ -173,6 +173,13 @@ th, td {
 				</a>
 			</div>
 
+			<div
+				class="container text-center text-lg font-bold border border-gray-400 hover:bg-black hover:text-gray-50">
+				<a href="../product/modify?id=${product.id}">
+					<span>수정</span>
+				</a>
+			</div>
+
 		</div>
 
 		<!-- Swiper JS -->
