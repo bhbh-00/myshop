@@ -29,29 +29,7 @@ public class LikeService {
 	public Like getLikeTotleCount(int id) {
 		return likeDao.getLikeTotleCount(id);
 	}
-
-	// 해당 게시물의 좋아요
-	public Like getLikeByArticle(Integer id) {
-		return likeDao.getLikeByArticle(id);
-	}
-
-	// 해당 게시물의 좋아요 갯수
-	public int getLikeTotleCountByArticle(Integer id) {
-		return likeDao.getLikeTotleCountByArticle(id);
-	}
-
-	public Like getLike(Integer id) {
-		return likeDao.getLike(id);
-	}
-
-	public Like getLikeByMemberId(int id) {
-		return likeDao.getLikeByMemberId(id);
-	}
-
-	public Like totleCountLikeByArticle() {
-		return likeDao.totleCountLikeByArticle();
-	}
-
+	
 	// 좋아요 해제
 	public ResultData delete(Integer id) {
 		likeDao.delete(id);
@@ -59,14 +37,8 @@ public class LikeService {
 		return new ResultData("S-1", "좋아요를 해제합니다.", "id", id);
 	}
 
-	public Like getLikeByproduct(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	// 해당 상품의 좋아요 갯수
-	public int getLikeTotleCountByproduct(Integer id) {
-		return likeDao.getLikeTotleCountByproduct(id);
+	public Like getLike(String relTypeCode, int relId) {
+		return likeDao.getLike(relTypeCode,relId);
 	}
 
 }

@@ -192,10 +192,10 @@ public class UsrArticleController extends BaseController {
 		}
 		
 		// 좋아요
-		Like like = likeService.getLikeByArticle(id);
+		Like like = likeService.getLike("article", article.getId());
 		
 		// 좋아요 갯수
-		int totleItemsCountByLike = likeService.getLikeTotleCountByArticle(id);
+		Like totleItemsCountByLike = likeService.getLikeTotleCount(id);
 		
 		// 댓글 리스트
 		List<Reply> replys = replyService.getForPrintReplies(id);

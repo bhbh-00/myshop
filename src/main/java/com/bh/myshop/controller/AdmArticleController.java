@@ -195,9 +195,9 @@ public class AdmArticleController extends BaseController {
 			filesMap.put(file.getFileNo() + "", file);
 		}
 
-		Like like = likeService.getLikeByArticle(id);
+		Like like = likeService.getLike("article", article.getId());
 
-		int totleItemsCountByLike = likeService.getLikeTotleCountByArticle(id);
+		Like totleItemsCountByLike = likeService.getLikeTotleCount(id);
 
 		List<Reply> replys = replyService.getForPrintReplies(id);
 

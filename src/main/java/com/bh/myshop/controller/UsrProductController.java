@@ -65,9 +65,9 @@ public class UsrProductController extends BaseController {
 			filesMap.put(file.getFileNo() + "", file);
 		}
 
-		Like like = likeService.getLikeByproduct(id);
+		Like like = likeService.getLike("product", product.getId());
 
-		int totleItemsCountByLike = likeService.getLikeTotleCountByproduct(id);
+		Like totleItemsCountByLike = likeService.getLikeTotleCount(id);
 
 		List<Reply> replys = replyService.getForPrintReplies(id);
 

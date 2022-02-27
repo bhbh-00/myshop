@@ -244,12 +244,12 @@ public class AdmProductController extends BaseController {
 			filesMap.put(file.getFileNo() + "", file);
 		}
 		
-		// Like like = likeService.getLike(id);
+		Like like = likeService.getLike("product", product.getId());
 		// http://localhost:8021/adm/like/dolike?relTypeCode=product&relId=1&memberId=1
 
 		product.getExtraNotNull().put("file__common__attachment", filesMap);
 		req.setAttribute("product", product);
-		// req.setAttribute("like", like);
+		req.setAttribute("like", like);
 		req.setAttribute("loginMemberId", loginMemberId);
 
 		return "/adm/product/detail";

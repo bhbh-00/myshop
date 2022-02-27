@@ -33,37 +33,16 @@
 		AND delStatus = 0
 	</select>
 
-	<!-- 해당 게시물의 좋아요 -->
-	<select id="getLikeByArticle" resultType="like">
+	<select id="getLike" resultType="like">
 		SELECT *
 		FROM `like`
-		WHERE relId = #{id}
-		AND delStatus = 0
-	</select>
-
-	<!-- 해당 게시물의 좋아요 갯수 -->
-	<select id="getLikeTotleCountByArticle" resultType="int">
-		SELECT
-		COUNT(*)
-		FROM `like`
-		WHERE relId = #{id}
-		AND delStatus = 0
-	</select>
-	
-	<!-- 해당 상품의 좋아요 갯수 -->
-	<select id="getLikeTotleCountByproduct" resultType="int">
-		SELECT
-		COUNT(*)
-		FROM `like`
-		WHERE relId = #{id}
-		AND delStatus = 0
-	</select>
-
-	<select id="getLike" resultType="int">
-		SELECT *
-		FROM `like`
-		WHERE id =
-		#{id}
+		WHERE 1
+		<if test="relTypeCode != null">
+			AND relTypeCode = #{relTypeCode}
+		</if>
+		<if test="relId != null">
+			AND relId = #{relId}
+		</if>
 		AND delStatus = 0
 	</select>
 

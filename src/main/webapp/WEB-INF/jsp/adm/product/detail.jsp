@@ -55,6 +55,9 @@ th, td {
 }
 </style>
 
+<script>
+	
+</script>
 <section class="section-adm-product-detail">
 
 	<div class="container max-w-3xl min-w-max mx-auto p-5 mb-5 relative">
@@ -72,6 +75,18 @@ th, td {
 				</c:forEach>
 			</div>
 			<div class="swiper-pagination"></div>
+		</div>
+
+		<div id="like-app">
+			<form action="doLike" @submit.prevent="submit" method="POST"
+				enctype="multipart/form-data">
+
+				<input type="hidden" name="relTypeCode" value="product" />
+				<input type="hidden" name="relId" value="${param.relId}" />
+				
+				<input type="submit">
+				<i class="fab fa-gratipay"></i>
+			</form>
 		</div>
 
 		<div class="p-10">
@@ -98,7 +113,7 @@ th, td {
 			<div class="container text-center text-lg font-bold my-6">
 				<span>${product.body}</span>
 			</div>
-			
+
 			<div
 				class="container text-center text-lg font-bold border border-gray-400 hover:bg-black hover:text-gray-50">
 				<a href="../order/product?productId=${product.id}">
