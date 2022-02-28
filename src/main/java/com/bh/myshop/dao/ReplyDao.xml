@@ -5,11 +5,23 @@
 
 <mapper namespace="com.bh.myshop.dao.ReplyDao">
 
+	<select id="getReplysTotleCount" resultType="int">
+		SELECT count(*)
+		FROM `reply`
+		WHERE 1
+		<if test="searchKeywordType == 'body'">
+			AND `body` LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		AND delStatus = 0
+		ORDER BY id DESC
+	</select>
+
 	<!-- 댓글 확인 -->
 	<select id="getReply" resultType="Reply">
 		SELECT *
 		FROM reply
-		WHERE id = #{id}
+		WHERE id =
+		#{id}
 		AND delStatus = 0
 	</select>
 
@@ -24,36 +36,48 @@
 		WHERE id = #{id}
 		AND delStatus = 0
 	</update>
-	
+
 	<!-- 댓글 삭제 -->
 	<update id="delete">
-        UPDATE reply
-        SET delDate = NOW(),
-        delStatus = 1
-        WHERE id = #{id}
-    </update>
-			
+		UPDATE reply
+		SET delDate = NOW(),
+		delStatus = 1
+		WHERE id
+		= #{id}
+	</update>
+
 	<!-- 댓글 작성 -->
 	<insert id="doAdd" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO reply
+		INSERT
+		INTO reply
 		SET regDate = NOW(),
 		updateDate = NOW(),
-		relTypeCode = #{relTypeCode},
+		relTypeCode =
+		#{relTypeCode},
 		relId = #{relId},
 		`body` = #{body},
 		memberId= #{memberId}
 	</insert>
-	
+
 	<!-- 댓글 리스트 -->
 	<select id="getForPrintReplies" resultType="Reply">
 		SELECT R.*,
 		IFNULL(M.nickname, "탈퇴회원") AS extra__writer
-		FROM reply AS R
-		LEFT JOIN
-		`member` AS M
-		ON R.memberId = M.id
-		WHERE R.relId = #{id}
+		FROM `reply` AS
+		R
+		LEFT JOIN `member` AS M
+		ON R.memberId
+		= M.id
+		WHERE 1
 		AND R.delStatus = 0
+		<if test="searchKeywordType == 'body'">
+			AND R.body LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<!-- 페이지 마이바티스 if and, or 검색해보기 -->
+		ORDER BY R.id DESC
+		<if test="limitStart != null and limitTake != null">
+			LIMIT #{limitStart}, #{limitTake}
+		</if>
 	</select>
 
 </mapper>

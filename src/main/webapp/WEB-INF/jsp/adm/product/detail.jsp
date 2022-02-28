@@ -74,12 +74,77 @@ th, td {
 			<div class="swiper-pagination"></div>
 		</div>
 
+
+		<!-- 제품 정보 -->
+		<div class="my-10">
+
+			<table
+				class="container text-center max-w-3xl min-w-max mx-auto p-5 mb-5">
+
+				<tr class="border-b border-gray-400">
+					<th>제품명</th>
+					<td>${product.productName}</td>
+				</tr>
+
+				<tr class="border-b border-gray-400">
+					<th>색상</th>
+					<td>${product.color}</td>
+				</tr>
+
+				<tr class="border-b border-gray-400">
+					<th>가격</th>
+					<td>${Util.numberFormat(product.price)}</td>
+				</tr>
+
+			</table>
+
+			<div class="container text-center text-lg font-bold my-6">
+				<span>" ${product.body} "</span>
+			</div>
+
+		</div>
+
+		<!-- Swiper JS -->
+		<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+		<!-- Initialize Swiper -->
+		<script>
+			var swiper = new Swiper(".mySwiper", {
+				spaceBetween : 30,
+				pagination : {
+					el : ".swiper-pagination",
+					clickable : true,
+				},
+			});
+		</script>
+
 		<div
-			class="my-10 container flex justify-center items-center text-center">
+			class="container flex justify-center items-center text-center text-lg font-bold">
+
+			<div
+				class="w-1/2 border border-gray-400 hover:bg-black hover:text-gray-50">
+				<a href="../order/product?productId=${product.id}">
+					<span>구매하기</span>
+				</a>
+			</div>
+			
+			<div class="mx-1"></div>
+			
+			<div
+				class="w-1/2 border border-gray-400 hover:bg-black hover:text-gray-50">
+				<a href="../product/modify?id=${product.id}">
+					<span>수정</span>
+				</a>
+			</div>
+
+		</div>
+
+		<div
+			class="container flex justify-center items-center text-center mt-4">
 
 			<!-- 좋아요 -->
 			<!-- 만약에 좋아요의 멤버아이디와 아이디가 같으면 채우진 하트 아니면 빈하트 -->
-			<div class="w-1/2">
+			<div class="w-1/3">
 				<c:choose>
 					<c:when test="${like.memberId == loginMemberId}">
 						<a
@@ -123,7 +188,7 @@ th, td {
 			</div>
 
 			<!-- 장바구니 -->
-			<div class="w-1/2">
+			<div class="w-1/3">
 				<form class="grid form-type-1" action="../like/doLike" method="POST">
 
 					<input type="hidden" name="relTypeCode" value="product" />
@@ -139,66 +204,15 @@ th, td {
 				</form>
 
 			</div>
-		</div>
 
-		<!-- 제품 정보 -->
-		<div>
-
-			<table class="container max-w-3xl min-w-max mx-auto p-5 mb-5">
-
-				<tr class="border-b border-gray-400">
-					<th>제품명</th>
-					<td>${product.productName}</td>
-				</tr>
-
-				<tr class="border-b border-gray-400">
-					<th>색상</th>
-					<td>${product.color}</td>
-				</tr>
-
-				<tr class="border-b border-gray-400">
-					<th>가격</th>
-					<td>${Util.numberFormat(product.price)}</td>
-				</tr>
-
-			</table>
-
-			<div class="container text-center text-lg font-bold my-6">
-				<span>${product.body}</span>
-			</div>
-
-			<div class="container flex justify-center items-center text-center text-lg font-bold">
-
-				<div
-					class="w-1/2 border border-gray-400 hover:bg-black hover:text-gray-50 m-2">
-					<a href="../order/product?productId=${product.id}">
-						<span>구매하기</span>
-					</a>
-				</div>
-
-				<div
-					class="w-1/2 border border-gray-400 hover:bg-black hover:text-gray-50 m-2">
-					<a href="../product/modify?id=${product.id}">
-						<span>수정</span>
-					</a>
-				</div>
-
+			<!-- 리뷰 -->
+			<div class="w-1/3">
+				<a href="../reply/list">
+					<span class="text-xl">review</span>
+				</a>
 			</div>
 		</div>
 
-		<!-- Swiper JS -->
-		<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-
-		<!-- Initialize Swiper -->
-		<script>
-			var swiper = new Swiper(".mySwiper", {
-				spaceBetween : 30,
-				pagination : {
-					el : ".swiper-pagination",
-					clickable : true,
-				},
-			});
-		</script>
 	</div>
 
 </section>

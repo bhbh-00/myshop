@@ -2,11 +2,13 @@ package com.bh.myshop.service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bh.myshop.dao.ReplyDao;
+import com.bh.myshop.dto.GenFile;
 import com.bh.myshop.dto.Member;
 import com.bh.myshop.dto.Reply;
 import com.bh.myshop.dto.ResultData;
@@ -70,9 +72,32 @@ public class ReplyService {
 		return new ResultData("S-1", "삭제하였습니다.", "id", id);
 	}
 
-	// 댓글 리스트
-	public List<Reply> getForPrintReplies(Integer id) {
-		return replyDao.getForPrintReplies(id);
+	public int getReplysTotleCount(String searchKeywordType, String searchKeyword) {
+		return replyDao.getReplysTotleCount(searchKeywordType, searchKeyword);
+	}
+
+	public List<Reply> getForPrintReplies(String searchKeywordType, String searchKeyword, int page, int itemsInAPage) {
+		// 페이징 - 시작과 끝 범위
+		int limitStart = (page - 1) * itemsInAPage;
+		// controller에서 한 페이지에 포함 되는 게시물의 갯수의 값을(itemsInAPage) 설정했음.
+		int limitTake = itemsInAPage;
+		// 한 페이지에 포함 되는 게시물의 갯수의 값
+		// LIMIT 20, 20 => 2page LIMIT 40, 20 => 3page
+
+		List<Reply> replys = replyDao.getForPrintReplies(searchKeywordType, searchKeyword, limitStart, limitTake);
+		List<Integer> replyIds = replys.stream().map(reply -> reply.getId()).collect(Collectors.toList());
+		Map<Integer, Map<String, GenFile>> filesMap = genFileService.getFilesMapKeyRelIdAndFileNo("reply", replyIds,
+				"common", "attachment");
+
+		for (Reply reply : replys) {
+			Map<String, GenFile> mapByFileNo = filesMap.get(reply.getId());
+
+			if (mapByFileNo != null) {
+				reply.getExtraNotNull().put("file__common__attachment", mapByFileNo);
+			}
+		}
+
+		return replys;
 	}
 
 }

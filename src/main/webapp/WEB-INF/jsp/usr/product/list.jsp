@@ -83,7 +83,7 @@ body {
 						<div class="flex justify-center">
 							<a href="${detailUrl}">
 								<img src="${thumbUrl}" alt=""
-									onerror="${product.productProfileFallbackImgOnErrorHtmlAttr}">
+									onerror="${product.productFallbackImgOnErrorHtmlAttr}">
 							</a>
 						</div>
 

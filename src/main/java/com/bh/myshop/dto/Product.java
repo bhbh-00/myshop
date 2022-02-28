@@ -29,16 +29,16 @@ public class Product extends EntityDto {
 	private String extra__categoryName;
 	private String extra__thumbImg; // 썸네일
 
-	public String geProductThumbImgUrl() {
+	public String getThumbImgUrl() {
 		return "/common/genFile/file/product/" + id + "/common/attachment/1";
 	}
 
-	public String getProductProfileFallbackImgUri() {
+	public String getProductFallbackImgUri() {
 		return "https://via.placeholder.com/300?text=No thumbnail";
 	}
 
-	public String getProductProfileFallbackImgOnErrorHtmlAttr() {
-		return "this.src = '" + getProductProfileFallbackImgUri() + "'";
+	public String getProductFallbackImgOnErrorHtmlAttr() {
+		return "this.src = '" + getProductFallbackImgUri() + "'";
 	}
 
 }

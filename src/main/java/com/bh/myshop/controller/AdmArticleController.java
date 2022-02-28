@@ -199,11 +199,11 @@ public class AdmArticleController extends BaseController {
 
 		int totleItemsCountByLike = likeService.getLikeTotleCount("article", article.getId());
 
-		List<Reply> replys = replyService.getForPrintReplies(id);
+		// List<Reply> replys = replyService.getForPrintReplies(id);
 
 		article.getExtraNotNull().put("file__common__attachment", filesMap);
 		req.setAttribute("article", article);
-		req.setAttribute("replys", replys);
+		// req.setAttribute("replys", replys);
 		req.setAttribute("like", like);
 		req.setAttribute("totleItemsCountByLike", totleItemsCountByLike);
 		req.setAttribute("loginMemberId", loginMemberId);

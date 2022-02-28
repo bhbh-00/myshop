@@ -198,11 +198,11 @@ public class UsrArticleController extends BaseController {
 		int totleItemsCountByLike = likeService.getLikeTotleCount("article", article.getId());
 		
 		// 댓글 리스트
-		List<Reply> replys = replyService.getForPrintReplies(id);
+		// List<Reply> replys = replyService.getForPrintReplies(id);
 
 		article.getExtraNotNull().put("file__common__attachment", filesMap);
 		req.setAttribute("article", article);
-		req.setAttribute("replys", replys);
+		// req.setAttribute("replys", replys);
 		req.setAttribute("like", like);
 		req.setAttribute("totleItemsCountByLike", totleItemsCountByLike);
 		req.setAttribute("loginedMember", loginedMember);

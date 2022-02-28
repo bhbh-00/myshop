@@ -55,7 +55,7 @@ th, td {
 }
 </style>
 
-<section class="section-adm-product-detail">
+<section class="section-usr-product-detail">
 
 	<div class="container max-w-3xl min-w-max mx-auto p-5 mb-5 relative">
 
@@ -117,19 +117,20 @@ th, td {
 				},
 			});
 		</script>
-
+		
 		<div
-			class="container text-center text-lg font-bold border border-gray-400 hover:bg-black hover:text-gray-50">
+			class="container text-center text-lg font-bold border border-gray-400 hover:bg-black hover:text-gray-50 mt-3">
 			<a href="../order/product?productId=${product.id}">
 				<span>구매하기</span>
 			</a>
 		</div>
 
-		<div class="container flex justify-center items-center text-center mt-3">
+		<div
+			class="container flex justify-center items-center text-center mt-4">
 
 			<!-- 좋아요 -->
 			<!-- 만약에 좋아요의 멤버아이디와 아이디가 같으면 채우진 하트 아니면 빈하트 -->
-			<div class="w-1/2 border border-gray-400 mr-1">
+			<div class="w-1/3">
 				<c:choose>
 					<c:when test="${like.memberId == loginMemberId}">
 						<a
@@ -156,7 +157,6 @@ th, td {
 								<c:choose>
 									<c:when test="${like.memberId == loginMemberId}">
 										<i class="fab fa-gratipay text-pink-500 text-xl"></i>
-										<span class="text-sm leading-5"> </span>
 									</c:when>
 
 									<c:otherwise>
@@ -173,7 +173,7 @@ th, td {
 			</div>
 
 			<!-- 장바구니 -->
-			<div class="w-1/2 border border-gray-400 ml-1">
+			<div class="w-1/3 mx-3">
 				<form class="grid form-type-1" action="../like/doLike" method="POST">
 
 					<input type="hidden" name="relTypeCode" value="product" />
@@ -189,9 +189,17 @@ th, td {
 				</form>
 
 			</div>
-		</div>
-	</div>
 
+			<!-- 리뷰 -->
+			<div class="w-1/3">
+				<a href="../reply/list">
+					<span class="text-xl">review</span>
+				</a>
+			</div>
+
+		</div>
+
+	</div>
 
 
 </section>

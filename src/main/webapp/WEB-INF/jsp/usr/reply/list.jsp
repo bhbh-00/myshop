@@ -9,29 +9,25 @@
 
 <style>
 body {
-	margin-top: 125px;
+	margin-top: 150px;
 }
 </style>
 
-<script>
-	param.categoryId = parseInt("${category.id}");
-</script>
-
-<section class="section-adm-product-list">
+<section class="section-usr-reply-list">
 
 	<div
 		class="container max-w-3xl min-w-max mx-auto p-5 mb-5 relative item-bt-1-not-last-child">
 
 		<div class="flex pb-7">
 			<div class="items-center ml-2">
-				<span class="ml-4 text-2xl font-bold">${category.categoryName}</span>
+				<span class="ml-4 text-2xl font-bold">댓글 목록</span>
 			</div>
 
 			<div class="flex-grow"></div>
 
 			<div class="flex items-center mr-4 text-gray-500">
 				<a href="add">
-					<span>상품 등록</span>
+					<span>댓글 등록</span>
 				</a>
 			</div>
 		</div>
@@ -39,18 +35,15 @@ body {
 		<div class="p-4">
 			<form class="flex">
 				<select name="searchKeywordType">
-					<option value="productNameAndBodyAndColorAndPriceAndFee">전체</option>
-					<option value="productName">상품명</option>
+					<option value="">전체</option>
+					<option value="">코드</option>
 					<option value="body">내용</option>
-					<option value="color">제목</option>
-					<option value="price">가격</option>
-					<option value="fee">배송비</option>
 				</select>
 
 				<script>
 					/* 값이 있다면 */
 					if (param.searchKeywordType) {
-						$('.section-adm-product-list select[name="searchKeywordType"]').val(param.searchKeywordType);
+						$('.section-usr-reply-list select[name="searchKeywordType"]').val(param.searchKeywordType);
 					}
 				</script>
 
@@ -67,53 +60,31 @@ body {
 			</form>
 		</div>
 
-		<div class="container p-10 max-w-3xl min-w-max mx-auto text-center">
-			<div class="flex grid grid-cols-3 gap-10">
-				<c:forEach items="${products}" var="product">
+		<c:forEach items="${replys}" var="reply">
 
-					<!-- 반복문 안에 임시변수를 넣어둘 수 있음! c:set -->
-					<c:set var="detailUrl" value="detail?id=${product.id}" />
-					<c:set var="thumbFileNo" value="${String.valueOf(1)}" />
-					<c:set var="thumbFile"
-						value="${product.extra.file__common__attachment[thumbFileNo]}" />
-					<c:set var="thumbUrl" value="${thumbFile.getForPrintUrl()}" />
+			<!-- 반복문 안에 임시변수를 넣어둘 수 있음! c:set -->
+			<c:set var="detailUrl" value="detail?id=${reply.id}" />
+			<c:set var="thumbFileNo" value="${String.valueOf(1)}" />
+			<c:set var="thumbFile"
+				value="${reply.extra.file__common__attachment[thumbFileNo]}" />
+			<c:set var="thumbUrl" value="${thumbFile.getForPrintUrl()}" />
 
-					<div>
-						<!-- 썸네일 -->
-						<div class="flex justify-center">
-							<a href="${detailUrl}">
-								<img src="${thumbUrl}" alt=""
-									onerror="${product.productFallbackImgOnErrorHtmlAttr}">
-							</a>
-						</div>
+			<span>${reply.id}</span>
+			<a href="${detailUrl}">
+				<img src="${thumbUrl}" alt=""
+					onerror="${reply.profileFallbackImgOnErrorHtmlAttr}">
+			</a>
+			<span>${reply.regDate}</span>
+			<span>${reply.body}</span>
+			<a href="modify?id=${ reply.id }" class="hover:underline">
+				<span class="text-blue-500 font-semibold">수정</span>
+			</a>
+			<a onclick="if ( !confirm('삭제하시겠습니까?') ) return false;"
+				href="doDelete?id=${ reply.id }" class="text-red-600">
+				<i class="fas fa-times"></i>
+			</a>
+		</c:forEach>
 
-						<!-- 상품명 -->
-						<div class="border-b border-gray-400 py-2">
-							<a href="${detailUrl}" class="hover:underline">
-								<span class="text-lg font-semibold"> ${product.productName} </span>
-							</a>
-						</div>
-
-						<!-- 상품설명 -->
-						<div class="border-b border-gray-400 py-4">
-							<a href="${detailUrl}" class="hover:underline">
-								<span> ${product.body} </span>
-							</a>
-						</div>
-
-						<!-- 작성자 / 등록날짜 수정날짜 -->
-						<div class="text-xs mt-2">
-							<span class="mr-2">${product.extra__writer}</span>
-							<span class="text-gray-600 text-light">${product.regDate}</span>
-							<c:if test="${product.updateDate != product.regDate}">
-								<span class="text-gray-600 text-light">${product.updateDate}</span>
-							</c:if>
-						</div>
-					</div>
-				</c:forEach>
-			</div>
-		</div>
-		
 		<!-- 페이징 -->
 		<nav class="flex justify-center pt-3" aria-label="Pagination">
 
