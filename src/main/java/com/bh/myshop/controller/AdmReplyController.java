@@ -101,6 +101,12 @@ public class AdmReplyController extends BaseController {
 		return Util.msgAndReplace(modifyReplyRd.getMsg(), redirectUrl);
 	}
 
+	@RequestMapping("/adm/reply/add")
+	public String ShowReply(@RequestParam Map<String, Object> param, HttpServletRequest req) {
+		return "/adm/reply/add";
+
+	}
+
 	@RequestMapping("/adm/reply/doAdd")
 	@ResponseBody
 	public String doReply(@RequestParam Map<String, Object> param, HttpServletRequest req, String redirectUrl) {
@@ -115,8 +121,12 @@ public class AdmReplyController extends BaseController {
 			return msgAndBack(req, "relId를 입력해주세요.");
 		}
 
+		if (param.get("body") == null) {
+			return msgAndBack(req, "댓글을 입력해주세요.");
+		}
+
 		param.put("memberId", loginMemberId);
-		
+
 		ResultData doAddRd = replyService.doAdd(param);
 
 		return Util.msgAndReplace(doAddRd.getMsg(), redirectUrl);

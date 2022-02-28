@@ -5,6 +5,19 @@
 
 <mapper namespace="com.bh.myshop.dao.ReplyDao">
 
+	<!-- RelTypeCode와RelId 확인 -->
+	<select id="getRelTypeCodeAndRelId" resultType="Reply">
+		SELECT *
+		FROM
+		reply
+		WHERE relTypeCode =
+		#{relTypeCode}
+		AND relId =
+		#{relId}
+		AND delStatus
+		= 0
+	</select>
+
 	<select id="getReplysTotleCount" resultType="int">
 		SELECT count(*)
 		FROM `reply`

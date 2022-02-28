@@ -18,6 +18,7 @@ import com.bh.myshop.dto.GenFile;
 import com.bh.myshop.dto.Like;
 import com.bh.myshop.dto.Member;
 import com.bh.myshop.dto.Product;
+import com.bh.myshop.dto.Reply;
 import com.bh.myshop.dto.ResultData;
 import com.bh.myshop.service.GenFileService;
 import com.bh.myshop.service.LikeService;
@@ -39,6 +40,82 @@ public class AdmProductController extends BaseController {
 
 	@Autowired
 	private ReplyService replyService;
+
+	// 댓글 리스트
+	@RequestMapping("/adm/product/review")
+	public String showReview(HttpServletRequest req, String relTypeCode, int relId, String searchKeywordType,
+			String searchKeyword, @RequestParam(defaultValue = "1") int page) {
+
+		if (relTypeCode == null) {
+			return msgAndBack(req, "relTypeCode를 입력해주세요.");
+		}
+
+		if (relId == 0) {
+			return msgAndBack(req, "relId를 입력해주세요.");
+		}
+
+		Reply review = replyService.getRelTypeCodeAndRelId(relTypeCode, relId);
+
+		if (searchKeywordType != null) {
+			searchKeywordType = searchKeywordType.trim();
+		}
+
+		if (searchKeywordType == null || searchKeywordType.length() == 0) {
+			searchKeywordType = "titleAndBody";
+		}
+
+		if (searchKeyword != null && searchKeyword.length() == 0) {
+			searchKeyword = null;
+		}
+
+		if (searchKeyword != null) {
+			searchKeyword = searchKeyword.trim();
+		}
+
+		if (searchKeyword == null) {
+			searchKeywordType = null;
+		}
+
+		// 한 페이지에 포함 되는 댓글의 갯수
+		int itemsInAPage = 30;
+
+		// 총 댓글의 갯수를 구하는
+		int totleItemsCount = replyService.getReplysTotleCount(searchKeywordType, searchKeyword);
+
+		List<Reply> replys = replyService.getForPrintReplies(searchKeywordType, searchKeyword, page, itemsInAPage);
+
+		// 총 페이지 갯수 (총 댓글 수 / 한 페이지 안의 댓글 갯수)
+		int totlePage = (int) Math.ceil(totleItemsCount / (double) itemsInAPage);
+
+		int pageMenuArmSize = 5;
+
+		// 시작 페이지 번호
+		int pageMenuStrat = page - pageMenuArmSize;
+
+		// 시작 페이지가 1보다 작다면 시작 페이지는 1
+		if (pageMenuStrat < 1) {
+			pageMenuStrat = 1;
+		}
+
+		// 끝 페이지 페이지 번호
+		int pageMenuEnd = page + pageMenuArmSize;
+
+		if (pageMenuEnd > totlePage) {
+			pageMenuEnd = totlePage;
+		}
+
+		// req.setAttribute( "" , ) -> 이게 있어야지 jsp에서 뜸!
+		req.setAttribute("totleItemsCount", totleItemsCount);
+		req.setAttribute("totlePage", totlePage);
+		req.setAttribute("pageMenuArmSize", pageMenuArmSize);
+		req.setAttribute("pageMenuStrat", pageMenuStrat);
+		req.setAttribute("pageMenuEnd", pageMenuEnd);
+		req.setAttribute("page", page);
+		req.setAttribute("replys", replys);
+		req.setAttribute("review", review);
+
+		return "/adm/product/review";
+	}
 
 	@RequestMapping("/adm/product/page")
 	public String Page(HttpServletRequest req) {
@@ -115,7 +192,7 @@ public class AdmProductController extends BaseController {
 		}
 
 		ResultData modifyproductRd = productService.modify(param);
-		
+
 		redirectUrl = "../product/detail?id=" + product.getId();
 
 		return Util.msgAndReplace(modifyproductRd.getMsg(), redirectUrl);

@@ -192,7 +192,7 @@ th, td {
 
 			<!-- 리뷰 -->
 			<div class="w-1/3">
-				<a href="../reply/list">
+				<a href="review?relTypeCode=product&relId=${product.id}">
 					<span class="text-xl">review</span>
 				</a>
 			</div>

@@ -22,7 +22,7 @@ public class UsrReplyController extends BaseController {
 	@Autowired
 	private ReplyService replyService;
 
-	// 게시물 리스트
+	// 댓글 리스트
 	@RequestMapping("/usr/reply/list")
 	public String showList(HttpServletRequest req, String searchKeywordType, String searchKeyword,
 			@RequestParam(defaultValue = "1") int page) {
@@ -47,16 +47,15 @@ public class UsrReplyController extends BaseController {
 			searchKeywordType = null;
 		}
 
-		// 한 페이지에 포함 되는 게시물의 갯수
+		// 한 페이지에 포함 되는 댓글의 갯수
 		int itemsInAPage = 30;
 
-		// 총 게시물의 갯수를 구하는
+		// 총 댓글의 갯수를 구하는
 		int totleItemsCount = replyService.getReplysTotleCount(searchKeywordType, searchKeyword);
 
-		List<Reply> replys = replyService.getForPrintReplies(searchKeywordType, searchKeyword, page,
-				itemsInAPage);
+		List<Reply> replys = replyService.getForPrintReplies(searchKeywordType, searchKeyword, page, itemsInAPage);
 
-		// 총 페이지 갯수 (총 게시물 수 / 한 페이지 안의 게시물 갯수)
+		// 총 페이지 갯수 (총 댓글 수 / 한 페이지 안의 댓글 갯수)
 		int totlePage = (int) Math.ceil(totleItemsCount / (double) itemsInAPage);
 
 		int pageMenuArmSize = 5;
@@ -130,7 +129,7 @@ public class UsrReplyController extends BaseController {
 		}
 
 		req.setAttribute("reply", reply);
-		//req.setAttribute("article", article);
+		// req.setAttribute("article", article);
 
 		return "/usr/reply/modify";
 	}
@@ -159,6 +158,13 @@ public class UsrReplyController extends BaseController {
 		return Util.msgAndReplace(modifyReplyRd.getMsg(), redirectUrl);
 	}
 
+	@RequestMapping("/usr/reply/add")
+	public String ShowReply(@RequestParam Map<String, Object> param, HttpServletRequest req) {
+		return "/usr/reply/add";
+
+	}
+
+	// 댓글 추가
 	@RequestMapping("/usr/reply/doAdd")
 	@ResponseBody
 	public String doReply(@RequestParam Map<String, Object> param, HttpServletRequest req, String redirectUrl) {
@@ -174,7 +180,7 @@ public class UsrReplyController extends BaseController {
 		}
 
 		param.put("memberId", loginMemberId);
-		
+
 		ResultData doAddRd = replyService.doAdd(param);
 
 		return Util.msgAndReplace(doAddRd.getMsg(), redirectUrl);

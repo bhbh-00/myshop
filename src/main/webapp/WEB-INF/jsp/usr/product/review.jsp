@@ -26,7 +26,7 @@ body {
 			<div class="flex-grow"></div>
 
 			<div class="flex items-center mr-4 text-gray-500">
-				<a href="add">
+				<a href="../reply/add">
 					<span>댓글 등록</span>
 				</a>
 			</div>
@@ -63,7 +63,6 @@ body {
 		<c:forEach items="${replys}" var="reply">
 
 			<!-- 반복문 안에 임시변수를 넣어둘 수 있음! c:set -->
-			<c:set var="detailUrl" value="detail?id=${reply.id}" />
 			<c:set var="thumbFileNo" value="${String.valueOf(1)}" />
 			<c:set var="thumbFile"
 				value="${reply.extra.file__common__attachment[thumbFileNo]}" />

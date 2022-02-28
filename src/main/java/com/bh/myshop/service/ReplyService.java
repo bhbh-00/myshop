@@ -100,4 +100,8 @@ public class ReplyService {
 		return replys;
 	}
 
+	public Reply getRelTypeCodeAndRelId(String relTypeCode, int relId) {
+		return replyDao.getRelTypeCodeAndRelId(relTypeCode,relId);
+	}
+
 }
