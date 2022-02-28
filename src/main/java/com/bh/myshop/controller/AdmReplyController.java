@@ -105,27 +105,18 @@ public class AdmReplyController extends BaseController {
 	@ResponseBody
 	public String doReply(@RequestParam Map<String, Object> param, HttpServletRequest req, String redirectUrl) {
 
-		if (param.get("relTypeCode") == "article") {
-			Article article = articleService.getArticle((int) param.get("relId"));
+		int loginMemberId = (int) req.getAttribute("loginedMemberId");
 
-			if (article == null) {
-				return msgAndBack(req, "해당 게시물은 존재하지 않습니다.");
-			}
-
-			if (param.get("relTypeCode") == null) {
-				return msgAndBack(req, "relTypeCode를 입력해주세요.");
-			}
-
+		if (param.get("relTypeCode") == null) {
+			return msgAndBack(req, "relTypeCode를 입력해주세요.");
 		}
 
-		if (param.get("body") == null) {
-			return msgAndBack(req, "댓글을 입력해주세요.");
+		if (param.get("relId") == null) {
+			return msgAndBack(req, "relId를 입력해주세요.");
 		}
 
-		Member loginedMember = (Member) req.getAttribute("loginedMember");
-
-		req.setAttribute("loginedMember", loginedMember);
-
+		param.put("memberId", loginMemberId);
+		
 		ResultData doAddRd = replyService.doAdd(param);
 
 		return Util.msgAndReplace(doAddRd.getMsg(), redirectUrl);

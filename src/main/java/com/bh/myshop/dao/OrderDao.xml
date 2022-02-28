@@ -106,8 +106,12 @@
 		memberId = #{memberId},
 		orderName = #{orderName},
 		cellphoneNo = #{cellphoneNo},
+		post =
+		#{post},
 		address =
 		#{address},
+		detailAddress =
+		#{detailAddress},
 		email =
 		#{email},
 		payment = #{payment},

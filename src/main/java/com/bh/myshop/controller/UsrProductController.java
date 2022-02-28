@@ -36,6 +36,12 @@ public class UsrProductController extends BaseController {
 	@Autowired
 	private ReplyService replyService;
 
+	@RequestMapping("/usr/product/page")
+	public String Page(HttpServletRequest req) {
+
+		return "/usr/product/page";
+	}
+
 	// 상품 상세보기
 	@RequestMapping("/usr/product/detail")
 	public String showDetail(HttpServletRequest req, Integer id) {
@@ -63,11 +69,8 @@ public class UsrProductController extends BaseController {
 		Like like = likeService.getLike("product", product.getId());
 		int totleItemsCountByLike = likeService.getLikeTotleCount("product", product.getId());
 
-		List<Reply> replys = replyService.getForPrintReplies(id);
-
 		product.getExtraNotNull().put("file__common__attachment", filesMap);
 		req.setAttribute("product", product);
-		req.setAttribute("replys", replys);
 		req.setAttribute("like", like);
 		req.setAttribute("totleItemsCountByLike", totleItemsCountByLike);
 		req.setAttribute("loginMemberId", loginMemberId);

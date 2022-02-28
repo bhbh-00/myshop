@@ -18,12 +18,17 @@ public class ReplyService {
 	private ReplyDao replyDao;
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private GenFileService genFileService;
 
 	// 댓글 작성
 	public ResultData doAdd(Map<String, Object> param) {
 		replyDao.doAdd(param);
 
 		int id = Util.getAsInt(param.get("id"), 0);
+
+		// 파일 업로드 시 파일의 번호를 게시물의 번호를 바꾼다.
+		genFileService.changeInputFileRelIds(param, id);
 
 		return new ResultData("s-1", "댓글이 추가되었습니다.", "id", id);
 	}

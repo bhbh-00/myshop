@@ -17,136 +17,103 @@ body {
 	param.categoryId = parseInt("${category.id}");
 </script>
 
-<section class="section-usr-product-list">
+<section class="section-adm-product-list">
 
 	<div
-		class="container mx-auto bg-white card bordered shadow-lg p-5 mb-5 relative">
-		<!-- 검색 -->
-		<form class="flex">
-			<select name="searchKeywordType">
-				<option value="productNameAndBodyAndColorAndPriceAndFee">전체</option>
-				<option value="productName">상품명</option>
-				<option value="body">내용</option>
-				<option value="color">제목</option>
-				<option value="price">가격</option>
-				<option value="fee">배송비</option>
-			</select>
+		class="container max-w-3xl min-w-max mx-auto p-5 mb-5 relative item-bt-1-not-last-child">
 
-			<script>
-				/* 값이 있다면 */
-				if (param.searchKeywordType) {
-					$('.section-1 select[name="searchKeywordType"]').val(param.searchKeywordType);
-				}
-			</script>
-
-			<input autofocus="autofocus" type="text" style="border-radius: 25px"
-				placeholder="검색어를 입력해주세요" name="searchKeyword" maxlength="20"
-				autocomplete="off" value="${param.searchKeyword}"
-				class="w-full py-2 pl-4 pr-10 text-sm bg-gray-100 border border-transparent appearance-none rounded-tg placeholder-gray-400
-								focus:bg-white focus:outline-none focus:border-blue-500 focus:text-gray-900 focus:shadow-outline-blue" />
-
-			<button type="submit" class="absolute top-7 right-9">
-				<i class="fas fa-pen"></i>
-			</button>
-
-		</form>
-	</div>
-
-	<div
-		class="container mx-auto bg-white card bordered shadow-lg px-5 pt-5 pb-3">
-
-		<div class="flex">
-
+		<div class="flex pb-7">
 			<div class="items-center ml-2">
+				<span class="ml-4 text-2xl font-bold">${category.categoryName}</span>
+			</div>
 
-				<span class="text-xl font-bold">
-					<span>${category.categoryName}</span>
-				</span>
+			<div class="flex-grow"></div>
+
+			<div class="flex items-center mr-4 text-gray-500">
+				<a href="add">
+					<span>상품 등록</span>
+				</a>
 			</div>
 		</div>
 
+		<div class="p-4">
+			<form class="flex">
+				<select name="searchKeywordType">
+					<option value="productNameAndBodyAndColorAndPriceAndFee">전체</option>
+					<option value="productName">상품명</option>
+					<option value="body">내용</option>
+					<option value="color">제목</option>
+					<option value="price">가격</option>
+					<option value="fee">배송비</option>
+				</select>
 
+				<script>
+					/* 값이 있다면 */
+					if (param.searchKeywordType) {
+						$('.section-adm-product-list select[name="searchKeywordType"]').val(param.searchKeywordType);
+					}
+				</script>
 
-		<div class="w-30 h-30 bg-red">
-			<c:forEach items="${products}" var="product">
+				<input autofocus="autofocus" type="text" style="border-radius: 25px"
+					placeholder="검색어를 입력해주세요" name="searchKeyword" maxlength="20"
+					autocomplete="off" value="${param.searchKeyword}"
+					class="w-full py-2 pl-4 pr-10 text-sm bg-gray-100 border border-transparent appearance-none rounded-tg placeholder-gray-400
+								focus:bg-white focus:outline-none focus:border-blue-500 focus:text-gray-900 focus:shadow-outline-blue" />
 
-				<!-- 반복문 안에 임시변수를 넣어둘 수 있음! c:set -->
-				<c:set var="detailUrl" value="detail?id=${product.id}" />
-				<c:set var="thumbFileNo" value="${String.valueOf(1)}" />
-				<c:set var="thumbFile"
-					value="${product.extra.file__common__attachment[thumbFileNo]}" />
-				<c:set var="thumbUrl" value="${thumbFile.getForPrintUrl()}" />
+				<button type="submit" class="ml-2">
+					<i class="fas fa-pen"></i>
+				</button>
 
-				<div class="p-4">
-					<!-- 카테고리 번호 -->
-					<c:if test="${category.id == 1}">
-						<a href="${detailUrl}" class="cursor-pointer hover:underline">
-							<span class="badge badge-info">${product.extra__categoryName}</span>
-						</a>
-					</c:if>
-					<c:if test="${category.id == 2}">
-						<a href="${detailUrl}" class="cursor-pointer hover:underline">
-							<span class="badge badge-warning">${product.extra__categoryName}</span>
-						</a>
-					</c:if>
-					<c:if test="${category.id == 3}">
-						<a href="${detailUrl}" class="cursor-pointer hover:underline">
-							<span class="badge badge-warning">${product.extra__categoryName}</span>
-						</a>
-					</c:if>
-					<c:if test="${category.id == 4}">
-						<a href="${detailUrl}" class="cursor-pointer hover:underline">
-							<span class="badge badge-warning">${product.extra__categoryName}</span>
-						</a>
-					</c:if>
-					
-					<!-- 상품 번호 -->
-					<a href="${detailUrl}" class="hover:underline">
-						<span class="text-base">No.${product.id}</span>
-					</a>
-					<div
-						class="mt-3 grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
-
-						<!-- 썸네일 -->
-						<a href="${detailUrl}" class="row-span-7">
-							<img class="w-full h-40 object-cover rounded" src="${thumbUrl}"
-								alt=""
-								onerror="${product.productProfileFallbackImgOnErrorHtmlAttr}">
-						</a>
-						<!-- 제목 -->
-						<a href="${detailUrl}" class="hover:underline cursor-pointer">
-							<span class="badge badge-outline mb-1">상품명</span>
-							<span class="line-clamp-3 ml-1"> ${product.productName} </span>
-						</a>
-						<!-- 본문 -->
-						<a href="${detailUrl}"
-							class="mt-3 hover:underline cursor-pointer col-span-1 sm:col-span-2 xl:col-span-3">
-							<span class="badge badge-outline mb-1">본문</span>
-							<span class="line-clamp-3 ml-1"> ${product.body} </span>
-						</a>
-						<!-- 작성자 -->
-						<a href="${detailUrl}" class="cursor-pointer hover:underline">
-							<span class="badge badge-accent">작성자</span>
-							<span>${product.extra__writer}</span>
-						</a>
-						<!-- 등록날짜 -->
-						<a href="${detailUrl}" class="hover:underline">
-							<span class="badge">등록날짜</span>
-							<span class="text-gray-600 text-light">${product.regDate}</span>
-						</a>
-						<!-- 수정날짜 -->
-						<c:if test="${product.updateDate != product.regDate}">
-							<a href="${detailUrl}" class="hover:underline">
-								<span class="badge">수정날짜</span>
-								<span class="text-gray-600 text-light">${product.updateDate}</span>
-							</a>
-						</c:if>
-					</div>
-				</div>
-				<hr>
-			</c:forEach>
+			</form>
 		</div>
 
+		<div class="container p-10 max-w-3xl min-w-max mx-auto text-center">
+			<div class="grid grid-cols-3 gap-10">
+				<c:forEach items="${products}" var="product">
+
+					<!-- 반복문 안에 임시변수를 넣어둘 수 있음! c:set -->
+					<c:set var="detailUrl" value="detail?id=${product.id}" />
+					<c:set var="thumbFileNo" value="${String.valueOf(1)}" />
+					<c:set var="thumbFile"
+						value="${product.extra.file__common__attachment[thumbFileNo]}" />
+					<c:set var="thumbUrl" value="${thumbFile.getForPrintUrl()}" />
+
+					<div>
+						<!-- 썸네일 -->
+						<div class="mb-3">
+							<a href="${detailUrl}">
+								<img src="${thumbUrl}" alt=""
+									onerror="${product.productProfileFallbackImgOnErrorHtmlAttr}">
+							</a>
+						</div>
+
+						<!-- 상품명 -->
+						<div class="border-b border-gray-400 py-2">
+							<a href="${detailUrl}" class="hover:underline">
+								<span class="text-lg font-semibold"> ${product.productName} </span>
+							</a>
+						</div>
+
+						<!-- 상품설명 -->
+						<div class="border-b border-gray-400 py-4">
+							<a href="${detailUrl}" class="hover:underline">
+								<span> ${product.body} </span>
+							</a>
+						</div>
+
+						<!-- 작성자 / 등록날짜 수정날짜 -->
+						<div class="text-xs mt-2">
+							<span class="mr-2">${product.extra__writer}</span>
+							<span class="text-gray-600 text-light">${product.regDate}</span>
+							<c:if test="${product.updateDate != product.regDate}">
+								<span class="text-gray-600 text-light">${product.updateDate}</span>
+							</c:if>
+						</div>
+					</div>
+				</c:forEach>
+			</div>
+		</div>
+		
 		<!-- 페이징 -->
 		<nav class="flex justify-center pt-3" aria-label="Pagination">
 
@@ -194,7 +161,6 @@ body {
 			</c:if>
 		</nav>
 	</div>
-
 </section>
 
 <%@ include file="../part/mainLayoutFoot.jspf"%>

@@ -200,6 +200,7 @@ th, td {
 			});
 		</script>
 	</div>
+
 </section>
 
 <%@ include file="../part/mainLayoutFoot.jspf"%>
