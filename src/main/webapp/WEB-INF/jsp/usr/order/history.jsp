@@ -72,8 +72,18 @@ th, td {
 					</tr>
 
 					<tr class="border-b border-gray-400">
+						<th>우편번호</th>
+						<td>${order.post}</td>
+					</tr>
+
+					<tr class="border-b border-gray-400">
 						<th>주소</th>
 						<td>${order.address}</td>
+					</tr>
+
+					<tr class="border-b border-gray-400">
+						<th>상세주소</th>
+						<td>${order.detailAddress}</td>
 					</tr>
 
 					<tr class="border-b border-gray-400">
@@ -96,7 +106,7 @@ th, td {
 						<th>결제금액</th>
 						<td>${Util.numberFormat(order.totalPayment)}</td>
 					</tr>
-					
+
 					<tr>
 						<th>결제상태</th>
 						<td>입금 전</td>
