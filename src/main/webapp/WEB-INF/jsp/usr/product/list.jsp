@@ -68,7 +68,7 @@ body {
 		</div>
 
 		<div class="container p-10 max-w-3xl min-w-max mx-auto text-center">
-			<div class="grid grid-cols-3 gap-10">
+			<div class="flex grid grid-cols-3 gap-10">
 				<c:forEach items="${products}" var="product">
 
 					<!-- 반복문 안에 임시변수를 넣어둘 수 있음! c:set -->
@@ -80,7 +80,7 @@ body {
 
 					<div>
 						<!-- 썸네일 -->
-						<div class="mb-3">
+						<div class="flex justify-center">
 							<a href="${detailUrl}">
 								<img src="${thumbUrl}" alt=""
 									onerror="${product.productProfileFallbackImgOnErrorHtmlAttr}">
