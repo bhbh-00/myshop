@@ -141,8 +141,7 @@ body {
 				onsubmit="ProductModify__checkAndSubmit(this); return false;">
 
 				<input type="hidden" name="genFileIdsStr" value="" />
-				<input type="hidden" name="redirectUrl"
-					value="../product/detail?id=${product.id}" />
+				<input type="hidden" name="id" value="${product.id}" />
 
 				<!--  상품명 -->
 				<div class="form-control">

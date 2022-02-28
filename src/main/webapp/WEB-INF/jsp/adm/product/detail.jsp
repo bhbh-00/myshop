@@ -74,7 +74,8 @@ th, td {
 			<div class="swiper-pagination"></div>
 		</div>
 
-		<div class="my-10  flex justify-center items-center text-center">
+		<div
+			class="my-10 container flex justify-center items-center text-center">
 
 			<!-- 좋아요 -->
 			<!-- 만약에 좋아요의 멤버아이디와 아이디가 같으면 채우진 하트 아니면 빈하트 -->
@@ -166,20 +167,23 @@ th, td {
 				<span>${product.body}</span>
 			</div>
 
-			<div
-				class="container text-center text-lg font-bold border border-gray-400 hover:bg-black hover:text-gray-50">
-				<a href="../order/product?productId=${product.id}">
-					<span>구매하기</span>
-				</a>
-			</div>
+			<div class="container flex justify-center items-center text-center text-lg font-bold">
 
-			<div
-				class="container text-center text-lg font-bold border border-gray-400 hover:bg-black hover:text-gray-50">
-				<a href="../product/modify?id=${product.id}">
-					<span>수정</span>
-				</a>
-			</div>
+				<div
+					class="w-1/2 border border-gray-400 hover:bg-black hover:text-gray-50 m-2">
+					<a href="../order/product?productId=${product.id}">
+						<span>구매하기</span>
+					</a>
+				</div>
 
+				<div
+					class="w-1/2 border border-gray-400 hover:bg-black hover:text-gray-50 m-2">
+					<a href="../product/modify?id=${product.id}">
+						<span>수정</span>
+					</a>
+				</div>
+
+			</div>
 		</div>
 
 		<!-- Swiper JS -->

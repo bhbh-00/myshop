@@ -115,6 +115,8 @@ public class AdmProductController extends BaseController {
 		}
 
 		ResultData modifyproductRd = productService.modify(param);
+		
+		redirectUrl = "../product/detail?id=" + product.getId();
 
 		return Util.msgAndReplace(modifyproductRd.getMsg(), redirectUrl);
 	}
