@@ -14,6 +14,9 @@ public interface ReplyDao {
 	// 댓글 작성
 	void doAdd(Map<String, Object> param);
 
+	// 댓글 리스트
+	List<Reply> getForPrintReplies(@Param("id") Integer id);
+
 	// 댓글 확인
 	Reply getReply(@Param("id") Integer id);
 
@@ -22,16 +25,4 @@ public interface ReplyDao {
 
 	// 댓글 삭제
 	void delete(@Param("id") Integer id);
-
-	// 댓글 리스트
-	List<Reply> getForPrintReplies(@Param("searchKeywordType") String searchKeywordType,
-			@Param("searchKeyword") String searchKeyword, @Param("limitStart") int limitStart,
-			@Param("limitTake") int limitTake);
-
-	// 댓글 총 갯수
-	int getReplysTotleCount(@Param("searchKeywordType") String searchKeywordType,
-			@Param("searchKeyword") String searchKeyword);
-
-	Reply getRelTypeCodeAndRelId(@Param("relTypeCode") String relTypeCode, @Param("relId") int relId);
-
 }

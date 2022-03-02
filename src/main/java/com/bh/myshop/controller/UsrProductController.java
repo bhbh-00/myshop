@@ -15,7 +15,6 @@ import com.bh.myshop.dto.Category;
 import com.bh.myshop.dto.GenFile;
 import com.bh.myshop.dto.Like;
 import com.bh.myshop.dto.Product;
-import com.bh.myshop.dto.Reply;
 import com.bh.myshop.service.GenFileService;
 import com.bh.myshop.service.LikeService;
 import com.bh.myshop.service.ProductService;
