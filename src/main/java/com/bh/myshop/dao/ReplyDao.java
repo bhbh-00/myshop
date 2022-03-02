@@ -15,7 +15,7 @@ public interface ReplyDao {
 	void doAdd(Map<String, Object> param);
 
 	// 댓글 리스트
-	List<Reply> getForPrintReplies(@Param("id") Integer id);
+	List<Reply> getForPrintReplies(@Param("relTypeCode") String relTypeCode,@Param("relId") int relId);
 
 	// 댓글 확인
 	Reply getReply(@Param("id") Integer id);
@@ -25,4 +25,6 @@ public interface ReplyDao {
 
 	// 댓글 삭제
 	void delete(@Param("id") Integer id);
+
+	
 }

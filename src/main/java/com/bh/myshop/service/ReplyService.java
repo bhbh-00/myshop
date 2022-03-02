@@ -68,8 +68,8 @@ public class ReplyService {
 	}
 
 	// 댓글 리스트
-	public List<Reply> getForPrintReplies(Integer id) {
-		return replyDao.getForPrintReplies(id);
+	public List<Reply> getForPrintReplies(String relTypeCode, int relId) {
+		return replyDao.getForPrintReplies(relTypeCode, relId);
 	}
 
 }

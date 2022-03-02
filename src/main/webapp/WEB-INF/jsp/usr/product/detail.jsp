@@ -84,9 +84,6 @@ th, td {
 }
 
 .review-dep {
-	position: absolute;
-	right: 0;
-	width: 500px;
 	display: none;
 }
 
@@ -99,7 +96,50 @@ th, td {
 
 	<div class="bg"></div>
 	<div class="nav-2dep">
-		<div class="review-dep"></div>
+		<div class="review-dep mt-24">
+			<div class="container p-10 mx-auto text-center">
+				<div class="flex">
+					<c:forEach items="${replys}" var="reply">
+
+						<!-- 반복문 안에 임시변수를 넣어둘 수 있음! c:set -->
+						<c:set var="thumbFileNo" value="${String.valueOf(1)}" />
+						<c:set var="thumbFile"
+							value="${reply.extra.file__common__attachment[thumbFileNo]}" />
+						<c:set var="thumbUrl" value="${thumbFile.getForPrintUrl()}" />
+
+						<div
+							class="mt-3 grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+
+							<!-- 썸네일 -->
+							<c:if test="${reply.extra.file__common__attachment[thumbFileNo] != null }">
+								<img class="w-full h-40 object-cover rounded" src="${thumbUrl}"
+									alt="" onerror="${reply.profileFallbackImgOnErrorHtmlAttr}">
+							</c:if>
+							
+							<!-- 작성자 -->
+							<span>${reply.extra__writer}</span>
+
+							<!-- 등록날짜 -->
+							<span class="text-gray-600 text-light">${reply.regDate}</span>
+
+							<!-- 본문 -->
+							<span> ${reply.body} </span>
+
+
+							<!-- 수정날짜 -->
+							<c:if test="${reply.updateDate != reply.regDate}">
+								<a href="${detailUrl}" class="hover:underline">
+									<span class="badge">수정날짜</span>
+									<span class="text-gray-600 text-light">${reply.updateDate}</span>
+								</a>
+							</c:if>
+
+						</div>
+
+					</c:forEach>
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<script>
@@ -128,7 +168,7 @@ th, td {
 		});
 	</script>
 
-	<div class="container max-w-3xl min-w-max mx-auto p-5 mb-5 relative">
+	<div class="container max-w-3xl min-w-max mx-auto p-5 relative">
 
 		<!-- Swiper -->
 		<div class="swiper mySwiper w-1/2 h-2/5 max-w-lg mt-24">
@@ -199,7 +239,7 @@ th, td {
 
 
 	<div
-		class="container flex justify-center items-center text-center mt-4 max-w-3xl min-w-max mx-auto p-5 mb-5 relative">
+		class="container flex justify-center items-center text-center max-w-3xl min-w-max mx-auto p-5 mb-5 relative">
 
 		<!-- 좋아요 -->
 		<!-- 만약에 좋아요의 멤버아이디와 아이디가 같으면 채우진 하트 아니면 빈하트 -->

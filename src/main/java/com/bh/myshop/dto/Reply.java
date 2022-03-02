@@ -26,7 +26,7 @@ public class Reply extends EntityDto {
 	private String Extra__thumbImg;
 
 	public String getProfileImgUrl() {
-		return "/common/genFile/file/member/" + memberId + "/common/attachment/1";
+		return "/common/genFile/file/reply/" + id + "/common/attachment/1";
 
 	}
 
