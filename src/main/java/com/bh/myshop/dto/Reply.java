@@ -22,19 +22,19 @@ public class Reply extends EntityDto {
 	private String delDate;
 
 	private String extra__writer;
-
 	private String Extra__thumbImg;
 
-	public String getProfileImgUrl() {
-		return "/common/genFile/file/reply/" + id + "/common/attachment/1";
+	// 리뷰사진
+	public String getReviewImgUrl() {
+		return "/common/genFile/file/review/" + id + "/common/attachment/1";
 
 	}
 
-	public String getProfileFallbackImgUrl() {
+	public String getReviewFallbackImgUrl() {
 		return "https://via.placeholder.com/300?text=No image";
 	}
 
-	public String getProfileFallbackImgOnErrorHtmlAttr() {
-		return "this.src = '" + getProfileFallbackImgUrl() + "'";
+	public String getReviewFallbackImgOnErrorHtmlAttr() {
+		return "this.src = '" + getReviewFallbackImgUrl() + "'";
 	}
 }

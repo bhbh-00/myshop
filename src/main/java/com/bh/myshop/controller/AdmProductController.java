@@ -38,9 +38,6 @@ public class AdmProductController extends BaseController {
 	@Autowired
 	private LikeService likeService;
 
-	@Autowired
-	private ReplyService replyService;
-
 	@RequestMapping("/adm/product/page")
 	public String Page(HttpServletRequest req) {
 
