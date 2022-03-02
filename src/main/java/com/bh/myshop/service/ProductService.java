@@ -38,7 +38,7 @@ public class ProductService {
 		// 파일 업로드 시 파일의 번호를 상품의 번호를 바꾼다.
 		genFileService.changeInputFileRelIds(param, id);
 
-		return new ResultData("s-1", "상품이 추가되었습니다.", "id", id);
+		return new ResultData("s-1", "상품이 등록되었습니다.", "id", id);
 	}
 
 	public List<Product> getproductList(String searchKeywordType, String searchKeyword) {

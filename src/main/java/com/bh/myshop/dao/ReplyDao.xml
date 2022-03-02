@@ -32,6 +32,17 @@
         delStatus = 1
         WHERE id = #{id}
     </update>
+    
+    <!-- 댓글 작성 -->
+	<insert id="addReview" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO reply
+		SET regDate = NOW(),
+		updateDate = NOW(),
+		relTypeCode = #{relTypeCode},
+		relId = #{relId},
+		`body` = #{body},
+		memberId= #{memberId}
+	</insert>
 			
 	<!-- 댓글 작성 -->
 	<insert id="doAdd" useGeneratedKeys="true" keyProperty="id">

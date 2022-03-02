@@ -99,6 +99,13 @@ th, td {
 		<div class="review-dep mt-24">
 			<div class="container p-10 mx-auto text-center">
 				<div class="flex">
+					<div>
+						<span>
+							<a
+								href="../reply/addReview?relTypeCode=product&relId=${product.id}">댓글
+								작성</a>
+						</span>
+					</div>
 					<c:forEach items="${replys}" var="reply">
 
 						<!-- 반복문 안에 임시변수를 넣어둘 수 있음! c:set -->
@@ -111,11 +118,9 @@ th, td {
 							class="mt-3 grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
 
 							<!-- 썸네일 -->
-							<c:if test="${reply.extra.file__common__attachment[thumbFileNo] != null }">
-								<img class="w-full h-40 object-cover rounded" src="${thumbUrl}"
-									alt="" onerror="${reply.profileFallbackImgOnErrorHtmlAttr}">
-							</c:if>
-							
+							<img class="w-full h-40 object-cover rounded" src="${thumbUrl}"
+								alt="" onerror="${reply.profileFallbackImgOnErrorHtmlAttr}">
+
 							<!-- 작성자 -->
 							<span>${reply.extra__writer}</span>
 

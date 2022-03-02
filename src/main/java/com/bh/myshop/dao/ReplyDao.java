@@ -25,6 +25,9 @@ public interface ReplyDao {
 
 	// 댓글 삭제
 	void delete(@Param("id") Integer id);
+	
+	// 리뷰 작성
+	void addReview(Map<String, Object> param);
 
 	
 }

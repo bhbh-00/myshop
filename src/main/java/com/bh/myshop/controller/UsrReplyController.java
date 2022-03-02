@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bh.myshop.dto.Article;
 import com.bh.myshop.dto.Member;
+import com.bh.myshop.dto.Product;
 import com.bh.myshop.dto.Reply;
 import com.bh.myshop.dto.ResultData;
 import com.bh.myshop.service.ArticleService;
+import com.bh.myshop.service.ProductService;
 import com.bh.myshop.service.ReplyService;
 import com.bh.myshop.util.Util;
 
@@ -24,7 +26,9 @@ public class UsrReplyController extends BaseController {
 	private ReplyService replyService;
 	@Autowired
 	private ArticleService articleService;
-	
+	@Autowired
+	private ProductService productService;
+
 	// 댓글 삭제
 	@RequestMapping("/usr/reply/doDelete")
 	@ResponseBody
@@ -96,30 +100,71 @@ public class UsrReplyController extends BaseController {
 		return Util.msgAndReplace(modifyReplyRd.getMsg(), redirectUrl);
 	}
 
+	@RequestMapping("/usr/reply/addReview")
+	public String ShowAdd(@RequestParam Map<String, Object> param, HttpServletRequest req) {
+		return "/usr/reply/addReview";
+
+	}
+
+	// 리뷰 작성
+	@RequestMapping("/usr/reply/doAddReview")
+	@ResponseBody
+	public String doAddReview(@RequestParam Map<String, Object> param, HttpServletRequest req, String redirectUrl) {
+
+		int loginMemberId = (int) req.getAttribute("loginedMemberId");
+
+		if (param.get("relTypeCode") == "product") {
+			Product product = productService.getproduct((int) param.get("relId"));
+
+			if (product == null) {
+				return msgAndBack(req, "해당 상품은 존재하지 않습니다.");
+			}
+
+			if (param.get("relTypeCode") == null) {
+				return msgAndBack(req, "relTypeCode를 입력해주세요.");
+			}
+
+		}
+
+		if (param.get("body") == null) {
+			return msgAndBack(req, "리뷰를 입력해주세요.");
+		}
+
+		param.put("memberId", loginMemberId);
+
+		ResultData doAddReviewRd = replyService.doAddReview(param);
+
+		return Util.msgAndReplace(doAddReviewRd.getMsg(), redirectUrl);
+	}
+
 	// 댓글 작성
 	@RequestMapping("/usr/reply/doAdd")
 	@ResponseBody
 	public String doReply(@RequestParam Map<String, Object> param, HttpServletRequest req, String redirectUrl) {
 
-		int loginMemberId = (int) req.getAttribute("loginedMemberId");
+		if (param.get("relTypeCode") == "article") {
+			Article article = articleService.getArticle((int) param.get("relId"));
 
-		if (param.get("relTypeCode") == null) {
-			return msgAndBack(req, "relTypeCode를 입력해주세요.");
-		}
+			if (article == null) {
+				return msgAndBack(req, "해당 게시물은 존재하지 않습니다.");
+			}
 
-		if (param.get("relId") == null) {
-			return msgAndBack(req, "relId를 입력해주세요.");
+			if (param.get("relTypeCode") == null) {
+				return msgAndBack(req, "relTypeCode를 입력해주세요.");
+			}
+
 		}
 
 		if (param.get("body") == null) {
 			return msgAndBack(req, "댓글을 입력해주세요.");
 		}
 
-		param.put("memberId", loginMemberId);
+		Member loginedMember = (Member) req.getAttribute("loginedMember");
+
+		req.setAttribute("loginedMember", loginedMember);
 
 		ResultData doAddRd = replyService.doAdd(param);
 
 		return Util.msgAndReplace(doAddRd.getMsg(), redirectUrl);
 	}
-
 }

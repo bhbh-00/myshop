@@ -20,6 +20,8 @@ public class ReplyService {
 	private ReplyDao replyDao;
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private GenFileService genFileService;
 
 	// 댓글 작성
 	public ResultData doAdd(Map<String, Object> param) {
@@ -70,6 +72,18 @@ public class ReplyService {
 	// 댓글 리스트
 	public List<Reply> getForPrintReplies(String relTypeCode, int relId) {
 		return replyDao.getForPrintReplies(relTypeCode, relId);
+	}
+	
+	// 리뷰
+	public ResultData doAddReview(Map<String, Object> param) {
+		replyDao.addReview(param);
+		
+		int id = Util.getAsInt(param.get("id"), 0);
+
+		// 파일 업로드 시 파일의 번호를 상품의 번호를 바꾼다.
+		genFileService.changeInputFileRelIds(param, id);
+
+		return new ResultData("s-1", "리뷰가 등록 되었습니다.", "id", id);
 	}
 
 }
