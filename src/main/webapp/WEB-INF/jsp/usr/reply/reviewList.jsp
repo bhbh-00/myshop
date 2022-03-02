@@ -30,7 +30,7 @@ body {
 			<div class="flex-grow"></div>
 
 			<div class="flex items-center mr-4 text-gray-500">
-				<a href="add">
+				<a href="addReview?relTypeCode=product&relId=${product.id}">
 					<span>상품 등록</span>
 				</a>
 			</div>

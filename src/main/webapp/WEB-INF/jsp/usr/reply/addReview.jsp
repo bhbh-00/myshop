@@ -42,7 +42,7 @@ body {
 		var maxSizeMb = 50; // 용량
 		var maxSize = maxSizeMb * 1024 * 1024; // 50MB
 		for (let inputNo = 1; inputNo <= AddReview__fileInputMaxCount; inputNo++) {
-			const input = form["file__reply__0__common__attachment__" + inputNo];
+			const input = form["file__review__0__common__attachment__" + inputNo];
 			// form.file__product__0__common__attachment__1.files[0].size -> 사이즈 구하는 식
 			if (input.value) {
 				if (input.files[0].size > maxSize) {
@@ -57,7 +57,7 @@ body {
 				form.genFileIdsStr.value = data.body.genFileIdsStr;
 			}
 			for (let inputNo = 1; inputNo <= AddReview__fileInputMaxCount; inputNo++) {
-				const input = form["file__reply__0__common__attachment__" + inputNo];
+				const input = form["file__review__0__common__attachment__" + inputNo];
 				input.value = '';
 			}
 			form.submit();
@@ -68,7 +68,7 @@ body {
 			// onSuccess 변수라고 생각하면 됌
 			var needToUpload = false;
 			for (let inputNo = 1; inputNo <= AddReview__fileInputMaxCount; inputNo++) {
-				const input = form["file__reply__0__common__attachment__" + inputNo];
+				const input = form["file__review__0__common__attachment__" + inputNo];
 				if (input.value.length > 0) {
 					needToUpload = true;
 					break;
@@ -92,6 +92,7 @@ body {
 				success : onSuccess
 			});
 		}
+		
 		AddReview__submited = true;
 		startUploadFiles(startSubmitForm);
 	}
@@ -114,10 +115,10 @@ body {
 				<input type="hidden" name="genFileIdsStr" value="" />
 				<input type="hidden" name="relTypeCode" value="product" />
 				<input type="hidden" name="relId" value="${param.relId}" />
-				<input type="hidden" name="redirectUrl" value="../product/detail?id=${param.relId}" />
+				<input type="hidden" name="redirectUrl" value="reviewList?productId=${param.relId}" />
 
 				<!--  상품설명 -->
-				<div class="form-control">
+				<div class="form-control mb-5">
 					<textarea name="body" placeholder="리뷰를 작성해주세요."
 						class="h-80 textarea textarea-bordered"></textarea>
 				</div>
@@ -126,12 +127,12 @@ body {
 
 					<div class="form-control">
 						<label class="label">
-							<span class="label-text">상품 이미지 ${inputNo}</span>
+							<span class="label-text">리뷰 이미지 ${inputNo}</span>
 						</label>
 						<div>
 							<input class="thumb-available"
 								data-thumb-selector="next().next()" type="file"
-								name="file__reply__0__common__attachment__${inputNo}"
+								name="file__review__0__common__attachment__${inputNo}"
 								placeholder="리뷰 이미지 ${inputNo}"
 								accept="image/png, image/jpeg, image/png">
 							<div class="mt-2"></div>

@@ -32,13 +32,13 @@ public class UsrReplyController extends BaseController {
 
 	// 상품 리스트
 	@RequestMapping("/usr/reply/reviewList")
-	public String showReviewList(HttpServletRequest req, @RequestParam int productId, String searchKeywordType, String searchKeyword,
-			@RequestParam(defaultValue = "1") int page) {
-		
+	public String showReviewList(HttpServletRequest req, @RequestParam int productId, String searchKeywordType,
+			String searchKeyword, @RequestParam(defaultValue = "1") int page) {
+
 		Product product = replyService.getProductId(productId);
 
 		req.setAttribute("product", product);
-		
+
 		if (product == null) {
 			return msgAndBack(req, "해당 상품은 존재하지 않습니다.");
 		}
@@ -46,7 +46,7 @@ public class UsrReplyController extends BaseController {
 		if (searchKeywordType != null) {
 			searchKeywordType = searchKeywordType.trim();
 		}
-		
+
 		if (searchKeywordType == null || searchKeywordType.length() == 0) {
 			searchKeywordType = "productNameAndBodyAndColor";
 		}
