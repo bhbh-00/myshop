@@ -48,9 +48,11 @@ public interface ArticleDao {
 	int getArticlesTotleCountByMyList(@Param("id") int id, @Param("boardId") int boardId,
 			@Param("searchKeywordType") String searchKeywordType, @Param("searchKeyword") String searchKeyword);
 
-	// 가장 최신 자유 게시물 2개 List<Article> getLatestArticleByBoardNameFree();
+	// 가장 최근 자유 게시물 2개 
+	List<Article> getLatestArticleByBoardNameFree();
 
-	// 가장 최신 공지사항 게시물 2개 List<Article> getLatestArticleByBoardNameNotice();
+	// 가장 최근 공지사항 게시물 2개 
+	List<Article> getLatestArticleByBoardNameNotice();
 
 	Article getArticleByReply(@Param("id") Integer id);
 

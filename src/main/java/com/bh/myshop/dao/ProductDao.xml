@@ -5,9 +5,28 @@
 
 <mapper namespace="com.bh.myshop.dao.ProductDao">
 
+	<!-- 오늘 등록된 상품 보기 -->
+	<select id="getForPrintNewUpdatedProducts" resultType="Product">
+		SELECT *
+		FROM Product
+		WHERE delStatus = 0 
+		LIMIT 3;
+	</select>
+
+
+	<!-- 오늘 등록된 상품 보기 -->
+	<select id="getForPrintTodayUpdatedProducts"
+		resultType="Product">
+		SELECT *
+		FROM Product
+		WHERE DATE(regDate) =
+		DATE_FORMAT(CURDATE(), '%Y-%m-%d');
+	</select>
+
 	<select id="getForPrintCategorys" resultType="Category">
 		SELECT *
-		FROM category
+		FROM
+		category
 		WHERE delStatus = 0;
 	</select>
 
@@ -21,50 +40,6 @@
 		WHERE R.id = #{id}
 		AND
 		P.delStatus = 0;
-	</select>
-
-	<!-- 가장 최신 categoryId=2 2개 -->
-	<select id="getLatestproductByBoardNameFree"
-		resultType="Product">
-		SELECT P.*,
-		IFNULL(M.nickname, "탈퇴회원") AS extra__writer,
-		C.categoryName AS extra__categoryName
-		FROM product AS P
-		LEFT JOIN
-		`member` AS M
-		ON
-		P.memberId = M.id
-		LEFT JOIN category AS C
-		ON P.categoryId
-		= C.id
-		WHERE
-		P.categoryId = 2
-		AND P.delStatus = 0
-		ORDER BY P.id DESC
-		LIMIT
-		2;
-	</select>
-
-	<!-- 가장 최신 categoryId=1 2개 -->
-	<select id="getLatestproductByBoardNameNotice"
-		resultType="Product">
-		SELECT P.*,
-		IFNULL(M.nickname, "탈퇴회원") AS extra__writer,
-		C.categoryName AS extra__categoryName
-		FROM product AS P
-		LEFT JOIN
-		`member` AS M
-		ON
-		P.memberId = M.id
-		LEFT JOIN category AS C
-		ON P.categoryId
-		= C.id
-		WHERE
-		P.categoryId = 1
-		AND P.delStatus = 0
-		ORDER BY P.id DESC
-		LIMIT
-		2;
 	</select>
 
 	<select id="getForPrintProductByMemberId" resultType="Product">

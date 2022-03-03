@@ -112,7 +112,8 @@ public class ProductService {
 
 		return new ResultData("S-1", "삭제되었습니다.", "id", id);
 	}
-
+	
+	// 상품의 총 갯수 보기
 	public int getproductsTotleCount(int categoryId, String searchKeywordType, String searchKeyword) {
 		return productDao.getproductsTotleCount(categoryId, searchKeywordType, searchKeyword);
 	}
@@ -151,6 +152,15 @@ public class ProductService {
 
 	public List<Category> getForPrintCategorys() {
 		return productDao.getForPrintCategorys();
+	}
+	
+	// 가장 최근 업데이트된 상품보기 3개
+	public List<Product> getForPrintNewUpdatedProducts() {
+		return productDao.getForPrintNewUpdatedProducts();
+	}
+
+	public List<Product> getForPrintTodayUpdatedProducts() {
+		return productDao.getForPrintTodayUpdatedProducts();
 	}
 
 }

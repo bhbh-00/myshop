@@ -18,12 +18,10 @@ import com.bh.myshop.dto.GenFile;
 import com.bh.myshop.dto.Like;
 import com.bh.myshop.dto.Member;
 import com.bh.myshop.dto.Product;
-import com.bh.myshop.dto.Reply;
 import com.bh.myshop.dto.ResultData;
 import com.bh.myshop.service.GenFileService;
 import com.bh.myshop.service.LikeService;
 import com.bh.myshop.service.ProductService;
-import com.bh.myshop.service.ReplyService;
 import com.bh.myshop.util.Util;
 
 @Controller
@@ -40,6 +38,9 @@ public class AdmProductController extends BaseController {
 
 	@RequestMapping("/adm/product/page")
 	public String Page(HttpServletRequest req) {
+		
+		// 상품의 총 갯수
+		
 		
 		List<Category> categorys = productService.getForPrintCategorys();
 		

@@ -17,7 +17,7 @@
 		A.delStatus = 0;
 	</select>
 	
-	<!-- 가장 최신 자유 게시물 2개 -->
+	<!-- 가장 최근 자유 게시물 2개 -->
 	<select id="getLatestArticleByBoardNameFree"
 		resultType="Article">
 		SELECT A.*,
@@ -36,7 +36,7 @@
 		LIMIT 2;
 	</select>
 	
-	<!-- 가장 최신 공지사항 게시물 2개 -->
+	<!-- 가장 최근 공지사항 게시물 2개 -->
 	<select id="getLatestArticleByBoardNameNotice"
 		resultType="Article">
 		SELECT A.*,
@@ -52,7 +52,7 @@
 		A.boardId = 1
 		AND A.delStatus = 0
 		ORDER BY A.id DESC
-		LIMIT 2;
+		LIMIT 3;
 	</select>
 
 	<select id="getForPrintArticleByMemberId" resultType="Article">

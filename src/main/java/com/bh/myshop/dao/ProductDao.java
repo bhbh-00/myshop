@@ -60,5 +60,11 @@ public interface ProductDao {
 	Product getOrderProduct(Map<String, Object> param);
 
 	List<Category> getForPrintCategorys();
+	
+	// 가장 최근 업데이트 된 상품 3개 보기
+	List<Product> getForPrintNewUpdatedProducts();
+	
+	// 오늘 업데이트 된 상품 보기
+	List<Product> getForPrintTodayUpdatedProducts();
 
 }
