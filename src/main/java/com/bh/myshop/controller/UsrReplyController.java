@@ -39,6 +39,61 @@ public class UsrReplyController extends BaseController {
 	@Autowired
 	private GenFileService genFileService;
 
+	// 댓글 수정
+	@RequestMapping("/usr/reply/modifyReview")
+	public String ShowModifyReview(Integer id, int productId, HttpServletRequest req) {
+
+		Product product = replyService.getProductId(productId);
+
+		if (id == null) {
+			return msgAndBack(req, "댓글 번호를 입력해주세요.");
+		}
+
+		Reply review = replyService.getReview(id);
+
+		if (review == null) {
+			return msgAndBack(req, "해당 댓글은 존재하지 않습니다.");
+		}
+		
+		List<GenFile> files = genFileService.getGenFiles("review", review.getId(), "common", "attachment");
+
+		Map<String, GenFile> filesMap = new HashMap<>();
+
+		for (GenFile file : files) {
+			filesMap.put(file.getFileNo() + "", file);
+		}
+
+		review.getExtraNotNull().put("file__common__attachment", filesMap);
+		req.setAttribute("review", review);
+		req.setAttribute("product", product);
+
+		return "/usr/reply/modifyReview";
+	}
+
+	// 댓글 수정
+	@RequestMapping("/usr/reply/doModifyReview")
+	@ResponseBody
+	public String doModifyReview(Integer id, String body, HttpServletRequest req, String redirectUrl) {
+
+		Member loginedMember = (Member) req.getAttribute("loginedMember");
+
+		Reply review = replyService.getReview(id);
+
+		if (review == null) {
+			return msgAndBack(req, "해당 댓글은 존재하지 않습니다.");
+		}
+
+		ResultData actorCanDeleteRd = replyService.getActorCanModifyRd(review, loginedMember);
+
+		if (actorCanDeleteRd.isFail()) {
+			return msgAndBack(req, actorCanDeleteRd.getMsg());
+		}
+
+		ResultData modifyReplyRd = replyService.modify(id, body);
+
+		return Util.msgAndReplace(modifyReplyRd.getMsg(), redirectUrl);
+	}
+
 	// 리뷰 상세보기
 	@RequestMapping("/usr/reply/review")
 	public String showReview(HttpServletRequest req, Integer id) {
@@ -80,6 +135,8 @@ public class UsrReplyController extends BaseController {
 	@RequestMapping("/usr/reply/reviewList")
 	public String showReviewList(HttpServletRequest req, @RequestParam int productId, String searchKeywordType,
 			String searchKeyword, @RequestParam(defaultValue = "1") int page) {
+		
+		int loginMemberId = (int) req.getAttribute("loginedMemberId");
 
 		Product product = replyService.getProductId(productId);
 
@@ -151,6 +208,7 @@ public class UsrReplyController extends BaseController {
 		req.setAttribute("page", page);
 		req.setAttribute("reviews", reviews);
 		req.setAttribute("product", product);
+		req.setAttribute("loginMemberId", loginMemberId);
 
 		return "/usr/reply/reviewList";
 	}

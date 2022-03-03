@@ -125,4 +125,8 @@ public class ReplyService {
 		return replyDao.getForPrintReview(id);
 	}
 
+	public Reply getReview(Integer id) {
+		return replyDao.getReview(id);
+	}
+
 }

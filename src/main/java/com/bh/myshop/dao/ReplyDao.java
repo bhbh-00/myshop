@@ -44,4 +44,6 @@ public interface ReplyDao {
 	// 리뷰 보기
 	Reply getForPrintReview(@Param("id") Integer id);
 
+	Reply getReview(@Param("id") Integer id);
+
 }

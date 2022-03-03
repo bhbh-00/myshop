@@ -31,7 +31,7 @@ body {
 
 			<div class="flex items-center mr-4 text-gray-500">
 				<a href="addReview?relTypeCode=product&relId=${product.id}">
-					<span>상품 등록</span>
+					<span>리뷰 작성</span>
 				</a>
 			</div>
 		</div>
@@ -84,7 +84,7 @@ body {
 									onerror="${review.reviewFallbackImgOnErrorHtmlAttr}">
 							</a>
 						</div>
-						
+
 						<!-- 상품설명 -->
 						<div class="border-b border-gray-400 py-4">
 							<a href="${detailUrl}" class="hover:underline">
@@ -93,18 +93,25 @@ body {
 						</div>
 
 						<!-- 작성자 / 등록날짜 수정날짜 -->
-						<div class="text-xs mt-2">
+						<div class="text-xs my-2">
 							<span class="mr-2">${review.extra__writer}</span>
 							<span class="text-gray-600 text-light">${review.regDate}</span>
 							<c:if test="${review.updateDate != review.regDate}">
 								<span class="text-gray-600 text-light">${review.updateDate}</span>
 							</c:if>
 						</div>
+
+						<!-- 상품설명 -->
+						<div class="border-t border-gray-400 py-4">
+							<a href="modifyReview?productId=${product.id}&id=${review.id}">
+								<span>수정</span>
+							</a>
+						</div>
 					</div>
 				</c:forEach>
 			</div>
 		</div>
-		
+
 		<!-- 페이징 -->
 		<nav class="flex justify-center pt-3" aria-label="Pagination">
 

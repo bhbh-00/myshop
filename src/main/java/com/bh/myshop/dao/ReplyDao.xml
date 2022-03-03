@@ -4,8 +4,18 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.bh.myshop.dao.ReplyDao">
+	
+	<!-- 리뷰 보기 -->
+	<select id="getReview" resultType="Reply">
+		SELECT *
+		FROM reply
+		WHERE
+		id =
+		#{id}
+		AND delStatus = 0
+	</select>
 
-	<!-- 상품 번호 상품 확인 -->
+	<!-- 리뷰 보기 -->
 	<select id="getForPrintReview" resultType="Reply">
 		SELECT *
 		FROM reply
