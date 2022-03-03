@@ -9,7 +9,50 @@
 
 <style>
 body {
-	margin-top: 125px;
+	overflow-x: hidden;
+	margin: 0;
+	padding: 0;
+}
+
+/* 2차메뉴 bg */
+.bg {
+	position: absolute;
+	width: 100%;
+	height: 100vh;
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: 5;
+	opacity: 0;
+	visibility: hidden;
+	transition: 1s;
+}
+
+.bg.active {
+	opacity: 1;
+	visibility: visible;
+}
+
+.nav-2dep {
+	position: absolute;
+	width: 80%;
+	height: 100vh;
+	background-color: white;
+	z-index: 9;
+	left: -100%;
+	transition: 1s;
+}
+
+.nav-2dep.active {
+	left: 0%;
+}
+
+.review-dep {
+	position: absolute;
+	right: 0;
+	display: none;
+}
+
+.review-dep.active {
+	display: block;
 }
 </style>
 
@@ -19,10 +62,41 @@ body {
 
 <section class="section-usr-reviews-list">
 
+	<div class="bg"></div>
+	<div class="nav-2dep">
+		<div class="review-dep"></div>
+	</div>
+
+	<script>
+		$(document).ready(function() {
+			$(".review_img").click(function() {
+				var $this = $(this);
+				var $index = $this.index();
+
+				if ($this.siblings().hasClass("active")) {
+					$this.siblings().removeClass("active");
+					$(".review-dep").removeClass("active");
+				}
+
+				if ($this.hasClass("active")) {
+					$this.removeClass("active");
+					$(".bg").removeClass("active");
+					$(".nav-2dep").removeClass("active");
+					$(".review-dep").eq($index).removeClass("active");
+				} else {
+					$this.addClass("active");
+					$(".bg").addClass("active");
+					$(".nav-2dep").addClass("active");
+					$(".review-dep").eq($index).addClass("active");
+				}
+			});
+		});
+	</script>
+
 	<div
 		class="container max-w-3xl min-w-max mx-auto p-5 mb-5 relative item-bt-1-not-last-child">
 
-		<div class="flex pb-7">
+		<div class="flex pb-7 mt-28">
 			<div class="items-center ml-2">
 				<span class="ml-4 text-2xl font-bold">${product.productName}</span>
 			</div>
@@ -70,7 +144,6 @@ body {
 				<c:forEach items="${reviews}" var="review">
 
 					<!-- 반복문 안에 임시변수를 넣어둘 수 있음! c:set -->
-					<c:set var="detailUrl" value="review?id=${review.id}" />
 					<c:set var="thumbFileNo" value="${String.valueOf(1)}" />
 					<c:set var="thumbFile"
 						value="${review.extra.file__common__attachment[thumbFileNo]}" />
@@ -78,18 +151,14 @@ body {
 
 					<div>
 						<!-- 썸네일 -->
-						<div class="flex justify-center">
-							<a href="${detailUrl}">
-								<img src="${thumbUrl}" alt=""
-									onerror="${review.reviewFallbackImgOnErrorHtmlAttr}">
-							</a>
+						<div class="flex justify-center review_img">
+							<img src="${thumbUrl}" alt=""
+								onerror="${review.reviewFallbackImgOnErrorHtmlAttr}">
 						</div>
 
 						<!-- 상품설명 -->
 						<div class="py-4">
-							<a href="${detailUrl}" class="hover:underline">
-								<span> ${review.body} </span>
-							</a>
+							<span> ${review.body} </span>
 						</div>
 
 						<!-- 작성자 / 등록날짜 수정날짜 -->

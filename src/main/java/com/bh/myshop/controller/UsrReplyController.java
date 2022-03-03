@@ -221,7 +221,7 @@ public class UsrReplyController extends BaseController {
 		if (pageMenuEnd > totlePage) {
 			pageMenuEnd = totlePage;
 		}
-
+		
 		// req.setAttribute( "" , ) -> 이게 있어야지 jsp에서 뜸!
 		req.setAttribute("totleItemsCount", totleItemsCount);
 		req.setAttribute("totlePage", totlePage);
