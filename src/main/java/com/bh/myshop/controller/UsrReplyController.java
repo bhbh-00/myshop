@@ -38,6 +38,31 @@ public class UsrReplyController extends BaseController {
 	private LikeService likeService;
 	@Autowired
 	private GenFileService genFileService;
+	
+	// 댓글 삭제
+		@RequestMapping("/usr/reply/doDeleteReview")
+		@ResponseBody
+		public String doDeleteReview(Integer id, HttpServletRequest req, String redirectUrl) {
+
+			Member loginedMember = (Member) req.getAttribute("loginedMember");
+
+			Reply review = replyService.getReview(id);
+
+			if (review == null) {
+				return msgAndBack(req, "해당 리뷰은 존재하지 않습니다.");
+			}
+
+			ResultData actorCanDeleteRd = replyService.getActorCanDeleteRd(review, loginedMember);
+
+			if (actorCanDeleteRd.isFail()) {
+				return msgAndBack(req, actorCanDeleteRd.getMsg());
+			}
+
+			ResultData deleteReplyRd = replyService.delete(id);
+
+			return Util.msgAndReplace(deleteReplyRd.getMsg(), "../reply/reviewList?productId=" + review.getRelId());
+		}
+
 
 	// 댓글 수정
 	@RequestMapping("/usr/reply/modifyReview")
@@ -46,13 +71,13 @@ public class UsrReplyController extends BaseController {
 		Product product = replyService.getProductId(productId);
 
 		if (id == null) {
-			return msgAndBack(req, "댓글 번호를 입력해주세요.");
+			return msgAndBack(req, "리뷰 번호를 입력해주세요.");
 		}
 
 		Reply review = replyService.getReview(id);
 
 		if (review == null) {
-			return msgAndBack(req, "해당 댓글은 존재하지 않습니다.");
+			return msgAndBack(req, "해당 리뷰은 존재하지 않습니다.");
 		}
 		
 		List<GenFile> files = genFileService.getGenFiles("review", review.getId(), "common", "attachment");
@@ -136,8 +161,6 @@ public class UsrReplyController extends BaseController {
 	public String showReviewList(HttpServletRequest req, @RequestParam int productId, String searchKeywordType,
 			String searchKeyword, @RequestParam(defaultValue = "1") int page) {
 		
-		int loginMemberId = (int) req.getAttribute("loginedMemberId");
-
 		Product product = replyService.getProductId(productId);
 
 		req.setAttribute("product", product);
@@ -208,7 +231,6 @@ public class UsrReplyController extends BaseController {
 		req.setAttribute("page", page);
 		req.setAttribute("reviews", reviews);
 		req.setAttribute("product", product);
-		req.setAttribute("loginMemberId", loginMemberId);
 
 		return "/usr/reply/reviewList";
 	}

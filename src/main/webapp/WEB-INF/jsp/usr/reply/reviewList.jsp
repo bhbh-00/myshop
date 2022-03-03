@@ -86,7 +86,7 @@ body {
 						</div>
 
 						<!-- 상품설명 -->
-						<div class="border-b border-gray-400 py-4">
+						<div class="py-4">
 							<a href="${detailUrl}" class="hover:underline">
 								<span> ${review.body} </span>
 							</a>
@@ -101,12 +101,21 @@ body {
 							</c:if>
 						</div>
 
-						<!-- 상품설명 -->
-						<div class="border-t border-gray-400 py-4">
-							<a href="modifyReview?productId=${product.id}&id=${review.id}">
-								<span>수정</span>
-							</a>
-						</div>
+						<c:if test="${review.memberId == loginedMember.id}">
+							<!-- 상품설명 -->
+							<div class="border-t border-gray-400 py-4 font-bold">
+								<a href="modifyReview?productId=${product.id}&id=${review.id}">
+									<span class="text-blue-600">수정</span>
+								</a>
+
+								<span class="mx-8"></span>
+								<!-- 삭제 -->
+								<a onclick="if ( !confirm('삭제하시겠습니까?') ) return false;"
+									href="doDeleteReview?id=${review.id}">
+									<span class="text-red-600">삭제</span>
+								</a>
+							</div>
+						</c:if>
 					</div>
 				</c:forEach>
 			</div>
