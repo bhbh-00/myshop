@@ -59,4 +59,6 @@ public interface ProductDao {
 	// 주문할 제품 가져오기
 	Product getOrderProduct(Map<String, Object> param);
 
+	List<Category> getForPrintCategorys();
+
 }

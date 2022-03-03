@@ -7,6 +7,8 @@
 
 <%@ include file="../part/mainLayoutHead.jspf"%>
 
+<c:set var="fileInputMaxCount" value="5" />
+
 <style>
 body {
 	overflow-x: hidden;
@@ -14,7 +16,6 @@ body {
 	padding: 0;
 }
 
-/* 2차메뉴 bg */
 .bg {
 	position: absolute;
 	width: 100%;
@@ -46,13 +47,36 @@ body {
 }
 
 .review-dep {
-	position: absolute;
-	right: 0;
 	display: none;
 }
 
 .review-dep.active {
 	display: block;
+}
+
+/* 제품 이미지 */
+.swiper-slide {
+	text-align: center;
+	/* Center slide text vertically */
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	-webkit-justify-content: center;
+	justify-content: center;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	-webkit-align-items: center;
+	align-items: center;
+}
+
+.swiper-slide img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }
 </style>
 
@@ -64,7 +88,12 @@ body {
 
 	<div class="bg"></div>
 	<div class="nav-2dep">
-		<div class="review-dep"></div>
+		<div class="review-dep mt-24">
+			<div class="container max-w-3xl min-w-max mx-auto p-5 relative">
+
+				<div class="w-20 h-20 bg-yellow-500"></div>
+			</div>
+		</div>
 	</div>
 
 	<script>

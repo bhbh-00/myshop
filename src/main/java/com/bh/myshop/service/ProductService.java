@@ -149,4 +149,8 @@ public class ProductService {
 		return productDao.getProductByName(productName);
 	}
 
+	public List<Category> getForPrintCategorys() {
+		return productDao.getForPrintCategorys();
+	}
+
 }

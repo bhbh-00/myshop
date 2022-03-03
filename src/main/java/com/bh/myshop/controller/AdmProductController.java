@@ -40,7 +40,11 @@ public class AdmProductController extends BaseController {
 
 	@RequestMapping("/adm/product/page")
 	public String Page(HttpServletRequest req) {
-
+		
+		List<Category> categorys = productService.getForPrintCategorys();
+		
+		req.setAttribute("categorys", categorys);
+		
 		return "/adm/product/page";
 	}
 
@@ -246,7 +250,6 @@ public class AdmProductController extends BaseController {
 		product.getExtraNotNull().put("file__common__attachment", filesMap);
 		req.setAttribute("product", product);
 		req.setAttribute("like", like);
-		// req.setAttribute("replys", replys);
 		req.setAttribute("totleItemsCountByLike", totleItemsCountByLike);
 		req.setAttribute("loginMemberId", loginMemberId);
 

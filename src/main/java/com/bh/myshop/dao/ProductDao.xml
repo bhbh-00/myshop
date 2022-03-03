@@ -5,6 +5,12 @@
 
 <mapper namespace="com.bh.myshop.dao.ProductDao">
 
+	<select id="getForPrintCategorys" resultType="Category">
+		SELECT *
+		FROM category
+		WHERE delStatus = 0;
+	</select>
+
 	<select id="getproductByReply" resultType="Product">
 		SELECT P.id
 		FROM
@@ -186,7 +192,8 @@
 		<if
 			test="searchKeywordType == 'productNameAndBodyAndColorAndPriceAndFee'">
 			AND (P.productName LIKE CONCAT('%', #{searchKeyword}, '%')
-			OR P.`body` LIKE CONCAT('%', #{searchKeyword}, '%')
+			OR
+			P.`body` LIKE CONCAT('%', #{searchKeyword}, '%')
 			OR P.color LIKE
 			CONCAT('%', #{searchKeyword}, '%')
 			OR P.price LIKE CONCAT('%',
@@ -246,12 +253,13 @@
 		<if test="searchKeywordType == 'fee'">
 			AND fee LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
-		<if
-			test="searchKeywordType == 'BodyAndColorAndPriceAndFee'">
+		<if test="searchKeywordType == 'BodyAndColorAndPriceAndFee'">
 			AND `body` LIKE CONCAT('%', #{searchKeyword}, '%')
-			OR color LIKE
+			OR color
+			LIKE
 			CONCAT('%', #{searchKeyword}, '%')
-			OR price LIKE CONCAT('%', #{searchKeyword}, '%')
+			OR price LIKE CONCAT('%',
+			#{searchKeyword}, '%')
 			OR fee LIKE CONCAT('%', #{searchKeyword}, '%'))
 		</if>
 		ORDER BY id DESC

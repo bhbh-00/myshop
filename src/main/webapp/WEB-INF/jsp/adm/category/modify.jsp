@@ -60,6 +60,7 @@ th, td {
 
 		// 기본적인 처리
 		form.categoryName.value = form.categoryName.value.trim();
+		
 		if (form.categoryName.value.length == 0) {
 			alert('이름을 입력해주세요.');
 			form.categoryName.focus();
