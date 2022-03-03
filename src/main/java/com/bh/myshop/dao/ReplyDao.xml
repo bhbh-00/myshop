@@ -6,6 +6,16 @@
 <mapper namespace="com.bh.myshop.dao.ReplyDao">
 
 	<!-- 상품 번호 상품 확인 -->
+	<select id="getForPrintReview" resultType="Reply">
+		SELECT *
+		FROM reply
+		WHERE
+		id =
+		#{id}
+		AND delStatus = 0
+	</select>
+
+	<!-- 상품 번호 상품 확인 -->
 	<select id="getProductId" resultType="Product">
 		SELECT *
 		FROM product
@@ -52,8 +62,7 @@
 		<if test="searchKeywordType == 'color'">
 			AND P.color LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
-		<if
-			test="searchKeywordType == 'productNameAndBodyAndColor'">
+		<if test="searchKeywordType == 'productNameAndBodyAndColor'">
 			AND (P.productName LIKE CONCAT('%', #{searchKeyword}, '%')
 			OR
 			P.`body` LIKE CONCAT('%', #{searchKeyword}, '%')

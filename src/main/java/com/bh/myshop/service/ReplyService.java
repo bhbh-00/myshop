@@ -119,5 +119,10 @@ public class ReplyService {
 
 		return reviews;
 	}
+	
+	// 리뷰 불러오기
+	public Reply getForPrintReview(Integer id) {
+		return replyDao.getForPrintReview(id);
+	}
 
 }

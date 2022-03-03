@@ -30,13 +30,10 @@ import com.bh.myshop.util.Util;
 public class AdmArticleController extends BaseController {
 	@Autowired
 	private ArticleService articleService;
-	
 	@Autowired
 	private GenFileService genFileService;
-	
 	@Autowired
 	private LikeService likeService;
-	
 	@Autowired
 	private ReplyService replyService;
 
@@ -199,11 +196,11 @@ public class AdmArticleController extends BaseController {
 
 		int totleItemsCountByLike = likeService.getLikeTotleCount("article", article.getId());
 
-		// List<Reply> replys = replyService.getForPrintReplies(id);
+		List<Reply> replys = replyService.getForPrintReplies("article", article.getId());
 
 		article.getExtraNotNull().put("file__common__attachment", filesMap);
 		req.setAttribute("article", article);
-		// req.setAttribute("replys", replys);
+		req.setAttribute("replys", replys);
 		req.setAttribute("like", like);
 		req.setAttribute("totleItemsCountByLike", totleItemsCountByLike);
 		req.setAttribute("loginMemberId", loginMemberId);

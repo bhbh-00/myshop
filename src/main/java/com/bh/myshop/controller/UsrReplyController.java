@@ -1,5 +1,6 @@
 package com.bh.myshop.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,11 +13,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bh.myshop.dto.Article;
+import com.bh.myshop.dto.GenFile;
+import com.bh.myshop.dto.Like;
 import com.bh.myshop.dto.Member;
 import com.bh.myshop.dto.Product;
 import com.bh.myshop.dto.Reply;
 import com.bh.myshop.dto.ResultData;
 import com.bh.myshop.service.ArticleService;
+import com.bh.myshop.service.GenFileService;
+import com.bh.myshop.service.LikeService;
 import com.bh.myshop.service.ProductService;
 import com.bh.myshop.service.ReplyService;
 import com.bh.myshop.util.Util;
@@ -29,8 +34,49 @@ public class UsrReplyController extends BaseController {
 	private ArticleService articleService;
 	@Autowired
 	private ProductService productService;
+	@Autowired
+	private LikeService likeService;
+	@Autowired
+	private GenFileService genFileService;
 
-	// 상품 리스트
+	// 리뷰 상세보기
+	@RequestMapping("/usr/reply/review")
+	public String showReview(HttpServletRequest req, Integer id) {
+
+		int loginMemberId = (int) req.getAttribute("loginedMemberId");
+
+		if (id == null) {
+			return msgAndBack(req, "게시물 번호를 입력해주세요.");
+		}
+
+		Reply review = replyService.getForPrintReview(id);
+
+		if (review == null) {
+			return msgAndBack(req, "해당 게시물은 존재하지 않습니다.");
+		}
+
+		List<GenFile> files = genFileService.getGenFiles("review", review.getId(), "common", "attachment");
+
+		Map<String, GenFile> filesMap = new HashMap<>();
+
+		for (GenFile file : files) {
+			filesMap.put(file.getFileNo() + "", file);
+		}
+
+		Like like = likeService.getLike("review", review.getId());
+
+		int totleItemsCountByLike = likeService.getLikeTotleCount("review", review.getId());
+
+		review.getExtraNotNull().put("file__common__attachment", filesMap);
+		req.setAttribute("review", review);
+		req.setAttribute("like", like);
+		req.setAttribute("totleItemsCountByLike", totleItemsCountByLike);
+		req.setAttribute("loginMemberId", loginMemberId);
+
+		return "/usr/reply/review";
+	}
+
+	// 리뷰 리스트
 	@RequestMapping("/usr/reply/reviewList")
 	public String showReviewList(HttpServletRequest req, @RequestParam int productId, String searchKeywordType,
 			String searchKeyword, @RequestParam(defaultValue = "1") int page) {
@@ -109,6 +155,44 @@ public class UsrReplyController extends BaseController {
 		return "/usr/reply/reviewList";
 	}
 
+	@RequestMapping("/usr/reply/addReview")
+	public String ShowAdd(@RequestParam Map<String, Object> param, HttpServletRequest req) {
+		return "/usr/reply/addReview";
+
+	}
+
+	// 리뷰 작성
+	@RequestMapping("/usr/reply/doAddReview")
+	@ResponseBody
+	public String doAddReview(@RequestParam Map<String, Object> param, HttpServletRequest req, String redirectUrl) {
+
+		int loginMemberId = (int) req.getAttribute("loginedMemberId");
+
+		if (param.get("relTypeCode") == "product") {
+			Product product = productService.getproduct((int) param.get("relId"));
+
+			if (product == null) {
+				return msgAndBack(req, "해당 상품은 존재하지 않습니다.");
+			}
+
+			if (param.get("relTypeCode") == null) {
+				return msgAndBack(req, "relTypeCode를 입력해주세요.");
+			}
+
+		}
+
+		if (param.get("body") == null) {
+			return msgAndBack(req, "리뷰를 입력해주세요.");
+		}
+
+		param.put("memberId", loginMemberId);
+
+		ResultData doAddReviewRd = replyService.doAddReview(param);
+
+		return Util.msgAndReplace(doAddReviewRd.getMsg(), redirectUrl);
+	}
+
+	// ================================================================= 댓글
 	// 댓글 삭제
 	@RequestMapping("/usr/reply/doDelete")
 	@ResponseBody
@@ -178,43 +262,6 @@ public class UsrReplyController extends BaseController {
 		ResultData modifyReplyRd = replyService.modify(id, body);
 
 		return Util.msgAndReplace(modifyReplyRd.getMsg(), redirectUrl);
-	}
-
-	@RequestMapping("/usr/reply/addReview")
-	public String ShowAdd(@RequestParam Map<String, Object> param, HttpServletRequest req) {
-		return "/usr/reply/addReview";
-
-	}
-
-	// 리뷰 작성
-	@RequestMapping("/usr/reply/doAddReview")
-	@ResponseBody
-	public String doAddReview(@RequestParam Map<String, Object> param, HttpServletRequest req, String redirectUrl) {
-
-		int loginMemberId = (int) req.getAttribute("loginedMemberId");
-
-		if (param.get("relTypeCode") == "product") {
-			Product product = productService.getproduct((int) param.get("relId"));
-
-			if (product == null) {
-				return msgAndBack(req, "해당 상품은 존재하지 않습니다.");
-			}
-
-			if (param.get("relTypeCode") == null) {
-				return msgAndBack(req, "relTypeCode를 입력해주세요.");
-			}
-
-		}
-
-		if (param.get("body") == null) {
-			return msgAndBack(req, "리뷰를 입력해주세요.");
-		}
-
-		param.put("memberId", loginMemberId);
-
-		ResultData doAddReviewRd = replyService.doAddReview(param);
-
-		return Util.msgAndReplace(doAddReviewRd.getMsg(), redirectUrl);
 	}
 
 	// 댓글 작성

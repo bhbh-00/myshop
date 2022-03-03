@@ -18,7 +18,6 @@ body {
 	background: #eee;
 	margin: 0;
 	padding: 0;
-	overflow-x: hidden;
 }
 
 /* 제품 설명 */

@@ -40,5 +40,8 @@ public interface ReplyDao {
 			@Param("searchKeyword") String searchKeyword);
 
 	Product getProductId(int relId);
+	
+	// 리뷰 보기
+	Reply getForPrintReview(@Param("id") Integer id);
 
 }

@@ -70,7 +70,7 @@ body {
 				<c:forEach items="${reviews}" var="review">
 
 					<!-- 반복문 안에 임시변수를 넣어둘 수 있음! c:set -->
-					<c:set var="detailUrl" value="detail?id=${review.id}" />
+					<c:set var="detailUrl" value="review?id=${review.id}" />
 					<c:set var="thumbFileNo" value="${String.valueOf(1)}" />
 					<c:set var="thumbFile"
 						value="${review.extra.file__common__attachment[thumbFileNo]}" />
