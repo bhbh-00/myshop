@@ -5,14 +5,14 @@
 
 <mapper namespace="com.bh.myshop.dao.ProductDao">
 
-	<!-- 오늘 등록된 상품 보기 -->
+	<!-- 최근 등록된 상품 보기 -->
 	<select id="getForPrintNewUpdatedProducts" resultType="Product">
 		SELECT *
 		FROM Product
-		WHERE delStatus = 0 
-		LIMIT 3;
+		WHERE delStatus = 0
+		ORDER BY id DESC
+		LIMIT 4;
 	</select>
-
 
 	<!-- 오늘 등록된 상품 보기 -->
 	<select id="getForPrintTodayUpdatedProducts"

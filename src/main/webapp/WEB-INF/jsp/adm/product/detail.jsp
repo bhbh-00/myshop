@@ -21,7 +21,6 @@ html, body {
 }
 
 body {
-	background: #eee;
 	margin: 0;
 	padding: 0;
 }

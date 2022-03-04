@@ -9,120 +9,102 @@
 
 <style>
 body {
-	margin-top: 150px;
+	margin-top: 125px;
 }
 
 th, td {
 	padding: 10px;
 }
+
+.after::after {
+	display: block;
+	content: "";
+	clear: both;
+}
+
+/* float : left */
+.left {
+	float: left;
+}
+
+/* float : right */
+.right {
+	float: right;
+}
+
 </style>
 
 <section class="section-adm-home-main">
 
-	<div
-		class="container max-w-3xl min-w-max mx-auto p-5 mb-5 relative item-bt-1-not-last-child">
+	<div class="container mx-auto pb-10">
+		<ul class="after w-full">
+			<c:forEach items="${getForPrintTodayUpdatedProducts}" var="product">
 
-		<div class="flex pb-7">
-			<div class="items-center ml-2">
-				<span class="ml-4 text-2xl font-bold">최근 업데이트 된 상품 목록</span>
-			</div>
-		</div>
+				<!-- 반복문 안에 임시변수를 넣어둘 수 있음! c:set -->
+				<c:set var="detailUrl" value="../product/detail?id=${product.id}" />
+				<c:set var="thumbFileNo" value="${String.valueOf(1)}" />
+				<c:set var="thumbFile"
+					value="${product.extra.file__common__attachment[thumbFileNo]}" />
+				<c:set var="thumbUrl" value="${thumbFile.getForPrintUrl()}" />
 
-		<div class="p-4">
 
-			<table
-				class="container max-w-3xl min-w-max mx-auto item-bt-1-not-last-child text-center h-6 font-medium">
+				<li class="left px-3 text-center lg:w-1/4 md:w-1/3 w-1/2">
+					<a href="${detailUrl}">
+						<img src="${thumbUrl}" alt=""
+							onerror="${product.productFallbackImgOnErrorHtmlAttr}"
+							class="mx-auto">
+					</a>
 
-				<thead>
-					<tr>
-						<th>번호</th>
-						<th>코드</th>
-						<th>이름</th>
-						<th></th>
-					</tr>
-				</thead>
+					<div class="m-4">
+						<span class="text-lg font-semibold"> ${product.productName}
+						</span>
+					</div>
 
-				<c:forEach items="${getForPrintNewUpdatedProducts}" var="product">
-					<tbody>
-						<tr>
-							<td><span>${product.id}</span></td>
-							<td><span>${product.productName}</span></td>
-							<td><span>${product.body}</span></td>
-						</tr>
-					</tbody>
-				</c:forEach>
+					<div class="pb-10">
+						<span class="text-gray-600 text-light">${product.regDate}</span>
+						<c:if test="${product.updateDate != product.regDate}">
+							<span class="text-gray-600 text-light">${product.updateDate}</span>
+						</c:if>
 
-			</table>
-			
-		</div>
-		
-		<div class="flex pb-7">
-			<div class="items-center ml-2">
-				<span class="ml-4 text-2xl font-bold">오늘 업데이트 된 상품 목록</span>
-			</div>
-		</div>
+					</div>
+				</li>
+			</c:forEach>
+		</ul>
 
-		<div class="p-4">
+		<ul class="after w-full">
+			<c:forEach items="${getForPrintNewUpdatedProducts}" var="product">
 
-			<table
-				class="container max-w-3xl min-w-max mx-auto item-bt-1-not-last-child text-center h-6 font-medium">
+				<!-- 반복문 안에 임시변수를 넣어둘 수 있음! c:set -->
+				<c:set var="detailUrl" value="detail?id=${product.id}" />
+				<c:set var="thumbFileNo" value="${String.valueOf(1)}" />
+				<c:set var="thumbFile"
+					value="${product.extra.file__common__attachment[thumbFileNo]}" />
+				<c:set var="thumbUrl" value="${thumbFile.getForPrintUrl()}" />
 
-				<thead>
-					<tr>
-						<th>번호</th>
-						<th>코드</th>
-						<th>이름</th>
-						<th></th>
-					</tr>
-				</thead>
+				<li class="left px-5 text-center lg:w-1/4 md:w-1/3 w-1/2">
+					<a href="${detailUrl}">
+						<img src="${thumbUrl}" alt=""
+							onerror="${product.productFallbackImgOnErrorHtmlAttr}"
+							class="mx-auto">
+					</a>
 
-				<c:forEach items="${getForPrintNewUpdatedProducts}" var="product">
-					<tbody>
-						<tr>
-							<td><span>${product.id}</span></td>
-							<td><span>${product.productName}</span></td>
-							<td><span>${product.body}</span></td>
-						</tr>
-					</tbody>
-				</c:forEach>
+					<div class="m-4">
+						<span class="text-lg font-semibold"> ${product.productName}
+						</span>
+					</div>
 
-			</table>
-			
-		</div>
+					<div>
+						<span class="text-gray-600 text-light">${product.regDate}</span>
+						<c:if test="${product.updateDate != product.regDate}">
+							<span class="text-gray-600 text-light">${product.updateDate}</span>
+						</c:if>
 
-		<div class="flex pt-10">
-			<div class="items-center ml-2">
-				<span class="ml-4 text-2xl font-bold">최근 업데이트 된 공지사항</span>
-			</div>
-		</div>
-
-		<div class="p-4">
-
-			<table
-				class="container max-w-3xl min-w-max mx-auto item-bt-1-not-last-child text-center h-6 font-medium">
-
-				<thead>
-					<tr>
-						<th>번호</th>
-						<th>코드</th>
-						<th>이름</th>
-						<th></th>
-					</tr>
-				</thead>
-
-				<c:forEach items="${LatestArticleByBoardNameNotice}" var="artcle">
-					<tbody>
-						<tr>
-							<td><span>${artcle.id}</span></td>
-							<td><span>${artcle.title}</span></td>
-							<td><span>${artcle.body}</span></td>
-						</tr>
-					</tbody>
-				</c:forEach>
-
-			</table>
-		</div>
+					</div>
+				</li>
+			</c:forEach>
+		</ul>
 	</div>
+
 </section>
 
 <%@ include file="../part/mainLayoutFoot.jspf"%>
