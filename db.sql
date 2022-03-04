@@ -32,7 +32,7 @@ SET regDate = NOW(),
 updateDate = NOW(),
 categoryId = 1,
 memberId = 1,
-productName = "조끼",
+productName = "조끼_10",
 color = "악세사리",
 price = 10000,
 `body` = "악세사리",
@@ -57,6 +57,8 @@ CREATE TABLE article (
 INSERT INTO article
 SET regDate = NOW(),
 updateDate = NOW(),
+boardId = 1,
+memberId = 1,
 title = "제목1 입니다.",
 `body` = "내용1 입니다.";
 
@@ -86,7 +88,7 @@ WHERE memberId = 0;
 # 테스트 게시물 생성, memberId = 2, 제목, 내용 랜덤
 INSERT INTO article
 (regDate, updateDate, memberId, title, `body`, boardId)
-SELECT NOW(), NOW(), 2, CONCAT('제목_', FLOOR(RAND() * 1000) + 1), CONCAT('내용_', FLOOR(RAND() * 1000) + 1), 2
+SELECT NOW(), NOW(), 1, CONCAT('제목_', FLOOR(RAND() * 1000) + 1), CONCAT('내용_', FLOOR(RAND() * 1000) + 1), 2
 FROM article;
 
 # 게시물 테이블에 boardId  랜덤 번호 생성
@@ -103,7 +105,6 @@ CREATE TABLE `member` (
     loginId CHAR(30) NOT NULL,
     loginPw VARCHAR(100) NOT NULL,
     `name` CHAR(30) NOT NULL,
-    `nickname` CHAR(30) NOT NULL,
     `email` CHAR(100) NOT NULL,
     `cellphoneNo` CHAR(20) NOT NULL,
     delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '탈퇴여부',
@@ -120,7 +121,6 @@ updateDate = NOW(),
 loginId = "adm001",
 loginPw = "adm001",
 `name` = "adm001",
-nickname = "adm001",
 cellphoneNo = "01012341234",
 email = "bhbh89900@gmail.com";
 
@@ -130,7 +130,6 @@ updateDate = NOW(),
 loginId = "user001",
 loginPw = "user001",
 `name` = "user001",
-nickname = "user001",
 cellphoneNo = "01077778888",
 email = "bhbh89900@gmail.com";
 

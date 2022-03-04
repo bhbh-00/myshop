@@ -70,26 +70,13 @@ body {
 
 				<!-- 게시판 -->
 				<li>
-					<a href="#" class="h-full flex items-center px-5">
+					<a href="../article/list?boardId=1"
+						class="h-full flex items-center px-5">
 						<span class="text-xl">
 							<i class="far fa-newspaper"></i>
 						</span>
-						<span class="hidden md:block text-lg">&nbsp;게시물 보기</span>
+						<span class="hidden md:block text-lg">&nbsp;NOTICE</span>
 					</a>
-					<div>
-						<ul>
-							<li>
-								<a href="../article/list?boardId=1" class="inline-block text-lg">
-									<span>&nbsp;공지사항 게시판</span>
-								</a>
-							</li>
-							<li>
-								<a href="../article/list?boardId=2" class="inline-block text-lg">
-									<span>&nbsp;자유 게시판</span>
-								</a>
-							</li>
-						</ul>
-					</div>
 				</li>
 
 				<!-- 내 정보 -->
@@ -121,7 +108,6 @@ body {
 										<span>&nbsp;주문내역 보기</span>
 									</a>
 								</li>
-
 							</ul>
 						</div>
 					</li>
@@ -149,8 +135,7 @@ body {
 									</a>
 								</li>
 								<li>
-									<a href="../order/list"
-										class="inline-block text-lg">
+									<a href="../order/list" class="inline-block text-lg">
 										<span>&nbsp;주문내역관리</span>
 									</a>
 								</li>
