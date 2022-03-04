@@ -8,8 +8,15 @@
 <%@ include file="../part/mainLayoutHead.jspf"%>
 
 <style>
-body {
+html, body {
+	position: relative;
+	height: 100%;
 	margin-top: 125px;
+}
+
+body {
+	margin: 0;
+	padding: 0;
 }
 
 th, td {
@@ -32,11 +39,73 @@ th, td {
 	float: right;
 }
 
+/* 배너 */
+.swiper {
+	width: 100%;
+	height: 100%;
+}
+
+.swiper-slide {
+	/* Center slide text vertically */
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	-webkit-justify-content: center;
+	justify-content: center;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	-webkit-align-items: center;
+	align-items: center;
+}
+
+.swiper-slide img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
 </style>
 
 <section class="section-adm-home-main">
 
+	<!-- 배너 -->
+	<!-- Swiper -->
+	<div class="swiper mySwiper container mx-auto mb-11 bg-gray-400">
+		<div class="swiper-wrapper p-10">
+			<c:forEach items="${LatestArticleByBoardNameNotice}" var="notice">
+				<div class="swiper-slide">
+					<span class="text-lg font-bold">notice</span>
+					<div>
+						<span class="inherit">${notice.body}</span>
+					</div>
+				</div>
+			</c:forEach>
+		</div>
+		<div class="swiper-button-next"></div>
+		<div class="swiper-button-prev"></div>
+	</div>
+
+	<!-- Swiper JS -->
+	<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+	<!-- Initialize Swiper -->
+	<script>
+		var swiper = new Swiper(".mySwiper", {
+			navigation : {
+				nextEl : ".swiper-button-next",
+				prevEl : ".swiper-button-prev",
+			},
+		});
+	</script>
+
 	<div class="container mx-auto pb-10">
+
+		<div class="text-center mb-5">Today</div>
+
+		<!-- 오늘 업데이트 된 상품 -->
 		<ul class="after w-full">
 			<c:forEach items="${getForPrintTodayUpdatedProducts}" var="product">
 
@@ -71,6 +140,7 @@ th, td {
 			</c:forEach>
 		</ul>
 
+		<!-- 최근 업데이트 된 상품 -->
 		<ul class="after w-full">
 			<c:forEach items="${getForPrintNewUpdatedProducts}" var="product">
 

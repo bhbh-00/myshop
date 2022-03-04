@@ -67,7 +67,6 @@ th, td {
 						value="${product.extra.file__common__attachment[fileNo]}" />
 					<c:set var="detailUrl" value="detail?id=${product.id}" />
 					<div class="swiper-slide">${file.mediaHtml}</div>
-
 				</c:forEach>
 			</div>
 			<div class="swiper-pagination"></div>
