@@ -38,33 +38,32 @@ public class UsrReplyController extends BaseController {
 	private LikeService likeService;
 	@Autowired
 	private GenFileService genFileService;
-	
-	// 댓글 삭제
-		@RequestMapping("/usr/reply/doDeleteReview")
-		@ResponseBody
-		public String doDeleteReview(Integer id, HttpServletRequest req, String redirectUrl) {
 
-			Member loginedMember = (Member) req.getAttribute("loginedMember");
+	// 리뷰 삭제
+	@RequestMapping("/usr/reply/doDeleteReview")
+	@ResponseBody
+	public String doDeleteReview(Integer id, HttpServletRequest req, String redirectUrl) {
 
-			Reply review = replyService.getReview(id);
+		Member loginedMember = (Member) req.getAttribute("loginedMember");
 
-			if (review == null) {
-				return msgAndBack(req, "해당 리뷰은 존재하지 않습니다.");
-			}
+		Reply review = replyService.getReview(id);
 
-			ResultData actorCanDeleteRd = replyService.getActorCanDeleteRd(review, loginedMember);
-
-			if (actorCanDeleteRd.isFail()) {
-				return msgAndBack(req, actorCanDeleteRd.getMsg());
-			}
-
-			ResultData deleteReplyRd = replyService.delete(id);
-
-			return Util.msgAndReplace(deleteReplyRd.getMsg(), "../reply/reviewList?productId=" + review.getRelId());
+		if (review == null) {
+			return msgAndBack(req, "해당 리뷰은 존재하지 않습니다.");
 		}
 
+		ResultData actorCanDeleteRd = replyService.getActorCanDeleteRd(review, loginedMember);
 
-	// 댓글 수정
+		if (actorCanDeleteRd.isFail()) {
+			return msgAndBack(req, actorCanDeleteRd.getMsg());
+		}
+
+		ResultData deleteReplyRd = replyService.delete(id);
+
+		return Util.msgAndReplace(deleteReplyRd.getMsg(), "../reply/reviewList?productId=" + review.getRelId());
+	}
+
+	// 리뷰 수정
 	@RequestMapping("/usr/reply/modifyReview")
 	public String ShowModifyReview(Integer id, int productId, HttpServletRequest req) {
 
@@ -79,7 +78,7 @@ public class UsrReplyController extends BaseController {
 		if (review == null) {
 			return msgAndBack(req, "해당 리뷰은 존재하지 않습니다.");
 		}
-		
+
 		List<GenFile> files = genFileService.getGenFiles("review", review.getId(), "common", "attachment");
 
 		Map<String, GenFile> filesMap = new HashMap<>();
@@ -95,7 +94,6 @@ public class UsrReplyController extends BaseController {
 		return "/usr/reply/modifyReview";
 	}
 
-	// 댓글 수정
 	@RequestMapping("/usr/reply/doModifyReview")
 	@ResponseBody
 	public String doModifyReview(Integer id, String body, HttpServletRequest req, String redirectUrl) {
@@ -160,7 +158,7 @@ public class UsrReplyController extends BaseController {
 	@RequestMapping("/usr/reply/reviewList")
 	public String showReviewList(HttpServletRequest req, @RequestParam int productId, String searchKeywordType,
 			String searchKeyword, @RequestParam(defaultValue = "1") int page) {
-		
+
 		Product product = replyService.getProductId(productId);
 
 		req.setAttribute("product", product);
@@ -221,7 +219,7 @@ public class UsrReplyController extends BaseController {
 		if (pageMenuEnd > totlePage) {
 			pageMenuEnd = totlePage;
 		}
-		
+
 		// req.setAttribute( "" , ) -> 이게 있어야지 jsp에서 뜸!
 		req.setAttribute("totleItemsCount", totleItemsCount);
 		req.setAttribute("totlePage", totlePage);

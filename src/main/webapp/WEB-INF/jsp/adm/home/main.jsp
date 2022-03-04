@@ -73,13 +73,13 @@ th, td {
 
 	<!-- 배너 -->
 	<!-- Swiper -->
-	<div class="swiper mySwiper container mx-auto mb-11 bg-gray-400">
-		<div class="swiper-wrapper p-10">
+	<div class="swiper mySwiper mb-11 border border-gray-400">
+		<div class="swiper-wrapper p-5 container text-center">
 			<c:forEach items="${LatestArticleByBoardNameNotice}" var="notice">
 				<div class="swiper-slide">
 					<span class="text-lg font-bold">notice</span>
 					<div>
-						<span class="inherit">${notice.body}</span>
+						<span>${notice.body}</span>
 					</div>
 				</div>
 			</c:forEach>

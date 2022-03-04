@@ -125,9 +125,9 @@ th, td {
 					<span>구매하기</span>
 				</a>
 			</div>
-			
+
 			<div class="mx-1"></div>
-			
+
 			<div
 				class="w-1/2 border border-gray-400 hover:bg-black hover:text-gray-50">
 				<a href="../product/modify?id=${product.id}">
@@ -205,9 +205,9 @@ th, td {
 
 			<!-- 리뷰 -->
 			<div class="w-1/3">
-				<a href="../reply/list">
-					<span class="text-xl">review</span>
-				</a>
+				<div class="review text-xl">
+					<a href="../reply/reviewList?productId=${product.id}">review</a>
+				</div>
 			</div>
 		</div>
 

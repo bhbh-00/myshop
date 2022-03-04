@@ -11,6 +11,22 @@
 body {
 	margin-top: 125px;
 }
+
+.after::after {
+	display: block;
+	content: "";
+	clear: both;
+}
+
+/* float : left */
+.left {
+	float: left;
+}
+
+/* float : right */
+.right {
+	float: right;
+}
 </style>
 
 <script>
@@ -20,7 +36,7 @@ body {
 <section class="section-adm-product-list">
 
 	<div
-		class="container max-w-3xl min-w-max mx-auto p-5 mb-5 relative item-bt-1-not-last-child">
+		class="container mx-auto p-5 relative item-bt-1-not-last-child">
 
 		<div class="flex pb-7">
 			<div class="items-center ml-2">
@@ -66,54 +82,48 @@ body {
 
 			</form>
 		</div>
+	</div>
 
-		<div class="container p-10 max-w-3xl min-w-max mx-auto text-center">
-			<div class="flex grid grid-cols-3 gap-10">
-				<c:forEach items="${products}" var="product">
+	<div class="container mx-auto pb-10">
+		<ul class="after w-full">
+			<c:forEach items="${products}" var="product">
 
-					<!-- 반복문 안에 임시변수를 넣어둘 수 있음! c:set -->
-					<c:set var="detailUrl" value="detail?id=${product.id}" />
-					<c:set var="thumbFileNo" value="${String.valueOf(1)}" />
-					<c:set var="thumbFile"
-						value="${product.extra.file__common__attachment[thumbFileNo]}" />
-					<c:set var="thumbUrl" value="${thumbFile.getForPrintUrl()}" />
+				<!-- 반복문 안에 임시변수를 넣어둘 수 있음! c:set -->
+				<c:set var="detailUrl" value="detail?id=${product.id}" />
+				<c:set var="thumbFileNo" value="${String.valueOf(1)}" />
+				<c:set var="thumbFile"
+					value="${product.extra.file__common__attachment[thumbFileNo]}" />
+				<c:set var="thumbUrl" value="${thumbFile.getForPrintUrl()}" />
 
-					<div>
-						<!-- 썸네일 -->
-						<div class="flex justify-center">
-							<a href="${detailUrl}">
-								<img src="${thumbUrl}" alt=""
-									onerror="${product.productFallbackImgOnErrorHtmlAttr}">
-							</a>
-						</div>
+				<li class="left px-3 text-center lg:w-1/4 md:w-1/3 w-1/2">
+					<a href="${detailUrl}">
+						<img src="${thumbUrl}" alt=""
+							onerror="${product.productFallbackImgOnErrorHtmlAttr}" class="mx-auto">
+					</a>
 
-						<!-- 상품명 -->
-						<div class="border-b border-gray-400 py-2">
-							<a href="${detailUrl}" class="hover:underline">
-								<span class="text-lg font-semibold"> ${product.productName} </span>
-							</a>
-						</div>
-
-						<!-- 상품설명 -->
-						<div class="border-b border-gray-400 py-4">
-							<a href="${detailUrl}" class="hover:underline">
-								<span> ${product.body} </span>
-							</a>
-						</div>
-
-						<!-- 작성자 / 등록날짜 수정날짜 -->
-						<div class="text-xs mt-2">
-							<span class="mr-2">${product.extra__writer}</span>
-							<span class="text-gray-600 text-light">${product.regDate}</span>
-							<c:if test="${product.updateDate != product.regDate}">
-								<span class="text-gray-600 text-light">${product.updateDate}</span>
-							</c:if>
-						</div>
+					<!-- 상품명 -->
+					<div class="mt-5 mb-2">
+						<a href="${detailUrl}" class="hover:underline">
+							<span class="text-lg font-semibold">
+								${product.productName} </span>
+						</a>
+						<span class="ml-12 font-semibold">
+								${product.price} </span>
 					</div>
-				</c:forEach>
-			</div>
-		</div>
-		
+
+					<!-- 작성자 / 등록날짜 수정날짜 -->
+					<div class="text-xs mt-2 mb-10">
+						<span class="mr-2">${product.extra__writer}</span>
+						<span class="text-gray-600 text-light">${product.regDate}</span>
+						<c:if test="${product.updateDate != product.regDate}">
+							<span class="text-gray-600 text-light">${product.updateDate}</span>
+						</c:if>
+					</div>
+				</li>
+			</c:forEach>
+		</ul>
+
+
 		<!-- 페이징 -->
 		<nav class="flex justify-center pt-3" aria-label="Pagination">
 
