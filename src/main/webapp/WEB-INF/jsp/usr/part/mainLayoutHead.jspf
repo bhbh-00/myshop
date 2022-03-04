@@ -90,6 +90,12 @@ body {
 						<div>
 							<ul>
 								<li>
+									<a href="../member/mypage?id=${ loginedMember.id }"
+										class="inline-block text-lg">
+										<span>&nbsp;프로필 보기</span>
+									</a>
+								</li>
+								<li>
 									<a href="../order/myList?memberId=${ loginedMember.id }"
 										class="inline-block text-lg">
 										<span>&nbsp;주문내역 보기</span>
