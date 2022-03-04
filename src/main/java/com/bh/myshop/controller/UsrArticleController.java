@@ -10,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartRequest;
 
 import com.bh.myshop.dto.Article;
 import com.bh.myshop.dto.Board;
@@ -19,12 +17,10 @@ import com.bh.myshop.dto.GenFile;
 import com.bh.myshop.dto.Like;
 import com.bh.myshop.dto.Member;
 import com.bh.myshop.dto.Reply;
-import com.bh.myshop.dto.ResultData;
 import com.bh.myshop.service.ArticleService;
 import com.bh.myshop.service.GenFileService;
 import com.bh.myshop.service.LikeService;
 import com.bh.myshop.service.ReplyService;
-import com.bh.myshop.util.Util;
 
 @Controller
 public class UsrArticleController extends BaseController {
@@ -39,134 +35,7 @@ public class UsrArticleController extends BaseController {
 
 	@Autowired
 	private ReplyService replyService;
-	
-	// 게시물 수정
-	@RequestMapping("/usr/article/modify")
-	public String ShowModify(Integer id, HttpServletRequest req) {
-
-		if (id == null) {
-			return msgAndBack(req, "게시물 번호를 입력해주세요.");
-		}
-
-		Article article = articleService.getForPrintArticle(id);
-
-		if (article == null) {
-			return msgAndBack(req, "해당 게시물은 존재하지 않습니다.");
-		}
-
-		List<GenFile> files = genFileService.getGenFiles("article", article.getId(), "common", "attachment");
-
-		Map<String, GenFile> filesMap = new HashMap<>();
-
-		for (GenFile file : files) {
-			filesMap.put(file.getFileNo() + "", file);
-		}
-
-		article.getExtraNotNull().put("file__common__attachment", filesMap);
-		req.setAttribute("article", article);
-
-		return "/usr/article/modify";
-	}
-	
-	// 게시물 수정
-	@RequestMapping("/usr/article/doModify")
-	@ResponseBody
-	public String doModify(@RequestParam Map<String, Object> param, HttpServletRequest req) {
 		
-		Member loginedMember = (Member) req.getAttribute("loginedMember");
-
-		int id = Util.getAsInt(param.get("id"), 0);
-
-		if (id == 0) {
-			return msgAndBack(req, "게시물 번호를 입력해주세요.");
-		}
-
-		if (Util.isEmpty(param.get("title"))) {
-			return msgAndBack(req, "제목을 입력해주세요.");
-		}
-
-		if (Util.isEmpty(param.get("body"))) {
-			return msgAndBack(req, "내용을 입력해주세요.");
-		}
-
-		Article article = articleService.getArticle(id);
-
-		if (article == null) {
-			return msgAndBack(req, "해당 게시물은 존재하지 않습니다.");
-		}
-
-		ResultData actorCanModifyRd = articleService.getActorCanModifyRd(article, loginedMember);
-
-		if (actorCanModifyRd.isFail()) {
-			return Util.msgAndReplace(actorCanModifyRd.getMsg(), "../article/detail?id=" + article.getId());
-		}
-
-		ResultData modifyArticleRd = articleService.modify(param);
-
-		String redirectUrl = "../article/detail?id=" + article.getId();
-
-		return Util.msgAndReplace(modifyArticleRd.getMsg(), redirectUrl);
-	}
-	
-	// 게시물 삭제
-	@RequestMapping("/usr/article/doDelete")
-	@ResponseBody
-	public String doDelete(Integer id, HttpServletRequest req) {
-
-		Member loginedMember = (Member) req.getAttribute("loginedMember");
-
-		if (id == null) {
-			return msgAndBack(req, "id를 입력해주세요.");
-		}
-
-		Article article = articleService.getArticle(id);
-
-		if (article == null) {
-			return msgAndBack(req, "해당 게시물은 존재하지 않습니다.");
-		}
-
-		ResultData actorCanDeleteRd = articleService.getActorCanDeleteRd(article, loginedMember);
-
-		if (actorCanDeleteRd.isFail()) {
-			return Util.msgAndReplace(actorCanDeleteRd.getMsg(), "../article/detail?id=" + article.getId());
-		}
-
-		ResultData deleteArticleRd = articleService.delete(id);
-		String redirectUrl = "../article/list";
-
-		return Util.msgAndReplace(deleteArticleRd.getMsg(), redirectUrl);
-	}
-
-	@RequestMapping("/usr/article/add")
-	public String ShowAdd(@RequestParam Map<String, Object> param, HttpServletRequest req) {
-		return "/usr/article/add";
-	}
-
-	// 게시물 작성
-	@RequestMapping("/usr/article/doAdd")
-	public String doAdd(@RequestParam Map<String, Object> param, HttpServletRequest req,
-			MultipartRequest multipartRequest) {
-
-		int loginMemberId = (int) req.getAttribute("loginedMemberId");
-
-		if (param.get("title") == null) {
-			return msgAndBack(req, "제목을 입력해주세요.");
-		}
-
-		if (param.get("body") == null) {
-			return msgAndBack(req, "제목을 입력해주세요.");
-		}
-
-		param.put("memberId", loginMemberId);
-
-		ResultData addArticleRd = articleService.doAdd(param);
-
-		int newArticleId = (int) addArticleRd.getBody().get("id");
-
-		return msgAndReplace(req, String.format("%d번 게시물이 작성되었습니다.", newArticleId),
-				"../article/detail?id=" + newArticleId);
-	}
-
 	// 게시물 상세 페이지
 	@RequestMapping("/usr/article/detail")
 	public String showDetail(HttpServletRequest req, Integer id) {
@@ -198,11 +67,11 @@ public class UsrArticleController extends BaseController {
 		int totleItemsCountByLike = likeService.getLikeTotleCount("article", article.getId());
 		
 		// 댓글 리스트
-		// List<Reply> replys = replyService.getForPrintReplies(id);
+		List<Reply> replys = replyService.getForPrintReplies("article", article.getId());
 
 		article.getExtraNotNull().put("file__common__attachment", filesMap);
 		req.setAttribute("article", article);
-		// req.setAttribute("replys", replys);
+		req.setAttribute("replys", replys);
 		req.setAttribute("like", like);
 		req.setAttribute("totleItemsCountByLike", totleItemsCountByLike);
 		req.setAttribute("loginedMember", loginedMember);
