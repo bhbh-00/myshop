@@ -224,7 +224,7 @@ public class UsrMemberController extends BaseController {
 		// 회원가입
 		memberService.join(param);
 
-		String msg = String.format("%s님! 가입을 환영합니다!", param.get("nickname"));
+		String msg = String.format("%s님! 가입을 환영합니다!", param.get("name"));
 
 		String redirectUrl = Util.ifEmpty((String) param.get("redirectUrl"), "../member/login");
 
@@ -274,7 +274,7 @@ public class UsrMemberController extends BaseController {
 
 		session.setAttribute("loginedMemberId", member.getId());
 
-		String msg = String.format("%s님! 환영합니다.", member.getNickname());
+		String msg = String.format("%s님! 환영합니다.", member.getName());
 
 		redirectUrl = Util.ifEmpty(redirectUrl, "../home/main");
 
@@ -330,8 +330,8 @@ public class UsrMemberController extends BaseController {
 	// 회원 정보 수정
 	@RequestMapping("/usr/member/doModify")
 	@ResponseBody
-	public String doModify(HttpServletRequest req, String loginPw, int authLevel, String name, String nickname,
-			String cellphoneNo, String email, String checkPasswordAuthCode) {
+	public String doModify(HttpServletRequest req, String loginPw, int authLevel, String name, String cellphoneNo,
+			String email, String checkPasswordAuthCode) {
 
 		Member loginedMember = (Member) req.getAttribute("loginedMember");
 
@@ -344,8 +344,7 @@ public class UsrMemberController extends BaseController {
 		}
 
 		// 회원 정보 수정
-		ResultData modifyRd = memberService.modify(loginedMember.getId(), loginPw, authLevel, name, nickname,
-				cellphoneNo, email);
+		ResultData modifyRd = memberService.modify(loginedMember.getId(), loginPw, authLevel, name, cellphoneNo, email);
 
 		req.setAttribute("member", loginedMember);
 

@@ -21,7 +21,7 @@
 	<select id="getLatestArticleByBoardNameFree"
 		resultType="Article">
 		SELECT A.*,
-		IFNULL(M.nickname, "탈퇴회원") AS extra__writer,
+		IFNULL(M.name, "탈퇴회원") AS extra__writer,
 		B.name AS extra__boardName
 		FROM article AS A
 		LEFT JOIN `member` AS M
@@ -40,7 +40,7 @@
 	<select id="getLatestArticleByBoardNameNotice"
 		resultType="Article">
 		SELECT A.*,
-		IFNULL(M.nickname, "탈퇴회원") AS extra__writer,
+		IFNULL(M.name, "탈퇴회원") AS extra__writer,
 		B.name AS extra__boardName
 		FROM article AS A
 		LEFT JOIN `member` AS M
@@ -57,7 +57,7 @@
 
 	<select id="getForPrintArticleByMemberId" resultType="Article">
 		SELECT A.*,
-		IFNULL(M.nickname, "탈퇴회원") AS extra__writer,
+		IFNULL(M.name, "탈퇴회원") AS extra__writer,
 		B.name AS extra__boardName
 		FROM article AS A
 		LEFT JOIN `member` AS M
@@ -120,7 +120,7 @@
 
 	<select id="getForPrintArticlesByMyList" resultType="Article">
 		SELECT A.*,
-		IFNULL(M.nickname, "탈퇴회원") AS extra__writer,
+		IFNULL(M.name, "탈퇴회원") AS extra__writer,
 		B.name AS
 		extra__boardName
 		FROM article AS A
@@ -154,7 +154,7 @@
 
 	<select id="getForPrintArticles" resultType="Article">
 		SELECT A.*,
-		IFNULL(M.nickname, "탈퇴회원") AS extra__writer,
+		IFNULL(M.name, "탈퇴회원") AS extra__writer,
 		B.name AS
 		extra__boardName
 		FROM article AS A
@@ -189,7 +189,7 @@
 	<!-- 게시물 상세페이지 -->
 	<select id="getForPrintArticle" resultType="Article">
 		SELECT A.*,
-		IFNULL(M.nickname, "탈퇴회원") AS extra__writer
+		IFNULL(M.name, "탈퇴회원") AS extra__writer
 		FROM article AS A
 		LEFT JOIN
 		`member` AS M

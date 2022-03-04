@@ -44,7 +44,7 @@
 
 	<select id="getForPrintProductByMemberId" resultType="Product">
 		SELECT P.*,
-		IFNULL(M.nickname, "탈퇴회원") AS extra__writer,
+		IFNULL(M.name, "탈퇴회원") AS extra__writer,
 		C.categoryName AS
 		extra__categoryName
 		FROM product AS P
@@ -132,7 +132,7 @@
 
 	<select id="getForPrintproducts" resultType="Product">
 		SELECT P.*,
-		IFNULL(M.nickname, "탈퇴회원") AS extra__writer,
+		IFNULL(M.name, "탈퇴회원") AS extra__writer,
 		C.categoryName
 		AS
 		extra__categoryName
@@ -194,7 +194,7 @@
 	<!-- 상품 상세페이지 -->
 	<select id="getForPrintproduct" resultType="Product">
 		SELECT P.*,
-		IFNULL(M.nickname, "탈퇴회원") AS extra__writer
+		IFNULL(M.name, "탈퇴회원") AS extra__writer
 		FROM product AS P
 		LEFT JOIN
 		`member` AS M

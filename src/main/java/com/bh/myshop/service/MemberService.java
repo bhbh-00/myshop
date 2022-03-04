@@ -66,7 +66,7 @@ public class MemberService {
 	// 비밀번호를 임시 비밀번호로 저장
 	private void setTempPassword(Member actor, String tempPassword) {
 		attrService.setValue("member", actor.getId(), "extra", "useTempPassword", "1", null);
-		memberDao.modify(actor.getId(), tempPassword, 0, null, null, null, null);
+		memberDao.modify(actor.getId(), tempPassword, 0, null, null, null);
 	}
 
 	// 비밀번호를 유지할 수 있는 기간
@@ -123,10 +123,10 @@ public class MemberService {
 	}
 
 	// 회원정보 수정
-	public ResultData modify(int id, String loginPw, int authLevel, String name, String nickname, String cellphoneNo,
+	public ResultData modify(int id, String loginPw, int authLevel, String name, String cellphoneNo,
 			String email) {
 
-		memberDao.modify(id, loginPw, authLevel, name, nickname, cellphoneNo, email);
+		memberDao.modify(id, loginPw, authLevel, name, cellphoneNo, email);
 
 		if (loginPw != null) {
 			setNeedToChangePasswordLater(id);

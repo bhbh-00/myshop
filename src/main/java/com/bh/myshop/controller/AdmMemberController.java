@@ -264,7 +264,7 @@ public class AdmMemberController extends BaseController {
 		// 회원가입
 		memberService.join(param);
 
-		String msg = String.format("%s님! 가입을 환영합니다.", param.get("nickname"));
+		String msg = String.format("%s님! 가입을 환영합니다.", param.get("name"));
 
 		String redirectUrl = Util.ifEmpty((String) param.get("redirectUrl"), "../member/login");
 
@@ -319,7 +319,7 @@ public class AdmMemberController extends BaseController {
 
 		session.setAttribute("loginedMemberId", member.getId());
 
-		String msg = String.format("%s님! 환영합니다.", member.getNickname());
+		String msg = String.format("%s님! 환영합니다.", member.getName());
 
 		redirectUrl = Util.ifEmpty(redirectUrl, "../home/main");
 

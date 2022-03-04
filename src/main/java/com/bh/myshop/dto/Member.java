@@ -23,7 +23,6 @@ public class Member extends EntityDto {
 	@JsonIgnore
 	private String authKey;
 	private String name;
-	private String nickname;
 	private String cellphoneNo;
 	private String email;
 	private boolean delStatus;

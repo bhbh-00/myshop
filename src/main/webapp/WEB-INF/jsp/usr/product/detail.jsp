@@ -195,9 +195,7 @@ th, td {
 		</div>
 	
 	</div>
-
-
-
+	
 </section>
 
 <%@ include file="../part/mainLayoutFoot.jspf"%>

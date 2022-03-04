@@ -41,8 +41,7 @@ public interface MemberDao {
 
 	// 회원 정보 수정
 	void modify(@Param("id") int id, @Param("loginPw") String loginPw, @Param("authLevel") int authLevel,
-			@Param("name") String name, @Param("nickname") String nickname, @Param("cellphoneNo") String cellphoneNo,
-			@Param("email") String email);
+			@Param("name") String name, @Param("cellphoneNo") String cellphoneNo, @Param("email") String email);
 
 	// 회원의 번호로 정보 불러오기
 	Member getForPrintMember(@Param("id") int id);

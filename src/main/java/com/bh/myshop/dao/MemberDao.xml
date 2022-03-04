@@ -17,9 +17,6 @@
 		<if test="searchKeywordType == 'name'">
 			AND name LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
-		<if test="searchKeywordType == 'nickname'">
-			AND nickname LIKE CONCAT('%', #{searchKeyword}, '%')
-		</if>
 		<if test="searchKeywordType == 'cellphoneNo'">
 			AND cellphoneNo LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
@@ -27,13 +24,11 @@
 			AND email LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
 		<if
-			test="searchKeywordType == 'loginIdAndNameAndNicknameAndCellphoneNoAndEmail'">
+			test="searchKeywordType == 'loginIdAndNameAndCellphoneNoAndEmail'">
 			AND (loginId LIKE CONCAT('%', #{searchKeyword}, '%') OR
 			authLevel LIKE CONCAT('%', #{searchKeyword}, '%') OR
 			name LIKE
 			CONCAT('%', #{searchKeyword}, '%') OR
-			nickname LIKE CONCAT('%',
-			#{searchKeyword}, '%') OR
 			cellphoneNo LIKE CONCAT('%',
 			#{searchKeyword}, '%') OR
 			email LIKE CONCAT('%', #{searchKeyword},
@@ -50,13 +45,6 @@
 		AND delStatus = 0
 		<if test="searchKeywordType == 'name'">
 			AND name LIKE CONCAT('%', #{searchKeyword}, '%')
-		</if>
-		<if test="searchKeywordType == 'nickname'">
-			AND `nickname` LIKE CONCAT('%', #{searchKeyword}, '%')
-		</if>
-		<if test="searchKeywordType == 'nameAndNickname'">
-			AND (name LIKE CONCAT('%', #{searchKeyword}, '%') OR
-			nickname LIKE CONCAT('%', #{searchKeyword}, '%'))
 		</if>
 		<if test="searchKeywordType == 'loginId'">
 			AND loginId LIKE CONCAT('%', #{searchKeyword}, '%')
@@ -99,8 +87,6 @@
 		authKey =
 		CONCAT("authKey1__", UUID(), "__", RAND()),
 		`name` = #{name},
-		nickname =
-		#{nickname},
 		cellphoneNo = #{cellphoneNo},
 		email = #{email}
 	</insert>
@@ -131,7 +117,7 @@
 		<set>
 			<if
 				test="loginPw != null and authLevel != null and name != null 
-				and nickname != null and cellphoneNo != null and email != null">
+				and cellphoneNo != null and email != null">
 				updateDate = NOW(),
 			</if>
 			<if test="loginPw != null">
@@ -142,9 +128,6 @@
 			</if>
 			<if test="name != null">
 				`name` = #{name},
-			</if>
-			<if test="nickname != null">
-				nickname = #{nickname},
 			</if>
 			<if test="cellphoneNo != null">
 				cellphoneNo = #{cellphoneNo},
@@ -186,7 +169,5 @@
 		#{id}
 		AND delStatus = 0
 	</select>
-
-
 
 </mapper>
