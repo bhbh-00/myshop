@@ -35,8 +35,7 @@ body {
 
 <section class="section-adm-product-list">
 
-	<div
-		class="container mx-auto p-5 relative item-bt-1-not-last-child">
+	<div class="container mx-auto p-5 relative item-bt-1-not-last-child">
 
 		<div class="flex pb-7">
 			<div class="items-center ml-2">
@@ -98,7 +97,8 @@ body {
 				<li class="left px-3 text-center lg:w-1/4 md:w-1/3 w-1/2">
 					<a href="${detailUrl}">
 						<img src="${thumbUrl}" alt=""
-							onerror="${product.productFallbackImgOnErrorHtmlAttr}" class="mx-auto">
+							onerror="${product.productFallbackImgOnErrorHtmlAttr}"
+							class="mx-auto h-72 w-72">
 					</a>
 
 					<!-- 상품명 -->
@@ -107,8 +107,10 @@ body {
 							<span class="text-lg font-semibold">
 								${product.productName} </span>
 						</a>
-						<span class="ml-12 font-semibold">
-								${product.price} </span>
+					</div>
+					
+					<div class="mb-2">
+						<span class="font-semibold">${Util.numberFormat(product.price)}</span>
 					</div>
 
 					<!-- 작성자 / 등록날짜 수정날짜 -->

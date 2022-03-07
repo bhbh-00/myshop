@@ -38,6 +38,7 @@ th, td {
 				<tr class="border-b border-gray-400">
 					<th>제품명</th>
 					<th>색상</th>
+					<th>사이즈</th>
 					<th>가격</th>
 					<th>배송비</th>
 					<th>결제 금액</th>
@@ -46,6 +47,7 @@ th, td {
 				<tr class="border-b border-gray-400">
 					<td>${product.productName}</td>
 					<td>${product.color}</td>
+					<td>${product.size}</td>
 					<td>${Util.numberFormat(product.price)}</td>
 					<td>${Util.numberFormat(product.fee)}</td>
 					<td>${Util.numberFormat(product.price + product.fee)}</td>
@@ -104,7 +106,7 @@ th, td {
 
 					<tr class="border-b border-gray-400">
 						<th>결제금액</th>
-						<td>${Util.numberFormat(order.totalPayment)}</td>
+						<td>${Util.numberFormat(product.price + product.fee)}</td>
 					</tr>
 
 					<tr>
@@ -141,7 +143,7 @@ th, td {
 							</tr>
 
 							<tr>
-								<td><a href="/adm/delivery/add?orderId=${order.id}">입력</a></td>
+								<td><a href="/adm/delivery/add?orderId=${order.id}"><span class="text-blue-500 font-bold">입력</span></a></td>
 							</tr>
 
 						</c:when>

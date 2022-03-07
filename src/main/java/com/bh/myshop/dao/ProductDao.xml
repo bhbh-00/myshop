@@ -20,7 +20,8 @@
 		SELECT *
 		FROM Product
 		WHERE DATE(regDate) =
-		DATE_FORMAT(CURDATE(), '%Y-%m-%d');
+		DATE_FORMAT(CURDATE(), '%Y-%m-%d')
+		AND delStatus = 0;
 	</select>
 
 	<select id="getForPrintCategorys" resultType="Category">
@@ -77,6 +78,9 @@
 		<if test="searchKeywordType == 'color'">
 			AND color LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
+		<if test="searchKeywordType == 'size'">
+			AND size LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
 		<if test="searchKeywordType == 'price'">
 			AND price LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
@@ -84,13 +88,12 @@
 			AND fee LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
 		<if
-			test="searchKeywordType == 'productNameAndBodyAndColorAndPriceAndFee'">
+			test="searchKeywordType == 'productNameAndBodyAndColorAndSizeAndPriceAndFee'">
 			AND (productName LIKE CONCAT('%', #{searchKeyword}, '%')
 			OR`body` LIKE CONCAT('%', #{searchKeyword}, '%')
-			OR color LIKE
-			CONCAT('%', #{searchKeyword}, '%')
-			OR price LIKE CONCAT('%',
-			#{searchKeyword}, '%')
+			OR color LIKE CONCAT('%', #{searchKeyword}, '%')
+			OR size LIKE CONCAT('%', #{searchKeyword}, '%')
+			OR price LIKE CONCAT('%', #{searchKeyword}, '%')
 			OR fee LIKE CONCAT('%', #{searchKeyword}, '%'))
 		</if>
 		ORDER BY id DESC
@@ -110,6 +113,9 @@
 		<if test="searchKeywordType == 'color'">
 			AND color LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
+		<if test="searchKeywordType == 'size'">
+			AND size LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
 		<if test="searchKeywordType == 'price'">
 			AND price LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
@@ -117,13 +123,12 @@
 			AND fee LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
 		<if
-			test="searchKeywordType == 'productNameAndBodyAndColorAndPriceAndFee'">
+			test="searchKeywordType == 'productNameAndBodyAndColorAndSizeAndPriceAndFee'">
 			AND (productName LIKE CONCAT('%', #{searchKeyword}, '%')
 			OR`body` LIKE CONCAT('%', #{searchKeyword}, '%')
-			OR color LIKE
-			CONCAT('%', #{searchKeyword}, '%')
-			OR price LIKE CONCAT('%',
-			#{searchKeyword}, '%')
+			OR color LIKE CONCAT('%', #{searchKeyword}, '%')
+			OR size LIKE CONCAT('%', #{searchKeyword}, '%')
+			OR price LIKE CONCAT('%', #{searchKeyword}, '%')
 			OR fee LIKE CONCAT('%', #{searchKeyword}, '%'))
 		</if>
 		AND delStatus = 0
@@ -158,6 +163,9 @@
 		<if test="searchKeywordType == 'color'">
 			AND P.color LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
+		<if test="searchKeywordType == 'size'">
+			AND P.size LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
 		<if test="searchKeywordType == 'price'">
 			AND P.price LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
@@ -165,16 +173,13 @@
 			AND P.fee LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
 		<if
-			test="searchKeywordType == 'productNameAndBodyAndColorAndPriceAndFee'">
+			test="searchKeywordType == 'productNameAndBodyAndColorAndSizeAndPriceAndFee'">
 			AND (P.productName LIKE CONCAT('%', #{searchKeyword}, '%')
-			OR
-			P.`body` LIKE CONCAT('%', #{searchKeyword}, '%')
-			OR P.color LIKE
-			CONCAT('%', #{searchKeyword}, '%')
-			OR P.price LIKE CONCAT('%',
-			#{searchKeyword}, '%')
-			OR P.fee LIKE CONCAT('%', #{searchKeyword},
-			'%'))
+			OR P.`body` LIKE CONCAT('%', #{searchKeyword}, '%')
+			OR P.color LIKE CONCAT('%', #{searchKeyword}, '%')
+			OR P.size LIKE CONCAT('%', #{searchKeyword}, '%')
+			OR P.price LIKE CONCAT('%', #{searchKeyword}, '%')
+			OR P.fee LIKE CONCAT('%', #{searchKeyword}, '%'))
 		</if>
 		<!-- 페이지 마이바티스 if and, or 검색해보기 -->
 		ORDER BY P.id ASC
@@ -222,17 +227,19 @@
 		<if test="searchKeywordType == 'color'">
 			AND color LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
+		<if test="searchKeywordType == 'size'">
+			AND size LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
 		<if test="searchKeywordType == 'price'">
 			AND price LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
 		<if test="searchKeywordType == 'fee'">
 			AND fee LIKE CONCAT('%', #{searchKeyword}, '%')
 		</if>
-		<if test="searchKeywordType == 'BodyAndColorAndPriceAndFee'">
+		<if test="searchKeywordType == 'BodyAndColorAndSizeAndPriceAndFee'">
 			AND `body` LIKE CONCAT('%', #{searchKeyword}, '%')
-			OR color
-			LIKE
-			CONCAT('%', #{searchKeyword}, '%')
+			OR color LIKE CONCAT('%', #{searchKeyword}, '%')
+			OR size LIKE CONCAT('%', #{searchKeyword}, '%')
 			OR price LIKE CONCAT('%',
 			#{searchKeyword}, '%')
 			OR fee LIKE CONCAT('%', #{searchKeyword}, '%'))
@@ -252,6 +259,7 @@
 		productName = #{productName},
 		`body` = #{body},
 		color = #{color},
+		size = #{size},
 		price = #{price},
 		fee = #{fee}
 	</insert>
@@ -270,7 +278,7 @@
 		UPDATE product
 		<set>
 			<if
-				test="productName != null or body != null or color != null or price != null or fee != null">
+				test="productName != null or body != null or color != null or size != null or price != null or fee != null">
 				updateDate = NOW(),
 			</if>
 			<if test="productName != null">
@@ -281,6 +289,9 @@
 			</if>
 			<if test="color != null">
 				color = #{color},
+			</if>
+			<if test="size != null">
+				size = #{size},
 			</if>
 			<if test="price != null">
 				price = #{price},

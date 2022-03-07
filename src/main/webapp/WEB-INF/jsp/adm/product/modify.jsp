@@ -36,6 +36,13 @@ body {
 			form.color.focus();
 			return false;
 		}
+		
+		form.size.value = form.size.value.trim();
+		if (form.size.value.length == 0) {
+			alert('사이즈을 입력해주세요.');
+			form.size.focus();
+			return false;
+		}
 
 		form.price.value = form.price.value.trim();
 		if (form.price.value.length == 0) {
@@ -158,6 +165,15 @@ body {
 					</label>
 					<input name="color" value="${product.color}"
 						placeholder="색상을 입력해주세요." type="text" class="input input-bordered">
+				</div>
+				
+				<!--  색상 -->
+				<div class="form-control">
+					<label class="label">
+						<span class="label-text">사이즈</span>
+					</label>
+					<input name="size" value="${product.size}"
+						placeholder="사이즈을 입력해주세요." type="text" class="input input-bordered">
 				</div>
 
 				<!--  가격 -->

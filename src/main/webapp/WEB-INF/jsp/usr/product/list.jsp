@@ -37,18 +37,11 @@ body {
 
 	<div class="container mx-auto p-5 relative item-bt-1-not-last-child">
 
-		<div class="flex pb-7">
+		<div class="pb-7">
 			<div class="items-center ml-2">
 				<span class="ml-4 text-2xl font-bold">${category.categoryName}</span>
 			</div>
 
-			<div class="flex-grow"></div>
-
-			<div class="flex items-center mr-4 text-gray-500">
-				<a href="add">
-					<span>상품 등록</span>
-				</a>
-			</div>
 		</div>
 
 		<div class="p-4">
@@ -98,7 +91,7 @@ body {
 					<a href="${detailUrl}">
 						<img src="${thumbUrl}" alt=""
 							onerror="${product.productFallbackImgOnErrorHtmlAttr}"
-							class="mx-auto">
+							class="mx-auto h-72 w-72">
 					</a>
 
 					<!-- 상품명 -->

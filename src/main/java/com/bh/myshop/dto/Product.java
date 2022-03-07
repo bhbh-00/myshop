@@ -18,6 +18,7 @@ public class Product extends EntityDto {
 	private String productName;
 	private String body;
 	private String color;
+	private String size;
 	private int price;
 	private int fee;
 	private boolean blindStatus;

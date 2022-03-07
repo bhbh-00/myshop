@@ -145,7 +145,7 @@ th, td {
 			<c:forEach items="${getForPrintNewUpdatedProducts}" var="product">
 
 				<!-- 반복문 안에 임시변수를 넣어둘 수 있음! c:set -->
-				<c:set var="detailUrl" value="detail?id=${product.id}" />
+				<c:set var="detailUrl" value="../product/detail?id=${product.id}" />
 				<c:set var="thumbFileNo" value="${String.valueOf(1)}" />
 				<c:set var="thumbFile"
 					value="${product.extra.file__common__attachment[thumbFileNo]}" />

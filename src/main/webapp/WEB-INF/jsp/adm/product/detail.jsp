@@ -90,6 +90,11 @@ th, td {
 				</tr>
 
 				<tr class="border-b border-gray-400">
+					<th>사이즈</th>
+					<td>${product.size}</td>
+				</tr>
+
+				<tr class="border-b border-gray-400">
 					<th>가격</th>
 					<td>${Util.numberFormat(product.price)}</td>
 				</tr>
@@ -120,7 +125,7 @@ th, td {
 			class="container flex justify-center items-center text-center text-lg font-bold">
 
 			<div
-				class="w-1/2 border border-gray-400 hover:bg-black hover:text-gray-50">
+				class="w-1/3 border border-gray-400 hover:bg-black hover:text-gray-50">
 				<a href="../order/product?productId=${product.id}">
 					<span>구매하기</span>
 				</a>
@@ -129,9 +134,18 @@ th, td {
 			<div class="mx-1"></div>
 
 			<div
-				class="w-1/2 border border-gray-400 hover:bg-black hover:text-gray-50">
+				class="w-1/3 border border-gray-400 hover:bg-black hover:text-gray-50">
 				<a href="../product/modify?id=${product.id}">
 					<span>수정</span>
+				</a>
+			</div>
+
+			<div class="mx-1"></div>
+
+			<div
+				class="w-1/3 border border-gray-400 hover:bg-black hover:text-gray-50">
+				<a href="../product/doDelete?id=${product.id}">
+					<span>삭제</span>
 				</a>
 			</div>
 

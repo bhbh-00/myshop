@@ -13,6 +13,7 @@ CREATE TABLE product (
     productName CHAR(100) NOT NULL,
     `body` TEXT NOT NULL,
     color TEXT NOT NULL,
+    size TEXT NOT NULL,
     price INT(10) NOT NULL,
     fee INT(10) NOT NULL,
     blindStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '블라인드여부',

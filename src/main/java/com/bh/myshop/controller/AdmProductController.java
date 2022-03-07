@@ -38,14 +38,11 @@ public class AdmProductController extends BaseController {
 
 	@RequestMapping("/adm/product/page")
 	public String Page(HttpServletRequest req) {
-		
-		// 상품의 총 갯수
-		
-		
+
 		List<Category> categorys = productService.getForPrintCategorys();
-		
+
 		req.setAttribute("categorys", categorys);
-		
+
 		return "/adm/product/page";
 	}
 
@@ -202,6 +199,10 @@ public class AdmProductController extends BaseController {
 			return msgAndBack(req, "색상을 입력해주세요.");
 		}
 
+		if (param.get("size") == null) {
+			return msgAndBack(req, "가격을 입력해주세요.");
+		}
+
 		if (param.get("price") == null) {
 			return msgAndBack(req, "가격을 입력해주세요.");
 		}
@@ -246,8 +247,7 @@ public class AdmProductController extends BaseController {
 
 		Like like = likeService.getLike("product", product.getId());
 		int totleItemsCountByLike = likeService.getLikeTotleCount("product", product.getId());
-		
-	
+
 		product.getExtraNotNull().put("file__common__attachment", filesMap);
 		req.setAttribute("product", product);
 		req.setAttribute("like", like);
@@ -275,7 +275,7 @@ public class AdmProductController extends BaseController {
 		}
 
 		if (searchKeywordType == null || searchKeywordType.length() == 0) {
-			searchKeywordType = "productNameAndBodyAndColorAndPriceAndFee";
+			searchKeywordType = "productNameAndBodyAndColorAndSizeAndPriceAndFee";
 		}
 
 		if (searchKeyword != null && searchKeyword.length() == 0) {

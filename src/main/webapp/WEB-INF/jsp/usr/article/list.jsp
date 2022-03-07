@@ -76,10 +76,13 @@ th, td {
 			</thead>
 
 			<c:forEach items="${articles}" var="article">
+				<c:set var="detailUrl" value="detail?id=${article.id}" />
 				<tbody>
 					<tr>
 						<td><span>${article.id}</span></td>
-						<td><span>${article.title}</span></td>
+						<td><a href="${detailUrl}" class="hover:underline">
+								<span>${article.title}</span>
+							</a></td>
 						<td><span>${article.regDate}</span></td>
 					</tr>
 				</tbody>

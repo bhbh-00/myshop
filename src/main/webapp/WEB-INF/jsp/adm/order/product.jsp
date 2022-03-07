@@ -56,6 +56,11 @@ th, td {
 						<th>색상</th>
 						<td>${product.color}</td>
 					</tr>
+					
+					<tr class="border-b border-gray-400">
+						<th>사이즈</th>
+						<td>${product.size}</td>
+					</tr>
 
 					<tr class="border-b border-gray-400">
 						<th>가격</th>
