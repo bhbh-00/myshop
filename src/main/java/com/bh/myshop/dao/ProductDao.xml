@@ -11,7 +11,7 @@
 		FROM Product
 		WHERE delStatus = 0
 		ORDER BY id DESC
-		LIMIT 4;
+		LIMIT 6;
 	</select>
 
 	<!-- 오늘 등록된 상품 보기 -->

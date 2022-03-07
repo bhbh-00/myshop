@@ -1,5 +1,5 @@
 server:
-  port: 8021
+  port: 8024
 spring:
   mail:
     host: smtp.gmail.com
@@ -31,7 +31,7 @@ mybatis:
   type-aliases-package: com.bh.myshop.dto
 custom:
   needToChangePasswordFreeDays: 90
-  siteMainUri: http://localhost:8021
+  siteMainUri: http://localhost:8024
   siteName: myshop
   emailFrom: myshop@localhost
   emailFromName: myshop

@@ -45,7 +45,7 @@ body {
 			<div class="flex-grow"></div>
 
 			<div class="flex items-center mr-4 text-gray-500">
-				<a href="add">
+				<a href="add?categoryId=${category.id}">
 					<span>상품 등록</span>
 				</a>
 			</div>

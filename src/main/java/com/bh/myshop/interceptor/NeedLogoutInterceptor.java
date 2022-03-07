@@ -18,7 +18,7 @@ public class NeedLogoutInterceptor implements HandlerInterceptor {
 		boolean isLogined = (boolean) request.getAttribute("isLogined");
 
 		boolean isAjax = (boolean) request.getAttribute("isAjax");
-		
+
 		if (isLogined) {
 			String resultCode = "F-B";
 			String resultMsg = "로그아웃 후 이용해주세요.";

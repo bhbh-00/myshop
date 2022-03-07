@@ -12,7 +12,6 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
 
-
 @Service
 public class MailService {
 	   @Autowired

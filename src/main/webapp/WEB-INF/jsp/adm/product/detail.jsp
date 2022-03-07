@@ -152,7 +152,7 @@ th, td {
 		</div>
 
 		<div
-			class="container flex justify-center items-center text-center mt-4">
+			class="container flex justify-center items-center text-center mt-4 mb-10">
 
 			<!-- 좋아요 -->
 			<!-- 만약에 좋아요의 멤버아이디와 아이디가 같으면 채우진 하트 아니면 빈하트 -->

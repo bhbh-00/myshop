@@ -91,7 +91,7 @@ body {
 					<a href="${detailUrl}">
 						<img src="${thumbUrl}" alt=""
 							onerror="${product.productFallbackImgOnErrorHtmlAttr}"
-							class="mx-auto h-72 w-72">
+							class="mx-auto h-80">
 					</a>
 
 					<!-- 상품명 -->

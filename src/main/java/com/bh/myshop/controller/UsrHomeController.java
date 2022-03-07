@@ -27,11 +27,13 @@ public class UsrHomeController extends BaseController {
 		List<Product> getForPrintTodayUpdatedProducts = productService.getForPrintTodayUpdatedProducts();
 		req.setAttribute("getForPrintTodayUpdatedProducts", getForPrintTodayUpdatedProducts);
 
-		// 가장 최근 업데이트된 상품보기 3개
-		List<Product> getForPrintNewUpdatedProducts = productService.getForPrintNewUpdatedProducts();
-		req.setAttribute("getForPrintNewUpdatedProducts", getForPrintNewUpdatedProducts);
+		if (getForPrintTodayUpdatedProducts == null) {
 
-		// 베스트 상품 3개
+			// 가장 최근 업데이트된 상품보기 3개
+			List<Product> getForPrintNewUpdatedProducts = productService.getForPrintNewUpdatedProducts();
+			req.setAttribute("getForPrintNewUpdatedProducts", getForPrintNewUpdatedProducts);
+
+		}
 
 		// 가장 최근 공지사항 게시물 3개
 		List<Article> LatestArticleByBoardNameNotice = articleService.getLatestArticleByBoardNameNotice();

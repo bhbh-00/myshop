@@ -16,7 +16,7 @@ import com.bh.myshop.dto.ResultData;
 import com.bh.myshop.util.Util;
 
 @Service
-public class ProductService {	
+public class ProductService {
 	@Autowired
 	private ProductDao productDao;
 	@Autowired
@@ -59,8 +59,8 @@ public class ProductService {
 		// 한 페이지에 포함 되는 상품의 갯수의 값
 		// LIMIT 20, 20 => 2page LIMIT 40, 20 => 3page
 
-		List<Product> products = productDao.getForPrintproducts(categoryId, searchKeywordType, searchKeyword, limitStart,
-				limitTake);
+		List<Product> products = productDao.getForPrintproducts(categoryId, searchKeywordType, searchKeyword,
+				limitStart, limitTake);
 		List<Integer> productIds = products.stream().map(product -> product.getId()).collect(Collectors.toList());
 		Map<Integer, Map<String, GenFile>> filesMap = genFileService.getFilesMapKeyRelIdAndFileNo("product", productIds,
 				"common", "attachment");
@@ -75,7 +75,7 @@ public class ProductService {
 
 		return products;
 	}
-	
+
 	// 상품 수정 가능 권한 여부
 	public ResultData getActorCanModifyRd(Product product, Member actor) {
 		if (product.getMemberId() == actor.getId()) {
@@ -112,7 +112,7 @@ public class ProductService {
 
 		return new ResultData("S-1", "삭제되었습니다.", "id", id);
 	}
-	
+
 	// 상품의 총 갯수 보기
 	public int getproductsTotleCount(int categoryId, String searchKeywordType, String searchKeyword) {
 		return productDao.getproductsTotleCount(categoryId, searchKeywordType, searchKeyword);
@@ -121,17 +121,17 @@ public class ProductService {
 	public List<Product> getForPrintproductByMemberId(int id) {
 		return productDao.getForPrintproductByMemberId(id);
 	}
-	
+
 	public int getproductsTotleCountByMyList(int loginMemberId, int categoryId, String searchKeywordType,
 			String searchKeyword) {
 		return productDao.getproductsTotleCountByMyList(loginMemberId, categoryId, searchKeywordType, searchKeyword);
 	}
-	
+
 	// 가장 최신 자유 상품 2개
 	public List<Product> getLatestproductByBoardNameFree() {
 		return productDao.getLatestproductByBoardNameFree();
 	}
-	
+
 	// 가장 최신 공지사항 상품 2개
 	public List<Product> getLatestproductByBoardNameNotice() {
 		return productDao.getLatestproductByBoardNameNotice();
@@ -144,7 +144,7 @@ public class ProductService {
 	public Category getCategory(int categoryId) {
 		return productDao.getCategory(categoryId);
 	}
-	
+
 	// 기존의 상품명 확인
 	public Product getProductByName(String productName) {
 		return productDao.getProductByName(productName);
@@ -153,14 +153,44 @@ public class ProductService {
 	public List<Category> getForPrintCategorys() {
 		return productDao.getForPrintCategorys();
 	}
-	
-	// 가장 최근 업데이트된 상품보기 3개
+
+	// 가장 최근 업데이트된 상품보기 4개
 	public List<Product> getForPrintNewUpdatedProducts() {
-		return productDao.getForPrintNewUpdatedProducts();
+
+		List<Product> products = productDao.getForPrintNewUpdatedProducts();
+
+		List<Integer> productIds = products.stream().map(product -> product.getId()).collect(Collectors.toList());
+
+		Map<Integer, Map<String, GenFile>> filesMap = genFileService.getFilesMapKeyRelIdAndFileNo("product", productIds,
+				"common", "attachment");
+
+		for (Product product : products) {
+			Map<String, GenFile> mapByFileNo = filesMap.get(product.getId());
+
+			if (mapByFileNo != null) {
+				product.getExtraNotNull().put("file__common__attachment", mapByFileNo);
+			}
+		}
+		return products;
 	}
 
+	// 가장 오늘 업데이트된 상품보기
 	public List<Product> getForPrintTodayUpdatedProducts() {
-		return productDao.getForPrintTodayUpdatedProducts();
-	}
 
+		List<Product> products = productDao.getForPrintTodayUpdatedProducts();
+
+		List<Integer> productIds = products.stream().map(product -> product.getId()).collect(Collectors.toList());
+
+		Map<Integer, Map<String, GenFile>> filesMap = genFileService.getFilesMapKeyRelIdAndFileNo("product", productIds,
+				"common", "attachment");
+
+		for (Product product : products) {
+			Map<String, GenFile> mapByFileNo = filesMap.get(product.getId());
+
+			if (mapByFileNo != null) {
+				product.getExtraNotNull().put("file__common__attachment", mapByFileNo);
+			}
+		}
+		return products;
+	}
 }

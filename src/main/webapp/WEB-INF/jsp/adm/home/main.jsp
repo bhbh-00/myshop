@@ -77,10 +77,9 @@ th, td {
 		<div class="swiper-wrapper p-5 container text-center">
 			<c:forEach items="${LatestArticleByBoardNameNotice}" var="notice">
 				<div class="swiper-slide">
-					<span class="text-lg font-bold">notice</span>
-					<div>
-						<span>${notice.body}</span>
-					</div>
+					<span class="text-lg font-bold">
+						notice
+						<br>${notice.title}</span>
 				</div>
 			</c:forEach>
 		</div>
@@ -103,7 +102,7 @@ th, td {
 
 	<div class="container mx-auto pb-10">
 
-		<div class="text-center mb-5">Today</div>
+		<div class="text-center mb-5 font-bold">Today</div>
 
 		<!-- 오늘 업데이트 된 상품 -->
 		<ul class="after w-full">
@@ -121,7 +120,7 @@ th, td {
 					<a href="${detailUrl}">
 						<img src="${thumbUrl}" alt=""
 							onerror="${product.productFallbackImgOnErrorHtmlAttr}"
-							class="mx-auto">
+							class="mx-auto h-80">
 					</a>
 
 					<div class="m-4">
@@ -155,7 +154,7 @@ th, td {
 					<a href="${detailUrl}">
 						<img src="${thumbUrl}" alt=""
 							onerror="${product.productFallbackImgOnErrorHtmlAttr}"
-							class="mx-auto">
+							class="mx-auto h-80">
 					</a>
 
 					<div class="m-4">

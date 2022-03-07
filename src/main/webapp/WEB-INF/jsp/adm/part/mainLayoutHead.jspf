@@ -59,7 +59,7 @@ body {
 								</a>
 							</li>
 							<li>
-								<a href="../product/list?categoryId=2"
+								<a href="../product/list?categoryId=4"
 									class="inline-block text-lg">
 									<span>&nbsp;악세사리</span>
 								</a>
@@ -142,7 +142,7 @@ body {
 								<li>
 									<a href="../article/list?boardId=1"
 										class="inline-block text-lg">
-										<span>&nbsp;게시물관리</span>
+										<span>&nbsp;NOTICE관리</span>
 									</a>
 								</li>
 								<li>

@@ -98,7 +98,7 @@ public class AdmArticleController extends BaseController {
 		}
 
 		ResultData modifyArticleRd = articleService.modify(param);
-		String redirectUrl = "../article/detail?id=" + article.getId();
+		String redirectUrl = "../article/list";
 
 		return Util.msgAndReplace(modifyArticleRd.getMsg(), redirectUrl);
 	}
