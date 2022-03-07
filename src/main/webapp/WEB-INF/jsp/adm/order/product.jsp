@@ -7,8 +7,6 @@
 
 <%@ include file="../part/mainLayoutHead.jspf"%>
 
-<c:set var="fileInputMaxCount" value="1" />
-
 <style>
 body {
 	margin-top: 150px;
@@ -18,6 +16,11 @@ th, td {
 	padding: 10px;
 }
 </style>
+
+<script>
+	const productId = parseInt("${product.id}");
+</script>
+
 
 <section class="section-order-product">
 
@@ -30,17 +33,7 @@ th, td {
 
 		<div class="px-4 py-4">
 
-			<div class="flex justify-center">
-
-				<a href="#">
-					<c:forEach begin="1" end="${fileInputMaxCount}" var="inputNo">
-						<c:set var="fileNo" value="${String.valueOf(inputNo)}" />
-						<c:set var="file"
-							value="${product.extra.file__common__attachment[fileNo]}" />
-									${file.mediaHtml}
-							</c:forEach>
-				</a>
-			</div>
+			<div class="flex justify-center"></div>
 
 			<div class="px-10">
 
@@ -56,7 +49,7 @@ th, td {
 						<th>색상</th>
 						<td>${product.color}</td>
 					</tr>
-					
+
 					<tr class="border-b border-gray-400">
 						<th>사이즈</th>
 						<td>${product.size}</td>
@@ -78,12 +71,14 @@ th, td {
 					</tr>
 				</table>
 
-				<div class="text-center text-lg font-bold mt-4 hover:bg-black hover:text-gray-50">
-					<a href="add?productId=${product.id}&categoryId=${product.categoryId}">
+				<div
+					class="text-center text-lg font-bold mt-4 hover:bg-black hover:text-gray-50">
+					<a
+						href="add?productId=${product.id}&categoryId=${product.categoryId}">
 						<span>결제하기</span>
 					</a>
 				</div>
-				
+
 			</div>
 		</div>
 	</div>

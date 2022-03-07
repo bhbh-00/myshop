@@ -39,18 +39,32 @@ th, td {
 					<td>${member.loginId}</td>
 				</tr>
 
-				<tr>
+				<tr class="border-b border-gray-400">
 					<th>이름</th>
 					<td>${loginedMember.name}</td>
 				</tr>
 
+				<tr class="border-b border-gray-400">
+					<th>핸드폰번호</th>
+					<td>${loginedMember.cellphoneNo}</td>
+				</tr>
+
+				<tr class="border-b border-gray-400">
+					<th>이메일</th>
+					<td>${loginedMember.email}</td>
+				</tr>
+
+				<tr class="">
+					<th>가입날짜</th>
+					<td>${loginedMember.regDate}</td>
+				</tr>
+				
 			</table>
 		</div>
-
+		
 		<div
 			class="container text-center text-lg font-bold border border-gray-400 hover:bg-black hover:text-gray-50 mt-3">
-			<a
-				href="checkPassword?afterUrl=${Util.getUrlEncoded('../member/modify')}">
+			<a href="modify?id=${loginedMember.id}">
 				<span>수정</span>
 			</a>
 		</div>

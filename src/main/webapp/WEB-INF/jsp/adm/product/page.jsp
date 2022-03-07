@@ -26,7 +26,6 @@ th, td {
 			<div class="items-center ml-2">
 				<span class="ml-4 text-2xl font-bold">상품 관리</span>
 			</div>
-
 		</div>
 
 		<table
