@@ -77,10 +77,6 @@ public class AdmArticleController extends BaseController {
 			return msgAndBack(req, "게시물 번호를 입력해주세요.");
 		}
 
-		if (Util.isEmpty(param.get("title"))) {
-			return msgAndBack(req, "제목을 입력해주세요.");
-		}
-
 		if (Util.isEmpty(param.get("body"))) {
 			return msgAndBack(req, "내용을 입력해주세요.");
 		}
