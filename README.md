@@ -8,8 +8,8 @@
 ## 관련링크
 - [개요]()
 - [기술]()
-- GITHUB
-- UNTACT 접속
+- GITHUB (https://github.com/bhbh-00/myshop.git)
+- myShop 접속
 
 ## 테스트 계정
 - 로그인
