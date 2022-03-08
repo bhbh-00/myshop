@@ -6,7 +6,7 @@
 # 프로젝트 | 개인 쇼핑몰(myShop)
 
 ## 관련링크
-- [개요]()
+- [개요](https://drive.google.com/file/d/11xI0IL4LcZXnhEt_6Ebbg0fsgrKTEmln/view?usp=sharing)
 - [기술]()
 - GITHUB (https://github.com/bhbh-00/myshop.git)
 - myShop 접속
