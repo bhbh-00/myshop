@@ -53,7 +53,8 @@
 		`order` AS O
 		LEFT JOIN delivery AS D
 		ON O.id = D.orderId
-		WHERE D.id = #{id}
+		WHERE D.id =
+		#{id}
 		AND D.delStatus = 0;
 	</select>
 
@@ -133,15 +134,12 @@
 
 	<!-- 제품 보기 -->
 	<select id="getForPrintProduct" resultType="Product">
-		SELECT P.*
+		SELECT *
 		FROM
-		product AS P
-		LEFT JOIN `order` AS O
-		ON P.id = O.productId
+		product
 		WHERE
-		O.productId = #{productId}
-		AND P.delStatus = 0
-		LIMIT 1;
+		id = #{productId}
+		AND delStatus = 0;
 	</select>
 
 	<!-- 주문내역 불러오기 -->

@@ -11,6 +11,11 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
 
+
+<script>
+	const productId = parseInt("${product.id}");
+</script>
+
 <c:set var="fileInputMaxCount" value="5" />
 
 <style>

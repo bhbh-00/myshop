@@ -25,9 +25,8 @@ body {
 </script>
 
 <script>
-	
 	ProductAdd__submited = false;
-	
+
 	let ProductAdd__validCode = '';
 	//조건 체크 함수 ajax
 	function AddForm__checkNameDup(obj) {
@@ -51,7 +50,7 @@ body {
 			}
 		}, 'json');
 	}
-	
+
 	function ProductAdd__checkAndSubmit(form) {
 		// 이게 끝나면 폼 전송완료
 		// 중복처리 안되게 하는
@@ -65,7 +64,7 @@ body {
 			alert('상품명을 입력해주세요.');
 			form.productName.focus();
 			return false;
-		}		
+		}
 		if (form.productName.value != ProductAdd__validCode) {
 			alert('상품명 중복체크를 해주세요.');
 			form.productName.focus();
@@ -165,7 +164,7 @@ body {
 		startUploadFiles(startSubmitForm);
 		//startUploadFiles만 실행 => ()는 변수라고 생각하면 됌
 	}
-	
+
 	$(function() {
 		$('.inputName').change(function() {
 			AddForm__checkNameDup();
@@ -190,7 +189,7 @@ body {
 
 				<input type="hidden" name="genFileIdsStr" value="" />
 				<input type="hidden" name="categoryId" value="${param.categoryId}" />
-				
+
 				<!--  상품명 -->
 				<div class="form-control">
 					<label class="label">
@@ -199,7 +198,7 @@ body {
 					<input name="productName" type="text" placeholder="상품명"
 						class="inputName input input-bordered">
 				</div>
-				
+
 				<!-- 중복확인 -->
 				<div class="form-control ml-1 mt-1">
 					<div class="NameInputMsg"></div>
@@ -213,7 +212,7 @@ body {
 					<input name="color" type="text" placeholder="색상"
 						class="input input-bordered">
 				</div>
-				
+
 				<!--  size -->
 				<div class="form-control">
 					<label class="label">
@@ -267,13 +266,11 @@ body {
 					</div>
 				</c:forEach>
 
-				<div class="mt-4 btn-wrap gap-1">
-					<button class="btn btn-ghost btn-sm mb-1 text-blue-500"
-						type="submit">
-						<i class="fas fa-pen mr-1"></i>
-						<span>작성</span>
-					</button>
-				</div>
+				<button
+					class="btn btn-block btn-sm mt-7 mb-1 bg-white text-black hover:bg-black hover:text-white"
+					type="submit">
+					<span>작성</span>
+				</button>
 
 			</form>
 		</div>
@@ -281,4 +278,4 @@ body {
 </section>
 
 
-<%@ include file="../part/mainLayoutFoot.jspf"%> 
+<%@ include file="../part/mainLayoutFoot.jspf"%>

@@ -150,7 +150,7 @@ public class AdmOrderController extends BaseController {
 	public String Showhistory(@RequestParam Integer id, HttpServletRequest req) {
 
 		if (id == 0) {
-			return msgAndBack(req, "제품 번호를 입력해주세요.");
+			return msgAndBack(req, "구매내역 번호를 입력해주세요.");
 		}
 
 		Order orderHistory = orderService.getForPrintOrderHistory(id);
