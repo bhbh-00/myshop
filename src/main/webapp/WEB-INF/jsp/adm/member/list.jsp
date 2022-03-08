@@ -9,55 +9,35 @@
 
 <style>
 body {
-	margin-top: 125px;
+	margin-top: 150px;
 }
 
-.after::after {
-	display: block;
-	content: "";
-	clear: both;
-}
-
-/* float : left */
-.left {
-	float: left;
-}
-
-/* float : right */
-.right {
-	float: right;
+th, td {
+	padding: 10px;
 }
 </style>
 
-<script>
-	param.categoryId = parseInt("${category.id}");
-</script>
+<section class="section-adm-member-list">
 
-<section class="section-adm-product-list">
+	<div
+		class="container max-w-3xl min-w-max mx-auto p-5 mb-5 relative item-bt-1-not-last-child">
 
-	<div class="container mx-auto p-5 relative item-bt-1-not-last-child">
-
-		<div class="pb-7">
-			<div class="items-center ml-2">
-				<span class="ml-4 text-2xl font-bold">${category.categoryName}</span>
-			</div>
-
+		<div class="flex pb-7 items-center ml-2">
+			<span class="ml-4 text-2xl font-bold">회원 관리</span>
 		</div>
 
 		<div class="p-4">
 			<form class="flex">
 				<select name="searchKeywordType">
-					<option value="productNameAndColorAndPriceAndFee">전체</option>
-					<option value="productName">상품명</option>
-					<option value="Color">색상</option>
-					<option value="price">가격</option>
-					<option value="fee">배송비</option>
+					<option value="codeAndCategoryName">전체</option>
+					<option value="code">코드</option>
+					<option value="categoryName">내용</option>
 				</select>
 
 				<script>
 					/* 값이 있다면 */
 					if (param.searchKeywordType) {
-						$('.section-adm-product-list select[name="searchKeywordType"]').val(param.searchKeywordType);
+						$('.section-adm-category-list select[name="searchKeywordType"]').val(param.searchKeywordType);
 					}
 				</script>
 
@@ -73,38 +53,37 @@ body {
 
 			</form>
 		</div>
-	</div>
 
-	<div class="container mx-auto pb-10">
-		<ul class="after w-full">
-			<c:forEach items="${products}" var="product">
+		<table
+			class="container max-w-3xl min-w-max mx-auto item-bt-1-not-last-child text-center h-6 font-medium">
 
-				<!-- 반복문 안에 임시변수를 넣어둘 수 있음! c:set -->
-				<c:set var="detailUrl" value="detail?id=${product.id}" />
-				<c:set var="thumbFileNo" value="${String.valueOf(1)}" />
-				<c:set var="thumbFile"
-					value="${product.extra.file__common__attachment[thumbFileNo]}" />
-				<c:set var="thumbUrl" value="${thumbFile.getForPrintUrl()}" />
+			<thead>
+				<tr>
+					<th>번호</th>
+					<th>아이디</th>
+					<th>가입날짜</th>
+				</tr>
+			</thead>
 
-				<li class="left px-3 text-center lg:w-1/4 md:w-1/3 w-1/2">
-					<a href="${detailUrl}">
-						<img src="${thumbUrl}" alt=""
-							onerror="${product.productFallbackImgOnErrorHtmlAttr}"
-							class="mx-auto h-80">
-					</a>
-
-					<!-- 상품명 -->
-					<div class="mt-5 mb-10">
-						<a href="${detailUrl}" class="hover:underline">
-							<span class="text-lg font-semibold">
-								${product.productName} </span>
-						</a>
-						<span class="ml-12 font-semibold"> ${product.price} </span>
-					</div>
-
-				</li>
+			<c:forEach items="${members}" var="member">
+				<tbody>
+					<tr>
+						<td><span>${member.id}</span></td>
+						<td><span>${member.loginId}</span></td>
+						<td><span>${member.regDate}</span></td>
+						<td><a href="modify?id=${ member.id }"
+								class="hover:underline">
+								<span class="text-blue-500 font-semibold">수정</span>
+							</a></td>
+						<td><a onclick="if ( !confirm('삭제하시겠습니까?') ) return false;"
+								href="doDelete?id=${ member.id }">
+								<span class="text-red-600 font-semibold">탈퇴</span>
+							</a></td>
+					</tr>
+				</tbody>
 			</c:forEach>
-		</ul>
+
+		</table>
 
 		<!-- 페이징 -->
 		<nav class="flex justify-center pt-3" aria-label="Pagination">

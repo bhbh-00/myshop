@@ -99,7 +99,7 @@ public class UsrProductController extends BaseController {
 		}
 
 		if (searchKeywordType == null || searchKeywordType.length() == 0) {
-			searchKeywordType = "productNameAndBodyAndColorAndSizeAndPriceAndFee";
+			searchKeywordType = "productNameAndColorAndPriceAndFee";
 		}
 
 		if (searchKeyword != null && searchKeyword.length() == 0) {

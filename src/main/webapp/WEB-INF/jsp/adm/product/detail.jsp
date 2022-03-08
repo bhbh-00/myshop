@@ -149,11 +149,11 @@ th, td {
 
 			<div
 				class="w-1/3 border border-gray-400 hover:bg-black hover:text-gray-50">
-				<a href="../product/doDelete?id=${product.id}">
+				<a href="../product/doDelete?id=${product.id}" onclick="if ( !confirm('상품을 삭제하시겠습니까?') ) return false;" class="text-red-500 ">
 					<span>삭제</span>
 				</a>
 			</div>
-
+		
 		</div>
 
 		<div

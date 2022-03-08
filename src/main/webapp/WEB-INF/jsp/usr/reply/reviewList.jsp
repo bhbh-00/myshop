@@ -78,6 +78,22 @@ body {
 	height: 100%;
 	object-fit: cover;
 }
+
+.after::after {
+	display: block;
+	content: "";
+	clear: both;
+}
+
+/* float : left */
+.left {
+	float: left;
+}
+
+/* float : right */
+.right {
+	float: right;
+}
 </style>
 
 <script>
@@ -124,19 +140,10 @@ body {
 
 	<div class="container mx-auto p-5 relative item-bt-1-not-last-child">
 
-		<div class="flex pb-7 mt-28">
-			<div class="items-center ml-2">
-				<span class="ml-4 text-2xl font-bold">${product.productName}</span>
-			</div>
-
-			<div class="flex-grow"></div>
-
-			<div class="flex items-center mr-4 text-gray-500">
-				<a href="addReview?relTypeCode=product&relId=${product.id}">
-					<span>리뷰 작성</span>
-				</a>
-			</div>
+		<div class="items-center ml-2 pb-7 mt-28">
+			<span class="ml-4 text-2xl font-bold">${product.productName} 리뷰</span>
 		</div>
+
 
 		<div class="p-4">
 			<form class="flex">
@@ -166,108 +173,110 @@ body {
 
 			</form>
 		</div>
+	</div>
 
-		<div class="container mx-auto pb-10">
-			<ul class="after w-full">
-				<c:forEach items="${reviews}" var="review">
 
-					<!-- 반복문 안에 임시변수를 넣어둘 수 있음! c:set -->
-					<c:set var="thumbFileNo" value="${String.valueOf(1)}" />
-					<c:set var="thumbFile"
-						value="${review.extra.file__common__attachment[thumbFileNo]}" />
-					<c:set var="thumbUrl" value="${thumbFile.getForPrintUrl()}" />
+	<div class="container mx-auto pb-10">
+		<ul class="after w-full">
+			<c:forEach items="${reviews}" var="review">
 
-					<li class="left px-3 text-center lg:w-1/4 md:w-1/3 w-1/2">
-						<a href="${detailUrl}">
-							<img src="${thumbUrl}" alt=""
-								onerror="${review.reviewFallbackImgOnErrorHtmlAttr}"
-								class="mx-auto">
+				<!-- 반복문 안에 임시변수를 넣어둘 수 있음! c:set -->
+				<c:set var="thumbFileNo" value="${String.valueOf(1)}" />
+				<c:set var="thumbFile"
+					value="${review.extra.file__common__attachment[thumbFileNo]}" />
+				<c:set var="thumbUrl" value="${thumbFile.getForPrintUrl()}" />
+
+				<li class="left px-3 text-center lg:w-1/4 md:w-1/3 w-1/2">
+					<a href="${detailUrl}">
+						<img src="${thumbUrl}" alt=""
+							onerror="${review.reviewFallbackImgOnErrorHtmlAttr}"
+							class="mx-auto">
+					</a>
+
+					<!--리뷰내용 -->
+					<div class="mt-5">
+						<a href="${detailUrl}" class="hover:underline">
+							<span> ${review.body} </span>
 						</a>
+					</div>
 
-						<!--리뷰내용 -->
-						<div class="mt-5 body">
-							<a href="${detailUrl}" class="hover:underline">
-								<span> ${review.productName} </span>
+					<!-- 작성자 / 등록날짜 수정날짜 -->
+					<div class="text-xs my-2">
+						<span class="mr-2">${review.extra__writer}</span>
+						<span class="text-gray-600 text-light">${review.regDate}</span>
+						<c:if test="${review.updateDate != review.regDate}">
+							<span class="text-gray-600 text-light">${review.updateDate}</span>
+						</c:if>
+					</div>
+
+
+					<c:if test="${review.memberId == loginedMember.id}">
+						<!-- 수정 -->
+						<div class="border-t border-gray-400 py-4 font-bold">
+							<a href="modifyReview?productId=${product.id}&id=${review.id}">
+								<span class="text-blue-600">수정</span>
+							</a>
+
+							<span class="mx-8"></span>
+							<!-- 삭제 -->
+							<a onclick="if ( !confirm('삭제하시겠습니까?') ) return false;"
+								href="doDeleteReview?id=${review.id}">
+								<span class="text-red-600">삭제</span>
 							</a>
 						</div>
+					</c:if>
 
-						<!-- 작성자 / 등록날짜 수정날짜 -->
-						<div class="text-xs my-2">
-							<span class="mr-2">${review.extra__writer}</span>
-							<span class="text-gray-600 text-light">${review.regDate}</span>
-							<c:if test="${review.updateDate != review.regDate}">
-								<span class="text-gray-600 text-light">${review.updateDate}</span>
-							</c:if>
-						</div>
+				</li>
+			</c:forEach>
+		</ul>
 
+		<!-- 페이징 -->
+		<nav class="flex justify-center pt-3" aria-label="Pagination">
 
-						<c:if test="${review.memberId == loginedMember.id}">
-							<!-- 수정 -->
-							<div class="border-t border-gray-400 py-4 font-bold">
-								<a href="modifyReview?productId=${product.id}&id=${review.id}">
-									<span class="text-blue-600">수정</span>
-								</a>
+			<!-- 시작 페이지 -->
+			<!-- 내가 보고 있는 페이지 챕터가 첫번째이면 < 표시 안보이게 -->
+			<c:if test="${pageMenuStart != 1}">
+				<a href="${Util.getNewUrl(requestUrl, 'page', 1)}"
+					class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+					<span class="sr-only">Previous</span>
+					<i class="fas fa-chevron-left"></i>
+				</a>
+			</c:if>
 
-								<span class="mx-8"></span>
-								<!-- 삭제 -->
-								<a onclick="if ( !confirm('삭제하시겠습니까?') ) return false;"
-									href="doDeleteReview?id=${review.id}">
-									<span class="text-red-600">삭제</span>
-								</a>
-							</div>
-						</c:if>
+			<!-- 페이지 번호 -->
+			<c:forEach var="i" begin="${pageMenuStrat}" end="${pageMenuEnd}">
+				<c:set var="aClassStr"
+					value="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium" />
 
-					</li>
-				</c:forEach>
-			</ul>
+				<c:set var="aClassStr" value="${aClassStr} active" />
 
-			<!-- 페이징 -->
-			<nav class="flex justify-center pt-3" aria-label="Pagination">
-
-				<!-- 시작 페이지 -->
-				<!-- 내가 보고 있는 페이지 챕터가 첫번째이면 < 표시 안보이게 -->
-				<c:if test="${pageMenuStart != 1}">
-					<a href="${Util.getNewUrl(requestUrl, 'page', 1)}"
-						class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-						<span class="sr-only">Previous</span>
-						<i class="fas fa-chevron-left"></i>
-					</a>
-				</c:if>
-
-				<!-- 페이지 번호 -->
-				<c:forEach var="i" begin="${pageMenuStrat}" end="${pageMenuEnd}">
+				<!-- 현재 페이지 -->
+				<c:if test="${i == page}">
 					<c:set var="aClassStr"
-						value="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium" />
-
-					<c:set var="aClassStr" value="${aClassStr} active" />
-
-					<!-- 현재 페이지 -->
-					<c:if test="${i == page}">
-						<c:set var="aClassStr"
-							value="${aClassStr} text-red-700 hover:bg-red-50" />
-					</c:if>
-
-					<!-- 현재 페이지가 아닌 -->
-					<c:if test="${i != page}">
-						<c:set var="aClassStr"
-							value="${aClassStr} text-gray-700 hover:bg-gray-50" />
-					</c:if>
-
-					<a href="${Util.getNewUrl(requestUrl, 'page', i)}"
-						class="${aClassStr}">${i}</a>
-				</c:forEach>
-
-				<!-- 마지막 페이지 -->
-				<!-- 내가 보고 있는 페이지 챕터가 마지막이면 > 표시 안보이게 -->
-				<c:if test="${pageMenuEnd != totalPage}">
-					<a href="${Util.getNewUrl(requestUrl, 'page', totalPage)}"
-						class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-						<span class="sr-only">Next</span>
-						<i class="fas fa-chevron-right"></i>
-					</a>
+						value="${aClassStr} text-red-700 hover:bg-red-50" />
 				</c:if>
-			</nav>
-		</div>
+
+				<!-- 현재 페이지가 아닌 -->
+				<c:if test="${i != page}">
+					<c:set var="aClassStr"
+						value="${aClassStr} text-gray-700 hover:bg-gray-50" />
+				</c:if>
+
+				<a href="${Util.getNewUrl(requestUrl, 'page', i)}"
+					class="${aClassStr}">${i}</a>
+			</c:forEach>
+
+			<!-- 마지막 페이지 -->
+			<!-- 내가 보고 있는 페이지 챕터가 마지막이면 > 표시 안보이게 -->
+			<c:if test="${pageMenuEnd != totalPage}">
+				<a href="${Util.getNewUrl(requestUrl, 'page', totalPage)}"
+					class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+					<span class="sr-only">Next</span>
+					<i class="fas fa-chevron-right"></i>
+				</a>
+			</c:if>
+		</nav>
+	</div>
 </section>
 
 <%@ include file="../part/mainLayoutFoot.jspf"%>

@@ -84,7 +84,7 @@ public class ReplyService {
 		// 파일 업로드 시 파일의 번호를 상품의 번호를 바꾼다.
 		genFileService.changeInputFileRelIds(param, id);
 
-		return new ResultData("s-1", "리뷰가 등록 되었습니다.", "id", id);
+		return new ResultData("s-1", "리뷰가 등록되었습니다.", "id", id);
 	}
 
 	public int getReviewsTotleCount(String searchKeywordType, String searchKeyword) {

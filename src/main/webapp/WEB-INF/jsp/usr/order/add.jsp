@@ -204,7 +204,7 @@ body {
 				</div>
 
 				<button
-					class="btn btn-block btn-sm mt-7 mb-1 bg-white text-black hover:bg-black hover:text-white"
+					class="btn-block btn-sm mt-7 mb-1 text-lg font-bold bg-white text-black hover:bg-black hover:text-white"
 					type="submit">
 					<span>결제하기</span>
 				</button>

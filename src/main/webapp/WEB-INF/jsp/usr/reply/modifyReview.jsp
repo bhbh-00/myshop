@@ -112,7 +112,7 @@ ReviewModify__submited = false;
 		class="container max-w-3xl min-w-max mx-auto p-5 mb-5 relative item-bt-1-not-last-child ">
 
 		<div class="pb-7">
-			<span class="ml-2 ml-4 font-bold">상품 수정</span>
+			<span class="ml-2 ml-4 font-bold">리뷰 수정</span>
 		</div>
 
 		<div class="px-4 py-4">
@@ -124,19 +124,19 @@ ReviewModify__submited = false;
 				<input type="hidden" name="redirectUrl" value="reviewList?productId=${product.id}" />
 
 				<!--  상품명 -->
-				<div class="form-control">
+				<div class="form-control mb-2">
 					<label class="label">
 						<span class="label-text">상품명</span>
 					</label>
 					<span class="ml-2"> ${product.productName} </span>
 				</div>
 
-				<!--  상품설명 -->
-				<div class="form-control">
+				<!-- 리뷰 -->
+				<div class="form-control mb-2">
 					<label class="label">
-						<span class="label-text">상품설명</span>
+						<span class="label-text">리뷰</span>
 					</label>
-					<textarea name="body" placeholder="상품설명을 입력해주세요."
+					<textarea name="body" placeholder="리뷰를 작성해주세요."
 						class="h-80 textarea textarea-bordered">${review.body}</textarea>
 				</div>
 

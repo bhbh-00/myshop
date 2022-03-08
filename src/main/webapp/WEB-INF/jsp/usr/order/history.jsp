@@ -9,7 +9,7 @@
 
 <style>
 body {
-	margin-top: 150px;
+	margin-top: 125px;
 }
 
 th, td {
@@ -104,7 +104,7 @@ th, td {
 
 					<tr class="border-b border-gray-400">
 						<th>결제금액</th>
-						<td>${Util.numberFormat(order.totalPayment)}</td>
+						<td>${Util.numberFormat(product.price + product.fee)}</td>
 					</tr>
 
 					<tr>
@@ -136,12 +136,8 @@ th, td {
 								<th>배송상태</th>
 							</tr>
 
-							<tr class="border-b border-gray-400">
-								<td>배송전</td>
-							</tr>
-
 							<tr>
-								<td><a href="/adm/delivery/add?orderId=${order.id}">입력</a></td>
+								<td>배송전</td>
 							</tr>
 
 						</c:when>
@@ -152,6 +148,7 @@ th, td {
 								<th>택배사</th>
 								<th>운송장번호</th>
 								<th>배송날짜</th>
+								<th></th>
 							</tr>
 
 							<tr class="border-b border-gray-400">
@@ -164,7 +161,11 @@ th, td {
 								<td>${delivery.company}</td>
 								<td>${delivery.waybillNum}</td>
 								<td>${delivery.regDate}</td>
+								<td><a
+										href="../reply/addReview?relTypeCode=product&relId=${product.id}">리뷰
+										작성</a></td>
 							</tr>
+
 						</c:otherwise>
 					</c:choose>
 

@@ -48,11 +48,26 @@ th, td {
 		</div>
 
 		<div
-			class="container text-center text-lg font-bold border border-gray-400 hover:bg-black hover:text-gray-50 mt-3">
-			<a
-				href="checkPassword?afterUrl=${Util.getUrlEncoded('../member/modify')}">
-				<span>수정</span>
-			</a>
+			class="container flex justify-center items-center text-center text-lg font-bold">
+
+			<div
+				class="w-1/2 border border-gray-400 hover:bg-black hover:text-gray-50">
+				<a
+					href="checkPassword?afterUrl=${Util.getUrlEncoded('../member/modify')}">
+					<span>수정</span>
+				</a>
+			</div>
+
+			<div class="mx-1"></div>
+			
+			<div
+				class="w-1/2 border border-gray-400 hover:bg-black hover:text-gray-50">
+				<a href="doDelete?id=${member.id}"
+					onclick="if ( !confirm('회원을 탈퇴하시겠습니까?') ) return false;"
+					class="text-red-500 ">
+					<span>탈퇴</span>
+				</a>
+			</div>
 		</div>
 	</div>
 </section>
