@@ -75,7 +75,7 @@ th, td {
 								class="hover:underline">
 								<span class="text-blue-500 font-semibold">수정</span>
 							</a></td>
-						<td><a onclick="if ( !confirm('삭제하시겠습니까?') ) return false;"
+						<td><a onclick="if ( !confirm('회원을 탈퇴 시키시겠습니까?') ) return false;"
 								href="doDelete?id=${ member.id }">
 								<span class="text-red-600 font-semibold">탈퇴</span>
 							</a></td>

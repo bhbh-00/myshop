@@ -92,7 +92,7 @@ body {
 				success : onSuccess
 			});
 		}
-		
+
 		AddReview__submited = true;
 		startUploadFiles(startSubmitForm);
 	}
@@ -115,7 +115,8 @@ body {
 				<input type="hidden" name="genFileIdsStr" value="" />
 				<input type="hidden" name="relTypeCode" value="product" />
 				<input type="hidden" name="relId" value="${param.relId}" />
-				<input type="hidden" name="redirectUrl" value="reviewList?productId=${param.relId}" />
+				<input type="hidden" name="redirectUrl"
+					value="reviewList?productId=${param.relId}" />
 
 				<!--  상품설명 -->
 				<div class="form-control mb-5">
@@ -140,13 +141,11 @@ body {
 					</div>
 				</c:forEach>
 
-				<div class="mt-4 btn-wrap gap-1">
-					<button class="btn btn-ghost btn-sm mb-1 text-blue-500"
-						type="submit">
-						<i class="fas fa-pen mr-1"></i>
-						<span>작성</span>
-					</button>
-				</div>
+				<button
+					class="btn btn-block btn-sm mb-1 bg-white text-black hover:bg-black hover:text-white"
+					type="submit">
+					<span>작성</span>
+				</button>
 
 			</form>
 		</div>

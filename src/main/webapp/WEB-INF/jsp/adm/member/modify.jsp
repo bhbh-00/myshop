@@ -40,7 +40,7 @@ body {
 
 		<div class="flex pb-7">
 			<div class="items-center ml-2">
-				<span class="ml-4 text-2xl font-bold">내 정보 수정</span>
+				<span class="ml-4 text-2xl font-bold">회원정보 수정</span>
 			</div>
 		</div>
 
