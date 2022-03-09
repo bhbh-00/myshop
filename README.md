@@ -7,7 +7,7 @@
 
 ## 관련링크
 - [개요](https://drive.google.com/file/d/11xI0IL4LcZXnhEt_6Ebbg0fsgrKTEmln/view?usp=sharing)
-- [기술]()
+- [기술](https://drive.google.com/file/d/1kvFjmWOpdiUkiG8nWK7oICjeIAcZz5Cp/view?usp=sharing)
 - GITHUB (https://github.com/bhbh-00/myshop.git)
 - myShop 접속
 
@@ -58,14 +58,14 @@
 - 상품
   - 상품리스트
   - 상품 상세페이지
-  - 좋아요
+  - 좋아요 / 좋아요 취소
   - 상품 관리(admin)
   - 상품 등록(admin)
   - 상품 수정(admin)
   - 상품 삭제(admin)
-  - 상품 확인
-
+  
 - 주문
+  - 상품 확인
   - 주문하기
   - 주문내역
   - 주문 관리(admin)
@@ -91,5 +91,5 @@
 
 ## 구현 예정 기능 리스트
 - 좋아요 리스트
-- 
+- 장바구니
 - 판매 종합 현황
