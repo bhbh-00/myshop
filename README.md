@@ -8,12 +8,12 @@
 ## 관련링크
 - [개요](https://drive.google.com/file/d/11xI0IL4LcZXnhEt_6Ebbg0fsgrKTEmln/view?usp=sharing)
 - [기술](https://drive.google.com/file/d/1kvFjmWOpdiUkiG8nWK7oICjeIAcZz5Cp/view?usp=sharing)
-- GITHUB (https://github.com/bhbh-00/myshop.git)
+- [GITHUB](https://github.com/bhbh-00/myshop.git)
 - myShop 접속
 
 ## 테스트 계정
 - 로그인
-- 계정정보
+- 계정 : admin001 / admin001
 
 ## 기술스택 
 - CentOS 7
