@@ -3,7 +3,7 @@
 - 작성자 : 김별희
 - 내용 : 포트폴리오
 
-# 프로젝트 | 개인 쇼핑몰(myShop)
+# 프로젝트 | 개인 스토어(myShop)
 
 ## 관련링크
 - [개요](https://drive.google.com/file/d/11xI0IL4LcZXnhEt_6Ebbg0fsgrKTEmln/view?usp=sharing)
