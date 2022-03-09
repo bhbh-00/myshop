@@ -88,3 +88,8 @@
   - Notice  작성 (admin)
   - Notice  수정 (admin)
   - Notice  삭제 (admin)
+
+## 구현 예정 기능 리스트
+- 좋아요 리스트
+- 
+- 판매 종합 현황
