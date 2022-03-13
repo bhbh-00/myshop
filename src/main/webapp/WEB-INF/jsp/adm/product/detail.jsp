@@ -149,11 +149,13 @@ th, td {
 
 			<div
 				class="w-1/3 border border-gray-400 hover:bg-black hover:text-gray-50">
-				<a href="../product/doDelete?id=${product.id}" onclick="if ( !confirm('상품을 삭제하시겠습니까?') ) return false;" class="text-red-500 ">
+				<a href="../product/doDelete?id=${product.id}"
+					onclick="if ( !confirm('상품을 삭제하시겠습니까?') ) return false;"
+					class="text-red-500 ">
 					<span>삭제</span>
 				</a>
 			</div>
-		
+
 		</div>
 
 		<div
@@ -206,11 +208,10 @@ th, td {
 
 			<!-- 장바구니 -->
 			<div class="w-1/3">
-				<form class="grid form-type-1" action="../like/doLike" method="POST">
+				<form class="grid form-type-1" action="../cart/doAdd" method="POST">
 
 					<input type="hidden" name="relTypeCode" value="product" />
 					<input type="hidden" name="relId" value="${product.id}" />
-					<input type="hidden" name="like" value="like" />
 
 					<input type="hidden" name="redirectUrl"
 						value="../product/detail?id=${product.id}" />

@@ -15,12 +15,14 @@ public class CartService {
 	private CartDao cartDao;
 
 	public ResultData delete(Map<String, Object> param) {
-		return cartDao.delete(param);
+		cartDao.delete(param);
+
+		return new ResultData("S-1", "장바구니를 취소합니다.");
 	}
 
 	public ResultData doAdd(Map<String, Object> param) {
-		cartDao.doAdd(param);
-		
+		cartDao.add(param);
+
 		int id = Util.getAsInt(param.get("id"), 0);
 
 		return new ResultData("s-1", "장바구니에 추가합니다.", "id", id);

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bh.myshop.dao.CartDao">
+
+	<!-- 장바구니 추가 -->
+	<insert id="add" useGeneratedKeys="true" keyProperty="id">
+		INSERT
+		INTO
+		cart
+		SET regDate = NOW(),
+		updateDate = NOW(),
+		relTypeCode =
+		#{relTypeCode},
+		relId = #{relId},
+		memberId = #{memberId}
+	</insert>
+
+	<!-- 장바구니 취소 -->
+	<update id="delete">
+		UPDATE `like`
+		SET delStatus = 1,
+		delDate = NOW()
+		WHERE
+		relTypeCode = #{relTypeCode}
+		AND relId = #{relId}
+		AND id = #{id}
+	</update>
+
+</mapper>

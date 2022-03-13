@@ -440,6 +440,20 @@ memberId = 1,
 company = "대한통운",
 waybillNum = "1234123415";
 
+# ============================================== Cart
+
+# 장바구니 리스팅(Cart) 테이블 생성
+CREATE TABLE cart (
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    updateDate DATETIME NOT NULL,
+    delDate DATETIME DEFAULT NULL, # 삭제날짜
+    delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0, # 삭제상태(0:미삭제,1:삭제)
+    relTypeCode CHAR(20) NOT NULL,
+    relId INT(10) UNSIGNED NOT NULL,
+    memberId INT(10) UNSIGNED NOT NULL
+);
+
 # ============================================== attr
 
 # 부가정보테이블
