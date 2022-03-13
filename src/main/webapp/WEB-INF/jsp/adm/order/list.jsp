@@ -24,7 +24,7 @@ th, td {
 
 		<div class="flex pb-7">
 			<div class="items-center ml-2">
-				<span class="ml-4 text-2xl font-bold">주문내역</span>
+				<span class="ml-4 text-2xl font-bold">주문 관리</span>
 			</div>
 		</div>
 

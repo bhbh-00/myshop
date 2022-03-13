@@ -123,8 +123,7 @@ public class MemberService {
 	}
 
 	// 회원정보 수정
-	public ResultData modify(int id, String loginPw, int authLevel, String name, String cellphoneNo,
-			String email) {
+	public ResultData modify(int id, String loginPw, int authLevel, String name, String cellphoneNo, String email) {
 
 		memberDao.modify(id, loginPw, authLevel, name, cellphoneNo, email);
 
@@ -158,17 +157,19 @@ public class MemberService {
 		return new ResultData("F-1", "유효하지 않은 키 입니다.");
 	}
 
-	//
-	public Member getMemberByAuthKey(String authKey) {
-		return memberDao.getMemberByAuthKey(authKey);
+	// 회원의 번호로 정보 불러오기
+	public Member getForPrintMember(int id) {
+		return memberDao.getForPrintMember(id);
 	}
 
-	// 총 게시물의 갯수를 구하는
-	public int getMemberTotleCount(String searchKeywordType, String searchKeyword) {
-		return memberDao.getMemberTotleCount(searchKeywordType, searchKeyword);
+	// 관리자 회원정보 수정
+	public ResultData admModify(int id, int authLevel) {
+		memberDao.admModify(id, authLevel);
+
+		return new ResultData("s-1", "회원정보가 수정되었습니다.");
 	}
 
-	// 회원 리스트
+	// 회원 정보 불러오기
 	public List<Member> getForPrintMembers(String searchKeywordType, String searchKeyword, int page, int itemsInAPage,
 			@RequestParam Map<String, Object> param) {
 		int limitStart = (page - 1) * itemsInAPage;
@@ -180,6 +181,16 @@ public class MemberService {
 		param.put("itemsInAPage", itemsInAPage);
 
 		return memberDao.getForPrintMembers(param);
+	}
+
+	//
+	public Member getMemberByAuthKey(String authKey) {
+		return memberDao.getMemberByAuthKey(authKey);
+	}
+
+	// 총 게시물의 갯수를 구하는
+	public int getMemberTotleCount(String searchKeywordType, String searchKeyword) {
+		return memberDao.getMemberTotleCount(searchKeywordType, searchKeyword);
 	}
 
 	// static이여야함!
@@ -243,18 +254,6 @@ public class MemberService {
 
 	public Member getMemberByLoginPw(String loginPw) {
 		return memberDao.getMemberByLoginPw(loginPw);
-	}
-
-	// 회원의 번호로 정보 불러오기
-	public Member getForPrintMember(int id) {
-		return memberDao.getForPrintMember(id);
-	}
-
-	// 관리자 회원정보 수정
-	public ResultData admModify(int id, int authLevel) {
-		memberDao.admModify(id, authLevel);
-
-		return new ResultData("s-1", "회원정보가 수정되었습니다.");
 	}
 
 }

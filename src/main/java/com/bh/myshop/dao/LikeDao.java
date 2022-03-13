@@ -13,13 +13,13 @@ public interface LikeDao {
 	// 좋아요
 	void doLike(Map<String, Object> param);
 
-	// 좋아요 갯수
+	// 좋아요 총 갯수
 	int getLikeTotleCount(@Param("relTypeCode") String relTypeCode, @Param("relId") int relId);
 
 	// 좋아요 불러오기
 	Like getLike(@Param("relTypeCode") String relTypeCode, @Param("relId") int relId);
 
-	// 좋아요 해제
+	// 좋아요 취소
 	void delete(Map<String, Object> param);
 
 }

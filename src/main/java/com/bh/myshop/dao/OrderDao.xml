@@ -5,6 +5,25 @@
 
 <mapper namespace="com.bh.myshop.dao.OrderDao">
 
+	<!-- 주문내역 갯수 확인 -->
+	<select id="getOrderTotleCount" resultType="int">
+		SELECT count(*)
+		FROM `order`
+		WHERE 1
+		AND delStatus = 0
+		<if test="searchKeywordType == 'regDate'">
+			AND regDate LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchKeywordType == 'productId'">
+			AND productId LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchKeywordType == 'regDateAndproductId'">
+			AND (regDate LIKE CONCAT('%', #{searchKeyword}, '%') OR
+			productId LIKE CONCAT('%', #{searchKeyword}, '%')))
+		</if>
+		ORDER BY id DESC
+	</select>
+
 	<!-- 주문내역 리스트 -->
 	<select id="getForPrintOrders" resultType="Order">
 		SELECT *
@@ -25,37 +44,6 @@
 		<if test="limitStart != null and limitTake != null">
 			LIMIT #{limitStart}, #{limitTake}
 		</if>
-	</select>
-
-	<!-- 총 게시물의 갯수를 구하는 -->
-	<select id="getOrderTotleCount" resultType="int">
-		SELECT count(*)
-		FROM `order`
-		WHERE 1
-		AND delStatus = 0
-		<if test="searchKeywordType == 'regDate'">
-			AND regDate LIKE CONCAT('%', #{searchKeyword}, '%')
-		</if>
-		<if test="searchKeywordType == 'productId'">
-			AND productId LIKE CONCAT('%', #{searchKeyword}, '%')
-		</if>
-		<if test="searchKeywordType == 'regDateAndproductId'">
-			AND (regDate LIKE CONCAT('%', #{searchKeyword}, '%') OR
-			productId LIKE CONCAT('%', #{searchKeyword}, '%')))
-		</if>
-		ORDER BY id DESC
-	</select>
-
-	<!-- 주문번호로 배송내역 불러오기 -->
-	<select id="getForPrintOrderDelivery" resultType="Delivery">
-		SELECT D.*
-		FROM
-		`order` AS O
-		LEFT JOIN delivery AS D
-		ON O.id = D.orderId
-		WHERE D.id =
-		#{id}
-		AND D.delStatus = 0;
 	</select>
 
 	<select id="getForPrintOrdersByMyList" resultType="Order">
@@ -107,12 +95,9 @@
 		memberId = #{memberId},
 		orderName = #{orderName},
 		cellphoneNo = #{cellphoneNo},
-		post =
-		#{post},
-		address =
-		#{address},
-		detailAddress =
-		#{detailAddress},
+		post = #{post},
+		address = #{address},
+		detailAddress = #{detailAddress},
 		email =
 		#{email},
 		payment = #{payment},
@@ -120,7 +105,16 @@
 		#{totalPayment};
 	</insert>
 
-	<!-- 제품번호로 주문한 제품 불러오기 -->
+	<!-- 주문내역 불러오기 -->
+	<select id="getForPrintOrderHistory" resultType="Order">
+		SELECT *
+		FROM
+		`order`
+		WHERE id = #{id}
+		AND delStatus = 0;
+	</select>
+
+	<!-- 상품 불러오기 -->
 	<select id="getForPrintOrderProduct" resultType="Product">
 		SELECT P.*
 		FROM
@@ -132,22 +126,26 @@
 		AND P.delStatus = 0;
 	</select>
 
-	<!-- 제품 보기 -->
+	<!-- 배송내역 불러오기 -->
+	<select id="getForPrintOrderDelivery" resultType="Delivery">
+		SELECT D.*
+		FROM
+		`order` AS O
+		LEFT JOIN delivery AS D
+		ON O.id = D.orderId
+		WHERE D.id =
+		#{id}
+		AND D.delStatus = 0;
+	</select>
+
+
+	<!-- 상품 보기 -->
 	<select id="getForPrintProduct" resultType="Product">
 		SELECT *
 		FROM
 		product
 		WHERE
 		id = #{productId}
-		AND delStatus = 0;
-	</select>
-
-	<!-- 주문내역 불러오기 -->
-	<select id="getForPrintOrderHistory" resultType="Order">
-		SELECT *
-		FROM
-		`order`
-		WHERE id = #{id}
 		AND delStatus = 0;
 	</select>
 

@@ -26,7 +26,7 @@
 		#{like}
 	</insert>
 
-	<!-- 좋아요 갯수 -->
+	<!-- 좋아요 총 갯수 -->
 	<select id="getLikeTotleCount" resultType="int">
 		SELECT count(*)
 		FROM `like`
@@ -35,7 +35,8 @@
 		AND relId = #{relId}
 		AND delStatus = 0
 	</select>
-
+	
+	<!-- 좋아요 가져오기 -->
 	<select id="getLike" resultType="like">
 		SELECT *
 		FROM `like`
@@ -44,7 +45,7 @@
 		AND delStatus = 0
 	</select>
 
-	<!-- 좋아요 해제 -->
+	<!-- 좋아요 취소 -->
 	<update id="delete">
 		UPDATE `like`
 		SET delStatus = 1,

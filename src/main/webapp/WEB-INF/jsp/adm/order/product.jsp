@@ -28,7 +28,7 @@ th, td {
 		class="container max-w-3xl min-w-max mx-auto p-5 mb-5 relative item-bt-1-not-last-child">
 
 		<div class="pb-7">
-			<span class="text-2xl ml-4 font-bold">제품확인</span>
+			<span class="text-2xl ml-4 font-bold">상품 확인</span>
 		</div>
 
 		<div class="px-4 py-4">
@@ -41,7 +41,7 @@ th, td {
 					class="container max-w-3xl min-w-max mx-auto item-bt-1-not-last-child text-center mt-6 h-6">
 
 					<tr class="border-b border-gray-400">
-						<th>제품명</th>
+						<th>상품명</th>
 						<td>${product.productName}</td>
 					</tr>
 

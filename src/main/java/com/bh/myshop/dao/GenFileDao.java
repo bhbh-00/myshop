@@ -22,7 +22,7 @@ public interface GenFileDao {
 
 	void deleteFiles(@Param("relTypeCode") String relTypeCode, @Param("relId") int relId);
 
-	// 파일 리스트
+	// 파일 가져오기
 	List<GenFile> getGenFiles(@Param("relTypeCode") String relTypeCode, @Param("relId") int relId,
 			@Param("typeCode") String typeCode, @Param("type2Code") String type2Code);
 

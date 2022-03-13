@@ -25,15 +25,17 @@ public class LikeService {
 		return new ResultData("s-1", "좋아요", "id", id);
 	}
 
-	// 좋아요 갯수
+	// 좋아요 총 갯수
 	public int getLikeTotleCount(String relTypeCode, Integer relId) {
 		return likeDao.getLikeTotleCount(relTypeCode,relId);
 	}
-
+	
+	// 좋아요 가져오기
 	public Like getLike(String relTypeCode, Integer relId) {
 		return likeDao.getLike(relTypeCode,relId);
 	}
-
+	
+	// 좋아요 취소
 	public ResultData delete(Map<String, Object> param) {
 		likeDao.delete(param);
 

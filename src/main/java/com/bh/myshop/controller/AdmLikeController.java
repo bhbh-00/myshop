@@ -19,7 +19,7 @@ public class AdmLikeController extends BaseController {
 	@Autowired
 	private LikeService likeService;
 	
-	// 좋아요 해제
+	// 좋아요 취소
 	@RequestMapping("/adm/like/doDelete")
 	@ResponseBody
 	public String doDelete(@RequestParam Map<String, Object> param, HttpServletRequest req, String redirectUrl) {

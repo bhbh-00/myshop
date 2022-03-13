@@ -24,9 +24,24 @@ public class ProductService {
 	@Autowired
 	private GenFileService genFileService;
 
-	// 아이디로 해당 제품 가져오기
+	// 번호로 해당 제품 가져오기
 	public Product getproduct(int id) {
 		return productDao.getproduct(id);
+	}
+
+	// 상품 삭제 가능 권한 여부 확인
+	public ResultData getActorCanDeleteRd(Product product, Member actor) {
+		return getActorCanModifyRd(product, actor);
+	}
+
+	// 상품 삭제
+	public ResultData delete(int id) {
+		productDao.delete(id);
+
+		// 파일 삭제
+		genFileService.deleteGenFiles("product", id);
+
+		return new ResultData("S-1", "삭제되었습니다.", "id", id);
 	}
 
 	// 상품 작성
@@ -41,15 +56,21 @@ public class ProductService {
 		return new ResultData("s-1", "상품이 등록되었습니다.", "id", id);
 	}
 
+	// 기존의 상품명 확인
+	public Product getProductByName(String productName) {
+		return productDao.getProductByName(productName);
+	}
+
 	public List<Product> getproductList(String searchKeywordType, String searchKeyword) {
 		return productDao.getproducts(searchKeywordType, searchKeyword);
 	}
 
-	// 상품 상세 페이지
+	// 상품 번호로 불러오기
 	public Product getForPrintproduct(Integer id) {
 		return productDao.getForPrintproduct(id);
 	}
 
+	// 상품 리스트
 	public List<Product> getForPrintproducts(int categoryId, String searchKeywordType, String searchKeyword, int page,
 			int itemsInAPage) {
 		// 페이징 - 시작과 끝 범위
@@ -76,6 +97,16 @@ public class ProductService {
 		return products;
 	}
 
+	// 상품의 총 갯수 보기
+	public int getproductsTotleCount(int categoryId, String searchKeywordType, String searchKeyword) {
+		return productDao.getproductsTotleCount(categoryId, searchKeywordType, searchKeyword);
+	}
+
+	// 카테고리 가져오기
+	public Category getCategory(int categoryId) {
+		return productDao.getCategory(categoryId);
+	}
+
 	// 상품 수정 가능 권한 여부
 	public ResultData getActorCanModifyRd(Product product, Member actor) {
 		if (product.getMemberId() == actor.getId()) {
@@ -96,26 +127,6 @@ public class ProductService {
 		int id = Util.getAsInt(param.get("id"), 0);
 
 		return new ResultData("s-1", "수정 완료되었습니다.", "id", id);
-	}
-
-	// 상품 삭제 가능 권한 여부 확인
-	public ResultData getActorCanDeleteRd(Product product, Member actor) {
-		return getActorCanModifyRd(product, actor);
-	}
-
-	// 상품 삭제
-	public ResultData delete(int id) {
-		productDao.delete(id);
-
-		// 파일 삭제
-		genFileService.deleteGenFiles("product", id);
-
-		return new ResultData("S-1", "삭제되었습니다.", "id", id);
-	}
-
-	// 상품의 총 갯수 보기
-	public int getproductsTotleCount(int categoryId, String searchKeywordType, String searchKeyword) {
-		return productDao.getproductsTotleCount(categoryId, searchKeywordType, searchKeyword);
 	}
 
 	public List<Product> getForPrintproductByMemberId(int id) {
@@ -139,15 +150,6 @@ public class ProductService {
 
 	public Product getproductByReply(Integer id) {
 		return productDao.getproductByReply(id);
-	}
-
-	public Category getCategory(int categoryId) {
-		return productDao.getCategory(categoryId);
-	}
-
-	// 기존의 상품명 확인
-	public Product getProductByName(String productName) {
-		return productDao.getProductByName(productName);
 	}
 
 	public List<Category> getForPrintCategorys() {

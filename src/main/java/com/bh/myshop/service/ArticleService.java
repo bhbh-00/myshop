@@ -161,7 +161,7 @@ public class ArticleService {
 		return articleDao.getLatestArticleByBoardNameFree();
 	}
 
-	// 가장 최근 공지사항 게시물 2개
+	// 가장 최근 공지사항 게시물
 	public List<Article> getLatestArticleByBoardNameNotice() {
 		return articleDao.getLatestArticleByBoardNameNotice();
 	}

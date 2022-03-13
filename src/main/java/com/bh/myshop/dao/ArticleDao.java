@@ -51,7 +51,7 @@ public interface ArticleDao {
 	// 가장 최근 자유 게시물 2개 
 	List<Article> getLatestArticleByBoardNameFree();
 
-	// 가장 최근 공지사항 게시물 2개 
+	// 가장 최근 공지사항 게시물
 	List<Article> getLatestArticleByBoardNameNotice();
 
 	Article getArticleByReply(@Param("id") Integer id);

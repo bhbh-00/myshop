@@ -22,7 +22,6 @@ import com.bh.myshop.dto.ResultData;
 import com.bh.myshop.service.ArticleService;
 import com.bh.myshop.service.GenFileService;
 import com.bh.myshop.service.LikeService;
-import com.bh.myshop.service.ProductService;
 import com.bh.myshop.service.ReplyService;
 import com.bh.myshop.util.Util;
 
@@ -32,8 +31,6 @@ public class AdmReplyController extends BaseController {
 	private ReplyService replyService;
 	@Autowired
 	private ArticleService articleService;
-	@Autowired
-	private ProductService productService;
 	@Autowired
 	private LikeService likeService;
 	@Autowired
@@ -60,7 +57,8 @@ public class AdmReplyController extends BaseController {
 
 		ResultData deleteReplyRd = replyService.delete(id);
 
-		return Util.msgAndReplace(deleteReplyRd.getMsg(), "../reply/reviewList?productId=" + review.getRelId());
+		return Util.msgAndReplace(deleteReplyRd.getMsg(), "../reply/reviewList?productId=" 
+		+ review.getRelId());
 	}
 
 	// 리뷰 수정
@@ -79,7 +77,8 @@ public class AdmReplyController extends BaseController {
 			return msgAndBack(req, "해당 리뷰은 존재하지 않습니다.");
 		}
 
-		List<GenFile> files = genFileService.getGenFiles("review", review.getId(), "common", "attachment");
+		List<GenFile> files = genFileService.getGenFiles("review", review.getId(), "common", 
+				"attachment");
 
 		Map<String, GenFile> filesMap = new HashMap<>();
 
@@ -94,9 +93,11 @@ public class AdmReplyController extends BaseController {
 		return "/adm/reply/modifyReview";
 	}
 
+	// 리뷰 수정
 	@RequestMapping("/adm/reply/doModifyReview")
 	@ResponseBody
-	public String doModifyReview(Integer id, String body, HttpServletRequest req, String redirectUrl) {
+	public String doModifyReview(Integer id, String body, HttpServletRequest req,
+			String redirectUrl) {
 
 		Member loginedMember = (Member) req.getAttribute("loginedMember");
 
@@ -199,10 +200,6 @@ public class AdmReplyController extends BaseController {
 		// 총 페이지 갯수 (총 상품 수 / 한 페이지 안의 상품 갯수)
 		int totlePage = (int) Math.ceil(totleItemsCount / (double) itemsInAPage);
 
-		/*
-		 * 반지름이라고 생각하면 됌. 현재 페이지가 10일 때 pageMenuArmSize가 5이면 10을 기준으로 왼쪽은 4 5 6 7 8 9 10
-		 * 오른쪽은 10 11 12 13 14 15 16 페이지네이션의 총 갯수는 11 (기준인 10도 포함 해야함)
-		 */
 		int pageMenuArmSize = 5;
 
 		// 시작 페이지 번호
@@ -220,7 +217,6 @@ public class AdmReplyController extends BaseController {
 			pageMenuEnd = totlePage;
 		}
 
-		// req.setAttribute( "" , ) -> 이게 있어야지 jsp에서 뜸!
 		req.setAttribute("totleItemsCount", totleItemsCount);
 		req.setAttribute("totlePage", totlePage);
 		req.setAttribute("pageMenuArmSize", pageMenuArmSize);
@@ -242,12 +238,13 @@ public class AdmReplyController extends BaseController {
 	// 리뷰 작성
 	@RequestMapping("/adm/reply/doAddReview")
 	@ResponseBody
-	public String doAddReview(@RequestParam Map<String, Object> param, HttpServletRequest req, String redirectUrl) {
+	public String doAddReview(@RequestParam Map<String, Object> param, HttpServletRequest req, 
+			String redirectUrl) {
 
 		int loginMemberId = (int) req.getAttribute("loginedMemberId");
 
 		if (param.get("relTypeCode") == "product") {
-			Product product = productService.getproduct((int) param.get("relId"));
+			Product product = replyService.getProduct((int) param.get("relId"));
 
 			if (product == null) {
 				return msgAndBack(req, "해당 상품은 존재하지 않습니다.");

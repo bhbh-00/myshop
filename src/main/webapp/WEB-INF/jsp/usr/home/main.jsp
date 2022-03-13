@@ -83,8 +83,12 @@ th, td {
 				</div>
 			</c:forEach>
 		</div>
-		<div class="swiper-button-next"></div>
-		<div class="swiper-button-prev"></div>
+		<div class="swiper-button-next after">
+			<i class="fas fa-angle-right text-gray-400"></i>
+		</div>
+		<div class="swiper-button-prev after">
+			<i class="fas fa-angle-left text-gray-400"></i>
+		</div>
 	</div>
 
 	<!-- Swiper JS -->

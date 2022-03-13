@@ -34,11 +34,6 @@ public class OrderService {
 		return orderDao.getForPrintOrderProduct(id);
 	}
 
-	// 주문번호로 주문내역 불러오기
-	public Order getForPrintOrderHistory(Integer id) {
-		return orderDao.getForPrintOrderHistory(id);
-	}
-
 	// 회원번호로 주문내역 불러오기
 	public List<Order> getForPrintOrdersByMemberId(int loginMemberId) {
 		return orderDao.getForPrintOrdersByMemberId(loginMemberId);
@@ -62,23 +57,30 @@ public class OrderService {
 	public int getOrdersTotleCountByMyList(int loginMemberId) {
 		return orderDao.getOrdersTotleCountByMyList(loginMemberId);
 	}
-	
-	// 제품 보기
+
+	// 주문내역 불러오기
+	public Order getForPrintOrderHistory(Integer id) {
+		return orderDao.getForPrintOrderHistory(id);
+	}
+
+	// 상품 불러오기
 	public Product getForPrintProduct(Integer productId) {
 		return orderDao.getForPrintProduct(productId);
 	}
-	
-	// 배송정보 보기
+
+	// 배송정보 불러오기
 	public Delivery getForPrintOrderDelivery(Integer id) {
 		return orderDao.getForPrintOrderDelivery(id);
 	}
-
+	
+	// 주문내역 갯수 확인
 	public int getOrderTotleCount(String searchKeywordType, String searchKeyword) {
-		return orderDao.getOrderTotleCount(searchKeywordType,searchKeyword);
+		return orderDao.getOrderTotleCount(searchKeywordType, searchKeyword);
 	}
-
-	public List<Order> getForPrintOrders(String searchKeywordType, String searchKeyword, int page, int itemsInAPage,
-			@RequestParam Map<String, Object> param) {
+	
+	// 주문내역 리스트
+	public List<Order> getForPrintOrders(String searchKeywordType, String searchKeyword, int page, 
+			int itemsInAPage, @RequestParam Map<String, Object> param) {
 		int limitStart = (page - 1) * itemsInAPage;
 		int limitTake = itemsInAPage;
 

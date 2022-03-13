@@ -21,14 +21,17 @@ public interface ReplyDao {
 	// 댓글 확인
 	Reply getReply(@Param("id") Integer id);
 
-	// 댓글 수정
+	// 상품 번호 확인
+	Product getProductId(int relId);
+
+	// 리뷰 수정
 	void modify(@Param("id") Integer id, @Param("body") String body);
+	
+	// 리뷰 확인
+	Reply getReview(@Param("id") Integer id);
 
-	// 댓글 삭제
+	// 리뷰 삭제
 	void delete(@Param("id") Integer id);
-
-	// 리뷰 작성
-	void addReview(Map<String, Object> param);
 
 	// 리뷰 리스트
 	List<Reply> getForPrintReviews(@Param("productId") int productId,
@@ -39,11 +42,13 @@ public interface ReplyDao {
 	int getReviewsTotleCount(@Param("searchKeywordType") String searchKeywordType,
 			@Param("searchKeyword") String searchKeyword);
 
-	Product getProductId(int relId);
-	
 	// 리뷰 보기
 	Reply getForPrintReview(@Param("id") Integer id);
 
-	Reply getReview(@Param("id") Integer id);
+	// 리뷰 작성
+	void addReview(Map<String, Object> param);
+
+	// 상품 확인
+	Product getProduct(int relId);
 
 }

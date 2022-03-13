@@ -73,7 +73,8 @@ th, td {
 
 	<!-- 배너 -->
 	<!-- Swiper -->
-	<div class="swiper mySwiper mb-11 border border-gray-400">
+	<div
+		class="swiper mySwiper mb-11 border-b border-gray-400 border-t border-gray-400">
 		<div class="swiper-wrapper p-5 container text-center">
 			<c:forEach items="${LatestArticleByBoardNameNotice}" var="notice">
 				<div class="swiper-slide">
@@ -83,8 +84,12 @@ th, td {
 				</div>
 			</c:forEach>
 		</div>
-		<div class="swiper-button-next"></div>
-		<div class="swiper-button-prev"></div>
+		<div class="swiper-button-next after">
+			<i class="fas fa-angle-right text-gray-400"></i>
+		</div>
+		<div class="swiper-button-prev after">
+			<i class="fas fa-angle-left text-gray-400"></i>
+		</div>
 	</div>
 
 	<!-- Swiper JS -->

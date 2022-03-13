@@ -80,12 +80,10 @@
 		INTO `member`
 		SET regDate = NOW(),
 		updateDate = NOW(),
-		loginId =
-		#{loginId},
+		loginId = #{loginId},
 		loginPw = #{loginPw},
 		authLevel = #{authLevel},
-		authKey =
-		CONCAT("authKey1__", UUID(), "__", RAND()),
+		authKey = CONCAT("authKey1__", UUID(), "__", RAND()),
 		`name` = #{name},
 		cellphoneNo = #{cellphoneNo},
 		email = #{email}
@@ -103,10 +101,8 @@
 	<!-- 기존 회원의 이름과 이메일 확인 -->
 	<select id="getMemberByNameAndEmail" resultType="Member">
 		SELECT *
-		FROM
-		`member`
-		WHERE
-		`name` = #{name}
+		FROM `member`
+		WHERE `name` = #{name}
 		AND email = #{email}
 		AND delStatus = 0
 	</select>

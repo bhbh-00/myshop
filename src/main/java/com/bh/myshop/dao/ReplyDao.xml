@@ -4,16 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.bh.myshop.dao.ReplyDao">
-	
-	<!-- 리뷰 보기 -->
-	<select id="getReview" resultType="Reply">
-		SELECT *
-		FROM reply
-		WHERE
-		id =
-		#{id}
-		AND delStatus = 0
-	</select>
+
 
 	<!-- 리뷰 보기 -->
 	<select id="getForPrintReview" resultType="Reply">
@@ -25,41 +16,16 @@
 		AND delStatus = 0
 	</select>
 
-	<!-- 상품 번호 상품 확인 -->
-	<select id="getProductId" resultType="Product">
-		SELECT *
-		FROM product
-		WHERE
-		id =
-		#{relId}
-		AND delStatus = 0
-	</select>
-
-	<!-- 리뷰 총 갯수 -->
-	<select id="getReviewsTotleCount" resultType="int">
-		SELECT count(*)
-		FROM reply
-		WHERE 1
-		<if test="searchKeywordType == 'body'">
-			AND `body` LIKE CONCAT('%', #{searchKeyword}, '%')
-		</if>
-		AND delStatus = 0
-		ORDER BY id DESC
-	</select>
-
 	<!-- 리뷰 리스트 -->
 	<select id="getForPrintReviews" resultType="Reply">
 		SELECT R.*,
 		IFNULL(M.loginId, "탈퇴회원") AS extra__writer
 		FROM reply AS R
 		LEFT JOIN `member` AS M
-		ON
-		R.memberId
-		= M.id
+		ON R.memberId = M.id
 		LEFT JOIN product AS P
 		ON
-		R.relId
-		= P.id
+		R.relId = P.id
 		WHERE 1
 		AND r.delStatus
 		= 0
@@ -74,8 +40,7 @@
 		</if>
 		<if test="searchKeywordType == 'productNameAndBodyAndColor'">
 			AND (P.productName LIKE CONCAT('%', #{searchKeyword}, '%')
-			OR
-			P.`body` LIKE CONCAT('%', #{searchKeyword}, '%')
+			OR P.`body` LIKE CONCAT('%', #{searchKeyword}, '%')
 			OR P.color LIKE
 			CONCAT('%', #{searchKeyword}, '%')
 			OR P.price LIKE CONCAT('%',
@@ -90,6 +55,18 @@
 		</if>
 	</select>
 
+	<!-- 리뷰 총 갯수 -->
+	<select id="getReviewsTotleCount" resultType="int">
+		SELECT count(*)
+		FROM reply
+		WHERE 1
+		<if test="searchKeywordType == 'body'">
+			AND `body` LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		AND delStatus = 0
+		ORDER BY id DESC
+	</select>
+
 	<!-- 댓글 확인 -->
 	<select id="getReply" resultType="Reply">
 		SELECT *
@@ -99,7 +76,17 @@
 		AND delStatus = 0
 	</select>
 
-	<!-- 댓글 수정 -->
+	<!-- 상품 번호 확인 -->
+	<select id="getProductId" resultType="Product">
+		SELECT *
+		FROM product
+		WHERE
+		id =
+		#{relId}
+		AND delStatus = 0
+	</select>
+
+	<!-- 리뷰 수정 -->
 	<update id="modify">
 		UPDATE reply
 		<set>
@@ -111,7 +98,17 @@
 		AND delStatus = 0
 	</update>
 
-	<!-- 댓글 삭제 -->
+	<!-- 리뷰 확인 -->
+	<select id="getReview" resultType="Reply">
+		SELECT *
+		FROM reply
+		WHERE
+		id =
+		#{id}
+		AND delStatus = 0
+	</select>
+
+	<!-- 리뷰 삭제 -->
 	<update id="delete">
 		UPDATE reply
 		SET delDate = NOW(),
@@ -120,7 +117,7 @@
 		= #{id}
 	</update>
 
-	<!-- 댓글 작성 -->
+	<!-- 리뷰 작성 -->
 	<insert id="addReview" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO reply
 		SET regDate = NOW(),
@@ -131,6 +128,15 @@
 		`body` = #{body},
 		memberId= #{memberId}
 	</insert>
+
+	<!-- 상품 가져오기 -->
+	<select id="getProduct" resultType="Product">
+		SELECT *
+		FROM product
+		WHERE id
+		= #{relId}
+		AND delStatus = 0
+	</select>
 
 	<!-- 댓글 작성 -->
 	<insert id="doAdd" useGeneratedKeys="true" keyProperty="id">

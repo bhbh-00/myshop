@@ -38,11 +38,9 @@ public class ReplyService {
 		return replyDao.getReply(id);
 	}
 
-	// 댓글 수정
-	public ResultData modify(Integer id, String body) {
-		replyDao.modify(id, body);
-
-		return new ResultData("s-1", "수정 완료되었습니다.", "id", id);
+	// 상품 번호 확인
+	public Product getProductId(int relId) {
+		return replyDao.getProductId(relId);
 	}
 
 	// 권한에 따른 수정 가능 여부
@@ -58,12 +56,24 @@ public class ReplyService {
 		return new ResultData("F-1", "권한이 없습니다.");
 	}
 
+	// 리뷰 수정
+	public ResultData modify(Integer id, String body) {
+		replyDao.modify(id, body);
+
+		return new ResultData("s-1", "수정 완료되었습니다.", "id", id);
+	}
+	
+	// 리뷰 확인
+	public Reply getReview(Integer id) {
+		return replyDao.getReview(id);
+	}
+
 	// 권한에 따른 삭제 가능 여부
 	public ResultData getActorCanDeleteRd(Reply reply, Member actor) {
 		return getActorCanModifyRd(reply, actor);
 	}
 
-	// 댓글 삭제
+	// 리뷰 삭제
 	public ResultData delete(Integer id) {
 		replyDao.delete(id);
 
@@ -75,7 +85,12 @@ public class ReplyService {
 		return replyDao.getForPrintReplies(relTypeCode, relId);
 	}
 
-	// 리뷰
+	// 상품 가져오기
+	public Product getProduct(int relId) {
+		return replyDao.getProduct(relId);
+	}
+
+	// 리뷰 작성
 	public ResultData doAddReview(Map<String, Object> param) {
 		replyDao.addReview(param);
 
@@ -87,14 +102,7 @@ public class ReplyService {
 		return new ResultData("s-1", "리뷰가 등록되었습니다.", "id", id);
 	}
 
-	public int getReviewsTotleCount(String searchKeywordType, String searchKeyword) {
-		return replyDao.getReviewsTotleCount(searchKeywordType, searchKeyword);
-	}
-
-	public Product getProductId(int relId) {
-		return replyDao.getProductId(relId);
-	}
-
+	// 리뷰 리스트
 	public List<Reply> getForPrintReviews(int productId, String searchKeywordType, String searchKeyword, int page,
 			int itemsInAPage) {
 		// 페이징 - 시작과 끝 범위
@@ -104,7 +112,8 @@ public class ReplyService {
 		// 한 페이지에 포함 되는 상품의 갯수의 값
 		// LIMIT 20, 20 => 2page LIMIT 40, 20 => 3page
 
-		List<Reply> reviews = replyDao.getForPrintReviews(productId, searchKeywordType, searchKeyword, limitStart, limitTake);
+		List<Reply> reviews = replyDao.getForPrintReviews(productId, searchKeywordType, searchKeyword, limitStart,
+				limitTake);
 		List<Integer> reviewIds = reviews.stream().map(product -> product.getId()).collect(Collectors.toList());
 		Map<Integer, Map<String, GenFile>> filesMap = genFileService.getFilesMapKeyRelIdAndFileNo("review", reviewIds,
 				"common", "attachment");
@@ -119,14 +128,15 @@ public class ReplyService {
 
 		return reviews;
 	}
-	
+
+	// 리뷰 총 갯수
+	public int getReviewsTotleCount(String searchKeywordType, String searchKeyword) {
+		return replyDao.getReviewsTotleCount(searchKeywordType, searchKeyword);
+	}
+
 	// 리뷰 불러오기
 	public Reply getForPrintReview(Integer id) {
 		return replyDao.getForPrintReview(id);
-	}
-
-	public Reply getReview(Integer id) {
-		return replyDao.getReview(id);
 	}
 
 }

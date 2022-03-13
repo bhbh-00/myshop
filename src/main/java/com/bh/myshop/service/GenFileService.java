@@ -110,8 +110,9 @@ public class GenFileService {
 				targetFileName, "fileInputName", fileInputName);
 	}
 	
-	// 파일 리스트
-	public List<GenFile> getGenFiles(String relTypeCode, int relId, String typeCode, String type2Code) {
+	// 파일 가져오기
+	public List<GenFile> getGenFiles(String relTypeCode, int relId, 
+			String typeCode, String type2Code) {
 		return genFileDao.getGenFiles(relTypeCode, relId, typeCode, type2Code);
 	}
 
