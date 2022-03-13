@@ -208,18 +208,33 @@ th, td {
 
 			<!-- 장바구니 -->
 			<div class="w-1/3">
-				<form class="grid form-type-1" action="../cart/doAdd" method="POST">
 
-					<input type="hidden" name="relTypeCode" value="product" />
-					<input type="hidden" name="relId" value="${product.id}" />
+				<c:choose>
+					<c:when test="${cart.memberId == loginMemberId}">
+						<a
+							href="../cart/doDelete?relTypeCode=product&relId=${product.id}&id=${cart.id}&redirectUrl=../product/detail?id=${product.id}">
+							<span class="text-blue-400">
+								<i class="fas fa-shopping-cart text-xl"></i>
+							</span>
+						</a>
+					</c:when>
+					<c:otherwise>
+						<form class="grid form-type-1" action="../cart/doAdd"
+							method="POST">
 
-					<input type="hidden" name="redirectUrl"
-						value="../product/detail?id=${product.id}" />
+							<input type="hidden" name="relTypeCode" value="product" />
+							<input type="hidden" name="relId" value="${product.id}" />
 
-					<button type="submit">
-						<i class="fas fa-shopping-cart text-xl"></i>
-					</button>
-				</form>
+							<input type="hidden" name="redirectUrl"
+								value="../product/detail?id=${product.id}" />
+
+							<button type="submit">
+								<i class="fas fa-shopping-cart text-xl"></i>
+							</button>
+						</form>
+					</c:otherwise>
+
+				</c:choose>
 
 			</div>
 

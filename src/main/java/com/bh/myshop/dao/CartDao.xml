@@ -20,7 +20,7 @@
 
 	<!-- 장바구니 취소 -->
 	<update id="delete">
-		UPDATE `like`
+		UPDATE cart
 		SET delStatus = 1,
 		delDate = NOW()
 		WHERE
@@ -28,5 +28,14 @@
 		AND relId = #{relId}
 		AND id = #{id}
 	</update>
+	
+	<!-- 장바구니 가져오기 -->
+	<select id="getCart" resultType="Cart">
+		SELECT *
+		FROM cart
+		WHERE relTypeCode = #{relTypeCode}
+		AND relId = #{relId}
+		AND delStatus = 0
+	</select>
 
 </mapper>

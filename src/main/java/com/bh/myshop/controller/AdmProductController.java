@@ -13,12 +13,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartRequest;
 
+import com.bh.myshop.dto.Cart;
 import com.bh.myshop.dto.Category;
 import com.bh.myshop.dto.GenFile;
 import com.bh.myshop.dto.Like;
 import com.bh.myshop.dto.Member;
 import com.bh.myshop.dto.Product;
 import com.bh.myshop.dto.ResultData;
+import com.bh.myshop.service.CartService;
 import com.bh.myshop.service.GenFileService;
 import com.bh.myshop.service.LikeService;
 import com.bh.myshop.service.ProductService;
@@ -35,6 +37,9 @@ public class AdmProductController extends BaseController {
 
 	@Autowired
 	private LikeService likeService;
+	
+	@Autowired
+	private CartService cartService;
 
 	@RequestMapping("/adm/product/page")
 	public String Page(HttpServletRequest req) {
@@ -247,10 +252,13 @@ public class AdmProductController extends BaseController {
 
 		Like like = likeService.getLike("product", product.getId());
 		int totleItemsCountByLike = likeService.getLikeTotleCount("product", product.getId());
+		
+		Cart cart = cartService.getCart("product", product.getId());
 
 		product.getExtraNotNull().put("file__common__attachment", filesMap);
 		req.setAttribute("product", product);
 		req.setAttribute("like", like);
+		req.setAttribute("cart", cart);
 		req.setAttribute("totleItemsCountByLike", totleItemsCountByLike);
 		req.setAttribute("loginMemberId", loginMemberId);
 
