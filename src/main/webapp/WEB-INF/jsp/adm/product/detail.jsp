@@ -213,7 +213,7 @@ th, td {
 					<c:when test="${cart.memberId == loginMemberId}">
 						<a
 							href="../cart/doDelete?relTypeCode=product&relId=${product.id}&id=${cart.id}&redirectUrl=../product/detail?id=${product.id}">
-							<span class="text-blue-400">
+							<span class="text-blue-600">
 								<i class="fas fa-shopping-cart text-xl"></i>
 							</span>
 						</a>

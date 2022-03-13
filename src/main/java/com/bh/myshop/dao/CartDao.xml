@@ -28,14 +28,66 @@
 		AND relId = #{relId}
 		AND id = #{id}
 	</update>
-	
+
 	<!-- 장바구니 가져오기 -->
 	<select id="getCart" resultType="Cart">
 		SELECT *
 		FROM cart
-		WHERE relTypeCode = #{relTypeCode}
+		WHERE
+		relTypeCode = #{relTypeCode}
 		AND relId = #{relId}
 		AND delStatus = 0
+	</select>
+
+	<!-- 내가 장바구니에 담은 제품 보여주기 getForPrintCartsByProduct -->
+	<select id="getForPrintCartsByProduct" resultType="Product">
+		SELECT P.*
+		FROM
+		product AS P
+		LEFT JOIN cart AS c
+		ON P.id = C.relId
+		WHERE C.memberId = #{loginMemberId}
+		AND C.delStatus = 0
+	</select>
+
+	<!-- 내 번호로 장바구니 가져오기 getForPrintCartsByMemberId -->
+	<select id="getForPrintCartsByMemberId" resultType="Cart">
+		SELECT C.*,
+		IFNULL(M.name, "탈퇴회원") AS extra__writer
+		FROM cart AS C
+		LEFT JOIN
+		`member` AS M
+		ON C.memberId = M.id
+		WHERE C.memberId = #{loginMemberId}
+		AND
+		C.delStatus = 0;
+	</select>
+
+	<!-- 내가 장바구니에 추가한 수 getCartsTotleCountByMyList -->
+	<select id="getCartsTotleCountByMyList" resultType="int">
+		SELECT
+		count(*)
+		FROM cart
+		WHERE memberId = #{loginMemberId}
+		AND delStatus = 0
+		ORDER BY id DESC
+	</select>
+
+	<!-- 내 장바구니 보여주기 getForPrintCartsByMyList -->
+	<select id="getForPrintCartsByMyList" resultType="Cart">
+		SELECT C.*,
+		IFNULL(M.name, "탈퇴회원") AS extra__writer
+		FROM cart AS C
+		LEFT
+		JOIN `member` AS M
+		ON C.memberId = M.id
+		WHERE C.memberId =
+		#{loginMemberId}
+		AND C.delStatus = 0
+		ORDER BY C.id DESC
+		<if test="limitStart != null and limitTake != null">
+			LIMIT #{limitStart}, #{limitTake}
+		</if>
 	</select>
 
 </mapper>
