@@ -28,31 +28,48 @@ th, td {
 			</div>
 		</div>
 
-		<table
-			class="container max-w-3xl min-w-max mx-auto item-bt-1-not-last-child text-center h-6 font-medium">
-
-			<thead>
-				<tr>
-					<th>번호</th>
-					<th>주문날짜</th>
-					<th></th>
-				</tr>
-			</thead>
-
+		<div class="py-7 px-2">
 			<c:forEach items="${orders}" var="order">
-				<tbody>
-					<tr>
-						<td>${order.id}</td>
-						<td>${order.regDate}</td>
-						<td><a href="history?id=${ order.id }"
-								class="hover:underline">
-								<span class="text-blue-500 font-semibold">주문내역</span>
-							</a></td>
-					</tr>
-				</tbody>
-			</c:forEach>
 
-		</table>
+				<div class="flex container mx-auto border-b border-gray-400">
+					<div class="items-center font-bold">
+						<span>${order.regDate}</span>
+					</div>
+					<div class="flex-grow"></div>
+
+					<div class="flex text-blue-500 font-bold">
+						<a href="history?id=${ order.id }" class="hover:underline">
+							<span>주문상세</span>
+							<span class="mx-1"></span>
+							<i class="fas fa-angle-right"></i>
+						</a>
+					</div>
+				</div>
+
+				<div class="item-bt-1">
+					<div class="flex py-5 px-4">
+						<div class="flex-shrink-0">
+							<a href="${detailUrl}">
+								<img
+									class="w-16 h-16 object-cover rounded-full shadow mr-2 cursor-pointer"
+									alt="Product img" src="${order.thumbImgUrl}"
+									onerror="${order.productFallbackImgOnErrorHtmlAttr}">
+							</a>
+						</div>
+						<div class="flex-grow px-1">
+							<div class="font-semibold">
+								<span>${order.extra__productName}</span>
+							</div>
+							<div class="flex text-gray-400 text-light text-sm">
+								<span>${order.extra__productColor}</span>
+								<span class="mx-1">/</span>
+								<span>${order.extra__productSize}</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</c:forEach>
+		</div>
 
 		<!-- 페이징 -->
 		<nav class="flex justify-center pt-3" aria-label="Pagination">

@@ -39,7 +39,7 @@
 		AND delStatus = 0
 	</select>
 
-	<!-- 내가 장바구니에 담은 제품 보여주기 getForPrintCartsByProduct -->
+	<!-- 내가 장바구니에 담은 제품 보여주기 -->
 	<select id="getForPrintCartsByProduct" resultType="Product">
 		SELECT P.*
 		FROM
@@ -50,7 +50,7 @@
 		AND C.delStatus = 0
 	</select>
 
-	<!-- 내 번호로 장바구니 가져오기 getForPrintCartsByMemberId -->
+	<!-- 내 번호로 장바구니 가져오기 -->
 	<select id="getForPrintCartsByMemberId" resultType="Cart">
 		SELECT C.*,
 		IFNULL(M.name, "탈퇴회원") AS extra__writer
@@ -63,7 +63,7 @@
 		C.delStatus = 0;
 	</select>
 
-	<!-- 내가 장바구니에 추가한 수 getCartsTotleCountByMyList -->
+	<!-- 내가 장바구니에 추가한 수 -->
 	<select id="getCartsTotleCountByMyList" resultType="int">
 		SELECT
 		count(*)
@@ -73,7 +73,7 @@
 		ORDER BY id DESC
 	</select>
 
-	<!-- 내 장바구니 보여주기 getForPrintCartsByMyList -->
+	<!-- 내 장바구니 보여주기 -->
 	<select id="getForPrintCartsByMyList" resultType="Cart">
 		SELECT C.*,
 		IFNULL(M.name, "탈퇴회원") AS extra__writer

@@ -26,10 +26,10 @@ public interface OrderDao {
 	Delivery getForPrintOrderDelivery(@Param("id") Integer id);
 
 	// 회원번호로 주문내역 불러오기
-	List<Order> getForPrintOrdersByMemberId(@Param("id") int id);
+	List<Order> getForPrintOrdersByMemberId(@Param("loginMemberId") int loginMemberId);
 
 	// 내 주문내역 불러오기
-	List<Order> getForPrintOrdersByMyList(@Param("id") int id, @Param("limitStart") int limitStart,
+	List<Order> getForPrintOrdersByMyList(@Param("loginMemberId") int loginMemberId, @Param("limitStart") int limitStart,
 			@Param("limitTake") int limitTake);
 
 	// 내 주문내역의 총 갯수

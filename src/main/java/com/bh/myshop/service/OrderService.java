@@ -2,6 +2,7 @@ package com.bh.myshop.service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bh.myshop.dao.OrderDao;
 import com.bh.myshop.dto.Delivery;
+import com.bh.myshop.dto.GenFile;
 import com.bh.myshop.dto.Order;
 import com.bh.myshop.dto.Product;
 import com.bh.myshop.dto.ResultData;
@@ -19,6 +21,9 @@ public class OrderService {
 
 	@Autowired
 	private OrderDao orderDao;
+
+	@Autowired
+	private GenFileService genFileService;
 
 	// 주문하기
 	public ResultData doAdd(Map<String, Object> param) {
@@ -72,15 +77,15 @@ public class OrderService {
 	public Delivery getForPrintOrderDelivery(Integer id) {
 		return orderDao.getForPrintOrderDelivery(id);
 	}
-	
+
 	// 주문내역 갯수 확인
 	public int getOrderTotleCount(String searchKeywordType, String searchKeyword) {
 		return orderDao.getOrderTotleCount(searchKeywordType, searchKeyword);
 	}
-	
+
 	// 주문내역 리스트
-	public List<Order> getForPrintOrders(String searchKeywordType, String searchKeyword, int page, 
-			int itemsInAPage, @RequestParam Map<String, Object> param) {
+	public List<Order> getForPrintOrders(String searchKeywordType, String searchKeyword, int page, int itemsInAPage,
+			@RequestParam Map<String, Object> param) {
 		int limitStart = (page - 1) * itemsInAPage;
 		int limitTake = itemsInAPage;
 

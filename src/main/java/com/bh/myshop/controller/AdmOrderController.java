@@ -84,8 +84,8 @@ public class AdmOrderController extends BaseController {
 			pageMenuEnd = totlePage;
 		}
 
-		List<Order> orders = orderService.getForPrintOrders(searchKeywordType, searchKeyword, 
-				itemsInAPage, itemsInAPage, param);
+		List<Order> orders = orderService.getForPrintOrders(searchKeywordType, searchKeyword, itemsInAPage,
+				itemsInAPage, param);
 
 		req.setAttribute("totleItemsCount", totleItemsCount);
 		req.setAttribute("totlePage", totlePage);
@@ -214,11 +214,11 @@ public class AdmOrderController extends BaseController {
 		if (param.get("cellphoneNo") == null) {
 			return msgAndBack(req, "연락처을 입력해주세요.");
 		}
-		
+
 		if (param.get("post") == null) {
 			return msgAndBack(req, "우편주소를 입력해주세요.");
 		}
-		
+
 		if (param.get("address") == null) {
 			return msgAndBack(req, "주소을 입력해주세요.");
 		}

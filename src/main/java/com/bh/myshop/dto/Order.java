@@ -32,19 +32,20 @@ public class Order extends EntityDto {
 	private String delDate;
 
 	private String extra__writer;
-	private String extra__categoryName;
-	private String extra__thumbImg; // 썸네일
+	private String extra__productName; // 상품명
+	private String extra__productColor; // 컬러
+	private String extra__productSize; // 사이즈
 
-	public String getWriterThumbImgUrl() {
-		return "/common/genFile/file/member/" + memberId + "/common/attachment/1";
+	public String getThumbImgUrl() {
+		return "/common/genFile/file/product/" + productId + "/common/attachment/1";
 	}
 
-	public String getWriterProfileFallbackImgUri() {
+	public String getProductFallbackImgUri() {
 		return "https://via.placeholder.com/300?text=No thumbnail";
 	}
 
-	public String getWriterProfileFallbackImgOnErrorHtmlAttr() {
-		return "this.src = '" + getWriterProfileFallbackImgUri() + "'";
+	public String getProductFallbackImgOnErrorHtmlAttr() {
+		return "this.src = '" + getProductFallbackImgUri() + "'";
 	}
 
 }

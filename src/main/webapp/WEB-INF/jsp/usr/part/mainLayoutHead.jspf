@@ -96,15 +96,15 @@ body {
 									</a>
 								</li>
 								<li>
-									<a href="../order/myList?memberId=${ loginedMember.id }"
+									<a href="../cart/myList?memberId=${ loginedMember.id }"
 										class="inline-block text-lg">
-										<span>&nbsp;주문내역 보기</span>
+										<span>&nbsp;장바구니 보기</span>
 									</a>
 								</li>
 								<li>
 									<a href="../order/myList?memberId=${ loginedMember.id }"
 										class="inline-block text-lg">
-										<span>&nbsp;장바구니 보기</span>
+										<span>&nbsp;주문내역 보기</span>
 									</a>
 								</li>
 								<li>

@@ -24,7 +24,7 @@
 		ORDER BY id DESC
 	</select>
 
-	<!-- 주문내역 리스트 -->
+	<!-- 주문내역 리스트 / adm -->
 	<select id="getForPrintOrders" resultType="Order">
 		SELECT *
 		FROM `order`
@@ -45,14 +45,18 @@
 			LIMIT #{limitStart}, #{limitTake}
 		</if>
 	</select>
-
+	
+	<!-- 내 주문내역 불러오기 -->
 	<select id="getForPrintOrdersByMyList" resultType="Order">
 		SELECT O.*,
-		IFNULL(M.name, "탈퇴회원") AS extra__writer
+		IFNULL(P.productName, "삭제된 상품") AS extra__productName,
+		IFNULL(P.color, "삭제된 상품") AS extra__productColor,
+		IFNULL(P.size, "삭제된 상품") AS extra__productSize
 		FROM `order` AS O
-		LEFT JOIN `member` AS M
-		ON O.memberId = M.id
-		WHERE O.memberId = #{id}
+		LEFT JOIN 
+		product AS P
+		ON O.productId = P.id
+		WHERE O.memberId = #{loginMemberId}
 		AND O.delStatus = 0
 		ORDER BY O.id DESC
 		<if test="limitStart != null and limitTake != null">
@@ -70,14 +74,19 @@
 		DESC;
 	</select>
 
+	<!-- 회원번호로 주문내역 불러오기 / usr -->
 	<select id="getForPrintOrdersByMemberId" resultType="Order">
 		SELECT O.*,
-		IFNULL(M.name, "탈퇴회원") AS extra__writer
+		IFNULL(P.productName, "삭제된 상품") AS extra__productName,
+		IFNULL(P.color,
+		"삭제된 상품") AS extra__productColor,
+		IFNULL(P.size, "삭제된 상품") AS
+		extra__productSize
 		FROM `order` AS O
-		LEFT JOIN
-		`member` AS M
-		ON O.memberId = M.id
-		WHERE O.memberId = #{id}
+		LEFT JOIN product AS P
+		ON
+		O.productId = P.id
+		WHERE O.memberId = #{loginMemberId}
 		AND
 		O.delStatus = 0;
 	</select>
