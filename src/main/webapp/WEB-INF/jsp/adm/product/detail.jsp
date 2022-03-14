@@ -11,29 +11,21 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
 
-
-<script>
-	const productId = parseInt("${product.id}");
-</script>
-
 <c:set var="fileInputMaxCount" value="5" />
 
 <style>
-html, body {
-	position: relative;
-	height: 100%;
-	margin-top: 125px;
-}
-
 body {
+	background: #eee;
 	margin: 0;
 	padding: 0;
 }
 
+/* 제품 설명 */
 th, td {
 	padding: 10px;
 }
 
+/* 제품 이미지 */
 .swiper-slide {
 	text-align: center;
 	/* Center slide text vertically */
@@ -59,12 +51,12 @@ th, td {
 }
 </style>
 
-<section class="section-adm-product-detail">
+<section class="section-usr-product-detail">
 
-	<div class="container max-w-3xl min-w-max mx-auto p-5 mb-5 relative">
+	<div class="container max-w-3xl min-w-max mx-auto p-5 relative">
 
 		<!-- Swiper -->
-		<div class="swiper mySwiper w-1/2 h-2/5 max-w-lg">
+		<div class="swiper mySwiper w-1/2 h-2/5 max-w-lg mt-24">
 			<div class="swiper-wrapper">
 				<c:forEach begin="1" end="${fileInputMaxCount}" var="inputNo">
 					<c:set var="fileNo" value="${String.valueOf(inputNo)}" />
@@ -72,8 +64,10 @@ th, td {
 						value="${product.extra.file__common__attachment[fileNo]}" />
 					<c:set var="detailUrl" value="detail?id=${product.id}" />
 					<div class="swiper-slide">${file.mediaHtml}</div>
+
 				</c:forEach>
 			</div>
+
 			<div class="swiper-pagination"></div>
 		</div>
 
@@ -92,11 +86,6 @@ th, td {
 				<tr class="border-b border-gray-400">
 					<th>색상</th>
 					<td>${product.color}</td>
-				</tr>
-
-				<tr class="border-b border-gray-400">
-					<th>사이즈</th>
-					<td>${product.size}</td>
 				</tr>
 
 				<tr class="border-b border-gray-400">
@@ -127,122 +116,95 @@ th, td {
 		</script>
 
 		<div
-			class="container flex justify-center items-center text-center text-lg font-bold">
+			class="container text-center text-lg font-bold border border-gray-400 hover:bg-black hover:text-gray-50 mt-3">
+			<a href="../order/product?productId=${product.id}">
+				<span>구매하기</span>
+			</a>
+		</div>
+	</div>
 
-			<div
-				class="w-1/3 border border-gray-400 hover:bg-black hover:text-gray-50">
-				<a href="../order/product?productId=${product.id}">
-					<span>구매하기</span>
-				</a>
-			</div>
 
-			<div class="mx-1"></div>
+	<div
+		class="container flex justify-center items-center text-center max-w-3xl min-w-max mx-auto p-5 mb-5 relative">
 
-			<div
-				class="w-1/3 border border-gray-400 hover:bg-black hover:text-gray-50">
-				<a href="../product/modify?id=${product.id}">
-					<span>수정</span>
-				</a>
-			</div>
+		<!-- 좋아요 -->
+		<!-- 만약에 좋아요의 멤버아이디와 아이디가 같으면 채우진 하트 아니면 빈하트 -->
+		<div class="w-1/3">
+			<c:choose>
+				<c:when test="${like.memberId == loginMemberId}">
+					<a
+						href="../like/doDelete?relTypeCode=product&relId=${product.id}&id=${like.id}&redirectUrl=../product/detail?id=${product.id}">
+						<span class="">
+							<!-- 하트 -->
+							<i class="fab fa-gratipay text-pink-500 text-xl"></i>
+						</span>
+					</a>
+				</c:when>
 
-			<div class="mx-1"></div>
+				<c:otherwise>
+					<form class="grid form-type-1" action="../like/doLike"
+						method="POST">
 
-			<div
-				class="w-1/3 border border-gray-400 hover:bg-black hover:text-gray-50">
-				<a href="../product/doDelete?id=${product.id}"
-					onclick="if ( !confirm('상품을 삭제하시겠습니까?') ) return false;"
-					class="text-red-500 ">
-					<span>삭제</span>
-				</a>
-			</div>
+						<input type="hidden" name="relTypeCode" value="product" />
+						<input type="hidden" name="relId" value="${product.id}" />
+						<input type="hidden" name="like" value="like" />
+
+						<input type="hidden" name="redirectUrl"
+							value="../product/detail?id=${product.id}" />
+
+						<button type="submit">
+							<c:choose>
+								<c:when test="${like.memberId == loginMemberId}">
+									<i class="fab fa-gratipay text-pink-500 text-xl"></i>
+								</c:when>
+
+								<c:otherwise>
+									<span class="">
+										<i class="fab fa-gratipay text-xl"></i>
+									</span>
+								</c:otherwise>
+
+							</c:choose>
+						</button>
+					</form>
+				</c:otherwise>
+			</c:choose>
+		</div>
+
+		<!-- 장바구니 -->
+		<div class="w-1/3 mx-3">
+			<c:choose>
+				<c:when test="${cart.memberId == loginMemberId}">
+					<a
+						href="../cart/doDelete?relTypeCode=product&relId=${product.id}&id=${cart.id}&redirectUrl=../product/detail?id=${product.id}">
+						<span class="text-blue-500">
+							<i class="fas fa-shopping-cart text-xl"></i>
+						</span>
+					</a>
+				</c:when>
+
+				<c:otherwise>
+					<form class="grid form-type-1" action="../cart/doAdd" method="POST">
+
+						<input type="hidden" name="relTypeCode" value="product" />
+						<input type="hidden" name="relId" value="${product.id}" />
+
+						<input type="hidden" name="redirectUrl"
+							value="../product/detail?id=${product.id}" />
+
+						<button type="submit">
+							<i class="fas fa-shopping-cart text-xl"></i>
+						</button>
+					</form>
+				</c:otherwise>
+			</c:choose>
 
 		</div>
 
-		<div
-			class="container flex justify-center items-center text-center mt-4 mb-10">
-
-			<!-- 좋아요 -->
-			<!-- 만약에 좋아요의 멤버아이디와 아이디가 같으면 채우진 하트 아니면 빈하트 -->
-			<div class="w-1/3">
-				<c:choose>
-					<c:when test="${like.memberId == loginMemberId}">
-						<a
-							href="../like/doDelete?relTypeCode=product&relId=${product.id}&id=${like.id}&redirectUrl=../product/detail?id=${product.id}">
-							<span class="">
-								<!-- 하트 -->
-								<i class="fab fa-gratipay text-pink-500 text-xl"></i>
-							</span>
-						</a>
-					</c:when>
-
-					<c:otherwise>
-						<form class="grid form-type-1" action="../like/doLike"
-							method="POST">
-
-							<input type="hidden" name="relTypeCode" value="product" />
-							<input type="hidden" name="relId" value="${product.id}" />
-							<input type="hidden" name="like" value="like" />
-
-							<input type="hidden" name="redirectUrl"
-								value="../product/detail?id=${product.id}" />
-
-							<button type="submit">
-								<c:choose>
-									<c:when test="${like.memberId == loginMemberId}">
-										<i class="fab fa-gratipay text-pink-500 text-xl"></i>
-										<span class="text-sm leading-5"> </span>
-									</c:when>
-
-									<c:otherwise>
-										<span class="">
-											<i class="fab fa-gratipay text-xl"></i>
-										</span>
-									</c:otherwise>
-
-								</c:choose>
-							</button>
-						</form>
-					</c:otherwise>
-				</c:choose>
-			</div>
-
-			<!-- 장바구니 -->
-			<div class="w-1/3">
-
-				<c:choose>
-					<c:when test="${cart.memberId == loginMemberId}">
-						<a
-							href="../cart/doDelete?relTypeCode=product&relId=${product.id}&id=${cart.id}&redirectUrl=../product/detail?id=${product.id}">
-							<span class="text-blue-600">
-								<i class="fas fa-shopping-cart text-xl"></i>
-							</span>
-						</a>
-					</c:when>
-					<c:otherwise>
-						<form class="grid form-type-1" action="../cart/doAdd"
-							method="POST">
-
-							<input type="hidden" name="relTypeCode" value="product" />
-							<input type="hidden" name="relId" value="${product.id}" />
-
-							<input type="hidden" name="redirectUrl"
-								value="../product/detail?id=${product.id}" />
-
-							<button type="submit">
-								<i class="fas fa-shopping-cart text-xl"></i>
-							</button>
-						</form>
-					</c:otherwise>
-
-				</c:choose>
-
-			</div>
-
-			<!-- 리뷰 -->
-			<div class="w-1/3">
-				<div class="review text-xl">
-					<a href="../reply/reviewList?productId=${product.id}">review</a>
-				</div>
+		<!-- 리뷰 -->
+		<div class="w-1/3">
+			<div class="review text-xl">
+				<a href="../reply/reviewList?productId=${product.id}">review</a>
 			</div>
 		</div>
 

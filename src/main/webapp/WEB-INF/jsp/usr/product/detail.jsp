@@ -67,7 +67,7 @@ th, td {
 
 				</c:forEach>
 			</div>
-			
+
 			<div class="swiper-pagination"></div>
 		</div>
 
@@ -173,29 +173,41 @@ th, td {
 
 		<!-- 장바구니 -->
 		<div class="w-1/3 mx-3">
-			<form class="grid form-type-1" action="../like/doLike" method="POST">
+			<c:choose>
+				<c:when test="${cart.memberId == loginMemberId}">
+					<a
+						href="../cart/doDelete?relTypeCode=product&relId=${product.id}&id=${cart.id}&redirectUrl=../product/detail?id=${product.id}">
+						<span class="text-blue-500">
+							<i class="fas fa-shopping-cart text-xl"></i>
+						</span>
+					</a>
+				</c:when>
 
-				<input type="hidden" name="relTypeCode" value="product" />
-				<input type="hidden" name="relId" value="${product.id}" />
-				<input type="hidden" name="like" value="like" />
+				<c:otherwise>
+					<form class="grid form-type-1" action="../cart/doAdd" method="POST">
 
-				<input type="hidden" name="redirectUrl"
-					value="../product/detail?id=${product.id}" />
+						<input type="hidden" name="relTypeCode" value="product" />
+						<input type="hidden" name="relId" value="${product.id}" />
 
-				<button type="submit">
-					<i class="fas fa-shopping-cart text-xl"></i>
-				</button>
-			</form>
+						<input type="hidden" name="redirectUrl"
+							value="../product/detail?id=${product.id}" />
 
+						<button type="submit">
+							<i class="fas fa-shopping-cart text-xl"></i>
+						</button>
+					</form>
+				</c:otherwise>
+			</c:choose>
 		</div>
 
 		<!-- 리뷰 -->
 		<div class="w-1/3">
-			<div class="review text-xl"><a href="../reply/reviewList?productId=${product.id}">review</a></div>
+			<div class="review text-xl">
+				<a href="../reply/reviewList?productId=${product.id}">review</a>
+			</div>
 		</div>
-	
+
 	</div>
-	
 </section>
 
 <%@ include file="../part/mainLayoutFoot.jspf"%>

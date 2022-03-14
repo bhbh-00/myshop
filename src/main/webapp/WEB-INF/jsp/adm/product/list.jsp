@@ -54,10 +54,9 @@ body {
 		<div class="p-4">
 			<form class="flex">
 				<select name="searchKeywordType">
-					<option value="productNameAndBodyAndColorAndPriceAndFee">전체</option>
+					<option value="productNameAndColorAndPriceAndFee">전체</option>
 					<option value="productName">상품명</option>
-					<option value="body">내용</option>
-					<option value="color">제목</option>
+					<option value="Color">색상</option>
 					<option value="price">가격</option>
 					<option value="fee">배송비</option>
 				</select>
@@ -98,33 +97,21 @@ body {
 					<a href="${detailUrl}">
 						<img src="${thumbUrl}" alt=""
 							onerror="${product.productFallbackImgOnErrorHtmlAttr}"
-							class="mx-auto h-72 w-72">
+							class="mx-auto h-80">
 					</a>
 
 					<!-- 상품명 -->
-					<div class="mt-5 mb-2">
+					<div class="mt-5 mb-10">
 						<a href="${detailUrl}" class="hover:underline">
 							<span class="text-lg font-semibold">
 								${product.productName} </span>
 						</a>
-					</div>
-					
-					<div class="mb-2">
-						<span class="font-semibold">${Util.numberFormat(product.price)}</span>
+						<span class="ml-12 font-semibold"> ${product.price} </span>
 					</div>
 
-					<!-- 작성자 / 등록날짜 수정날짜 -->
-					<div class="text-xs mt-2 mb-10">
-						<span class="mr-2">${product.extra__writer}</span>
-						<span class="text-gray-600 text-light">${product.regDate}</span>
-						<c:if test="${product.updateDate != product.regDate}">
-							<span class="text-gray-600 text-light">${product.updateDate}</span>
-						</c:if>
-					</div>
 				</li>
 			</c:forEach>
 		</ul>
-
 
 		<!-- 페이징 -->
 		<nav class="flex justify-center pt-3" aria-label="Pagination">

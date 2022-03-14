@@ -11,11 +11,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.bh.myshop.dto.Cart;
 import com.bh.myshop.dto.Category;
 import com.bh.myshop.dto.GenFile;
 import com.bh.myshop.dto.Like;
 import com.bh.myshop.dto.Product;
 import com.bh.myshop.dto.Reply;
+import com.bh.myshop.service.CartService;
 import com.bh.myshop.service.GenFileService;
 import com.bh.myshop.service.LikeService;
 import com.bh.myshop.service.ProductService;
@@ -35,6 +37,9 @@ public class UsrProductController extends BaseController {
 
 	@Autowired
 	private ReplyService replyService;
+	
+	@Autowired
+	private CartService cartService;
 
 	@RequestMapping("/usr/product/page")
 	public String Page(HttpServletRequest req) {
@@ -65,15 +70,21 @@ public class UsrProductController extends BaseController {
 		for (GenFile file : files) {
 			filesMap.put(file.getFileNo() + "", file);
 		}
-
+		
+		// 좋아요
 		Like like = likeService.getLike("product", product.getId());
 		int totleItemsCountByLike = likeService.getLikeTotleCount("product", product.getId());
 		
+		// 장바구니
+		Cart cart = cartService.getCart("product", product.getId());
+		
+		// 리뷰
 		List<Reply> replys = replyService.getForPrintReplies("product", product.getId());
 
 		product.getExtraNotNull().put("file__common__attachment", filesMap);
 		req.setAttribute("product", product);
 		req.setAttribute("like", like);
+		req.setAttribute("cart", cart);
 		req.setAttribute("replys", replys);
 		req.setAttribute("totleItemsCountByLike", totleItemsCountByLike);
 		req.setAttribute("loginMemberId", loginMemberId);
