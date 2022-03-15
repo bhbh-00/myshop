@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bh.myshop.dao.CartDao;
-import com.bh.myshop.dto.Board;
 import com.bh.myshop.dto.Cart;
 import com.bh.myshop.dto.GenFile;
 import com.bh.myshop.dto.Product;

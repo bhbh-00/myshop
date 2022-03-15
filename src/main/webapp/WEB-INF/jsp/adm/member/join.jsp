@@ -215,13 +215,15 @@ body {
 					<div class="p-1 md:w-36 md:flex md:items-center">
 						<span>회원권한</span>
 					</div>
-					<select name="authLevel"
-						class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darke">
-						<option disabled="disabled" selected="selected">회원권한을
-							선택해주세요.</option>
-						<option value="3">일반</option>
-						<option value="7">관리자</option>
-					</select>
+					<div class="p-1 md:flex-grow">
+						<select name="authLevel"
+							class="hadow appearance-none border rounded w-full py-2 px-3 text-grey-darker">
+							<option disabled="disabled" selected="selected">회원권한을
+								선택해주세요.</option>
+							<option value="3">일반</option>
+							<option value="7">관리자</option>
+						</select>
+					</div>
 				</div>
 
 				<!-- name -->

@@ -57,7 +57,7 @@ public class UsrProductController extends BaseController {
 			return msgAndBack(req, "상품 번호를 입력해주세요.");
 		}
 
-		Product product = productService.getForPrintproduct(id);
+		Product product = productService.getForPrintProduct(id);
 
 		if (product == null) {
 			return msgAndBack(req, "해당 상품은 존재하지 않습니다.");
@@ -129,9 +129,9 @@ public class UsrProductController extends BaseController {
 		int itemsInAPage = 30;
 
 		// 총 상품의 갯수를 구하는
-		int totleItemsCount = productService.getproductsTotleCount(categoryId, searchKeywordType, searchKeyword);
+		int totleItemsCount = productService.getProductsTotleCount(categoryId, searchKeywordType, searchKeyword);
 
-		List<Product> products = productService.getForPrintproducts(categoryId, searchKeywordType, searchKeyword, page,
+		List<Product> products = productService.getForPrintProducts(categoryId, searchKeywordType, searchKeyword, page,
 				itemsInAPage);
 
 		// 총 페이지 갯수 (총 상품 수 / 한 페이지 안의 상품 갯수)

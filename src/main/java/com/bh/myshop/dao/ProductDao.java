@@ -18,10 +18,10 @@ public interface ProductDao {
 	void modify(Map<String, Object> param);
 
 	// 상품 번호로 불러오기
-	Product getForPrintproduct(@Param("id") Integer id);
+	Product getForPrintProduct(@Param("id") Integer id);
 
 	// 번호로 해당 제품 가져오기
-	Product getproduct(@Param("id") Integer id);
+	Product getProduct(@Param("id") Integer id);
 
 	// 상품 삭제
 	void delete(@Param("id") Integer id);
@@ -32,33 +32,33 @@ public interface ProductDao {
 	// 기존의 상픔명 확인
 	Product getProductByName(@Param("productName") String productName);
 
-	List<Product> getproducts(@Param("searchKeywordType") String searchKeywordType,
-			@Param("searchKeyword") String searchKeyword);
-
-	// 상품 리스트
-	List<Product> getForPrintproducts(@Param("categoryId") int categoryId,
-			@Param("searchKeywordType") String searchKeywordType, @Param("searchKeyword") String searchKeyword,
-			@Param("limitStart") int limitStart, @Param("limitTake") int limitTake);
-
-	// 상품의 총 갯수 보기
-	int getproductsTotleCount(@Param("categoryId") int categoryId, @Param("searchKeywordType") String searchKeywordType,
+	List<Product> getProducts(@Param("searchKeywordType") String searchKeywordType,
 			@Param("searchKeyword") String searchKeyword);
 
 	// 카테고리 가져오기
 	Category getCategory(int categoryId);
 
-	List<Product> getForPrintproductByMemberId(@Param("id") int id);
+	// 상품 리스트
+	List<Product> getForPrintProducts(@Param("categoryId") int categoryId,
+			@Param("searchKeywordType") String searchKeywordType, @Param("searchKeyword") String searchKeyword,
+			@Param("limitStart") int limitStart, @Param("limitTake") int limitTake);
 
-	int getproductsTotleCountByMyList(@Param("id") int id, @Param("categoryId") int categoryId,
+	// 상품의 총 갯수 보기
+	int getProductsTotleCount(@Param("categoryId") int categoryId, @Param("searchKeywordType") String searchKeywordType,
+			@Param("searchKeyword") String searchKeyword);
+
+	List<Product> getForPrintProductByMemberId(@Param("id") int id);
+
+	int getProductsTotleCountByMyList(@Param("id") int id, @Param("categoryId") int categoryId,
 			@Param("searchKeywordType") String searchKeywordType, @Param("searchKeyword") String searchKeyword);
 
 	// 가장 최신 자유 상품 2개
-	List<Product> getLatestproductByBoardNameFree();
+	List<Product> getLatestProductByBoardNameFree();
 
 	// 가장 최신 공지사항 상품 2개
-	List<Product> getLatestproductByBoardNameNotice();
+	List<Product> getLatestProductByBoardNameNotice();
 
-	Product getproductByReply(@Param("id") Integer id);
+	Product getProductByReply(@Param("id") Integer id);
 
 	// 주문할 상품 가져오기
 	Product getOrderProduct(Map<String, Object> param);

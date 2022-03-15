@@ -5,7 +5,7 @@
 
 <mapper namespace="com.bh.myshop.dao.ProductDao">
 
-	<!-- 최근 등록된 상품 보기 -->
+	<!-- 최근 등록 된 상품 보기 -->
 	<select id="getForPrintNewUpdatedProducts" resultType="Product">
 		SELECT *
 		FROM Product
@@ -14,7 +14,7 @@
 		LIMIT 6;
 	</select>
 
-	<!-- 오늘 등록된 상품 보기 -->
+	<!-- 오늘 등록 된 상품 보기 -->
 	<select id="getForPrintTodayUpdatedProducts"
 		resultType="Product">
 		SELECT *
@@ -31,7 +31,7 @@
 		WHERE delStatus = 0;
 	</select>
 
-	<select id="getproductByReply" resultType="Product">
+	<select id="getProductByReply" resultType="Product">
 		SELECT P.id
 		FROM
 		product AS P
@@ -61,7 +61,7 @@
 		= 0;
 	</select>
 
-	<select id="getproductsTotleCountByMyList" resultType="int">
+	<select id="getProductsTotleCountByMyList" resultType="int">
 		SELECT count(*)
 		FROM product
 		WHERE memberId = #{id}
@@ -102,8 +102,17 @@
 		ORDER BY id DESC
 	</select>
 
+	<!-- 카테고리 가져오기 -->
+	<select id="getCategory" resultType="Category">
+		SELECT *
+		FROM category
+		WHERE
+		id = #{id}
+		AND delStatus = 0;
+	</select>
+
 	<!-- 상품 리스트 -->
-	<select id="getForPrintproducts" resultType="Product">
+	<select id="getForPrintProducts" resultType="Product">
 		SELECT P.*,
 		IFNULL(M.name, "탈퇴회원") AS extra__writer, C.categoryName
 		AS
@@ -159,7 +168,7 @@
 	</select>
 
 	<!-- 상품의 총 갯수 보기 -->
-	<select id="getproductsTotleCount" resultType="int">
+	<select id="getProductsTotleCount" resultType="int">
 		SELECT count(*)
 		FROM product
 		WHERE 1
@@ -198,18 +207,7 @@
 		ORDER BY id DESC
 	</select>
 
-	<!-- 카테고리 가져오기 -->
-	<select id="getCategory" resultType="Category">
-		SELECT *
-		FROM category
-		WHERE
-		id = #{id}
-		AND delStatus = 0;
-	</select>
-
-
-
-	<select id="getproducts" resultType="Product">
+	<select id="getProducts" resultType="Product">
 		SELECT *
 		FROM product
 		WHERE 1
@@ -266,9 +264,9 @@
 		FROM product
 		WHERE productName = #{productName}
 	</select>
-	
+
 	<!-- 번호로 해당 제품 가져오기 -->
-	<select id="getproduct" resultType="Product">
+	<select id="getProduct" resultType="Product">
 		SELECT *
 		FROM product
 		WHERE id
@@ -318,7 +316,7 @@
 	</update>
 
 	<!-- 상품 번호로 불러오기 -->
-	<select id="getForPrintproduct" resultType="Product">
+	<select id="getForPrintProduct" resultType="Product">
 		SELECT P.*,
 		IFNULL(M.name, "탈퇴회원") AS extra__writer
 		FROM product AS P

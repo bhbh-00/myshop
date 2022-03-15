@@ -227,7 +227,7 @@ public class UsrMemberController extends BaseController {
 		String msg = String.format("%s님! 가입을 환영합니다!", param.get("name"));
 
 		String redirectUrl = Util.ifEmpty((String) param.get("redirectUrl"), "../member/login");
-
+		
 		return Util.msgAndReplace(msg, redirectUrl);
 	}
 

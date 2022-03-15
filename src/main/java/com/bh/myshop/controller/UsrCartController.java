@@ -73,11 +73,11 @@ public class UsrCartController extends BaseController {
 		return "/usr/cart/myList";
 	}
 
-
-	// 좋아요 취소
+	// 장바구니 취소
 	@RequestMapping("/usr/cart/doDelete")
 	@ResponseBody
-	public String doDelete(@RequestParam Map<String, Object> param, HttpServletRequest req, String redirectUrl) {
+	public String doDelete(@RequestParam Map<String, Object> param, HttpServletRequest req, 
+			String redirectUrl) {
 
 		int loginMemberId = (int) req.getAttribute("loginedMemberId");
 
@@ -96,10 +96,11 @@ public class UsrCartController extends BaseController {
 		return Util.msgAndReplace(dodeleteRd.getMsg(), redirectUrl);
 	}
 
-	// 좋아요
+	// 장바구니 추가
 	@RequestMapping("/usr/cart/doAdd")
 	@ResponseBody
-	public String doAdd(@RequestParam Map<String, Object> param, HttpServletRequest req, String redirectUrl) {
+	public String doAdd(@RequestParam Map<String, Object> param, HttpServletRequest req,
+			String redirectUrl) {
 
 		int loginMemberId = (int) req.getAttribute("loginedMemberId");
 

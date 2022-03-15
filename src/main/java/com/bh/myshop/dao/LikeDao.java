@@ -16,7 +16,7 @@ public interface LikeDao {
 	// 좋아요 총 갯수
 	int getLikeTotleCount(@Param("relTypeCode") String relTypeCode, @Param("relId") int relId);
 
-	// 좋아요 불러오기
+	// 좋아요 가져오기
 	Like getLike(@Param("relTypeCode") String relTypeCode, @Param("relId") int relId);
 
 	// 좋아요 취소

@@ -46,8 +46,8 @@
 <section class="section-usr-login">
 
 	<div class="container mx-auto max-w-3xl min-w-max p-5 mb-5 relative">
-		<form class="w-full shadow-md px-8 pt-6 pb-8"
-			action="doLogin" method="POST"
+		<form class="w-full shadow-md px-8 pt-6 pb-8" action="doLogin"
+			method="POST"
 			onsubmit="LoginForm__checkAndSubmit(this); return false;">
 			<input type="hidden" name="redirectUrl" value="${param.redirectUrl}" />
 			<input type="hidden" name="loginPw" />

@@ -99,7 +99,8 @@ public class AdmCartController extends BaseController {
 	// 좋아요
 	@RequestMapping("/adm/cart/doAdd")
 	@ResponseBody
-	public String doAdd(@RequestParam Map<String, Object> param, HttpServletRequest req, String redirectUrl) {
+	public String doAdd(@RequestParam Map<String, Object> param, HttpServletRequest req, 
+			String redirectUrl) {
 
 		int loginMemberId = (int) req.getAttribute("loginedMemberId");
 

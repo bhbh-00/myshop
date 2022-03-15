@@ -40,6 +40,18 @@ public class MemberService {
 	@Value("${custom.siteName}")
 	private String siteName;
 
+	// 회원가입
+	public ResultData join(Map<String, Object> param) {
+		memberDao.join(param);
+
+		int id = Util.getAsInt(param.get("id"), 0);
+
+		// 비밀번호 등록 시점
+		setNeedToChangePasswordLater(id);
+
+		return new ResultData("s-1", "회원가입이 정상적으로 처리되었습니다.");
+	}
+	
 	// 비밀번호 찾기 메일 보내기
 	public ResultData notifyTempLoginPwByEmail(Member actor) {
 		String title = "[" + siteName + "] 임시 패스워드 발송";
@@ -60,7 +72,7 @@ public class MemberService {
 		// 비밀번호를 임시 비밀번호로 저장
 		setTempPassword(actor, tempPassword);
 
-		return new ResultData("S-1", "계정의 이메일로 임시 패스워드가 발송되었습니다.");
+		return notifyTempLoginPwByEmail(actor);
 	}
 
 	// 비밀번호를 임시 비밀번호로 저장
@@ -99,18 +111,6 @@ public class MemberService {
 	// 관리자
 	public boolean isAdmin(Member actor) {
 		return actor.getAuthLevel() == 7;
-	}
-
-	// 회원가입
-	public ResultData join(Map<String, Object> param) {
-		memberDao.join(param);
-
-		int id = Util.getAsInt(param.get("id"), 0);
-
-		// 비밀번호 등록 시점
-		setNeedToChangePasswordLater(id);
-
-		return new ResultData("s-1", "회원가입이 정상적으로 처리되었습니다.");
 	}
 
 	// 기존 회원의 이름과 이메일 확인

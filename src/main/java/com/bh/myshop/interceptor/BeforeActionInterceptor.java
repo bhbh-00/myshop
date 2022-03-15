@@ -163,8 +163,8 @@ public class BeforeActionInterceptor implements HandlerInterceptor {
         }
 
         request.setAttribute("currentUrl", currentUrl);
-        request.setAttribute("paramMap", paramMap);
-        request.setAttribute("needToChangePassword", needToChangePassword);
+		request.setAttribute("paramMap", paramMap);
+		request.setAttribute("needToChangePassword", needToChangePassword);
 
 		return HandlerInterceptor.super.preHandle(request, response, handler);
 	}

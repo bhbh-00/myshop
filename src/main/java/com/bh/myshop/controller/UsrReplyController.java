@@ -247,7 +247,7 @@ public class UsrReplyController extends BaseController {
 		int loginMemberId = (int) req.getAttribute("loginedMemberId");
 
 		if (param.get("relTypeCode") == "product") {
-			Product product = productService.getproduct((int) param.get("relId"));
+			Product product = productService.getProduct((int) param.get("relId"));
 
 			if (product == null) {
 				return msgAndBack(req, "해당 상품은 존재하지 않습니다.");
