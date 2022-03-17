@@ -76,7 +76,7 @@ th, td {
 		<div class="my-10">
 
 			<table
-				class="container text-center max-w-3xl min-w-max mx-auto p-5 mb-5">
+				class="container text-center max-w-3xl min-w-max mx-auto p-5">
 
 				<tr class="border-b border-gray-400">
 					<th>제품명</th>
@@ -95,7 +95,7 @@ th, td {
 
 			</table>
 
-			<div class="container text-center text-lg font-bold my-6">
+			<div class="container text-center text-lg font-bold pt-9">
 				<span>" ${product.body} "</span>
 			</div>
 
@@ -116,8 +116,8 @@ th, td {
 		</script>
 
 		<div
-			class="container text-center text-lg font-bold border border-gray-400 hover:bg-black hover:text-gray-50 mt-3">
-			<a href="../order/product?productId=${product.id}">
+			class="container text-center text-lg font-bold border border-gray-400 hover:bg-black hover:text-gray-50">
+			<a href="../order/add?productId=${product.id}">
 				<span>구매하기</span>
 			</a>
 		</div>

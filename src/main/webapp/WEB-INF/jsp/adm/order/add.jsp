@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
+<%@ page import="com.bh.myshop.util.Util"%>
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%@ include file="../part/mainLayoutHead.jspf"%>
@@ -10,7 +12,7 @@
 
 <style>
 body {
-	margin-top: 150px;
+	margin-top: 125px;
 }
 </style>
 
@@ -109,12 +111,76 @@ body {
 		<div class="pb-7">
 			<span class="text-2xl ml-4 font-bold">주문하기</span>
 		</div>
-		
-		<div class="px-4 py-4">
-		
+
+		<div class="container mx-auto px-10 py-4">
+
+			<div class="item-bt-1">
+				<!-- 반복문 안에 임시변수를 넣어둘 수 있음! c:set -->
+				<c:set var="detailUrl" value="../product/detail?id=${product.id}" />
+				<c:set var="thumbFileNo" value="${String.valueOf(1)}" />
+				<c:set var="thumbFile"
+					value="${product.extra.file__common__attachment[thumbFileNo]}" />
+				<c:set var="thumbUrl" value="${thumbFile.getForPrintUrl()}" />
+
+				<input type="hidden" name="productId" value="${param.productId}" />
+
+				<div class="flex py-5 px-4">
+					<div class="flex-shrink-0">
+						<a href="${detailUrl}">
+							<img
+								class="w-16 h-16 object-cover rounded-full shadow mr-2 cursor-pointer"
+								alt="Product img" src="${thumbUrl}"
+								onerror="${product.productFallbackImgOnErrorHtmlAttr}">
+						</a>
+					</div>
+					<div class="flex-grow px-1 mt-3">
+						<div class="font-semibold">
+							<span>${product.productName}</span>
+						</div>
+						<div class="flex text-gray-400 text-light text-sm py-1">
+							<span>${product.color}</span>
+							<span class="mx-1">/</span>
+							<span>${product.size}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="flex py-5 px-4 border-t">
+				<div class="flex-grow px-1">
+					<div class="font-semibold">
+						<span>상품금액</span>
+					</div>
+				</div>
+				<div class="font-medium">
+					<span>${Util.numberFormat(product.price)}원</span>
+				</div>
+			</div>
+
+			<div class="flex py-5 px-4 border-t">
+				<div class="flex-grow px-1">
+					<div class="font-semibold">
+						<span>베송비</span>
+					</div>
+				</div>
+				<div class="font-medium">
+					<span>${Util.numberFormat(product.fee)}원</span>
+				</div>
+			</div>
+
+			<div class="flex py-5 px-4 border-t">
+				<div class="flex-grow px-1">
+					<div class="font-semibold">
+						<span>총 결제금액</span>
+					</div>
+				</div>
+				<div class="font-medium">
+					<span>${Util.numberFormat(product.price + product.fee)}원</span>
+				</div>
+			</div>
 		</div>
 
-		<div class="px-4 py-4">
+		<div class="px-10 py-7">
 
 			<form onsubmit="OrderAdd__checkAndSubmit(this); return false;"
 				action="doAdd" method="POST" enctype="multipart/form-data">

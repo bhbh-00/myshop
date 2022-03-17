@@ -166,17 +166,14 @@ public class AdmOrderController extends BaseController {
 		return "/adm/order/history";
 	}
 
-	// 상품 확인
-	@RequestMapping("/adm/order/product")
-	public String ShowProduct(@RequestParam Integer productId, HttpServletRequest req) {
-
-		int loginMemberId = (int) req.getAttribute("loginedMemberId");
-
-		if (productId == 0) {
-			return msgAndBack(req, "제품 번호를 입력해주세요.");
-		}
+	@RequestMapping("/adm/order/add")
+	public String ShowAdd(@RequestParam Map<String, Object> param, int productId, HttpServletRequest req) {
 
 		Product product = orderService.getForPrintProduct(productId);
+
+		if (product == null) {
+			return msgAndBack(req, "해당 상품은 존재하지 않습니다.");
+		}
 
 		List<GenFile> files = genFileService.getGenFiles("product", product.getId(), "common", "attachment");
 
@@ -187,15 +184,8 @@ public class AdmOrderController extends BaseController {
 		}
 
 		product.getExtraNotNull().put("file__common__attachment", filesMap);
-
-		req.setAttribute("loginMemberId", loginMemberId);
 		req.setAttribute("product", product);
 
-		return "/adm/order/product";
-	}
-
-	@RequestMapping("/adm/order/add")
-	public String ShowAdd(@RequestParam Map<String, Object> param, HttpServletRequest req) {
 		return "/adm/order/add";
 
 	}
