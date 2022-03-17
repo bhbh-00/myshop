@@ -175,7 +175,6 @@ body {
 		</div>
 	</div>
 
-
 	<div class="container mx-auto pb-10">
 		<ul class="after w-full">
 			<c:forEach items="${reviews}" var="review">

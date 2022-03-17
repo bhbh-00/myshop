@@ -2,7 +2,6 @@ package com.bh.myshop.service;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bh.myshop.dao.OrderDao;
 import com.bh.myshop.dto.Delivery;
-import com.bh.myshop.dto.GenFile;
 import com.bh.myshop.dto.Order;
 import com.bh.myshop.dto.Product;
 import com.bh.myshop.dto.ResultData;
@@ -22,9 +20,6 @@ public class OrderService {
 	@Autowired
 	private OrderDao orderDao;
 
-	@Autowired
-	private GenFileService genFileService;
-
 	// 주문하기
 	public ResultData doAdd(Map<String, Object> param) {
 		orderDao.add(param);
@@ -32,11 +27,6 @@ public class OrderService {
 		int id = Util.getAsInt(param.get("id"), 0);
 
 		return new ResultData("s-1", "주문이 완료되었습니다.", "id", id);
-	}
-
-	// 제품번호로 주문한 제품 불러오기
-	public Product getForPrintOrderProduct(Integer id) {
-		return orderDao.getForPrintOrderProduct(id);
 	}
 
 	// 회원번호로 주문내역 불러오기
@@ -68,14 +58,19 @@ public class OrderService {
 		return orderDao.getForPrintOrderHistory(id);
 	}
 
-	// 상품 불러오기
-	public Product getForPrintProduct(Integer productId) {
-		return orderDao.getForPrintProduct(productId);
+	// 제품번호로 주문한 제품 불러오기
+	public Product getForPrintOrderProduct(Integer id) {
+		return orderDao.getForPrintOrderProduct(id);
 	}
 
 	// 배송정보 불러오기
 	public Delivery getForPrintOrderDelivery(Integer id) {
 		return orderDao.getForPrintOrderDelivery(id);
+	}
+
+	// 상품 불러오기
+	public Product getForPrintProduct(Integer productId) {
+		return orderDao.getForPrintProduct(productId);
 	}
 
 	// 주문내역 갯수 확인

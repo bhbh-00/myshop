@@ -106,7 +106,7 @@ body {
 							<span class="text-lg font-semibold">
 								${product.productName} </span>
 						</a>
-						<span class="ml-12 font-semibold"> ${product.price} </span>
+						<span class="ml-12 font-semibold">${Util.numberFormat(product.price)}원</span>
 					</div>
 
 				</li>

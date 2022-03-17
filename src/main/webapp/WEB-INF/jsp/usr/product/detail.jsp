@@ -202,7 +202,7 @@ th, td {
 
 		<!-- 리뷰 -->
 		<div class="w-1/3">
-			<div class="review text-xl">
+			<div class="text-xl">
 				<a href="../reply/reviewList?productId=${product.id}">review</a>
 			</div>
 		</div>

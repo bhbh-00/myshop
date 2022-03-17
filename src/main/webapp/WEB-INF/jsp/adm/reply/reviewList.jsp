@@ -185,9 +185,9 @@ body {
 						</a>
 
 						<!--리뷰내용 -->
-						<div class="mt-5 body">
+						<div class="mt-5">
 							<a href="${detailUrl}" class="hover:underline">
-								<span> ${review.productName} </span>
+								<span> ${review.body} </span>
 							</a>
 						</div>
 
@@ -268,6 +268,7 @@ body {
 				</c:if>
 			</nav>
 		</div>
+	</div>
 </section>
 
 <%@ include file="../part/mainLayoutFoot.jspf"%>

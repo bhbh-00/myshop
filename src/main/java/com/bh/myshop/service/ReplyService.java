@@ -37,7 +37,7 @@ public class ReplyService {
 	public Reply getReply(Integer id) {
 		return replyDao.getReply(id);
 	}
-
+	
 	// 상품 번호 확인
 	public Product getProductId(int relId) {
 		return replyDao.getProductId(relId);
@@ -101,10 +101,10 @@ public class ReplyService {
 
 		return new ResultData("s-1", "리뷰가 등록되었습니다.", "id", id);
 	}
-
+	
 	// 리뷰 리스트
-	public List<Reply> getForPrintReviews(int productId, String searchKeywordType, String searchKeyword, int page,
-			int itemsInAPage) {
+	public List<Reply> getForPrintReviews(int productId, String searchKeywordType, 
+			String searchKeyword, int page,int itemsInAPage) {
 		// 페이징 - 시작과 끝 범위
 		int limitStart = (page - 1) * itemsInAPage;
 		// controller에서 한 페이지에 포함 되는 상품의 갯수의 값을(itemsInAPage) 설정했음.
@@ -112,11 +112,11 @@ public class ReplyService {
 		// 한 페이지에 포함 되는 상품의 갯수의 값
 		// LIMIT 20, 20 => 2page LIMIT 40, 20 => 3page
 
-		List<Reply> reviews = replyDao.getForPrintReviews(productId, searchKeywordType, searchKeyword, limitStart,
-				limitTake);
+		List<Reply> reviews = replyDao.getForPrintReviews(productId, searchKeywordType, 
+				searchKeyword, limitStart, limitTake);
 		List<Integer> reviewIds = reviews.stream().map(product -> product.getId()).collect(Collectors.toList());
-		Map<Integer, Map<String, GenFile>> filesMap = genFileService.getFilesMapKeyRelIdAndFileNo("review", reviewIds,
-				"common", "attachment");
+		Map<Integer, Map<String, GenFile>> filesMap = genFileService.getFilesMapKeyRelIdAndFileNo("review",
+				reviewIds, "common", "attachment");
 
 		for (Reply review : reviews) {
 			Map<String, GenFile> mapByFileNo = filesMap.get(review.getId());
