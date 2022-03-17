@@ -44,6 +44,11 @@ public class ProductService {
 		return new ResultData("S-1", "삭제되었습니다.", "id", id);
 	}
 
+	// 기존의 상품명 확인
+	public Product getProductByName(String productName) {
+		return productDao.getProductByName(productName);
+	}
+
 	// 상품 작성
 	public ResultData doAdd(Map<String, Object> param) {
 		productDao.add(param);
@@ -56,24 +61,14 @@ public class ProductService {
 		return new ResultData("s-1", "상품이 등록되었습니다.", "id", id);
 	}
 
-	// 기존의 상품명 확인
-	public Product getProductByName(String productName) {
-		return productDao.getProductByName(productName);
-	}
-
-	// 상품 번호로 불러오기
-	public Product getForPrintProduct(Integer id) {
-		return productDao.getForPrintProduct(id);
-	}
-
 	// 카테고리 가져오기
 	public Category getCategory(int categoryId) {
 		return productDao.getCategory(categoryId);
 	}
 
 	// 상품 리스트
-	public List<Product> getForPrintProducts(int categoryId, String searchKeywordType, String searchKeyword, 
-			int page, int itemsInAPage) {
+	public List<Product> getForPrintProducts(int categoryId, String searchKeywordType, String searchKeyword, int page,
+			int itemsInAPage) {
 		// 페이징 - 시작과 끝 범위
 		int limitStart = (page - 1) * itemsInAPage;
 		// controller에서 한 페이지에 포함 되는 상품의 갯수의 값을(itemsInAPage) 설정했음.
@@ -84,8 +79,8 @@ public class ProductService {
 		List<Product> products = productDao.getForPrintProducts(categoryId, searchKeywordType, searchKeyword,
 				limitStart, limitTake);
 		List<Integer> productIds = products.stream().map(product -> product.getId()).collect(Collectors.toList());
-		Map<Integer, Map<String, GenFile>> filesMap = genFileService.getFilesMapKeyRelIdAndFileNo
-														("product", productIds, "common", "attachment");
+		Map<Integer, Map<String, GenFile>> filesMap = genFileService.getFilesMapKeyRelIdAndFileNo("product", productIds,
+				"common", "attachment");
 
 		for (Product product : products) {
 			Map<String, GenFile> mapByFileNo = filesMap.get(product.getId());
@@ -101,6 +96,11 @@ public class ProductService {
 	// 상품의 총 갯수 보기
 	public int getProductsTotleCount(int categoryId, String searchKeywordType, String searchKeyword) {
 		return productDao.getProductsTotleCount(categoryId, searchKeywordType, searchKeyword);
+	}
+
+	// 상품 번호로 불러오기
+	public Product getForPrintProduct(Integer id) {
+		return productDao.getForPrintProduct(id);
 	}
 
 	// 상품 수정 가능 권한 여부

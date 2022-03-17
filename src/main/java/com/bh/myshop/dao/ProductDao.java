@@ -11,11 +11,7 @@ import com.bh.myshop.dto.Product;
 
 @Mapper
 public interface ProductDao {
-
 	// interface에서는 public 필요없음!
-
-	// 상품 수정
-	void modify(Map<String, Object> param);
 
 	// 상품 번호로 불러오기
 	Product getForPrintProduct(@Param("id") Integer id);
@@ -25,6 +21,9 @@ public interface ProductDao {
 
 	// 상품 삭제
 	void delete(@Param("id") Integer id);
+
+	// 상품 수정
+	void modify(Map<String, Object> param);
 
 	// 상품 등록
 	void add(Map<String, Object> param);

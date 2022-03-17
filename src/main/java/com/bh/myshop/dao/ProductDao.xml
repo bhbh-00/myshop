@@ -240,6 +240,13 @@
 		ORDER BY id DESC
 	</select>
 
+	<!-- 기존의 상품명 확인 -->
+	<select id="getProductByName" resultType="Product">
+		SELECT *
+		FROM product
+		WHERE productName = #{productName}
+	</select>
+
 	<!-- 상품 등록 -->
 	<insert id="add" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO
@@ -258,19 +265,11 @@
 		= #{fee}
 	</insert>
 
-	<!-- 기존의 상품명 확인 -->
-	<select id="getProductByName" resultType="Product">
-		SELECT *
-		FROM product
-		WHERE productName = #{productName}
-	</select>
-
 	<!-- 번호로 해당 제품 가져오기 -->
 	<select id="getProduct" resultType="Product">
 		SELECT *
 		FROM product
-		WHERE id
-		= #{id}
+		WHERE id = #{id}
 		AND delStatus = 0
 	</select>
 
@@ -282,6 +281,18 @@
 		WHERE
 		id = #{id}
 	</update>
+
+	<!-- 상품 번호로 불러오기 -->
+	<select id="getForPrintProduct" resultType="Product">
+		SELECT P.*,
+		IFNULL(M.name, "탈퇴회원") AS extra__writer
+		FROM product AS P
+		LEFT JOIN
+		`member` AS M
+		ON P.memberId = M.id
+		WHERE P.id = #{id}
+		AND P.delStatus = 0
+	</select>
 
 	<!-- 상품 수정 -->
 	<update id="modify">
@@ -314,17 +325,5 @@
 		WHERE id = #{id}
 		AND delStatus = 0
 	</update>
-
-	<!-- 상품 번호로 불러오기 -->
-	<select id="getForPrintProduct" resultType="Product">
-		SELECT P.*,
-		IFNULL(M.name, "탈퇴회원") AS extra__writer
-		FROM product AS P
-		LEFT JOIN
-		`member` AS M
-		ON P.memberId = M.id
-		WHERE P.id = #{id}
-		AND P.delStatus = 0
-	</select>
 
 </mapper>

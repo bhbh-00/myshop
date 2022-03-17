@@ -35,6 +35,8 @@ public class Order extends EntityDto {
 	private String extra__productName; // 상품명
 	private String extra__productColor; // 컬러
 	private String extra__productSize; // 사이즈
+	private String extra__productPrice; // 컬러
+	private String extra__productFee; // 사이즈
 
 	public String getThumbImgUrl() {
 		return "/common/genFile/file/product/" + productId + "/common/attachment/1";

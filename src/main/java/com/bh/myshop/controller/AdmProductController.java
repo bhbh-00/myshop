@@ -81,7 +81,8 @@ public class AdmProductController extends BaseController {
 	// 상품 수정
 	@RequestMapping("/adm/product/doModify")
 	@ResponseBody
-	public String doModify(@RequestParam Map<String, Object> param, HttpServletRequest req, String redirectUrl) {
+	public String doModify(@RequestParam Map<String, Object> param, HttpServletRequest req,
+			String redirectUrl) {
 
 		Member loginedMember = (Member) req.getAttribute("loginedMember");
 
@@ -116,7 +117,8 @@ public class AdmProductController extends BaseController {
 		ResultData actorCanModifyRd = productService.getActorCanModifyRd(product, loginedMember);
 
 		if (actorCanModifyRd.isFail()) {
-			return Util.msgAndReplace(actorCanModifyRd.getMsg(), "../product/detail?id=" + product.getId());
+			return Util.msgAndReplace(actorCanModifyRd.getMsg(), 
+					"../product/detail?id=" + product.getId());
 		}
 
 		ResultData modifyproductRd = productService.modify(param);
@@ -193,7 +195,7 @@ public class AdmProductController extends BaseController {
 		Product existingProduct = productService.getProductByName((String) param.get("productName"));
 
 		if (existingProduct != null) {
-			return Util.msgAndBack("이미 사용 중인 아이디입니다.");
+			return Util.msgAndBack("이미 사용 중인 상품명입니다.");
 		}
 
 		if (param.get("body") == null) {
