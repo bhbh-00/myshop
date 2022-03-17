@@ -5,6 +5,26 @@
 
 <mapper namespace="com.bh.myshop.dao.OrderDao">
 
+	<!-- 오눌 주문 갯수 확인 -->
+	<select id="getOrderTodayTotleCount" resultType="int">
+		SELECT count(*)
+		FROM `order`
+		WHERE 1
+		And DATE(regDate) = DATE_FORMAT(CURDATE(), '%Y-%m-%d')
+		AND delStatus = 0
+		<if test="searchKeywordType == 'regDate'">
+			AND regDate LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchKeywordType == 'productId'">
+			AND productId LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchKeywordType == 'regDateAndproductId'">
+			AND (regDate LIKE CONCAT('%', #{searchKeyword}, '%') OR
+			productId LIKE CONCAT('%', #{searchKeyword}, '%')))
+		</if>
+		ORDER BY id DESC
+	</select>
+
 	<!-- 주문내역 갯수 확인 -->
 	<select id="getOrderTotleCount" resultType="int">
 		SELECT count(*)
@@ -45,19 +65,21 @@
 			LIMIT #{limitStart}, #{limitTake}
 		</if>
 	</select>
-	
+
 	<!-- 내 주문내역 불러오기 -->
 	<select id="getForPrintOrdersByMyList" resultType="Order">
 		SELECT O.*,
 		IFNULL(P.productName, "삭제된 상품") AS extra__productName,
 		IFNULL(P.color, "삭제된 상품") AS extra__productColor,
-		IFNULL(P.size, "삭제된 상품") AS extra__productSize
+		IFNULL(P.size, "삭제된
+		상품") AS extra__productSize
 		FROM `order` AS O
-		LEFT JOIN 
+		LEFT JOIN
 		product AS P
 		ON O.productId = P.id
 		WHERE O.memberId = #{loginMemberId}
-		AND O.delStatus = 0
+		AND
+		O.delStatus = 0
 		ORDER BY O.id DESC
 		<if test="limitStart != null and limitTake != null">
 			LIMIT #{limitStart}, #{limitTake}
@@ -88,7 +110,8 @@
 		O.productId = P.id
 		WHERE O.memberId = #{loginMemberId}
 		AND
-		O.delStatus = 0;
+		O.delStatus =
+		0;
 	</select>
 
 	<!-- 주문하기 -->

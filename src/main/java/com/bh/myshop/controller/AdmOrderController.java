@@ -43,7 +43,7 @@ public class AdmOrderController extends BaseController {
 		}
 
 		if (searchKeywordType == null || searchKeywordType.length() == 0) {
-			searchKeywordType = "regDate";
+			searchKeywordType = "regDateAndproductId";
 		}
 
 		if (searchKeyword != null && searchKeyword.length() == 0) {
@@ -58,13 +58,16 @@ public class AdmOrderController extends BaseController {
 			searchKeywordType = null;
 		}
 
-		// 한 페이지에 포함 되는 게시물의 갯수
+		// 한 페이지에 포함 되는 주문내역의 갯수
 		int itemsInAPage = 20;
 
-		// 총 게시물의 갯수를 구하는
+		// 총 주문내역의 갯수를 구하는
 		int totleItemsCount = orderService.getOrderTotleCount(searchKeywordType, searchKeyword);
 
-		// 총 페이지 갯수 (총 게시물 수 / 한 페이지 안의 게시물 갯수)
+		// 오늘 주문 갯수 확인
+		int TodayItemsCount = orderService.getOrderTodayTotleCount(searchKeywordType, searchKeyword);
+
+		// 총 페이지 갯수 (총 주문내역 수 / 한 페이지 안의 주문내역 갯수)
 		int totlePage = (int) Math.ceil(totleItemsCount / (double) itemsInAPage);
 
 		int pageMenuArmSize = 5;
@@ -84,10 +87,11 @@ public class AdmOrderController extends BaseController {
 			pageMenuEnd = totlePage;
 		}
 
-		List<Order> orders = orderService.getForPrintOrders(searchKeywordType, searchKeyword, itemsInAPage,
-				itemsInAPage, param);
+		List<Order> orders = orderService.getForPrintOrders(searchKeywordType, searchKeyword, 
+				itemsInAPage, itemsInAPage, param);
 
 		req.setAttribute("totleItemsCount", totleItemsCount);
+		req.setAttribute("TodayItemsCount", TodayItemsCount);
 		req.setAttribute("totlePage", totlePage);
 		req.setAttribute("pageMenuArmSize", pageMenuArmSize);
 		req.setAttribute("pageMenuStrat", pageMenuStrat);
@@ -98,7 +102,7 @@ public class AdmOrderController extends BaseController {
 		return "adm/order/list";
 	}
 
-	// 내 게시물 보기
+	// 내 주문내역 보기
 	@RequestMapping("/adm/order/myList")
 	public String showMyList(HttpServletRequest req, @RequestParam(defaultValue = "1") int page) {
 
@@ -106,15 +110,15 @@ public class AdmOrderController extends BaseController {
 
 		List<Order> orders = orderService.getForPrintOrdersByMemberId(loginMemberId);
 
-		// 한 페이지에 포함 되는 게시물의 갯수
+		// 한 페이지에 포함 되는 주문내역의 갯수
 		int itemsInAPage = 20;
 
-		// 총 게시물의 갯수를 구하는
+		// 총 주문내역의 갯수를 구하는
 		int totleItemsCount = orderService.getOrdersTotleCountByMyList(loginMemberId);
 
 		orders = orderService.getForPrintOrdersByMyList(loginMemberId, page, itemsInAPage);
 
-		// 총 페이지 갯수 (총 게시물 수 / 한 페이지 안의 게시물 갯수)
+		// 총 페이지 갯수 (총 주문내역 수 / 한 페이지 안의 주문내역 갯수)
 		int totlePage = (int) Math.ceil(totleItemsCount / (double) itemsInAPage);
 
 		int pageMenuArmSize = 5;

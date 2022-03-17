@@ -29,8 +29,8 @@ public interface OrderDao {
 	List<Order> getForPrintOrdersByMemberId(@Param("loginMemberId") int loginMemberId);
 
 	// 내 주문내역 불러오기
-	List<Order> getForPrintOrdersByMyList(@Param("loginMemberId") int loginMemberId, @Param("limitStart") int limitStart,
-			@Param("limitTake") int limitTake);
+	List<Order> getForPrintOrdersByMyList(@Param("loginMemberId") int loginMemberId,
+			@Param("limitStart") int limitStart, @Param("limitTake") int limitTake);
 
 	// 내 주문내역의 총 갯수
 	int getOrdersTotleCountByMyList(@Param("id") int id);
@@ -40,6 +40,10 @@ public interface OrderDao {
 
 	// 주문내역 갯수 확인
 	int getOrderTotleCount(@Param("searchKeywordType") String searchKeywordType,
+			@Param("searchKeyword") String searchKeyword);
+
+	// 오늘 주문 갯수 확인
+	int getOrderTodayTotleCount(@Param("searchKeywordType") String searchKeywordType,
 			@Param("searchKeyword") String searchKeyword);
 
 	// 주문내역 리스트

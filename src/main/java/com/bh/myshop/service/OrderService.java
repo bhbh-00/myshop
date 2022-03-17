@@ -83,6 +83,11 @@ public class OrderService {
 		return orderDao.getOrderTotleCount(searchKeywordType, searchKeyword);
 	}
 
+	// 오늘 주문 갯수 확인
+	public int getOrderTodayTotleCount(String searchKeywordType, String searchKeyword) {
+		return orderDao.getOrderTodayTotleCount(searchKeywordType, searchKeyword);
+	}
+
 	// 주문내역 리스트
 	public List<Order> getForPrintOrders(String searchKeywordType, String searchKeyword, int page, int itemsInAPage,
 			@RequestParam Map<String, Object> param) {

@@ -37,15 +37,15 @@ public class UsrOrderController extends BaseController {
 
 		List<Order> orders = orderService.getForPrintOrdersByMemberId(loginMemberId);
 
-		// 한 페이지에 포함 되는 게시물의 갯수
+		// 한 페이지에 포함 되는 주문내역의 갯수
 		int itemsInAPage = 20;
 
-		// 총 게시물의 갯수를 구하는
+		// 총 주문내역의 갯수를 구하는
 		int totleItemsCount = orderService.getOrdersTotleCountByMyList(loginMemberId);
 
 		orders = orderService.getForPrintOrdersByMyList(loginMemberId, page, itemsInAPage);
 
-		// 총 페이지 갯수 (총 게시물 수 / 한 페이지 안의 게시물 갯수)
+		// 총 페이지 갯수 (총 주문내역 수 / 한 페이지 안의 주문내역 갯수)
 		int totlePage = (int) Math.ceil(totleItemsCount / (double) itemsInAPage);
 
 		int pageMenuArmSize = 5;
