@@ -6,8 +6,8 @@
 # 프로젝트 | 개인 스토어(myShop)
 
 ## 관련링크
-- [개요](https://drive.google.com/file/d/11xI0IL4LcZXnhEt_6Ebbg0fsgrKTEmln/view?usp=sharing)
-- [기술](https://drive.google.com/file/d/1kvFjmWOpdiUkiG8nWK7oICjeIAcZz5Cp/view?usp=sharing)
+- [개요](https://drive.google.com/file/d/1V8FH0f0JZjyAynHPeJbHqLM0D0y3zKo_/view?usp=sharing)
+- [기술](https://drive.google.com/file/d/1satlULqjuJKExvN2Brn_jy0BC7BEPrf9/view?usp=sharing)
 - [GITHUB](https://github.com/bhbh-00/myshop.git)
 - myShop 접속
 
