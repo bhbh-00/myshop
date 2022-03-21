@@ -7,7 +7,7 @@
 
 ## 관련링크
 - [개요](https://drive.google.com/file/d/1V8FH0f0JZjyAynHPeJbHqLM0D0y3zKo_/view?usp=sharing)
-- [기술](https://docs.google.com/document/d/1NrgTLKvNX7l1nGOa8dW3zLBwSdZVxeUl/edit?usp=sharing&ouid=104051441289464686418&rtpof=true&sd=true)
+- [기술](https://drive.google.com/file/d/1ecy9H4kcOHhJ84l3YPP4LxNtQekPCQzc/view?usp=sharing)
 - [GITHUB](https://github.com/bhbh-00/myshop.git)
 - myShop 접속
 
