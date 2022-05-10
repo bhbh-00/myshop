@@ -29,144 +29,40 @@ body {
 
 		<nav class="menu-box-1">
 			<ul class="flex h-full">
-
+			
 				<!-- 상점 -->
 				<li>
-					<a href="#" class="h-full flex items-center px-5">
-						<span class="text-xl">
-							<i class="fas fa-store"></i>
-						</span>
-						<span class="hidden md:block text-lg">&nbsp;상점</span>
+					<a href="../category/list" class="h-full flex items-center px-5">
+						<span class="hidden md:block text-lg">&nbsp;카테고리관리</span>
 					</a>
-					<div>
-						<ul>
-							<li>
-								<a href="../product/list?categoryId=1"
-									class="inline-block text-lg">
-									<span>&nbsp;상의</span>
-								</a>
-							</li>
-							<li>
-								<a href="../product/list?categoryId=2"
-									class="inline-block text-lg">
-									<span>&nbsp;하의</span>
-								</a>
-							</li>
-							<li>
-								<a href="../product/list?categoryId=3"
-									class="inline-block text-lg">
-									<span>&nbsp;가방</span>
-								</a>
-							</li>
-							<li>
-								<a href="../product/list?categoryId=4"
-									class="inline-block text-lg">
-									<span>&nbsp;악세사리</span>
-								</a>
-							</li>
-						</ul>
-					</div>
 				</li>
-
-				<!-- 게시판 -->
+				
 				<li>
-					<a href="../article/list?boardId=1"
-						class="h-full flex items-center px-5">
-						<span class="text-xl">
-							<i class="far fa-newspaper"></i>
-						</span>
-						<span class="hidden md:block text-lg">&nbsp;NOTICE</span>
+					<a href="../order/list" class="h-full flex items-center px-5">
+						<span class="hidden md:block text-lg">&nbsp;주문내역관리</span>
 					</a>
 				</li>
-
-				<!-- 내 정보 -->
-				<c:if test="${ loginedMember.id != null}">
-					<li>
-						<a href="#" class="h-full flex items-center px-5">
-							<span class="text-xl">
-								<i class="fas fa-user"></i>
-							</span>
-							<span class="hidden md:block text-lg">&nbsp;마이페이지</span>
-						</a>
-						<div>
-							<ul>
-								<li>
-									<a href="../member/mypage?id=${ loginedMember.id }"
-										class="inline-block text-lg">
-										<span>&nbsp;프로필 보기</span>
-									</a>
-								</li>
-								<li>
-									<a href="../article/myList?boardId=1"
-										class="inline-block text-lg">
-										<span>&nbsp;게시물 보기</span>
-									</a>
-								</li>
-								<li>
-									<a href="../cart/myList"
-										class="inline-block text-lg">
-										<span>&nbsp;장바구니 보기</span>
-									</a>
-								</li>
-								<li>
-									<a href="../order/myList?memberId=${ loginedMember.id }"
-										class="inline-block text-lg">
-										<span>&nbsp;주문내역 보기</span>
-									</a>
-								</li>
-							</ul>
-						</div>
-					</li>
-				</c:if>
-
-				<!-- 관리자  -->
-				<c:if test="${ loginedMember.authLevel == 7 }">
-					<li>
-						<a href="#" class="h-full flex items-center px-5">
-							<span class="text-xl">
-								<i class="fas fa-house-user"></i>
-							</span>
-							<span class="hidden md:block text-lg">&nbsp;관리</span>
-						</a>
-						<div>
-							<ul>
-								<li>
-									<a href="../product/page" class="inline-block text-lg">
-										<span>&nbsp;상품관리</span>
-									</a>
-								</li>
-								<li>
-									<a href="../category/list" class="inline-block text-lg">
-										<span>&nbsp;카테고리관리</span>
-									</a>
-								</li>
-								<li>
-									<a href="../order/list" class="inline-block text-lg">
-										<span>&nbsp;주문내역관리</span>
-									</a>
-								</li>
-								<li>
-									<a href="../article/list?boardId=1"
-										class="inline-block text-lg">
-										<span>&nbsp;NOTICE관리</span>
-									</a>
-								</li>
-								<li>
-									<a href="../board/list" class="inline-block text-lg">
-										<span>&nbsp;게시판관리</span>
-									</a>
-								</li>
-								<li>
-									<a href="../member/list" class="inline-block text-lg">
-										<span>&nbsp;회원관리</span>
-									</a>
-								</li>
-							</ul>
-						</div>
-					</li>
-				</c:if>
-
-				<!-- 게시판 -->
+				
+				
+				<li>
+					<a href="../article/list?boardId=1" class="h-full flex items-center px-5">
+						<span class="hidden md:block text-lg">&nbsp;NOTICE관리</span>
+					</a>
+				</li>
+				
+				<li>
+					<a href="../board/list" class="h-full flex items-center px-5">
+						<span class="hidden md:block text-lg">&nbsp;게시판관리</span>
+					</a>
+				</li>
+				
+				<li>
+					<a href="../member/list" class="h-full flex items-center px-5">
+						<span class="hidden md:block text-lg">&nbsp;회원관리</span>
+					</a>
+				</li>
+				
+				<!-- 홈 -->
 				<li>
 					<a href="/usr/home/main" class="h-full flex items-center px-5">
 						<span class="text-xl">
